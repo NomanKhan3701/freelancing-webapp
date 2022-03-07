@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap');
+
+:root {
+    --main-bg: #ffffff;
+    --second-bg: #fafafb;
+    --txt-color: #455560;
+    --txt-white: #fff;
+    --main-color: #349eff;
+    --second-color: #62b4ff;
+    --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    --sidebar-width: 300px;
+    --navbar-height: 90px;
+    --transition-cubic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    --border-radius-sm: 15px;
+    --border-radius-med: 20px;
+    --border-radius-big: 30px;
+
+    --nav-link-margin: 20px;
+    --nav-padding: 40px;
+}
