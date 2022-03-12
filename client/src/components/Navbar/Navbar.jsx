@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
+import { Link } from "react-router-dom";
 
 const SearchAndLinks = (props) => {
   return (
@@ -15,10 +16,10 @@ const SearchAndLinks = (props) => {
       </div>
       <div className={`nav-links-container ${props.active}`}>
         <div className="nav-link active">
-          <a href="#">Home</a>
+          <Link to="/">Home</Link>
         </div>
         <div className="nav-link">
-          <a href="#">Find talent</a>
+          <Link to="/findtalent">Find talent</Link>
         </div>
         <div className="nav-link">
           <a href="#">Find work</a>

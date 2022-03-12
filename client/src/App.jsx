@@ -1,11 +1,15 @@
 import './App.css';
-import { Home } from './pages/import';
+import { FindTalent, Home, LoginSignup } from './pages/import';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Navbar } from './components/import';
 
 function App() {
   return (
-    <div className="App">
-      <Home/>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <LoginSignup status="signup"/>
+      </div>
+    </BrowserRouter>
   );
 }
 

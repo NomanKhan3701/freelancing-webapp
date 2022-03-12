@@ -3,10 +3,15 @@
 :root {
     --main-bg: #ffffff;
     --second-bg: #fafafb;
+    --txt-white: #ffffff;
     --txt-color: #455560;
-    --txt-white: #fff;
+    --black-color: #0000;
+    --gray-color: #efefef;
     --main-color: #349eff;
     --second-color: #62b4ff;
+    --primary-color: #4EA685;
+    --secondary-color: #578894;
+    --gray-2-color: gray;
     --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
     --sidebar-width: 300px;
