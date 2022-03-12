@@ -3,6 +3,7 @@ import "./header.scss";
 import { motion } from "framer-motion";
 import headerMan from "../../assets/images/profile.png";
 import circle from "../../assets/images/circle.svg";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,8 +16,8 @@ const Header = () => {
           Freelancers with better reviews and with higher profile work here
         </div>
         <div className="header-buttons">
-          <button className="btn button1">Find Talent</button>
-          <button className="btn button2">Find work</button>
+          <Link to = "/findtalent" className="btn button1">Find Talent</Link>
+          <Link to = "/findwork" className="btn button2">Find work</Link>
         </div>
       </div>
       <div className="header-right">
