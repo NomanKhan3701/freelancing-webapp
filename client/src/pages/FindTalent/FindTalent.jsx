@@ -1,6 +1,6 @@
 import React from "react";
 import "./FindTalent.scss";
-import { Card, Navbar } from "../../components/import";
+import { Card, Navbar, NormalSlider, SliderThreeD } from "../../components/import";
 import userImg from "../../assets/images/Cha2.jpg";
 import Categories from "./json/Categories.json";
 import Recommended from "./json/Recommended.json";
@@ -11,14 +11,15 @@ const FindTalent = () => {
     <div className="find-talent-container">
       <Navbar />
       <div className="categories-container">
+        <h1>Categories</h1>
         <div className="categories-slider">
-          
+          <NormalSlider/>
         </div>
       </div>
       <div className="recommended-container">
         <h1>Recommended gigs</h1>
         <div className="recommended-slider">
-
+          <SliderThreeD/>
         </div>
       </div>
       <div className="random-container">
