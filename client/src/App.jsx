@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <LoginSignup status="signup"/>
+        <FindTalent/>
       </div>
     </BrowserRouter>
   );

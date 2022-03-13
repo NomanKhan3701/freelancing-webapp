@@ -1,3 +1,32 @@
-.find-talent {
-    padding-top: 90px;
+.find-talent-container {
+  padding-top: 90px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  .recommended-container {
+      h1 {
+          margin: 30px 0px;
+      }
+
+      .recommended-slider {
+          
+      }
+  }
+
+  .random-container {
+    margin-bottom: 20px;
+    h1 {
+        margin: 30px 0px;
+    }
+
+    .random-card-container {
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+    }
+
+    
+  }
 }
