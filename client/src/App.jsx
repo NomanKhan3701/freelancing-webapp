@@ -7,7 +7,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+<<<<<<< HEAD
         
+=======
+        <FindTalent/>
+>>>>>>> 788a0dd6551b988910ab5a9a218a67ca8b00932f
       </div>
     </BrowserRouter>
   );
