@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Navbar } from "../../components/import";
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
-import { Link } from "react-router-dom";
+import GLogin from "./GLogin";
 
 const LoginSignUp = (props) => {
   const toggle = () => {
@@ -48,11 +47,13 @@ const LoginSignUp = (props) => {
             </div>
           </div>
           <div className = "social-wrapper">
-            <div className = "social-list signup">
-              <div className = "align-items-center goole-bg">
+            <GLogin></GLogin>
+            {/* <div className = "social-list signup"> */}
+              
+              {/* <div className = "align-items-center goole-bg">
                 <i className = "bx bxl-google"></i>
-              </div>
-              <div className = "align-items-center facebook-bg">
+              </div> */}
+              {/* <div className = "align-items-center facebook-bg">
                 <i className = "bx bxl-facebook"></i>
               </div>
               <div className = "align-items-center twitter-bg">
@@ -60,8 +61,9 @@ const LoginSignUp = (props) => {
               </div>
               <div className = "align-items-center insta-bg">
                 <i className = "bx bxl-instagram-alt"></i>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
+            <div class = "g-signin2" data-onsuccess="onSignIn"></div>
           </div>
         </div>
         <div className = "col align-items-center flex-col">
@@ -86,7 +88,7 @@ const LoginSignUp = (props) => {
             </div>
           </div>
           <div className = "social-wrapper">
-            <div className = "social-list login">
+            {/* <div className = "social-list login">
               <div className = "align-items-center goole-bg">
                 <i className = "bx bxl-google"></i>
               </div>
@@ -99,7 +101,8 @@ const LoginSignUp = (props) => {
               <div className = "align-items-center insta-bg">
                 <i className = "bx bxl-instagram-alt"></i>
               </div>
-            </div>
+            </div> */}
+            <GLogin></GLogin>
           </div>
         </div>
       </div>
