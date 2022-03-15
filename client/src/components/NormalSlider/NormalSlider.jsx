@@ -123,4 +123,4 @@ const NormalSlider = () => {
   )
 }
 
-export default NormalSlider
+export default NormalSlider;

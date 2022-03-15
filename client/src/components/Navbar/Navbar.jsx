@@ -10,25 +10,25 @@ import { Link } from "react-router-dom";
 const SearchAndLinks = (props) => {
   return (
     <>
-      <div className={`search-container ${props.active}`}>
-        <input type="text" placeholder="Search here..." />
-        <Search className="i" />
+      <div className = {`search-container ${props.active}`}>
+        <input type = "text" placeholder="Search here..." />
+        <Search className = "i" />
       </div>
-      <div className={`nav-links-container ${props.active}`}>
-        <div className="nav-link active">
-          <Link to="/">Home</Link>
+      <div className = {`nav-links-container ${props.active}`}>
+        <div className = "nav-link active">
+          <Link to = "/">Home</Link>
         </div>
-        <div className="nav-link">
-          <Link to="/findtalent">Find talent</Link>
+        <div className = "nav-link">
+          <Link to = "/findtalent">Find talent</Link>
         </div>
-        <div className="nav-link">
-          <a href="#">Find work</a>
+        <div className = "nav-link">
+          <Link to = "/findwork">Find work</Link>
         </div>
-        <div className="nav-link">
-          <a href="#">Message</a>
+        <div className = "nav-link">
+          <Link to = "/messages">Messages</Link>
         </div>
-        <div className="nav-link">
-          <a href="#">Orders</a>
+        <div className = "nav-link">
+          <Link to = "/orders">Orders</Link>
         </div>
       </div>
     </>
@@ -68,14 +68,14 @@ const user_menu = [
 ]
 
 const renderUserToggle = (user) => (
-  <div className="user-img">
-    <img src={user.image} alt="userImage" />
+  <div className = "user-img">
+    <img src = {user.image} alt = "userImage" />
   </div>
 )
 
 const renderUserMenu = (item, index) => (
-  <a href='/' key={index}>
-    <div className="user-menu-item">
+  <a href = '/' key = {index}>
+    <div className = "user-menu-item">
       <span>{item.content}</span>
     </div>
   </a>
@@ -84,19 +84,19 @@ const renderUserMenu = (item, index) => (
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
   return (
-    <div className="navbar">
-      <div className="nav-menu">
-        <Dehaze onClick={() => setToggle(true)} />
+    <div className = "navbar">
+      <div className = "nav-menu">
+        <Dehaze onClick = {() => setToggle(true)} />
         {toggle ? (
           <motion.div
-            initial={{translateX: "-100%"}}
-            animate={{translateX: "0%"}}
-            end={{translateX: "-100%"}}
-            zIndex="10000"
-            className="nav-sidebar"
+            initial = {{translateX: "-100%"}}
+            animate = {{translateX: "0%"}}
+            end = {{translateX: "-100%"}}
+            zIndex = "10000"
+            className = "nav-sidebar"
           >
-            <HiX onClick={() => setToggle(false)} />
-            <div className="nav-small">
+            <HiX onClick = {() => setToggle(false)} />
+            <div className = "nav-small">
               <SearchAndLinks />
             </div>
           </motion.div>
@@ -104,22 +104,24 @@ const Navbar = (props) => {
           ""
         )}
       </div>
-      <div className="logo">
-        <span>FREELANCE</span>
+      <div className = "logo">
+        <Link to = "/"><span>FREELANCE</span></Link>
       </div>
-      <SearchAndLinks active="active" />
+      <SearchAndLinks active = "active" />
 
       {props.loggedIn === "no" ? (
-        <div className="nav-log-menu">
-          <div className="nav-link">
-            <a href="">Log In</a>
+        <div className = "nav-log-menu">
+          <div className = "nav-link">
+            <Link to = "/login">Log In</Link>
           </div>
-          <div className="nav-link button">
-            <a href=""><button>Sign Up</button></a>
+          <div className = "nav-link button">
+            <Link to = "/signup">
+              <button>Sign Up</button>
+            </Link>
           </div>
         </div>
       ) : (
-        <div className="user-profile">
+        <div className = "user-profile">
           <Dropdown 
             customToggle = {() => renderUserToggle(curr_user)}
             contentData = {user_menu}
