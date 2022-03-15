@@ -1,26 +1,30 @@
 [
     {
-        "name" : "design",
-        "imgName" : ""
+        "name" : "designer",
+        "imgName" : "../../assets/images/about01.png"
     },
     {
-        "name" : "design",
-        "imgName" : ""
+        "name" : "web developer",
+        "imgName" : "../../assets/images/about02.png"
     },
     {
-        "name" : "design",
-        "imgName" : ""
+        "name" : "app developer",
+        "imgName" : "../../assets/images/about03.png"
     },
     {
-        "name" : "design",
-        "imgName" : ""
+        "name" : "logo creater",
+        "imgName" : "../../assets/images/redux.png"
     },
     {
-        "name" : "design",
-        "imgName" : ""
+        "name" : "web developer",
+        "imgName" : "../../assets/images/about02.png"
     },
     {
-        "name" : "design",
-        "imgName" : ""
+        "name" : "app developer",
+        "imgName" : "../../assets/images/about03.png"
+    },
+    {
+        "name" : "logo creater",
+        "imgName" : "../../assets/images/redux.png"
     }
 ]

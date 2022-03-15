@@ -1,12 +1,13 @@
 .login-signup-container {
-  min-height: 100vh;
+  margin-top: 90px;
+  min-height: calc(100vh - 90px);
   width: 100%;
   overflow: hidden;
 
   .row {
     display: flex;
     flex-wrap: wrap;
-    height: 100vh;
+    height: calc(100vh - 90px);
     width: 100%;
 
     .col {

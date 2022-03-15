@@ -13,6 +13,11 @@
     --secondary-color: #578894;
     --gray-2-color: gray;
     --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    --box-shadow-dark: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+<<<<<<< HEAD
+    --box-shadow-white: white 0px 8px 24px;
+=======
+>>>>>>> 788a0dd6551b988910ab5a9a218a67ca8b00932f
 
     --sidebar-width: 300px;
     --navbar-height: 90px;
