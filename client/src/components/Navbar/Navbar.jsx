@@ -1,13 +1,20 @@
 import { Dehaze, Search } from "@material-ui/icons";
 import { motion } from "framer-motion";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SearchAndLinks = (props) => {
+
+  const navLinkStyle = ({isActive}) => {
+    return {
+      color: isActive? '#349eff' : '#00000'
+    }
+  }
+  
   return (
     <>
       <div className = {`search-container ${props.active}`}>
@@ -15,20 +22,20 @@ const SearchAndLinks = (props) => {
         <Search className = "i" />
       </div>
       <div className = {`nav-links-container ${props.active}`}>
-        <div className = "nav-link active">
-          <Link to = "/">Home</Link>
+        <div className = "nav-link">
+          <NavLink style={navLinkStyle} to = "/">Home</NavLink>
         </div>
         <div className = "nav-link">
-          <Link to = "/findtalent">Find talent</Link>
+          <NavLink style={navLinkStyle} to = "/findtalent">Find talent</NavLink>
         </div>
         <div className = "nav-link">
-          <Link to = "/findwork">Find work</Link>
+          <NavLink style={navLinkStyle} to = "/findwork">Find work</NavLink>
         </div>
         <div className = "nav-link">
-          <Link to = "/messages">Messages</Link>
+          <NavLink style={navLinkStyle} to = "/messages">Messages</NavLink>
         </div>
         <div className = "nav-link">
-          <Link to = "/orders">Orders</Link>
+          <NavLink style={navLinkStyle} to = "/orders">Orders</NavLink>
         </div>
       </div>
     </>
@@ -38,6 +45,16 @@ const SearchAndLinks = (props) => {
 const curr_user = {
   name: 'Noman',
   image: userImage
+}
+
+const message_notification = [
+  {
+
+  }
+]
+
+const renderFooter = () => {
+  
 }
 
 const user_menu = [
@@ -105,19 +122,19 @@ const Navbar = (props) => {
         )}
       </div>
       <div className = "logo">
-        <Link to = "/"><span>FREELANCE</span></Link>
+        <NavLink to = "/"><span>FREELANCE</span></NavLink>
       </div>
       <SearchAndLinks active = "active" />
 
       {props.loggedIn === "no" ? (
         <div className = "nav-log-menu">
           <div className = "nav-link">
-            <Link to = "/login">Log In</Link>
+            <NavLink to = "/login">Log In</NavLink>
           </div>
           <div className = "nav-link button">
-            <Link to = "/signup">
+            <NavLink to = "/signup">
               <button>Sign Up</button>
-            </Link>
+            </NavLink>
           </div>
         </div>
       ) : (
