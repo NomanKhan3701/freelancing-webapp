@@ -15,6 +15,13 @@
   -webkit-backdrop-filter: blur(15px);
   // box-shadow: var(--box-shadow);
 
+  .non-link {
+    &:hover {
+      cursor: pointer;
+      color: rgb(78, 72, 72);
+    }
+  }
+
   svg {
     cursor: pointer;
     margin-right: 20px;
@@ -115,6 +122,8 @@
 
         .nav-link {
           margin-bottom: 20px;
+
+          
         }
       }
     }

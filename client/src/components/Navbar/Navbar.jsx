@@ -32,10 +32,10 @@ const SearchAndLinks = (props) => {
           <NavLink style={navLinkStyle} to = "/findwork">Find work</NavLink>
         </div>
         <div className = "nav-link">
-          <NavLink style={navLinkStyle} to = "/messages">Messages</NavLink>
+          <div className='non-link'>Messages</div>
         </div>
         <div className = "nav-link">
-          <NavLink style={navLinkStyle} to = "/orders">Orders</NavLink>
+          <div className="non-link">Orders</div>
         </div>
       </div>
     </>

@@ -206,7 +206,7 @@ const FindWork = () => {
               {skills.map((skill, index) => (
                 <div key={index} className="checkbox">
                   <input type="checkbox" id={`skill-checkbox-${index}`} />
-                  <label for={`skill-checkbox-${index}`}>{skill}</label>
+                  <label htmlFor={`skill-checkbox-${index}`}>{skill}</label>
                 </div>
               ))}
             </div>
