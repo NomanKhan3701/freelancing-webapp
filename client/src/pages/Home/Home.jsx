@@ -7,7 +7,7 @@ import "./home.scss";
 const Home = () => {
   return (
     <div className="home">
-      <Navbar loggedIn="no"/>
+      <Navbar loggedIn="yes"/>
       <Header/>
       <WhyUs/>
       <Footer/>
