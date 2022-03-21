@@ -1,6 +1,7 @@
 import React from "react";
-import { Navbar } from "../../components/import";
+import { Footer, Navbar } from "../../components/import";
 import "./FindWork.scss";
+import { Link } from "react-router-dom";
 
 const skills = ["HTML", "CSS", "JavaScript", "ReactJs", "NodeJs"];
 const Bids = [
@@ -187,7 +188,7 @@ const Bids = [
 ]
 
 const FindWork = () => {
-  return (
+  return (<>
     <div className="find-work">
       <Navbar />
       <div className="filter-container"></div>
@@ -228,13 +229,15 @@ const FindWork = () => {
               <div className="bid-right">
                 <div className="range">₹{bid.rangeMin} - ₹{bid.rangeMax}</div>
                 <div className="total-bid">{bid.totalBid} bids</div>
-                <div className="btn">Bid now</div>
+                <div className="btn"><Link to = '/bid'>Bid now</Link></div>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

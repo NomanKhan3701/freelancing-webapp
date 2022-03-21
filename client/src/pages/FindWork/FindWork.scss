@@ -155,6 +155,12 @@
             width: max-content;
             cursor: pointer;
 
+            a {
+              &:hover {
+                color: white;
+              }
+            }
+
 
             &:hover {
               background: linear-gradient(90deg, #634fbb, #d863a3);
