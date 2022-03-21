@@ -1,12 +1,28 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
 
 const LoginSignUp = (props) => {
+  //to redirect after cliking signUp or login option on LoginSignUp page
+  let navigate = useNavigate(); 
+  const routeChangeToSignUp = () =>{ 
+    let path = `/signup`; 
+    navigate(path);
+    toggle();
+  }
+ 
+  const routeChangeToLogin = () =>{ 
+    let path = `/login`; 
+    navigate(path);
+    toggle();
+  }
+  
   const toggle = () => {
     const container =  document.querySelector(".login-signup-container");
+
     container.classList.toggle("login");
     container.classList.toggle("signup");
   };
@@ -42,7 +58,7 @@ const LoginSignUp = (props) => {
               </p>
               <p>
                 <span>Have an account? </span>
-                <b onClick = {toggle}>Log In</b>
+                <b onClick = {routeChangeToLogin}>Log In</b>
               </p>
             </div>
           </div>
@@ -83,7 +99,7 @@ const LoginSignUp = (props) => {
               </p>
               <p>
                 <span>Don't have an account? </span>
-                <b onClick = {toggle}>Sign up</b>
+                <b onClick = {routeChangeToSignUp}>Sign up</b>
               </p>
             </div>
           </div>

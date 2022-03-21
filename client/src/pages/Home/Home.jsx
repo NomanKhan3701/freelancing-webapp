@@ -10,7 +10,7 @@ const Home = () => {
       <Navbar loggedIn="no"/>
       <Header/>
       <WhyUs/>
-      <Footer/>
+      <Footer/> 
     </div>
   );
 };
