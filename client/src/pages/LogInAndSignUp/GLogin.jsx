@@ -1,5 +1,5 @@
 import React from "react";
-import {GoogleLogin} from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 import { refreshTokenSetup } from "./refreshToken";
 import GoogleIcon from '@mui/icons-material/Google';   
 import { useNavigate } from "react-router-dom";     

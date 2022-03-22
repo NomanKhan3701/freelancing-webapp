@@ -24,7 +24,7 @@ const LoginSignUp = (props) => {
   }
   
   const toggle = () => {
-    const container =  document.querySelector(".login-signup-container");
+    const container = document.querySelector(".login-signup-container");
     container.classList.toggle("login");
     container.classList.toggle("signup");
   };
@@ -196,9 +196,9 @@ const LoginSignUp = (props) => {
           </div>
         </div>
       </div>
-      <div className = "row content-row">
-        <div className = "col align-items-center flex-col">
-          <div className = "text login">
+      <div className="row content-row">
+        <div className="col align-items-center flex-col">
+          <div className="text login">
             <h2>Welcome back</h2>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
@@ -207,15 +207,15 @@ const LoginSignUp = (props) => {
               voluptatum sunt optio. Consequatur, minima.
             </p>
           </div>
-          <div className = "img login">
-            <img src = {loginImg} alt = "welcome" />
+          <div className="img login">
+            <img src={loginImg} alt="welcome" />
           </div>
         </div>
-        <div className = "col align-items-center flex-col">
-          <div className = "img signup">
-            <img src = {signupImg} alt = "join us" />
+        <div className="col align-items-center flex-col">
+          <div className="img signup">
+            <img src={signupImg} alt="join us" />
           </div>
-          <div className = "text signup">
+          <div className="text signup">
             <h2>Join with us</h2>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet

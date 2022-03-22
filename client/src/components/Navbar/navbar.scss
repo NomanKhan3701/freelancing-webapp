@@ -126,14 +126,14 @@
     justify-content: center;
 
     button {
-      background: linear-gradient(90deg, #755bea,#ff72c0);
+      background: linear-gradient(90deg, #755bea, #ff72c0);
       padding: 10px 30px;
       font-size: 20px;
       border-radius: var(--border-radius-big);
       color: white;
 
       &:hover {
-        background: linear-gradient(90deg, #634fbb,#d863a3);
+        background: linear-gradient(90deg, #634fbb, #d863a3);
       }
     }
 
@@ -151,6 +151,7 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+    margin-right: auto;
 
     .nav-link {
       margin-right: var(--nav-link-margin);
@@ -172,9 +173,27 @@
     }
   }
 
+  .chat-dropdown {
+    margin: 0px 10px;
+    position: relative;
+
+    &:hover {
+      color: rgb(94, 88, 88);
+    }
+  }
+
+  .order-dropdown {
+    margin: 0px 10px;
+    position: relative;
+
+    &:hover {
+      color: rgb(94, 88, 88);
+    }
+  }
+
   .user-profile {
-    height: 60px;
-    width: 60px;
+    height: 55px;
+    width: 55px;
     margin-left: auto;
 
     .user-menu-item {
