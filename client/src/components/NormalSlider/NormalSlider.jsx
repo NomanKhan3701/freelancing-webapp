@@ -10,6 +10,7 @@ import './NormalSlider.scss'
 import { useNavigate } from "react-router-dom";
 import { Navigation } from "swiper"; 
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 
 const NormalSlider = () => {
   let navigate = useNavigate();
@@ -25,7 +26,8 @@ const NormalSlider = () => {
   }, []);
 
   if (isLoading) {
-    return <div className = "App">Loading...</div>;
+    // return <div className = "App">Loading...</div>;
+    return <LoadingSpinner />;
   }
   
   const categorySelected = (event) => {
