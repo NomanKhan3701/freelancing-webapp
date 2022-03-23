@@ -1,7 +1,6 @@
 import React from "react";
 import { Footer, Header, Navbar } from "../../components/import";
 import WhyUs from "../../components/WhyUs/WhyUs";
-import Chat from "../Chat/Chat";
 import "./home.scss";
 
 const Home = () => {
@@ -10,7 +9,7 @@ const Home = () => {
       <Navbar loggedIn="no"/>
       <Header/>
       <WhyUs/>
-      <Footer/>
+      <Footer/> 
     </div>
   );
 };
