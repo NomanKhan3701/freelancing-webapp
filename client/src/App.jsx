@@ -1,5 +1,6 @@
 import "./App.css";
 import {
+  Bid,
   Chat,
   FindPartner,
   FindTalent,
@@ -27,6 +28,7 @@ function App() {
         <Route path="login" element={<LoginSignup status="login" />} />
         <Route path="signup" element={<LoginSignup status="signup" />} />
         <Route path="chat" element={<Chat />} />
+        <Route path="bid" element={<Bid/>}/>
         <Route
           path="*"
           element={
