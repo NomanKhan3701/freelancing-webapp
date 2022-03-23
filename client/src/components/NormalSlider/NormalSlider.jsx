@@ -1,123 +1,79 @@
-import React, { useRef, useState } from "react";
+import React, {useState, useEffect}from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import './NormalSlider.scss'
-
-import { Pagination, Navigation } from "swiper"; 
-import Cha from '../../assets/images/Cha2.jpg'
+import { useNavigate } from "react-router-dom";
+import { Navigation } from "swiper"; 
+import axios from "axios";
 
 const NormalSlider = () => {
+  let navigate = useNavigate();
+  const [isLoading, setLoading] = useState(true);
+  const [items, setItems] = useState();
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/findtalent')
+    .then(function (response) {
+      setItems(response.data.items);
+      setLoading(false);
+    })
+  }, []);
+
+  if (isLoading) {
+    return <div className = "App">Loading...</div>;
+  }
+  
+  const categorySelected = (event) => {
+    const target = event.target;
+    let category;
+    if(target.classList[0] === "category-name"){
+      category = target.textContent.toLowerCase().replace(/\W/g, '');
+    }else{
+      category = target.getElementsByTagName("div")[0].textContent.toLowerCase().replace(/\W/g, '');
+    }
+    navigate(`/findtalent/${category}`);
+  }
+
+  //binary to image converter
+  const toBase64 = (arr) => {
+    //arr = new Uint8Array(arr) if it's an ArrayBuffer
+    return btoa(
+       arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+ }
   return (
-    <div className="normal-slider-container">
+    <div className = "normal-slider-container">
         <Swiper
-        slidesPerView={5}
-        spaceBetween={10}
-        slidesPerGroup={3}
-        loop={true}
-        loopFillGroupWithBlank={true}
-        pagination={{
+        slidesPerView = {5}
+        spaceBetween = {10}
+        slidesPerGroup = {3}
+        loop = {true}
+        loopFillGroupWithBlank = {true}
+        pagination = {{
           clickable: true,
         }}
-        navigation={true}
-        modules={[ Navigation]}
-        className="mySwiper"
+        navigation = {true}
+        modules = {[ Navigation]}
+        className = "mySwiper"
       >
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-          <div className="category-name">
-              Designer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-          <div className="category-name">
-              Frontend web Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-          <div className="category-name">
-            Backend web Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-          <div className="category-name">
-            App Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-          <div className="category-name">
-            UI/UX Designer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-          <div className="category-name">
-            CyberSecurity
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-          <div className="category-name">
-            Logo Creater
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-          <div className="category-name">
-            Video Editor
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={Cha} />
-          <div className="category-name">
-            App Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-          <div className="category-name">
-              Designer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-          <div className="category-name">
-              Frontend web Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-          <div className="category-name">
-            Backend web Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-          <div className="category-name">
-            App Developer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-          <div className="category-name">
-            UI/UX Designer
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-          <div className="category-name">
-            CyberSecurity
-          </div>
-        </SwiperSlide>
+        {items.map((item) => {
+          let imagetype = "data:image/" + item.img.contentType;
+          let imageData = toBase64(item.img.data.data); 
+          let imageSrc = imagetype + ";base64," + imageData;
+          return (
+            <SwiperSlide onClick = {categorySelected} key = {item.img._id}>
+              <img src = {imageSrc} />
+              <div className = "category-name">
+                {item.category}
+              </div>
+            </SwiperSlide>    
+          );
+        })}
       </Swiper>
     </div>
   )

@@ -4,8 +4,6 @@ import { refreshTokenSetup } from "./refreshToken";
 import GoogleIcon from '@mui/icons-material/Google';   
 import { useNavigate } from "react-router-dom";     
 const axios = require("axios").default;
-//google console clint id for google sign in api
-const clintId = "844752415174-c93pnbtgdm8opp0d1fcoqgpl22b4vban.apps.googleusercontent.com";
 
 function GLogin(props){
     //i have changed isSignIn = false, in GoogleLogin, works
@@ -60,7 +58,7 @@ function GLogin(props){
     return (
         <div >
             <GoogleLogin
-                clientId = {clintId}
+                clientId = {process.env.client_id}
                 onSuccess = {onSuccess}
                 onFailure = {onFailure}
                 cookiePolicy = {'single_host_origin'}

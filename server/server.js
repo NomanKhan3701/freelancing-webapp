@@ -3,29 +3,59 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose"); 
 const cors = require("cors");
+
+var fs = require('fs');
+var path = require('path');
+require("dotenv/config");
+
+// set up multer for storing uploaded files image upload database
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+var upload = multer({ storage: storage });
+var categoryImgModel = require('./categoryData');
+
 const corsOptions = {
    origin:'*', 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
 
-const {createNewUser, isValidUser} =   require("./database.js");
+const {createNewUser, isValidUser} = require("./database.js");
 const { json } = require("body-parser");
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.json());
+app.use(bodyParser.json());
 
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/../client/public/index.html");
-//  });
-   
 app.post("/post", (req, res, err) => {
 });
 
 app.post("/login", (req, res, err) => {
   const result = isValidUser(req.body);
   //send to react the result code
+});
+
+app.get('/findtalent', (req, res, err) => {
+  if(err){
+    console.log(err);
+  }
+  categoryImgModel.find({}, (error, items) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('An error occurred', err);
+    }
+    else {
+      res.send({ items: items });
+    }
+  });
 });
 
 app.post("/signup", (req, res, err) => {

@@ -1,11 +1,13 @@
+require("dotenv/config");
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs")
 const saltRounds = 10
 
-
-mongoose.connect("mongodb+srv://admin-shreyash:Shrey%40sh22mar@cluster0.pcdxk.mongodb.net/Freelancer?retryWrites=true&w=majority", 
-    {useNewUrlParser: true});
-
+mongoose.connect(process.env.MONGO_URL,
+  { useNewUrlParser: true, useUnifiedTopology: true }, err => {
+      console.log('connected')
+  });
 const userSignUpSchema = new mongoose.Schema({
     username: {
             type : String,
