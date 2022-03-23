@@ -167,7 +167,7 @@ const LoginSignUp = (props) => {
           </div>
           <div className = "social-wrapper">
             <GLogin context = "SignUp"></GLogin>
-            <div class = "g-signin2" data-onsuccess="onSignIn"></div>
+            <div className = "g-signin2" data-onsuccess="onSignIn"></div>
           </div>
         </div>
         <div className = "col align-items-center flex-col">

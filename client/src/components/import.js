@@ -10,3 +10,4 @@ export {default as SliderThreeD} from './SliderThreeD/SliderThreeD';
 export {default as ChatSidebar} from './ChatSidebar/ChatSidebar';
 export {default as ChatMain} from './ChatMain/ChatMain';
 export {default as ChatMiddle} from './ChatMiddle/ChatMiddle';
+export {default as InfoPagination} from './InfoPagination/InfoPagination';
