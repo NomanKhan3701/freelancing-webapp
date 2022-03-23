@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./ChatMain.scss";
 import robot from "../../assets/videos/robot.gif";
 import { IoMdSend } from "react-icons/io";
+import user_img from '../../assets/images/Cha2.jpg';
 import { BsEmojiSmileFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
-import { AttachFile } from "@material-ui/icons";
+import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 
 const ChatMain = () => {
   const handleSendMsg = async (msg) => {
@@ -40,15 +41,21 @@ const ChatMain = () => {
 
       <div className="top-container">
         <div className="user">
-          <div className="user-img"></div>
+          <div className="user-img">
+            <img src={user_img} alt="User image" />
+          </div>
           <div className="user-info">
-            <div className="user-name"></div>
-            <div className="user-status"></div>
+            <div className="user-name">Cha Eun Woo</div>
+            <div className="user-status">Online</div>
           </div>
         </div>
         <div className="top-menu">
-          <div className="call"></div>
-          <div className="video-call"></div>
+          <div className="call">
+            <Call/>
+          </div>
+          <div className="video-call">
+            <VideoCall/>
+          </div>
         </div>
       </div>
       <div className="middle-container">

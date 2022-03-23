@@ -83,9 +83,21 @@
           }
         }
 
+        .person-mid {
+          .person-name {
+            font-weight: 600;
+            font-size: 17px;
+          }
+          .last-chat {
+            font-size: 15px;
+            margin-top: 5px;
+          }
+        }
+
         .last-chat-time {
           margin-left: auto;
           margin-right: 10px;
+          color: gray;
           transform: translateY(-10px);
         }
       }
