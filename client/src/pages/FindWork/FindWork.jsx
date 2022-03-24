@@ -188,55 +188,6 @@ const Bids = [
   },
 ];
 
-<<<<<<< HEAD
-const FindWork = () => {
-  return (<>
-    <div className = "find-work">
-      <Navbar />
-      <div className = "filter-container"></div>
-      <div className = "findwork-main-body">
-        <div className = "sidebar">
-          <h1 className = "filter">Filter by</h1>
-          <div className = "budget-filter">
-            <h1>Budget</h1>
-            <input type = "text" placeholder = "min" />
-            <span>to</span>
-            <input type = "text" placeholder = "max" />
-          </div>
-          <div className = "skill-filter">
-            <h1>Skills</h1>
-            <div className = "checkbox-container">
-              {skills.map((skill, index) => (
-                <div key = {index} className = "checkbox">
-                  <input type = "checkbox" id = {`skill-checkbox-${index}`} />
-                  <label htmlFor = {`skill-checkbox-${index}`}>{skill}</label>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className = "filter-btn">Filter</div>
-        </div>
-        <div className = "user-bid-container">
-          {Bids.map((bid,index) => (
-            <div key = {index} className = "user-bid">
-              <div className = "bid-left">
-                <div className = "title">{bid.title}</div>
-                <div className = "description">{bid.desc}</div>
-                <div className = "skills">
-                  {bid.skills.map((skill, index) => (
-                    <div key = {index} className = "skill">{skill}</div>
-                  ))}
-                </div>
-              </div>
-              <div className = "bid-right">
-                <div className = "range">₹{bid.rangeMin} - ₹{bid.rangeMax}</div>
-                <div className = "total-bid">{bid.totalBid} bids</div>
-                <div className = "btn"><Link to = '/findwork/bid'>Bid now</Link></div>
-              </div>
-            </div>
-          ))}
-        </div>
-=======
 const renderBidBody = (bid, index) => (
   <div key={index} className="user-bid">
     <div className="bid-left">
@@ -248,7 +199,6 @@ const renderBidBody = (bid, index) => (
             {skill}
           </div>
         ))}
->>>>>>> noman
       </div>
     </div>
     <div className="bid-right">
