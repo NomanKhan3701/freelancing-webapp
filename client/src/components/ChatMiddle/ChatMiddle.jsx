@@ -21,7 +21,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -33,7 +33,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -45,7 +45,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -57,7 +57,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -69,7 +69,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -81,7 +81,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -93,7 +93,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -105,7 +105,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -117,7 +117,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -129,7 +129,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -141,7 +141,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -153,7 +153,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -165,7 +165,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -177,7 +177,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -189,7 +189,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -201,7 +201,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -213,7 +213,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -225,7 +225,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
         <div className="person-wrapper">
@@ -237,7 +237,7 @@ const ChatMiddle = () => {
               <div className="person-name">Cha Eun Woo</div>
               <div className="last-chat">Your biggest Fann 😍</div>
             </div>
-            <div className="last-chat-time">09:00</div>
+            <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
       </div>
