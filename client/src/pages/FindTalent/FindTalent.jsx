@@ -2,8 +2,6 @@ import React from "react";
 import "./FindTalent.scss";
 import { Card, Footer, Navbar, NormalSlider, SliderThreeD } from "../../components/import";
 import userImg from "../../assets/images/Cha2.jpg";
-import Categories from "./json/Categories.json";
-import Recommended from "./json/Recommended.json";
 import RandomDev from "./json/RandomDev.json";
 import { Link } from "react-router-dom";
 

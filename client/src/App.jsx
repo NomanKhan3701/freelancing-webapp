@@ -24,18 +24,24 @@ function App() {
         
         {/* //write category component, post component */}
         <Route path = "/findtalent/:category" element = {<Category />} />        
-        <Route path = "/findtalent/post" element = {<Home />} />
+        <Route path = "/findtalent/post" element = {<h1>Nothing to render yet</h1>} />
 
 
         <Route path = "findwork" element = {<FindWork />} />
+        <Route path = "/findwork/bid" element = {<Bid/>}/>
+
         <Route path = "findpartner" element = {<FindPartner />} />
+        
         <Route path = "freelancerprofile" element = {<FreelancerProfile />} />
+        
         <Route path = "userprofile" element = {<UserProfile />} />
         <Route path = "postrequest" element = {<PostRequest />} />
+
         <Route path = "login" element = {<LoginSignup status="login" />} />
         <Route path = "signup" element = {<LoginSignup status="signup" />} />
+        
         <Route path = "chat" element = {<Chat />} />
-        <Route path = "bid" element={<Bid/>}/>
+        
         <Route
           path = "*"
           element = {

@@ -20,7 +20,7 @@ const userSignUpSchema = new mongoose.Schema({
 });
 
 userSignUpSchema.pre("save", function (next) {
-    const user = this
+    const user = this;
   
     if (this.isModified("password") || this.isNew) {
       bcrypt.genSalt(saltRounds, function (saltError, salt) {
@@ -93,6 +93,6 @@ module.exports = {createNewUser, isValidUser}
 //2 user doesnt exist with username
 //3 user exist with username and google SIGN UP trying, 
 //do login directly for him,
-//4 user didnt exist creted succesfully new user
+//4 user didnt exist created succesfully new user
 //5 username matched but not password
 //6 username and password matched

@@ -20,6 +20,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 var categoryImgModel = require('./categoryData');
+var findWorkDataModel = require('./FindWorkData');
 
 const corsOptions = {
    origin:'*', 
@@ -29,6 +30,7 @@ const corsOptions = {
 
 const {createNewUser, isValidUser} = require("./database.js");
 const { json } = require("body-parser");
+const { log } = require("console");
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.urlencoded({extended:false}));
@@ -57,6 +59,23 @@ app.get('/findtalent', (req, res, err) => {
     }
   });
 });
+
+app.get('/findwork', (req, res, err) => {
+  if(err){
+    console.log(err);
+  }
+  const findWorkData = findWorkDataModel.FindWorkData;
+  findWorkData.find({}, (error, items) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('An error occurred', err);
+    }
+    else {
+      res.send({ items: items });
+    }
+  });
+});
+
 
 app.post("/signup", (req, res, err) => {
   if(err){
