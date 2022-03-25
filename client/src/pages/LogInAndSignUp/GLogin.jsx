@@ -1,8 +1,7 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
 import { refreshTokenSetup } from "./refreshToken";
-import GoogleIcon from '@mui/icons-material/Google';   
-import { useNavigate } from "react-router-dom";     
+import { useNavigate } from "react-router-dom";
 const axios = require("axios").default;
 
 function GLogin(props){
@@ -63,11 +62,14 @@ function GLogin(props){
                 onSuccess = {onSuccess}
                 onFailure = {onFailure}
                 cookiePolicy = {'single_host_origin'}
-                render={renderProps => (
-                    <button onClick = {renderProps.onClick} style={{color: "red"}}><GoogleIcon />{context} with Google</button>
-                    )}
+                render = {(renderProps) => (
+                  <div onClick={renderProps.onClick} className="gLoginbtn">
+                    <i className='bx bxl-google '></i>
+                    <span className="context">{context} with Google</span>
+                  </div>
+                )}
                 isSignedIn = {false}
-                data-onsuccess="onSignIn">
+                data-onsuccess = "onSignIn">
             </GoogleLogin>
         </div>
     );

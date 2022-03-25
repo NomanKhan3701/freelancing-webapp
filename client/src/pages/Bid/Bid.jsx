@@ -88,7 +88,10 @@ const Bid = () => {
             <div className = "price">
               <input type = "text" placeholder = "Your Bid In Rupees..." />
             </div>
-            <div className = "btn">Bid Now</div>
+            <div className="desc">
+              <textarea name="desc" />
+            </div>
+            <div className="btn">Bid Now</div>
           </div>
         </div>
         <div className = "comments-container">
