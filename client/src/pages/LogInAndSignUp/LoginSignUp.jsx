@@ -165,8 +165,8 @@ const LoginSignUp = (props) => {
               </p>
             </div>
           </div>
-          <div className = "social-wrapper">
-            <GLogin context = "SignUp"></GLogin>
+          <div className = "social-wrapper signup">
+            <GLogin context = "SignUp"></GLogin>       
           </div>
         </div>
         <div className = "col align-items-center flex-col">
@@ -190,8 +190,8 @@ const LoginSignUp = (props) => {
               </p>
             </div>
           </div>
-          <div className = "social-wrapper">
-            <GLogin context = "Login"></GLogin>
+          <div className = "social-wrapper login">
+            <GLogin context = "Login"></GLogin> 
           </div>
         </div>
       </div>
