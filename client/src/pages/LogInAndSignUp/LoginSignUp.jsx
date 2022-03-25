@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
@@ -113,6 +115,9 @@ const LoginSignUp = (props) => {
     switch(data){
         case 1: 
             //pop up on screen that username already exists
+            toast.error("Username already exist",{
+              position: "top-right"
+            })
             break;
         case 2:
             //nothing
@@ -123,10 +128,14 @@ const LoginSignUp = (props) => {
             break;
         case 4:
             //new user created successfully
+            
             navigate("/");
             break;
         case 5:
             //username matched not password
+            toast.error("Username or password not matched",{
+              position: "top-right"
+            })
             break;
         case 6:
             //login succesfull
