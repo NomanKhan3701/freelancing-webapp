@@ -101,6 +101,9 @@ const LoginSignUp = (props) => {
       .then((response) => {
           //response is the object that contains data sent from server
           //response.data is that data
+          if(response.data.result === 3 || response.data.result === 4){
+            localStorage.setItem("username", username1);
+          }
           onResult(response.data.result);
       })
       .catch((err) => {

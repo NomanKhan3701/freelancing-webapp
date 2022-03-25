@@ -31,6 +31,8 @@ const corsOptions = {
 const {createNewUser, isValidUser} = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
+const commentsData = require("./WorkBidCommentsData");
+const Bids = require('./Bids');
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.urlencoded({extended:false}));
@@ -41,11 +43,13 @@ app.post("/post", (req, res, err) => {
 });
 
 app.post("/login", (req, res, err) => {
+
   const result = isValidUser(req.body);
   //send to react the result code
 });
 
 app.get('/findtalent', (req, res, err) => {
+
   if(err){
     console.log(err);
   }
@@ -61,23 +65,77 @@ app.get('/findtalent', (req, res, err) => {
 });
 
 app.get('/findwork', (req, res, err) => {
+
   if(err){
     console.log(err);
   }
   const findWorkData = findWorkDataModel.FindWorkData;
+  const FindWorkFilterData = findWorkDataModel.FindWorkFilterData;
+
   findWorkData.find({}, (error, items) => {
     if (error) {
       console.log(error);
       res.status(500).send('An error occurred', err);
     }
     else {
-      res.send({ items: items });
+      FindWorkFilterData.find({}, (error, filterData) => {
+        if (error) {
+          console.log(error);
+          res.status(500).send('An error occurred', err);
+        }
+        else 
+          res.send({ items: items, filterData: filterData });
+      });
     }
   });
 });
 
+//this was supposed to be get requst but we have manipulated using post
+app.post('/findwork/bid', (req, res, err) => {
+
+  if(err){
+    console.log(err);
+  }
+  const workBidCommentsData = commentsData.WorkBidCommentsData;
+  
+  workBidCommentsData.find({workId: req.body.id}, (error, items) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('An error occurred', err);
+    }
+    else {
+      Bids.find({workId: req.body.id}, (errorrr, bids) => {
+        if(errorrr){
+          console.log(errorrr);
+        }
+        let totalBids = 0;
+        for(let i = 0 ; i < bids.length ; i++){
+          totalBids += bids[i].amount;
+        }
+        res.send({items: items, bids: bids, avgBid: totalBids/bids.length});  
+      })
+    }
+  });
+});
+
+app.post('/findwork/bid/newComment', (req, res, err) => {
+  console.log(req.body);
+  const body = req.body;
+  if(err){
+    console.log(err);
+  }
+  const addCommentToWorkBid = commentsData.addCommentToWorkBid;
+  const result = addCommentToWorkBid({
+    workId: body.workId,
+    username: body.username,
+    desc: body.desc,
+  });
+  console.log(result);
+  res.send({result: result});
+});
 
 app.post("/signup", (req, res, err) => {
+
   if(err){
     //
   }

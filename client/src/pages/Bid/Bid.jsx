@@ -1,23 +1,68 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Navbar } from "../../components/import";
 import "./Bid.scss";
 import clientImg from "../../assets/images/Cha2.jpg";
 import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import LoadingSpinner from "../FindWork/LoadingSpinner";
 
-const BidData = {
-  title: "Javascript Coder",
-  desc: `I need the Javascript coder for multiple jobs. Details will be discussed`,
-  skills: ["HTML", "JavaScript", "Jquery"],
-  rangeMin: "555",
-  rangeMax: "1000",
-  averageBid: "896",
-  totalBid: "14",
-};
+
 
 const Bid = () => {
+
+  let navigate = useNavigate();
   //data passed through navigation is accessed using useLocation
   const { state } = useLocation();
   const work = state.work;
+  const [isLoading, setLoading] = useState(true);
+  const [comments, setComments] = useState();
+  const [newComment, setNewComment] = useState("");
+  const [otherBids, setOtherBids] = useState();
+  const [avgBid, setAvgBid] = useState();
+
+  useEffect(() => {
+    //here get wasnt working with passing object so used post,
+    axios.post(`http://localhost:8080/findwork/bid`,{
+      id: work.id
+    })
+    .then(function (response) {
+      setComments(response.data.items);
+      setOtherBids(response.data.bids);
+      setAvgBid(response.data.avgBid);
+      setLoading(false);
+
+    })
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  const newCommentChange = (event) => {
+    setNewComment(event.target.value);
+  }
+
+  const addComment = (event) => {
+    const comment = newComment;
+    const object = {
+      workId: work.id,
+      username: localStorage.getItem('username'),
+      desc: comment,
+    };
+    setNewComment("");
+    axios.post("http://localhost:8080/findwork/bid/newComment", object)
+      .then((response) => {
+        if(response.data.result === 4){
+          setComments((comments) => {
+            return [...comments, object];
+          })
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+  } 
+
   return (
     <div className = "bid">
       <Navbar />
@@ -48,425 +93,55 @@ const Bid = () => {
         </div>
         <div className = "comments-container">
           <div className = "title">Comments</div>
+          
           <div className = "form">
             <div className = "user-img">
               <img src = {clientImg} alt="" />
             </div>
-            <input type = "text" placeholder="Add a comment..." />
-            <div className = "btn">Comment</div>
+            <input type = "text" placeholder = "Add a comment..." value = {newComment} onChange = {newCommentChange}/>
+            <div className = "btn" onClick = {addComment}>Comment</div>
           </div>
+
           <div className = "comments">
-            <div className = "comment">
+          {comments.map((comment) => {
+           return <div className = "comment">
               <div className = "user-profile">
                 <img src = {clientImg} alt = "user img" />
                 <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
+                  <div className = "user-name">{comment.username}</div>
+                  <div className = "comment-desc">
+                    {comment.desc}
                   </div>
                 </div>
               </div>
             </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className = "comment">
-              <div className = "user-profile">
-                <img src = {clientImg} alt = "user img" />
-                <div className = "info">
-                  <div className="user-name">Cha Eun Woo</div>
-                  <div className="comment-desc">
-                    Hi, I had a doubt in your post. Do you want hourly paid or
-                    One time paid freelancer
-                  </div>
-                </div>
-              </div>
-            </div>
+          })}
           </div>
         </div>
       </div>
       <div className = "bid-right">
         <div className = "people-bid-info">
           <div className = "title">
-            12 freelancer are bidding on an average of 5000₹
+            {otherBids.length} freelancer are bidding on an average of {avgBid}₹
           </div>
           <div className = "freelancers">
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className = "desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
-            <div className = "freelancer">
-              <div className = "user-info">
-                <img src = {clientImg} alt = "" />
-                <div className = "user-name">Karen</div>
-              </div>
-              <div className = "flex">
-                <div className = "price">Price : 4000₹</div>
-                <div className = "star">Rating : 4.9</div>
-              </div>
-
-              <div className="desc">
-                Hi Jose. I can do this project. I am a professional Linux and
-                developer in PHP, Wordpress, Laravel, Magento, Joomla,
-                Prestashop, OpenCart, Yii, NodeJS, Angular, Vue.js, HTML5, CSS3
-                and jQuery. I can do this project.
-              </div>
-            </div>
+            {otherBids.map((bid) => {
+              return (
+                <div key = {bid._id} className = "freelancer" >
+                  <div className = "user-info">
+                    <img src = {clientImg} alt = "user image" />
+                    <div className = "user-name">{bid.username}</div>
+                  </div>
+                  <div className = "flex">
+                    <div className = "price">Price : {bid.amount}₹</div>
+                    <div className = "star">Rating : 4.9</div>
+                  </div>
+                  <div className = "desc">
+                    {bid.desc}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

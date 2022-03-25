@@ -45,7 +45,7 @@ const InfoPagination = (props) => {
       )}
       {props.bodyData && props.renderBody ? (
         <>
-        { dataShow.map((item, index) => props.renderBody(item, index)) }
+        { dataShow.map((item, index) => props.renderBody(item, index))}
         </>
       ) : null}
       {pages > 1 ? (

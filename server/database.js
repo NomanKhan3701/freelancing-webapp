@@ -62,7 +62,7 @@ var createNewUser = (data) => {
 }
 
 const doesUsernameExist = (username) => {
-  const arr = UserSignUp.find({}, function(err, users){
+  const arr = UserSignUp.find({username: username}, function(err, users){
     if(err)
         console.log(err);
     if(users.length == 0){

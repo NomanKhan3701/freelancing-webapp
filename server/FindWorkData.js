@@ -4,6 +4,10 @@ var mongoose = require('mongoose');
 mongoose.Schema.Types.String.checkRequired(v => typeof v === 'string');
 
 var findWorkDataSchema = new mongoose.Schema({
+    category:{
+        type: String,
+        required: true,
+    },
     title: {
         type: String,
         required: true,
@@ -34,16 +38,25 @@ var findWorkDataSchema = new mongoose.Schema({
     }
     
 });
-  
-// function isMyFieldRequired () {
-//     return this.myField.length > 0 ? false : true
-// }
 
+const findWorkFilterDataSchema = new mongoose.Schema({
+    category: {
+        type: Object,
+        unique: true,
+        required: true,
+    },
+    skills: {
+        type: [String],
+        required: true,
+        unique: true,
+    },
+});
+
+const FindWorkFilterData = new mongoose.model("FindWorkFilterData", findWorkFilterDataSchema);
 const FindWorkData = new mongoose.model('FindWorkData', findWorkDataSchema);
 
 const addWorkData = (data) => {
     //user posting this information
-    console.log("add work data" + data);
     const {title, desc, qualifications} = data;
     if(title.length < 10 || desc.length < 30 || qualifications.length < 1){
         return 1;
@@ -61,7 +74,7 @@ const addWorkData = (data) => {
     return 4;
 }
 
-module.exports = {FindWorkData, addWorkData};
+module.exports = {FindWorkData, addWorkData, FindWorkFilterData};
 
 //1 - insufficient data
 //4 - successfully added the data

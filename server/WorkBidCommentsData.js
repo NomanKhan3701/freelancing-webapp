@@ -15,7 +15,12 @@ var WorkBidCommentsDataSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: true,
+        unique: true,
     }, 
+    time: { 
+        type: Number,
+        default: (new Date()).getTime(), 
+    }
 });
   
 const WorkBidCommentsData = new mongoose.model('WorkBidCommentsData', WorkBidCommentsDataSchema);
@@ -24,7 +29,7 @@ const addCommentToWorkBid = (data) => {
     //user posting this information
     console.log("add work data" + data);
     const {workId, username, desc} = data;
-    if(desc.length < 30){
+    if(desc.length < 20){
         return 1;
     }
     const newComment = new WorkBidCommentsData({

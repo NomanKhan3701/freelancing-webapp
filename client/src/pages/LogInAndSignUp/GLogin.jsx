@@ -11,6 +11,7 @@ function GLogin(props){
     let navigate = useNavigate();
     const onSuccess = (res) => {
         console.log('[Login Success] CurrentUser:', res.profileObj);
+        localStorage.setItem("username", res.profileObj.email);
         //redirect to home page with logo changed on right only if username and password matches
         let onResult = (data) => {
             console.log("data is " + data );
