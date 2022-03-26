@@ -24,7 +24,7 @@ function App() {
         
         {/* //write category component, post component */}
         <Route path = "/findtalent/category" element = {<FindTalentParams />} />        
-        <Route path = "/findtalent/post" element = {<h1>Nothing to render yet</h1>} />
+        <Route path = "/findtalent/post" element = {<PostRequest/>} />
 
 
         <Route path = "findwork" element = {<FindWork />} />

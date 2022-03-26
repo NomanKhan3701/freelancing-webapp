@@ -125,6 +125,14 @@
               font-weight: 700;
             }
           }
+
+          &:hover {
+            color: rgb(88, 84, 84);
+          }
+
+          &:hover i {
+            color: rgb(177, 31, 31);
+          }
         }
 
         

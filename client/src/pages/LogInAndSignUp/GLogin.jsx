@@ -56,7 +56,7 @@ function GLogin(props){
         console.log('[Login failed] res : ', res);
     }
     return (
-        <div >
+        <div className="glogin">
             <GoogleLogin
                 clientId = {process.env.client_id}
                 onSuccess = {onSuccess}
