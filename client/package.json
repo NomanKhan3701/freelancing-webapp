@@ -21,6 +21,7 @@
     "emoji-picker-react": "^3.5.1",
     "font-awesome": "^4.7.0",
     "framer-motion": "^6.2.8",
+    "multiselect-react-dropdown": "^2.0.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-button": "^0.7.2",
