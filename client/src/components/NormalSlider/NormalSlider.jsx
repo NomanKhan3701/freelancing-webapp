@@ -38,7 +38,11 @@ const NormalSlider = () => {
     }else{
       category = target.getElementsByTagName("div")[0].textContent.toLowerCase().replace(/\W/g, '');
     }
-    navigate(`/findtalent/${category}`);
+    navigate(`/findtalent/category`, {
+      state:{
+        category: category,
+      }
+    });
   }
 
   //binary to image converter

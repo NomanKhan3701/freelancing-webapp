@@ -63,7 +63,7 @@ function GLogin(props){
                 onFailure = {onFailure}
                 cookiePolicy = {'single_host_origin'}
                 render = {(renderProps) => (
-                  <div onClick={renderProps.onClick} className="gLoginbtn">
+                  <div onClick={renderProps.onClick} className = "gLoginbtn">
                     <i className='bx bxl-google '></i>
                     <span className="context">{context} with Google</span>
                   </div>

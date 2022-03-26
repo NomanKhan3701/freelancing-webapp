@@ -104,7 +104,7 @@ app.post('/findwork/bid', (req, res, err) => {
       res.status(500).send('An error occurred', err);
     }
     else {
-      Bids.find({workId: req.body.id}, (errorrr, bids) => {
+      Bids.Bid.find({workId: req.body.id}, (errorrr, bids) => {
         if(errorrr){
           console.log(errorrr);
         }
@@ -118,7 +118,8 @@ app.post('/findwork/bid', (req, res, err) => {
   });
 });
 
-app.post('/findwork/bid/newComment', (req, res, err) => {
+app.post('/findwork/bid/newComment', (req, res, err) => {  
+
   console.log(req.body);
   const body = req.body;
   if(err){
@@ -129,6 +130,22 @@ app.post('/findwork/bid/newComment', (req, res, err) => {
     workId: body.workId,
     username: body.username,
     desc: body.desc,
+  });
+  res.send({result: result});
+});
+
+app.post('/findwork/bid/newBid', (req, res, err) => {
+
+  const body = req.body;
+  if(err){
+    console.log(err);
+  }
+  const addBid = Bids.addBid;
+  const result = addBid({
+    workId: body.workId,
+    username: body.username,
+    desc: body.desc,
+    amount: body.amount,
   });
   console.log(result);
   res.send({result: result});

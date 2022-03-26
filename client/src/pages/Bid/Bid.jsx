@@ -20,6 +20,10 @@ const Bid = () => {
   const [newComment, setNewComment] = useState("");
   const [otherBids, setOtherBids] = useState();
   const [avgBid, setAvgBid] = useState();
+  const [bidInformation, setBidInformation] = useState({
+    amount: "",
+    desc: ""
+  });
 
   useEffect(() => {
     //here get wasnt working with passing object so used post,
@@ -51,6 +55,7 @@ const Bid = () => {
       desc: comment,
     };
     setNewComment("");
+    
     axios.post("http://localhost:8080/findwork/bid/newComment", object)
       .then((response) => {
         if(response.data.result === 4){
@@ -62,6 +67,38 @@ const Bid = () => {
         console.log(err);
       })
   } 
+
+  const bidDataChange = (event) => {
+    
+    const {name, value} = event.target;
+    setBidInformation((bidInformation) => {
+      return ({
+        ...bidInformation,
+        [name]: value,
+      });
+    })
+  }
+
+  const addNewBid = () => {
+
+    const object = {
+      ...bidInformation,
+      username: localStorage.getItem("username"),
+      workId: work.id,
+    }
+    axios.post("http://localhost:8080/findwork/bid/newBid", object)
+      .then((response) => {
+        if(response.data.result === 4){
+          //new bid added successfully
+          alert("new bid added successfully.");
+          navigate("/");
+        }else if(response.data.result === 3){
+          alert("only one bid per user.");
+        }
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
 
   return (
     <div className = "bid">
@@ -86,12 +123,15 @@ const Bid = () => {
           </div>
           <div className = "form">
             <div className = "price">
-              <input type = "text" placeholder = "Your Bid In Rupees..." />
+              <input type = "text" name = "amount" placeholder = "Your Bid In Rupees..." 
+              value = {bidInformation.amount} onChange = {bidDataChange}/>
             </div>
-            <div className="desc">
-              <textarea name="desc" />
+            <div className = "desc">
+              <textarea name = "desc" placeholder = "description in more than 100 characters" 
+              value = {bidInformation.desc} onChange = {bidDataChange}/>
             </div>
-            <div className="btn">Bid Now</div>
+            <input type="file" id="myFile" name = "filename"></input>
+            <div className = "btn" onClick = {addNewBid}>Bid Now</div>
           </div>
         </div>
         <div className = "comments-container">
@@ -134,7 +174,7 @@ const Bid = () => {
                   <div className = "user-info">
                     <img src = {clientImg} alt = "user image" />
                     <div className = "user-name">{bid.username}</div>
-                  </div>
+                  </div>  
                   <div className = "flex">
                     <div className = "price">Price : {bid.amount}₹</div>
                     <div className = "star">Rating : 4.9</div>

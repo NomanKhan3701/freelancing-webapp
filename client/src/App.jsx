@@ -13,7 +13,7 @@ import {
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
-import { Category } from "@material-ui/icons";
+import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         <Route path = "findtalent" element = {<FindTalent />} />
         
         {/* //write category component, post component */}
-        <Route path = "/findtalent/:category" element = {<Category />} />        
+        <Route path = "/findtalent/category" element = {<FindTalentParams />} />        
         <Route path = "/findtalent/post" element = {<h1>Nothing to render yet</h1>} />
 
 
