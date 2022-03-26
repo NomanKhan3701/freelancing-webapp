@@ -14,6 +14,8 @@ import {
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
+import FindWorkParams from "./pages/FindWork/FindWorkParams";
+
 
 function App() {
   return (
@@ -27,7 +29,8 @@ function App() {
         <Route path = "/findtalent/post" element = {<h1>Nothing to render yet</h1>} />
 
 
-        <Route path = "findwork" element = {<FindWork />} />
+        <Route path = "/findwork" element = {<FindWork />} />
+        <Route path = "/findwork/category" element = {<FindWorkParams />} />
         <Route path = "/findwork/bid" element = {<Bid/>}/>
 
         <Route path = "findpartner" element = {<FindPartner />} />

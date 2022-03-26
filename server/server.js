@@ -64,8 +64,51 @@ app.get('/findtalent', (req, res, err) => {
   });
 });
 
+app.get('/findtalent/:category', (req, res, err) => {
+  
+  if(err){
+    console.log(err);
+  }
+  const findWorkData = findWorkDataModel.FindWorkData;
+  const FindWorkFilterData = findWorkDataModel.FindWorkFilterData;
+
+  findWorkData.find({}, (error, items) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('An error occurred', err);
+    }
+    else {
+      FindWorkFilterData.find({}, (error, filterData) => {
+        if (error) {
+          console.log(error);
+          res.status(500).send('An error occurred', err);
+        }
+        else 
+          res.send({ items: items, filterData: filterData });
+      });
+    }
+  });
+});
+
 app.get('/findwork', (req, res, err) => {
 
+  if(err){
+    console.log(err);
+  }
+  categoryImgModel.find({}, (error, items) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send('An error occurred', err);
+    }
+    else {
+      res.send({ items: items });
+    }
+  });
+});
+
+app.get('/findwork/:category', (req, res, err) => {
+
+  const category = req.params.category;
   if(err){
     console.log(err);
   }
