@@ -15,7 +15,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 
+
 function App() {
+  
   return (
     <BrowserRouter className = "App">
       <Routes>

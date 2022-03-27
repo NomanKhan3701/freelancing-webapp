@@ -27,6 +27,7 @@ function GLogin(props){
                     break;
                 case 4:
                     //new user created successfully
+                    localStorage.setItem('loggedIn','true');
                     navigate("/");
                     break;
                 case 5:
@@ -34,6 +35,7 @@ function GLogin(props){
                     break;
                 case 6:
                     //login succesfull
+                    localStorage.setItem('loggedIn','true');
                     navigate("/");
                     break;
                 default:
