@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Footer, Navbar } from "../../components/import";
+import { Footer, Navbar } from "../../components/import";
 import "./FindWork.scss";
 import { InfoPagination } from "../../components/import";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 
-const FindTalentParams = () => {
-
+const FindWork = (props) => {
+  
   let navigate = useNavigate();
-  const { state } = useLocation();
+  const {state} = useLocation();
   const [isLoading, setLoading] = useState(true);
-  const [originalTalents, setOriginalTalents] = useState();
-  const [talents, settalents] = useState();
+  const [originalWorks, setOriginalWorks] = useState();
+  const [works, setworks] = useState();
   const [filterData, setFilterData] = useState();
   const [skills, setSkills] = useState();
 
   useEffect(() => {
-    
-    axios.get(`http://localhost:8080/findtalent/${state.category}`)
+    // axios.get(`http://localhost:8080/findwork/${state.category}`)
+    // .then(function (response) {
+    //   if(works === undefined){
+    //     setworks(response.data.items);
+    //     setOriginalWorks(response.data.items);
+    //     setFilterData(response.data.filterData);
+    //   }
+    //   if(skills === undefined){
+    //     setSkills(response.data.filterData[0].skills);
+    //   }
+    //   setLoading(false);
+    // })
+    axios.get(`http://localhost:8080/findwork/${state.category}`)
     .then(function (response) {
-      if(talents === undefined){
-        settalents(response.data.items);
-        setOriginalTalents(response.data.items);
+      if(works === undefined){
+        setworks(response.data.items);
+        setOriginalWorks(response.data.items);
         setFilterData(response.data.filterData);
       }
       if(skills === undefined){
@@ -42,15 +53,30 @@ const FindTalentParams = () => {
     return <LoadingSpinner />;
   }
 
-  const visitProfile = (event) => {
-      let username;
-      const target = event.target;
-    //   navigate("/profile", {
-    //       state: {
-    //           username: username;
-    //       }
-    //   });
-    navigate("/userProfile");
+  const bid = (event) => {
+    const target = event.target.parentNode.parentNode.getElementsByClassName("bid-left")[0];
+    const workId = target.parentNode.id;  
+    const title = target.getElementsByClassName("title")[0].textContent;
+    const desc = target.getElementsByClassName("description")[0].textContent;
+    const skills = target.getElementsByClassName("skill");
+    let skillArray = [];
+
+    for(let i = 0 ; i < skills.length ; i++){
+      skillArray.push(skills[i].textContent);
+    }
+
+    const work = {
+      id: workId,
+      title: title,
+      desc: desc,
+      skills: skillArray,
+    }
+    
+    navigate("/findwork/bid",{
+      state: {
+        work: work
+      }
+    });
   }
 
   const renderBidBody = (work) => {
@@ -73,8 +99,8 @@ const FindTalentParams = () => {
           ₹{work.minBid} - ₹{work.maxBid}
         </div>
         <div className = "total-bid">{work.numberOfBids} bids</div>
-        <div className = "btn" onClick = {visitProfile}>
-          Visite Profile
+        <div className = "btn" onClick = {bid}>
+          Bid now
         </div>
       </div>
     </div>
@@ -96,6 +122,15 @@ const FindTalentParams = () => {
     setSkills(skillsForcategory);
   }
 
+  const dropdown = (data) => {
+      
+    if(data.category.replace(/\W/g, '').toLowerCase() === state.category.replace(/\W/g, '').toLowerCase()){
+      return (<option value = {data.category} key = {data.category} selected>{data.category}</option>);
+    }else{
+      return (<option value = {data.category} key = {data.category}>{data.category}</option>);
+    }
+  }
+
   const changeWorkData = (event) => {
 
     const checkboxArray = document.getElementsByClassName("checkbox");  
@@ -108,10 +143,10 @@ const FindTalentParams = () => {
       }
     }
 
-    for(let k = 0 ; k < originalTalents.length ; k++){
-      const work = originalTalents[k];
+    for(let k = 0 ; k < originalWorks.length ; k++){
+      const work = originalWorks[k];
       if(selectedSkills.length === 0){
-        settalents(originalTalents);
+        setworks(originalWorks);
         break;
       }
       const isPresent = (array, element) => {
@@ -136,16 +171,7 @@ const FindTalentParams = () => {
 
     }
 
-    settalents(newWorks);
-  }
-
-  const dropdown = (data) => {
-      
-    if(data.category.replace(/\W/g, '').toLowerCase() === state.category.replace(/\W/g, '').toLowerCase()){
-      return (<option value = {data.category} key = {data.category} selected>{data.category}</option>);
-    }else{
-      return (<option value = {data.category} key = {data.category}>{data.category}</option>);
-    }
+    setworks(newWorks);
   }
 
   return (
@@ -186,7 +212,7 @@ const FindTalentParams = () => {
           <div className = "user-bid-container">
             <InfoPagination
               limit = "3"
-              bodyData = {talents}
+              bodyData = {works}
               renderBody = {(item, index) => renderBidBody(item, index)}
             />
           </div>
@@ -197,4 +223,4 @@ const FindTalentParams = () => {
   );
 };
 
-export default FindTalentParams;
+export default FindWork;

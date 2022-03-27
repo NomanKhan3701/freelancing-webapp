@@ -12,13 +12,13 @@ import { Navigation } from "swiper";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 
-const NormalSlider = () => {
-  let navigate = useNavigate();
+const NormalSlider = (props) => {
+  let navigate = useNavigate();;
   const [isLoading, setLoading] = useState(true);
   const [items, setItems] = useState();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/findtalent')
+    axios.get(`http://localhost:8080/${props.type}`)
     .then(function (response) {
       setItems(response.data.items);
       setLoading(false);
@@ -31,6 +31,7 @@ const NormalSlider = () => {
   }
   
   const categorySelected = (event) => {
+
     const target = event.target;
     let category;
     if(target.classList[0] === "category-name"){
@@ -38,7 +39,7 @@ const NormalSlider = () => {
     }else{
       category = target.getElementsByTagName("div")[0].textContent.toLowerCase().replace(/\W/g, '');
     }
-    navigate(`/findtalent/category`, {
+    navigate(`/${props.type}/category`, {
       state:{
         category: category,
       }
@@ -47,6 +48,7 @@ const NormalSlider = () => {
 
   //binary to image converter
   const toBase64 = (arr) => {
+
     //arr = new Uint8Array(arr) if it's an ArrayBuffer
     return btoa(
        arr.reduce((data, byte) => data + String.fromCharCode(byte), '')

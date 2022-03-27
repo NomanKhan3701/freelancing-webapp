@@ -26,15 +26,15 @@ const InfoPagination = (props) => {
   };
 
   return (
-    <div className="info-pagination">
+    <div className = "info-pagination">
       {pages > 1 ? (
-        <div className="pagination margin-bottom">
+        <div className = "pagination margin-bottom">
           {range.map((item, index) => (
             <div
-              key={index}
-              className={`pagination-item ${currPage === index ? "active" : ""
+              key = {index}
+              className = {`pagination-item ${currPage === index ? "active" : ""
                 }`}
-              onClick={() => selectPage(index)}
+              onClick = {() => selectPage(index)}
             >
               {item + 1}
             </div>
@@ -49,13 +49,13 @@ const InfoPagination = (props) => {
         </>
       ) : null}
       {pages > 1 ? (
-        <div className="pagination">
+        <div className = "pagination">
           {range.map((item, index) => (
             <div
-              key={index}
-              className={`pagination-item ${currPage === index ? "active" : ""
+              key = {index}
+              className = {`pagination-item ${currPage === index ? "active" : ""
                 }`}
-              onClick={() => selectPage(index)}
+              onClick = {() => selectPage(index)}
             >
               {item + 1}
             </div>

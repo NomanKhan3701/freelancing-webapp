@@ -12,7 +12,7 @@ const FindTalent = () => {
       <div className = "categories-container">
         <h1>Categories</h1>
         <div className = "categories-slider">
-          <NormalSlider />
+          <NormalSlider type = "findtalent"/>
         </div>
       </div>
       <div className = "post-request">

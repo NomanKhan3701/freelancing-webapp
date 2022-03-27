@@ -14,6 +14,8 @@ import {
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
+import FindWorkParams from "./pages/FindWork/FindWorkParams";
+
 
 
 function App() {
@@ -29,7 +31,8 @@ function App() {
         <Route path = "/findtalent/post" element = {<PostRequest/>} />
 
 
-        <Route path = "findwork" element = {<FindWork />} />
+        <Route path = "/findwork" element = {<FindWork />} />
+        <Route path = "/findwork/category" element = {<FindWorkParams />} />
         <Route path = "/findwork/bid" element = {<Bid/>}/>
 
         <Route path = "findpartner" element = {<FindPartner />} />
