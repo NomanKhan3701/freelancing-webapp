@@ -2,6 +2,7 @@ import React from "react";
 import { GoogleLogin } from "react-google-login";
 import { refreshTokenSetup } from "./refreshToken";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const axios = require("axios").default;
 
 function GLogin(props){
@@ -12,9 +13,9 @@ function GLogin(props){
         console.log('[Login Success] CurrentUser:', res.profileObj);
         localStorage.setItem("username", res.profileObj.email);
         //redirect to home page with logo changed on right only if username and password matches
-        let onResult = (data) => {
+        let onResult = async (data) => {
             console.log("data is " + data );
-            switch(data){
+            switch (data){
                 case 1: 
                     //pop up on screen that username already exists
                     break;

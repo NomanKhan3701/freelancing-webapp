@@ -56,6 +56,55 @@
       }
     }
 
+    .category-select {
+      .react-dropdown-select {
+        margin: 0px auto;
+        margin-top: 20px;
+        width: 400px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: white;
+        border: 1px solid black;
+        border-radius: 60px;
+
+        input {
+          &:focus {
+            border: none;
+          }
+        }
+
+        .react-dropdown-select-dropdown {
+
+          
+          .react-dropdown-select-item {
+            padding: 10px;
+            &:hover {
+              background: #0096FB;
+            }
+            
+          }
+
+          input {
+            &:focus {
+              border: none;
+            }}
+          &::-webkit-scrollbar {
+            width: 8px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: rgb(124, 185, 197);
+            border-radius: 50px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: rgb(233, 231, 231);
+            border-radius: 50px;
+          }
+        }
+      }
+    }
+
     .skills-required {
       margin: 20px 0px;
       .multiselect-container {

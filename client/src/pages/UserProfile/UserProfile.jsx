@@ -8,7 +8,7 @@ const UserProfile = () => {
   return (
     <div className="user-profile-container">
       <Navbar />
-      <div className="user-profile">
+      <div className="user-profile-info">
         <div className="profile-header">
           {/* <div className="profile-banner">
             <img src={userBanner} alt="banner" />

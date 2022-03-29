@@ -80,6 +80,9 @@ const LoginSignUp = (props) => {
       const password = userLoginData.passwordLogin;
       if(username === "" || password === ""){
         //pop up
+        toast.error("Please enter all the field values",{
+          position: "top-right"
+        })
         return;
       }
       username1 = username;
@@ -90,9 +93,15 @@ const LoginSignUp = (props) => {
       const confirmPassword = userSignUpData.confirmPasswordSignUp;
       if(username === "" || password === "" || confirmPassword === ""){
         //pop up
+        toast.error("Please enter all the fields",{
+          position: "top-right"
+        })
         return;
       }else if(password !== confirmPassword){
         //pop up
+        toast.error("Password is not matching with confirm password",{
+          position: "top-right"
+        })
         return;
       }
       username1 = username;
