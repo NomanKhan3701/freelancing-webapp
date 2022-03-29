@@ -259,7 +259,7 @@ app.post('/findtalent/postwork', (req, res, err) => {
   });
   try{
     newPostWorkData.save();
-    res.result({result: 1});
+    res.send({result: 1});
   }catch(error){
     console.log(error);
   }

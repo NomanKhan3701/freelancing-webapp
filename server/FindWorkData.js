@@ -57,7 +57,7 @@ const FindWorkData = new mongoose.model('FindWorkData', findWorkDataSchema);
 
 const addWorkData = (data) => {
     //user posting this information
-    const {title, desc, qualifications} = data;
+    const {category, title, desc, qualifications, minBid, maxBid} = data;
     if(title.length < 10 || desc.length < 30 || qualifications.length < 1){
         return 1;
     }
@@ -65,6 +65,9 @@ const addWorkData = (data) => {
         title: title,
         desc: desc,
         qualifications: qualifications,
+        category: category,
+        minBid: minBid,
+        maxBid: maxBid, 
     });
     try{
         newWorkData.save();

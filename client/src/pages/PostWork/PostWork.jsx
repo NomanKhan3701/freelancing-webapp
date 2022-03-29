@@ -5,9 +5,11 @@ import "./PostWork.scss";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 import { Select } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 const PostWork = () => {
 
+  const navigate = useNavigate();
   const [sOptions, setSOptions] = useState([
     { value: "HTML" , label: "HTML"},
     { value: "CSS", label: "CSS" }, 
@@ -133,13 +135,14 @@ const PostWork = () => {
       .then((response) => {
           //response is the object that contains data sent from server
           //response.data is that data
-          console.log(response.data);
-          
       })
       .catch((err) => {
           console.log(err);
       });
+      navigate("/");
+          
   }
+
 
   return (
     <div className = "post-request">
@@ -165,16 +168,16 @@ const PostWork = () => {
         <div className = "dragDrop">
           <h1>{"{Select Files}"}</h1>
         </div>
-        {/* <div className = "category-select">
+        <div className = "category-select">
           <h1>Select a category</h1>
           <Select
             options = {sOptions}
           />
-        </div> */}
-        <div className = "skills-required">
+        </div>
+        {/* <div className = "skills-required">
           <h1>Category</h1>
           <Multiselect options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
-        </div>
+        </div> */}
         <div className = "skills-required">
           <h1>What skills are required</h1>
           <Multiselect options = {skills} displayValue = "Skill" onSelect = {onSelectSkills} onRemove = {onRemoveSkills} name = "skills"/>
