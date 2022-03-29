@@ -17,7 +17,9 @@ import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
 
 
+
 function App() {
+  
   return (
     <BrowserRouter className = "App">
       <Routes>
@@ -33,17 +35,17 @@ function App() {
         <Route path = "/findwork/category" element = {<FindWorkParams />} />
         <Route path = "/findwork/bid" element = {<Bid/>}/>
 
-        <Route path = "findpartner" element = {<FindPartner />} />
+        <Route path = "/findpartner" element = {<FindPartner />} />
         
-        <Route path = "freelancerprofile" element = {<FreelancerProfile />} />
+        <Route path = "/freelancerprofile" element = {<FreelancerProfile />} />
         
-        <Route path = "userprofile" element = {<UserProfile />} />
-        <Route path = "postrequest" element = {<PostWork />} />
+        <Route path = "/userprofile" element = {<UserProfile />} />
+        <Route path = "/postrequest" element = {<PostWork />} />
 
-        <Route path = "login" element = {<LoginSignup status="login" />} />
-        <Route path = "signup" element = {<LoginSignup status="signup" />} />
+        <Route path = "/login" element = {<LoginSignup status="login" />} />
+        <Route path = "/signup" element = {<LoginSignup status="signup" />} />
         
-        <Route path = "chat" element = {<Chat />} />
+        <Route path = "/chat" element = {<Chat />} />
         
         <Route
           path = "*"

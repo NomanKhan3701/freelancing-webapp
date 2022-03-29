@@ -4,19 +4,18 @@ import { Multiselect } from "multiselect-react-dropdown";
 import "./PostWork.scss";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+import { Select } from "@material-ui/core";
 
 const PostWork = () => {
 
-  const data = [
-    { Skill: "HTML" },
-    { Skill: "CSS" },
-    { Skill: "JavaScript" },
-    { Skill: "React" },
-    { Skill: "PHP" },
-    { Skill: "NodeJs" },
-    { Skill: "MongoDB" },
-  ];
-
+  const [sOptions, setSOptions] = useState([
+    { value: "HTML" , label: "HTML"},
+    { value: "CSS", label: "CSS" }, 
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "ReactJs",  label: "ReactJs" },
+    { value: "NodeJs",label: "NodeJs" },
+    { value: "MongoDB" ,label: "MongoDB"},
+  ]);
   const [isLoading, setLoading] = useState(true);
   const [postWorkData ,setPostWorkData ] = useState({
     title: "",
@@ -166,6 +165,12 @@ const PostWork = () => {
         <div className = "dragDrop">
           <h1>{"{Select Files}"}</h1>
         </div>
+        {/* <div className = "category-select">
+          <h1>Select a category</h1>
+          <Select
+            options = {sOptions}
+          />
+        </div> */}
         <div className = "skills-required">
           <h1>Category</h1>
           <Multiselect options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
@@ -180,7 +185,8 @@ const PostWork = () => {
           <span>to</span>
           <input type = "text" placeholder = "max" onChange = {onDataChange} name = "maxBid"/>
         </div>
-        <div className = "btn" onClick = {newPostForWork}>Post Project</div>
+        <div className = "btn" onClick = {newPostForWork}>Post Project
+        </div>
       </div>
     </div>
   );

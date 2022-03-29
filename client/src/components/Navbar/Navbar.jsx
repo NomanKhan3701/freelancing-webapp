@@ -111,6 +111,8 @@ const renderUserMenu = (item, index) => (
 
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
+  const [loggedIn,setLoggedIn] = useState(localStorage.getItem('loggedIn'));
+
   return (
     <div className="navbar">
       <div className="nav-menu">
@@ -139,7 +141,7 @@ const Navbar = (props) => {
       </div>
       <SearchAndLinks active="active" />
 
-      {props.loggedIn === "no" ? (
+      {loggedIn === "false" ? (
         <div className="nav-log-menu">
           <div className="nav-link">
             <NavLink to="/login">Log In</NavLink>
