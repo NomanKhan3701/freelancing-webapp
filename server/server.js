@@ -28,11 +28,12 @@ const corsOptions = {
    optionSuccessStatus:200,
 }
 
-const {createNewUser, isValidUser} = require("./database.js");
+const {createNewUser, isValidUser, UserSignUp} = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
 const commentsData = require("./WorkBidCommentsData");
 const Bids = require('./Bids');
+const { response } = require("express");
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.urlencoded({extended:false}));
@@ -44,8 +45,55 @@ app.post("/post", (req, res, err) => {
 
 app.post("/login", (req, res, err) => {
 
-  const result = isValidUser(req.body);
+  if(err){
+    //
+  }
+  const {username, password} = req.body;
+  isValidUser({username: username, password: password}).then((response) => {
+    console.log(response.result);
+    res.send({result: response.result});
+  }).catch(err => {
+    console.log("guyz error hai");
+  })
+  // let sent = false;
+  // UserSignUp.find({username: username, password: password}, function(err, users){
+  //   if(err)
+  //       console.log(err);
+  //   if(users.length == 0){
+  //     UserSignUp.find({username: username}, function(err, users){
+  //       if(err)
+  //           console.log(err);
+  //       if(users.length == 0){
+  //         res.send({result: 2});
+  //         return;
+  //       }
+  //       else{
+  //         res.send({result: 5});
+  //         return;
+  //       }
+  //     });
+  //   }
+    
+  //   res.send({result: result});
+  //   return;
+  // });
   //send to react the result code
+
+});
+
+app.post("/signup", (req, res, err) => {
+
+  if(err){
+    //
+  }
+  //user exist or user dont exist
+  let result;
+  try{
+    result = createNewUser(req.body);
+    res.send({result: result});
+  }catch(error){    
+    console.log("some error");
+  }
 });
 
 app.get('/findtalent', (req, res, err) => {
@@ -194,18 +242,26 @@ app.post('/findwork/bid/newBid', (req, res, err) => {
   res.send({result: result});
 });
 
-app.post("/signup", (req, res, err) => {
+app.post('/findtalent/postwork', (req, res, err) => {
 
   if(err){
-    //
+    console.log(err);
   }
-  //user exist or user dont exist
-  let result;
+  const body = req.body.postWorkData;
+  const FindWorkData = findWorkDataModel.FindWorkData;
+  const newPostWorkData = new FindWorkData({
+    title: body.title,
+    desc: body.desc,
+    category: body.category,
+    skills: body.skills,
+    minBid: body.minBid,
+    maxBid: body.maxBid,
+  });
   try{
-    result = createNewUser(req.body);
-    res.send({result: result});
-  }catch(error){    
-    console.log("some error");
+    newPostWorkData.save();
+    res.result({result: 1});
+  }catch(error){
+    console.log(error);
   }
 });
 

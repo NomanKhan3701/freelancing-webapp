@@ -20,6 +20,7 @@ const userSignUpSchema = new mongoose.Schema({
 });
 
 userSignUpSchema.pre("save", function (next) {
+  
     const user = this;
   
     if (this.isModified("password") || this.isNew) {
@@ -45,6 +46,7 @@ userSignUpSchema.pre("save", function (next) {
 const UserSignUp = mongoose.model("UserSignUp", userSignUpSchema);
 
 var createNewUser = (data) => {
+
     let username = data.username;
     let userExistWithUsername = doesUsernameExist(username);
     if(userExistWithUsername === 1){
@@ -57,12 +59,18 @@ var createNewUser = (data) => {
         username: data.username,
         password: data.password
     });
-    newUser.save();
-    return 4;
+    try{
+      newUser.save();
+      return 4;
+    }catch(error){
+      console.log(error);
+    }
+    return 0;
 }
 
-const doesUsernameExist = (username) => {
-  const arr = UserSignUp.find({username: username}, function(err, users){
+const doesUsernameExist = async (username) => {
+  
+  const wait = await UserSignUp.find({username: username}, function(err, users){
     if(err)
         console.log(err);
     if(users.length == 0){
@@ -72,23 +80,28 @@ const doesUsernameExist = (username) => {
   });             
 }
 
-const isValidUser = (user) => {
+const isValidUser = async (user) => {
+  console.log("amigos");
+  let result;
   const {username, password} = user;
-  const arr = UserSignUp.find({username: username, password: password}, function(err, users){
+  const data = await UserSignUp.find({username: username, password: password}, function(err, users){
     if(err)
         console.log(err);
     if(users.length == 0){
       if(doesUsernameExist(username) === 1){
-        return 5;
+        result = 5;
       }
-      return 2;
+      result = 2;
     }
-    return 6;
+    result = 6;
   });
+  console.log("result : " + result);
+  return result;
 }
 
-module.exports = {createNewUser, isValidUser}
+module.exports = {createNewUser, isValidUser, UserSignUp}
 
+//0 something wrong with database
 //1 user exist with username
 //2 user doesnt exist with username
 //3 user exist with username and google SIGN UP trying, 

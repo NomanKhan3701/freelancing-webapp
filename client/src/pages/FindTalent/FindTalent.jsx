@@ -17,7 +17,7 @@ const FindTalent = () => {
       </div>
       <div className = "post-request">
         <h1>Start a bid for your project</h1>
-        <div className = "btn"><Link to = '/findtalent/post'>Post a Request</Link></div>
+        <div className = "btn"><Link to = '/findtalent/postwork'>Post a Request</Link></div>
       </div>
       <div className = "recommended-container">
         <h1>Recommended gigs</h1>

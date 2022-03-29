@@ -7,6 +7,7 @@ import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
+import { NavLink } from "react-router-dom";
 
 const axios = require("axios").default;
 
@@ -103,6 +104,7 @@ const LoginSignUp = (props) => {
       .then((response) => {
           //response is the object that contains data sent from server
           //response.data is that data
+          console.log(response.data);
           if(response.data.result === 3 || response.data.result === 4){
             localStorage.setItem("username", username1);
           }

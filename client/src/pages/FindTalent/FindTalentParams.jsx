@@ -43,8 +43,8 @@ const FindTalentParams = () => {
   }
 
   const visitProfile = (event) => {
-      let username;
-      const target = event.target;
+    let username;
+    const target = event.target;
     //   navigate("/profile", {
     //       state: {
     //           username: username;

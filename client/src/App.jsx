@@ -8,7 +8,7 @@ import {
   FreelancerProfile,
   Home,
   LoginSignup,
-  PostRequest,
+  PostWork,
   UserProfile,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -26,7 +26,7 @@ function App() {
         
         {/* //write category component, post component */}
         <Route path = "/findtalent/category" element = {<FindTalentParams />} />        
-        <Route path = "/findtalent/post" element = {<PostRequest/>} />
+        <Route path = "/findtalent/postwork" element = {<PostWork/>} />
 
 
         <Route path = "/findwork" element = {<FindWork />} />
@@ -38,7 +38,7 @@ function App() {
         <Route path = "freelancerprofile" element = {<FreelancerProfile />} />
         
         <Route path = "userprofile" element = {<UserProfile />} />
-        <Route path = "postrequest" element = {<PostRequest />} />
+        <Route path = "postrequest" element = {<PostWork />} />
 
         <Route path = "login" element = {<LoginSignup status="login" />} />
         <Route path = "signup" element = {<LoginSignup status="signup" />} />

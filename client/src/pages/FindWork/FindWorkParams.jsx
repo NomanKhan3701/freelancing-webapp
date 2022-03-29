@@ -17,18 +17,7 @@ const FindWork = (props) => {
   const [skills, setSkills] = useState();
 
   useEffect(() => {
-    // axios.get(`http://localhost:8080/findwork/${state.category}`)
-    // .then(function (response) {
-    //   if(works === undefined){
-    //     setworks(response.data.items);
-    //     setOriginalWorks(response.data.items);
-    //     setFilterData(response.data.filterData);
-    //   }
-    //   if(skills === undefined){
-    //     setSkills(response.data.filterData[0].skills);
-    //   }
-    //   setLoading(false);
-    // })
+      
     axios.get(`http://localhost:8080/findwork/${state.category}`)
     .then(function (response) {
       if(works === undefined){
