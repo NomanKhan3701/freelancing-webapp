@@ -128,8 +128,32 @@ const PostWork = () => {
     });
   }
 
+  const isValidToNavigate = () => {
+
+    const title = document.querySelector('input[name = title]').value;
+    const desc = document.querySelector('textarea[name = desc]').value;
+    const category = document.getElementById("category").getElementsByTagName("span")[0].innerText;
+    const skills = [];
+    const minBid = document.querySelector('input[name = minBid]').value;
+    const maxBid = document.querySelector('input[name = maxBid]').value;
+    
+    for(let i = 0 ; i < document.getElementById("skills").getElementsByTagName("span").length ; i++){
+      skills.push(document.getElementById("skills").getElementsByTagName("span")[i].innerText);
+    }
+    
+    if(title && desc && category && minBid && maxBid && skills !== undefined && skills !== null && skills.length > 0){
+      navigate("/");
+      return true;
+    }
+    return false;
+  }
+
   const newPostForWork = (event) => {
 
+    const goAhead = isValidToNavigate();
+    if(!goAhead){
+      return;
+    }
     axios
       .post(`http://localhost:8080/findtalent/postwork`, {postWorkData: postWorkData})
       .then((response) => {
@@ -139,8 +163,7 @@ const PostWork = () => {
       .catch((err) => {
           console.log(err);
       });
-      navigate("/");
-          
+      
   }
 
 
@@ -168,19 +191,19 @@ const PostWork = () => {
         <div className = "dragDrop">
           <h1>{"{Select Files}"}</h1>
         </div>
-        <div className = "category-select">
+        {/* <div className = "category-select">
           <h1>Select a category</h1>
           <Select
             options = {sOptions}
           />
-        </div>
-        {/* <div className = "skills-required">
-          <h1>Category</h1>
-          <Multiselect options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
         </div> */}
         <div className = "skills-required">
+          <h1>Category</h1>
+          <Multiselect id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
+        </div>
+        <div className = "skills-required">
           <h1>What skills are required</h1>
-          <Multiselect options = {skills} displayValue = "Skill" onSelect = {onSelectSkills} onRemove = {onRemoveSkills} name = "skills"/>
+          <Multiselect id = "skills" options = {skills} displayValue = "Skill" onSelect = {onSelectSkills} onRemove = {onRemoveSkills} name = "skills"/>
         </div>
         <div className = "budget">
           <h1>Enter your budget</h1>

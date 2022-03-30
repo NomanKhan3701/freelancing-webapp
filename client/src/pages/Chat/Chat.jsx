@@ -8,10 +8,11 @@ import {
 import "./Chat.scss";
 
 const Chat = () => {
+  
   return (
-    <div className="chat-container">
-      <div className="chat">
-        <ChatSidebar loggedIn="true"/>
+    <div className = "chat-container">
+      <div className = "chat">
+        <ChatSidebar loggedIn = "true"/>
         <ChatMiddle />
         <ChatMain />
       </div>

@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose"); 
 const cors = require("cors");
 
 var fs = require('fs');
@@ -19,6 +18,7 @@ var storage = multer.diskStorage({
     }
 });
 var upload = multer({ storage: storage });
+
 var categoryImgModel = require('./categoryData');
 var findWorkDataModel = require('./FindWorkData');
 
@@ -33,7 +33,6 @@ const { json } = require("body-parser");
 const { log } = require("console");
 const commentsData = require("./WorkBidCommentsData");
 const Bids = require('./Bids');
-const { response } = require("express");
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.urlencoded({extended:false}));
