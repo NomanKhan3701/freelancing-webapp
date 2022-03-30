@@ -10,13 +10,13 @@
       display: flex;
       flex-direction: column;
       height: calc(100vh - 110px);
-      width: 40%;
       background: white;
       box-shadow: var(--box-shadow);
       border-radius: 40px;
       margin-right: 20px;
       padding: 20px;
-      min-width: 300px;
+      min-width: 340px;
+      max-width: 341px;
 
       .filter {
         text-align: center;
@@ -96,6 +96,7 @@
       border-radius: 40px;
       padding: 20px;
       margin-bottom: 70px;
+      width: calc(100% - 340px);
 
       .user-bid {
         display: flex;
