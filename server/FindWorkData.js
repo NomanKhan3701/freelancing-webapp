@@ -55,7 +55,20 @@ const findWorkFilterDataSchema = new mongoose.Schema({
 const FindWorkFilterData = new mongoose.model("FindWorkFilterData", findWorkFilterDataSchema);
 const FindWorkData = new mongoose.model('FindWorkData', findWorkDataSchema);
 
+const getWorkData = async () => {
+
+    const data = await FindWorkData.find({});
+    return data;
+}
+
+const getWorkFilterData = async () => {
+
+    const data = await FindWorkFilterData.find({});
+    return data;
+}
+
 const addWorkData = (data) => {
+
     //user posting this information
     const {category, title, desc, qualifications, minBid, maxBid} = data;
     if(title.length < 10 || desc.length < 30 || qualifications.length < 1){
@@ -77,7 +90,7 @@ const addWorkData = (data) => {
     return 4;
 }
 
-module.exports = {FindWorkData, addWorkData, FindWorkFilterData};
+module.exports = {getWorkData, addWorkData, getWorkFilterData};
 
 //1 - insufficient data
 //4 - successfully added the data

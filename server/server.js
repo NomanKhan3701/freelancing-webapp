@@ -19,20 +19,19 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-var categoryImgModel = require('./categoryData');
-var findWorkDataModel = require('./FindWorkData');
-
 const corsOptions = {
    origin:'*', 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
 
+const {categoryImageData} = require('./categoryData');
+const {getWorkData, getWorkFilterData, FindWorkData} = require('./FindWorkData');
 const {createNewUser, isValidUser, UserSignUp} = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
-const commentsData = require("./WorkBidCommentsData");
-const Bids = require('./Bids');
+const {getWorkBidCommentsData, addCommentToWorkBid} = require("./WorkBidCommentsData");
+const {getBids, addBid} = require('./Bids');
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
 app.use(bodyParser.urlencoded({extended:false}));
@@ -50,33 +49,10 @@ app.post("/login", (req, res, err) => {
   const {username, password} = req.body;
   isValidUser({username: username, password: password}).then((response) => {
     res.send({result: response});
-  }).catch(err => {
-    console.log(err);
+  }).catch(error => {
+    console.log(error);
+    res.status(500).send('An error occurred', error);
   })
-  // let sent = false;
-  // UserSignUp.find({username: username, password: password}, function(err, users){
-  //   if(err)
-  //       console.log(err);
-  //   if(users.length == 0){
-  //     UserSignUp.find({username: username}, function(err, users){
-  //       if(err)
-  //           console.log(err);
-  //       if(users.length == 0){
-  //         res.send({result: 2});
-  //         return;
-  //       }
-  //       else{
-  //         res.send({result: 5});
-  //         return;
-  //       }
-  //     });
-  //   }
-    
-  //   res.send({result: result});
-  //   return;
-  // });
-  //send to react the result code
-
 });
 
 app.post("/signup", (req, res, err) => {
@@ -99,14 +75,10 @@ app.get('/findtalent', (req, res, err) => {
   if(err){
     console.log(err);
   }
-  categoryImgModel.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      res.send({ items: items });
-    }
+  categoryImageData().then(response => {
+    res.send({ items: response });
+  }).catch(error => {
+    console.log(error);
   });
 });
 
@@ -115,25 +87,16 @@ app.get('/findtalent/:category', (req, res, err) => {
   if(err){
     console.log(err);
   }
-  const findWorkData = findWorkDataModel.FindWorkData;
-  const FindWorkFilterData = findWorkDataModel.FindWorkFilterData;
-
-  findWorkData.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      FindWorkFilterData.find({}, (error, filterData) => {
-        if (error) {
-          console.log(error);
-          res.status(500).send('An error occurred', err);
-        }
-        else 
-          res.send({ items: items, filterData: filterData });
-      });
-    }
-  });
+  try{
+    getWorkData().then(items => {
+      getWorkFilterData().then(filterData => {
+        res.send({ items: items, filterData: filterData });
+      })
+    });
+  }catch(error){
+    console.log(error);
+    res.status(500).send('An error occurred', err);
+  }
 });
 
 app.get('/findwork', (req, res, err) => {
@@ -141,42 +104,28 @@ app.get('/findwork', (req, res, err) => {
   if(err){
     console.log(err);
   }
-  categoryImgModel.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      res.send({ items: items });
-    }
+  categoryImageData().then(response => {
+    res.send({ items: response });
+  }).catch(err => {
+    console.log(err);
   });
 });
 
 app.get('/findwork/:category', (req, res, err) => {
 
-  const category = req.params.category;
   if(err){
     console.log(err);
   }
-  const findWorkData = findWorkDataModel.FindWorkData;
-  const FindWorkFilterData = findWorkDataModel.FindWorkFilterData;
-
-  findWorkData.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      FindWorkFilterData.find({}, (error, filterData) => {
-        if (error) {
-          console.log(error);
-          res.status(500).send('An error occurred', err);
-        }
-        else 
-          res.send({ items: items, filterData: filterData });
-      });
-    }
-  });
+  try{
+    getWorkData().then(items => {
+      getWorkFilterData().then(filterData => {
+        res.send({ items: items, filterData: filterData });
+      })
+    });
+  }catch(error){
+    console.log(error);
+    res.status(500).send('An error occurred', error);
+  }
 });
 
 //this was supposed to be get requst but we have manipulated using post
@@ -185,59 +134,60 @@ app.post('/findwork/bid', (req, res, err) => {
   if(err){
     console.log(err);
   }
-  const workBidCommentsData = commentsData.WorkBidCommentsData;
-  
-  workBidCommentsData.find({workId: req.body.id}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      Bids.Bid.find({workId: req.body.id}, (errorrr, bids) => {
-        if(errorrr){
-          console.log(errorrr);
-        }
+  const workId = req.body.id;
+  try{
+    getWorkBidCommentsData(workId).then(items => {
+      getBids(workId).then(bids => {
         let totalBids = 0;
-        for(let i = 0 ; i < bids.length ; i++){
-          totalBids += bids[i].amount;
-        }
-        res.send({items: items, bids: bids, avgBid: totalBids/bids.length});  
+          for(let i = 0 ; i < bids.length ; i++){
+            totalBids += bids[i].amount;
+          }
+          res.send({items: items, bids: bids, avgBid: totalBids/bids.length});
       })
-    }
-  });
+    });
+  }catch(error){
+    console.log(error);
+    res.status(500).send('An error occurred', error);
+  }
 });
 
 app.post('/findwork/bid/newComment', (req, res, err) => {  
 
-  console.log(req.body);
-  const body = req.body;
   if(err){
     console.log(err);
   }
-  const addCommentToWorkBid = commentsData.addCommentToWorkBid;
-  const result = addCommentToWorkBid({
-    workId: body.workId,
-    username: body.username,
-    desc: body.desc,
-  });
-  res.send({result: result});
+  const body = req.body;
+  try{
+    const result = addCommentToWorkBid({
+      workId: body.workId,
+      username: body.username,
+      desc: body.desc,
+    });
+    res.send({result: result});
+  }catch(error){
+    console.log(error);
+    res.status(500).send('An error occurred', error);
+  }
 });
 
 app.post('/findwork/bid/newBid', (req, res, err) => {
 
-  const body = req.body;
   if(err){
     console.log(err);
   }
-  const addBid = Bids.addBid;
-  const result = addBid({
-    workId: body.workId,
-    username: body.username,
-    desc: body.desc,
-    amount: body.amount,
-  });
-  console.log(result);
-  res.send({result: result});
+  const body = req.body;
+  try{
+    const result = addBid({
+      workId: body.workId,
+      username: body.username,
+      desc: body.desc,
+      amount: body.amount,
+    });
+    res.send({result: result});
+  }catch(error){
+    console.log(error);
+    res.status(500).send('An error occurred', error);
+  }
 });
 
 app.post('/findtalent/postwork', (req, res, err) => {
@@ -246,7 +196,6 @@ app.post('/findtalent/postwork', (req, res, err) => {
     console.log(err);
   }
   const body = req.body.postWorkData;
-  const FindWorkData = findWorkDataModel.FindWorkData;
   const newPostWorkData = new FindWorkData({
     title: body.title,
     desc: body.desc,
@@ -260,6 +209,7 @@ app.post('/findtalent/postwork', (req, res, err) => {
     res.send({result: 1});
   }catch(error){
     console.log(error);
+    res.status(500).send('An error occurred', error);
   }
 });
 
