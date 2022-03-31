@@ -74,6 +74,7 @@ const LoginSignUp = (props) => {
   }
 
   const loginOrSubmit = (event) => {
+
     const context = event.target.getAttribute("name");
     let username1, password1;
     if(context === "login"){
@@ -108,15 +109,16 @@ const LoginSignUp = (props) => {
       username1 = username;
       password1 = password;
     }
+    
     axios
       .post(`http://localhost:8080/${context.toLowerCase()}`, {username: username1, password: password1})
       .then((response) => {
           //response is the object that contains data sent from server
           //response.data is that data
-          console.log(response.data);
           if(response.data.result === 3 || response.data.result === 4){
             localStorage.setItem("username", username1);
           }
+          console.log(response.data.result);
           onResult(response.data.result);
       })
       .catch((err) => {
@@ -125,7 +127,7 @@ const LoginSignUp = (props) => {
   }
 
   let onResult = (data) => {
-    console.log("data is " + data );
+
     switch(data){
         case 1: 
             //pop up on screen that username already exists

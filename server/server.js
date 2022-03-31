@@ -49,10 +49,9 @@ app.post("/login", (req, res, err) => {
   }
   const {username, password} = req.body;
   isValidUser({username: username, password: password}).then((response) => {
-    console.log(response.result);
-    res.send({result: response.result});
+    res.send({result: response});
   }).catch(err => {
-    console.log("guyz error hai");
+    console.log(err);
   })
   // let sent = false;
   // UserSignUp.find({username: username, password: password}, function(err, users){
