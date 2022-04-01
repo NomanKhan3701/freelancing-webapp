@@ -1,7 +1,9 @@
 import React from "react";
 import { Navbar } from "../../components/import";
+import { motion } from "framer-motion";
 import "./UserProfile.scss";
 import userBanner from "../../assets/images/bgUser.jpg";
+
 import userImg from "../../assets/images/Cha2.jpg";
 
 const UserProfile = () => {
@@ -13,40 +15,73 @@ const UserProfile = () => {
           {/* <div className="profile-banner">
             <img src={userBanner} alt="banner" />
           </div> */}
-          <div className="user-img">
+          <motion.div
+            initial={{opacity: 0, translateX: -200 }}
+            animate={{opacity: 1, translateX: 0 }}
+            transition={{ duration: 1, ease:"linear"}}
+          className="user-img">
             <img src={userImg} alt="" />
-          </div>
+          </motion.div>
           <div className="user-info">
-            <h1 className="user-name">BNC</h1>
-            <div className="desc">
+            <motion.h1 
+            initial={{opacity: 0, translateY: -200 }}
+            animate={{opacity: 1, translateY: 0 }}
+            transition={{ duration: 1, ease: "linear"}}
+            className="user-name">BNC</motion.h1>
+            <motion.div 
+              initial={{opacity: 0, translateX: 400 }}
+              animate={{opacity: 1, translateX: 0 }}
+              transition={{ duration: 1, ease:"linear"}}
+            className="desc">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatem in suscipit corporis voluptatibus. Tempore, fugiat non
               distinctio ipsa, commodi amet veritatis, molestias porro libero
               dolorum itaque voluptatibus at explicabo! Fugiat!
-            </div>
+            </motion.div>
           </div>
         </div>
         <div className="profile-main">
           <div className="contact-info">
             <div className="contact">
-              <div className="contact-item">
-                <i class="bx bxs-phone"></i>
+              <motion.div 
+                 initial={{opacity: 0, translateX: -100 }}
+                 animate={{opacity: 1, translateX: 0 }}
+                 transition={{ duration: 1, ease:"linear"}}
+                className="contact-item">
+                <i className="bx bxs-phone"></i>
                 <div>9278237823</div>
-              </div>
-              <div className="contact-item">
-                <i class="bx bxl-gmail"></i>
+              </motion.div>
+              <motion.div 
+               initial={{opacity: 0, translateX: -200 }}
+               animate={{opacity: 1, translateX: 0 }}
+               transition={{ duration: 1, ease:"linear"}}
+              className="contact-item">
+                <i className="bx bxl-gmail"></i>
                 <div>BNC.rules3701@gmail.com</div>
-              </div>
-              <div className="contact-item">
-                <i class="bx bxs-home"></i>
+              </motion.div>
+              <motion.div 
+               initial={{opacity: 0, translateX: -200 }}
+               animate={{opacity: 1, translateX: 0 }}
+               transition={{ duration: 1, ease:"linear"}}
+              className="contact-item">
+                <i className="bx bxs-home"></i>
                 <div>
                   Bhavans Campus, Old D N Nagar, Munshi Nagar, Andheri West,
                   Mumbai, Maharashtra 400058
                 </div>
+              </motion.div>
+            </div>
+          </div>
+          <div className="main-container">
+            <div className="latest-work-posted">
+              <h1>Latest work posted</h1>
+              <div className="cards">
+                <div className="card">
+
+                </div>
               </div>
             </div>
           </div>
-          <div className="main-container"></div>
         </div>
       </div>
     </div>
