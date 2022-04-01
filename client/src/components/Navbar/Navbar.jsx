@@ -94,29 +94,34 @@ const renderUserToggle = (user) => (
   </div>
 );
 
-const renderUserMenu = (item, index) => {
-  if (item.content === "Logout") {
-    return (
-      <a href="/" key={index}>
-        <div className="user-menu-item">
-          <span>{item.content}</span>
-        </div>
-      </a>
-    );
-  } else {
-    return (
-      <a href="/" key={index}>
-        <div className="user-menu-item">
-          <span>{item.content}</span>
-        </div>
-      </a>
-    );
-  }
-};
-
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
+
+  const logout = () => {
+    localStorage.setItem("loggedIn",false);
+    setLoggedIn('false');
+  }
+  
+  const renderUserMenu = (item, index) => {
+    if (item.content === "Logout") {
+      return (
+        <a key={index} onClick={logout}>
+          <div className="user-menu-item">
+            <span>{item.content}</span>
+          </div>
+        </a>
+      );
+    } else {
+      return (
+        <a href="/" key={index}>
+          <div className="user-menu-item">
+            <span>{item.content}</span>
+          </div>
+        </a>
+      );
+    }
+  };
 
   return (
     <div className="navbar">

@@ -1,24 +1,16 @@
 .slider-threeD-container {
+  width: 100%;
+
+  .swiper {
     width: 100%;
+    padding-top: 50px;
+    padding-bottom: 200px;
+  }
 
-    .swiper {
-        width: 100%;
-        padding-top: 50px;
-        padding-bottom: 200px;
-      }
-      
-      .swiper-slide {
-        background-position: center;
-        background-size: cover;
-        width: 300px;
-  height: 400px;
-
-        .card {
-
-        }
-      }
-      
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px;
+    height: 400px;
+  }
 }
-
-
-  
