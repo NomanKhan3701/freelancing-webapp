@@ -16,28 +16,28 @@ const SearchAndLinks = (props) => {
 
   return (
     <>
-      <div className = {`search-container ${props.active}`}>
-        <input type = "text" placeholder="Search here..." />
-        <Search className = "i" />
+      <div className={`search-container ${props.active}`}>
+        <input type="text" placeholder="Search here..." />
+        <Search className="i" />
       </div>
-      <div className = {`nav-links-container ${props.active}`}>
-        <div className = "nav-link">
-          <NavLink style = {navLinkStyle} to = "/">
+      <div className={`nav-links-container ${props.active}`}>
+        <div className="nav-link">
+          <NavLink style={navLinkStyle} to="/">
             Home
           </NavLink>
         </div>
-        <div className = "nav-link">
-          <NavLink style = {navLinkStyle} to = "/findtalent">
+        <div className="nav-link">
+          <NavLink style={navLinkStyle} to="/findtalent">
             Find talent
           </NavLink>
         </div>
-        <div className = "nav-link">
-          <NavLink style = {navLinkStyle} to = "/findwork">
+        <div className="nav-link">
+          <NavLink style={navLinkStyle} to="/findwork">
             Find work
           </NavLink>
         </div>
-        <div className = "nav-link">
-          <NavLink style = {navLinkStyle} to = "/findpartner">
+        <div className="nav-link">
+          <NavLink style={navLinkStyle} to="/findpartner">
             Find partner
           </NavLink>
         </div>
@@ -54,17 +54,10 @@ const curr_user = {
 const message_notification = [{}];
 
 const renderMessageToggle = () => (
-      <div className="chat-dropdown">
-        Message(5)
-      </div>
+  <div className="chat-dropdown">Message(5)</div>
 );
 
-
-const renderOrderToggle = () => (
-      <div className="order-dropdown">
-        Order(2)
-      </div>
-);
+const renderOrderToggle = () => <div className="order-dropdown">Order(2)</div>;
 
 const renderFooter = () => {};
 
@@ -101,17 +94,29 @@ const renderUserToggle = (user) => (
   </div>
 );
 
-const renderUserMenu = (item, index) => (
-  <a href="/" key={index}>
-    <div className="user-menu-item">
-      <span>{item.content}</span>
-    </div>
-  </a>
-);
+const renderUserMenu = (item, index) => {
+  if (item.content === "Logout") {
+    return (
+      <a href="/" key={index}>
+        <div className="user-menu-item">
+          <span>{item.content}</span>
+        </div>
+      </a>
+    );
+  } else {
+    return (
+      <a href="/" key={index}>
+        <div className="user-menu-item">
+          <span>{item.content}</span>
+        </div>
+      </a>
+    );
+  }
+};
 
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
-  const [loggedIn,setLoggedIn] = useState(localStorage.getItem('loggedIn'));
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
 
   return (
     <div className="navbar">
@@ -162,10 +167,11 @@ const Navbar = (props) => {
             />
           </div>
           <div className="order-notify">
-            <Dropdown 
-            customToggle={() => renderOrderToggle()}
-            contentData={user_menu}
-            renderItems={(item, index) => renderUserMenu(item, index)}/>
+            <Dropdown
+              customToggle={() => renderOrderToggle()}
+              contentData={user_menu}
+              renderItems={(item, index) => renderUserMenu(item, index)}
+            />
           </div>
           <div className="user-profile">
             <Dropdown
