@@ -4,15 +4,20 @@ import "swiper/css";
 import Cha from '../../assets/images/Cha2.jpg'
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-
+import userImg from "../../assets/images/Cha2.jpg";
 import "./SliderThreeD.scss";
 
 import { EffectCoverflow, Autoplay } from "swiper";
+import Card from "./../Card/Card"
+import { useNavigate } from "react-router";
 
 const ReviewSlider = () => {
+  
+  const navigate = useNavigate();
   const gigSelected = (event) => {
     console.log(event.target);
     //left work to do, getting the user id, then going to user profile or dashboard
+    navigate("/userprofile");
   }
   return (
     <div className = "slider-threeD-container">
@@ -36,32 +41,105 @@ const ReviewSlider = () => {
         modules = {[EffectCoverflow, Autoplay]}
         className = "mySwiper"
       >
-        <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-1.jpg" />
+      <SwiperSlide onClick = {gigSelected}>
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-2.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-3.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-4.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-5.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-6.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-7.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = "https://swiperjs.com/demos/images/nature-8.jpg" />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
         <SwiperSlide onClick = {gigSelected}>
-          <img src = {Cha} />
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
+        </SwiperSlide>
+        <SwiperSlide onClick = {gigSelected}>
+          <Card 
+              headerImg = "https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+              userImg = {userImg}
+              name = "shreyash"
+              desc = "Inventor"
+              rating = "not required"
+              startPrice = "u cant afford me" 
+            />
         </SwiperSlide>
       </Swiper>
     </div>
