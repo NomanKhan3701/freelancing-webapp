@@ -108,7 +108,6 @@ const Navbar = (props) => {
   };
 
   const renderUserMenu = (item, index) => {
-    console.log(item.link)
     if (item.content === "Logout") {
       return (
         <a className="no-link" key={index} onClick={logout}>
