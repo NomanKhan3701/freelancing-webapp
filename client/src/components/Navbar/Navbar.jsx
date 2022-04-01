@@ -2,10 +2,13 @@ import { Dehaze, Search } from "@material-ui/icons";
 import { motion } from "framer-motion";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
+
 
 const SearchAndLinks = (props) => {
   const navLinkStyle = ({ isActive }) => {
@@ -64,24 +67,23 @@ const renderFooter = () => {};
 const user_menu = [
   {
     content: "Profile",
+    link: '/userprofile'
   },
   {
     content: "Dashboard",
+    link: '/'
   },
   {
     content: "Manage Requests",
+    link: '/'
   },
   {
     content: "Post a Request",
-  },
-  {
-    content: "Settings",
-  },
-  {
-    content: "English",
+    link: '/postrequest'
   },
   {
     content: "My wallet",
+    link: '/'
   },
   {
     content: "Logout",
@@ -97,16 +99,19 @@ const renderUserToggle = (user) => (
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
+  let navigate = useNavigate(); 
 
   const logout = () => {
-    localStorage.setItem("loggedIn",false);
-    setLoggedIn('false');
-  }
-  
+    localStorage.setItem("loggedIn", false);
+    setLoggedIn("false");
+    navigate('/');
+  };
+
   const renderUserMenu = (item, index) => {
+    console.log(item.link)
     if (item.content === "Logout") {
       return (
-        <a key={index} onClick={logout}>
+        <a className="no-link" key={index} onClick={logout}>
           <div className="user-menu-item">
             <span>{item.content}</span>
           </div>
@@ -114,11 +119,11 @@ const Navbar = (props) => {
       );
     } else {
       return (
-        <a href="/" key={index}>
-          <div className="user-menu-item">
-            <span>{item.content}</span>
-          </div>
-        </a>
+        <Link to={item.link} key={index}>
+        <div className="user-menu-item">
+          <span>{item.content}</span>
+        </div>
+      </Link>
       );
     }
   };

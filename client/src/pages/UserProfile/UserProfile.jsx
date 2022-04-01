@@ -16,23 +16,28 @@ const UserProfile = () => {
             <img src={userBanner} alt="banner" />
           </div> */}
           <motion.div
-            initial={{opacity: 0, translateX: -200 }}
-            animate={{opacity: 1, translateX: 0 }}
-            transition={{ duration: 1, ease:"linear"}}
-          className="user-img">
+            initial={{ opacity: 0, translateX: -200 }}
+            animate={{ opacity: 1, translateX: 0 }}
+            transition={{ duration: 1, ease: "linear" }}
+            className="user-img"
+          >
             <img src={userImg} alt="" />
           </motion.div>
           <div className="user-info">
-            <motion.h1 
-            initial={{opacity: 0, translateY: -200 }}
-            animate={{opacity: 1, translateY: 0 }}
-            transition={{ duration: 1, ease: "linear"}}
-            className="user-name">BNC</motion.h1>
-            <motion.div 
-              initial={{opacity: 0, translateX: 400 }}
-              animate={{opacity: 1, translateX: 0 }}
-              transition={{ duration: 1, ease:"linear"}}
-            className="desc">
+            <motion.h1
+              initial={{ opacity: 0, translateY: -200 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 1, ease: "linear" }}
+              className="user-name"
+            >
+              BNC
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, translateX: 400 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              transition={{ duration: 1, ease: "linear" }}
+              className="desc"
+            >
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatem in suscipit corporis voluptatibus. Tempore, fugiat non
               distinctio ipsa, commodi amet veritatis, molestias porro libero
@@ -43,27 +48,30 @@ const UserProfile = () => {
         <div className="profile-main">
           <div className="contact-info">
             <div className="contact">
-              <motion.div 
-                 initial={{opacity: 0, translateX: -100 }}
-                 animate={{opacity: 1, translateX: 0 }}
-                 transition={{ duration: 1, ease:"linear"}}
-                className="contact-item">
+              <motion.div
+                initial={{ opacity: 0, translateX: -100 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1, ease: "linear" }}
+                className="contact-item"
+              >
                 <i className="bx bxs-phone"></i>
                 <div>9278237823</div>
               </motion.div>
-              <motion.div 
-               initial={{opacity: 0, translateX: -200 }}
-               animate={{opacity: 1, translateX: 0 }}
-               transition={{ duration: 1, ease:"linear"}}
-              className="contact-item">
+              <motion.div
+                initial={{ opacity: 0, translateX: -200 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1, ease: "linear" }}
+                className="contact-item"
+              >
                 <i className="bx bxl-gmail"></i>
                 <div>BNC.rules3701@gmail.com</div>
               </motion.div>
-              <motion.div 
-               initial={{opacity: 0, translateX: -200 }}
-               animate={{opacity: 1, translateX: 0 }}
-               transition={{ duration: 1, ease:"linear"}}
-              className="contact-item">
+              <motion.div
+                initial={{ opacity: 0, translateX: -200 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1, ease: "linear" }}
+                className="contact-item"
+              >
                 <i className="bx bxs-home"></i>
                 <div>
                   Bhavans Campus, Old D N Nagar, Munshi Nagar, Andheri West,
@@ -75,10 +83,51 @@ const UserProfile = () => {
           <div className="main-container">
             <div className="latest-work-posted">
               <h1>Latest work posted</h1>
-              <div className="cards">
-                <div className="card">
-
-                </div>
+              <div className="work-cards">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                >
+                  
+                </motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
               </div>
             </div>
           </div>
