@@ -22,7 +22,6 @@ const userSignUpSchema = new mongoose.Schema({
 userSignUpSchema.pre("save", function (next) {
   
     const user = this;
-  
     if (this.isModified("password") || this.isNew) {
       bcrypt.genSalt(saltRounds, function (saltError, salt) {
         if (saltError) {
@@ -70,32 +69,53 @@ var createNewUser = (data) => {
 
 const doesUsernameExist = async (username) => {
   
-  const wait = await UserSignUp.find({username: username}, function(err, users){
+  let result;
+  await UserSignUp.find({username: username}, function(err, users){
     if(err)
         console.log(err);
     if(users.length == 0){
-      return 2;
+      result = 2;
+    }else{
+      result = 1;
     }
-    return 1;
-  });             
+  }).clone().catch((error) => {
+    console.log(error);
+  });     
+  return result;        
+}
+
+const UserSignUpFindData = async (username, passwordEnteredByUser) => {
+
+  let result;
+  let data = await UserSignUp .find({username: username});
+
+  //we can make all the mongoose functions wait using await as below and dont have to worry about callback,
+  //bcrypt.compare(passwordEnteredByUser, hash, function(err, isMatch) {
+  //   if (err) {
+  //     throw err
+  //   } else if (!isMatch) {
+  //     console.log("Password doesn't match!")
+  //   } else {
+  //     console.log("Password matches!")
+  //   }
+  // })
+  //this will get cahgned to as below, 
+  // const match = await bcrypt.compare(passwordEnteredByUser, hashedPasswordFromDB);
+
+  const hashedPasswordFromDB = data[0].password;
+  const match = await bcrypt.compare(passwordEnteredByUser, hashedPasswordFromDB);
+  if(data.length === 0)
+    result = 2;
+  else
+    result = match ? 6 : 5;
+  return result;
 }
 
 const isValidUser = async (user) => {
-  console.log("amigos");
+
   let result;
-  const {username, password} = user;
-  const data = await UserSignUp.find({username: username, password: password}, function(err, users){
-    if(err)
-        console.log(err);
-    if(users.length == 0){
-      if(doesUsernameExist(username) === 1){
-        result = 5;
-      }
-      result = 2;
-    }
-    result = 6;
-  });
-  console.log("result : " + result);
+  let {username, password} = user;
+  result = await UserSignUpFindData(username, password);
   return result;
 }
 
@@ -109,3 +129,4 @@ module.exports = {createNewUser, isValidUser, UserSignUp}
 //4 user didnt exist created succesfully new user
 //5 username matched but not password
 //6 username and password matched
+//7 username exist have to check if password matches or not

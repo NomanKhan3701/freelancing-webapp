@@ -16,28 +16,28 @@ const SearchAndLinks = (props) => {
 
   return (
     <>
-      <div className={`search-container ${props.active}`}>
-        <input type="text" placeholder="Search here..." />
-        <Search className="i" />
+      <div className = {`search-container ${props.active}`}>
+        <input type = "text" placeholder="Search here..." />
+        <Search className = "i" />
       </div>
-      <div className={`nav-links-container ${props.active}`}>
-        <div className="nav-link">
-          <NavLink style={navLinkStyle} to="/">
+      <div className = {`nav-links-container ${props.active}`}>
+        <div className = "nav-link">
+          <NavLink style = {navLinkStyle} to = "/">
             Home
           </NavLink>
         </div>
-        <div className="nav-link">
-          <NavLink style={navLinkStyle} to="/findtalent">
+        <div className = "nav-link">
+          <NavLink style = {navLinkStyle} to = "/findtalent">
             Find talent
           </NavLink>
         </div>
-        <div className="nav-link">
-          <NavLink style={navLinkStyle} to="/findwork">
+        <div className = "nav-link">
+          <NavLink style = {navLinkStyle} to = "/findwork">
             Find work
           </NavLink>
         </div>
-        <div className="nav-link">
-          <NavLink style={navLinkStyle} to="/findpartner">
+        <div className = "nav-link">
+          <NavLink style = {navLinkStyle} to = "/findpartner">
             Find partner
           </NavLink>
         </div>

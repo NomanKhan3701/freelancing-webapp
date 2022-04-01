@@ -74,7 +74,7 @@ const NormalSlider = (props) => {
           let imageData = toBase64(item.img.data.data); 
           let imageSrc = imagetype + ";base64," + imageData;
           return (
-            <SwiperSlide onClick = {categorySelected} key = {item.img._id}>
+            <SwiperSlide onClick = {categorySelected} key = {item._id}>
               <img src = {imageSrc} />
               <div className = "category-name">
                 {item.category}
