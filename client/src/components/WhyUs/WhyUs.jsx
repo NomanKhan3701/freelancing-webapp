@@ -16,9 +16,10 @@ const WhyUs = () => {
   useEffect(() => {
     AOS.init({
       duration: 1500,
-      offset: 120, // offset (in px) from the original trigger point
+      offset: 250, // offset (in px) from the original trigger point
       delay: 0, // values from 0 to 3000, with step 50ms
       easing: "ease",
+      anchorPlacement: "top-center",
     });
   }, []);
   return (
@@ -72,7 +73,7 @@ const WhyUs = () => {
       <div className="whyUs-bottom">
         <h1>What's great about it?</h1>
         <div className="content-container">
-          <div  data-aos="fade-right" className="content">
+          <div data-aos="fade-right" className="content">
             <div className="content-header">
               <SearchTwoTone />
               <h3>Browse portfolios</h3>
@@ -82,7 +83,7 @@ const WhyUs = () => {
               previous work and reading their profile reviews.
             </div>
           </div>
-          <div  data-aos="fade-up" className="content">
+          <div data-aos="fade-up" className="content">
             <div className="content-header">
               <AutorenewSharp />
               <h3>Fast bids</h3>
@@ -92,7 +93,7 @@ const WhyUs = () => {
               80% of projects get bid on within 60 seconds.
             </div>
           </div>
-          <div  data-aos="fade-down" className="content">
+          <div data-aos="fade-down" className="content">
             <div className="content-header">
               <PresentToAllSharp />
               <h3>Quality work</h3>
@@ -102,7 +103,7 @@ const WhyUs = () => {
               globally- over 50 million to choose from.
             </div>
           </div>
-          <div  data-aos="fade-left" className="content">
+          <div data-aos="fade-left" className="content">
             <div className="content-header">
               <SearchTwoTone />
               <h3>Browse portfolios</h3>
