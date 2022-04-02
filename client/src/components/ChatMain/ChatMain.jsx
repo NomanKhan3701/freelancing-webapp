@@ -19,7 +19,7 @@ import {
 
 var socket = io("http://localhost:8080");
 
-const ChatMain = () => {
+const ChatMain = (props) => {
   //disabling the serializable check
   const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false,
@@ -32,7 +32,8 @@ const ChatMain = () => {
   const sender = localStorage.getItem("username");
   //react hooks
   const [isLoading, setLoading] = useState(true);
-  const [chatData, setChatData] = useState();
+  const [chatData, setChatData] = useState(props.chatData);
+  const [findalData, setFinalData] = useState(chatMainData);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -78,13 +79,14 @@ const ChatMain = () => {
   }, [ENDPOINT]);
   useEffect(() => {
     socket.on("message", (msg) => {
-      const message = {
-        username: sender,
-        message: msg,
-        time: new Date(),
-      };
-
-      dispatch(update(newChatMainDataFunction(chatMainData, message)));
+      // for (let i = 0; i < chatData.length; i++) {
+      //   if (chatData[i].room === msg.usernames) {
+      //   }
+      // }
+      console.log(chatMainData);
+      console.log("message");
+      console.log(newChatMainDataFunction(chatMainData, msg));
+      dispatch(update(newChatMainDataFunction(chatMainData, msg)));
     });
   }, []);
   if (isLoading) {
@@ -119,7 +121,8 @@ const ChatMain = () => {
       message: msg,
       time: new Date(),
     };
-
+    console.log("new data");
+    console.log(newChatMainDataFunction(chatMainData, message));
     dispatch(update(newChatMainDataFunction(chatMainData, message)));
     socket.emit("sendMessage", { room, message }, (error) => {
       if (error) {
