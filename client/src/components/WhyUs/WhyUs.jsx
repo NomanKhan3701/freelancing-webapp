@@ -15,8 +15,8 @@ import "aos/dist/aos.css";
 const WhyUs = () => {
   useEffect(() => {
     AOS.init({
-      duration: 750,
-      offset: 250, // offset (in px) from the original trigger point
+      duration: 1000,
+      offset: 300, // offset (in px) from the original trigger point
       delay: 0, // values from 0 to 3000, with step 50ms
       easing: "ease",
       anchorPlacement: "top-center",

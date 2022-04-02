@@ -1,6 +1,5 @@
 .whyUs {
     padding: 60px var(--nav-padding);
-    overflow-x: hidden;
 
     .whyUs-top {
         margin-bottom: 80px;
@@ -25,7 +24,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    overflow: hidden;
 
     .content {
         height: 190px;
