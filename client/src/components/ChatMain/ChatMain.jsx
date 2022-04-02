@@ -20,13 +20,17 @@ import {
 var socket = io("http://localhost:8080");
 
 const ChatMain = () => {
+  //disabling the serializable check
   const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false,
   });
+  //redux
   const chatMainData = useSelector(selectChatMainData);
   const dispatch = useDispatch();
   console.log(chatMainData);
+  //browser
   const sender = localStorage.getItem("username");
+  //react hooks
   const [isLoading, setLoading] = useState(true);
   const [chatData, setChatData] = useState();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -38,6 +42,7 @@ const ChatMain = () => {
   // const [room, setRoom] = useState();
   const room = "shreyashnoman";
 
+  //to update the variable in all redux
   const newChatMainDataFunction = (data, message) => {
     return {
       ...data,
@@ -72,14 +77,15 @@ const ChatMain = () => {
     };
   }, [ENDPOINT]);
   useEffect(() => {
-    socket.on("message", (message) => {});
-    const message = {
-      username: sender,
-      message: msg,
-      time: new Date(),
-    };
+    socket.on("message", (msg) => {
+      const message = {
+        username: sender,
+        message: msg,
+        time: new Date(),
+      };
 
-    dispatch(update(newChatMainDataFunction(chatMainData, message)));
+      dispatch(update(newChatMainDataFunction(chatMainData, message)));
+    });
   }, []);
   if (isLoading) {
     return <LoadingSpinner />;

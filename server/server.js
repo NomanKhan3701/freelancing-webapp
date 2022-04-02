@@ -268,6 +268,7 @@ app.get("/chat/:username/:usernameToConnect", (req, res, err) => {
 
 //have u closed the connction and there things do here first.
 io.on("connection", (socket) => {
+  console.log(socket.id);
   // console.log("connected successfully.");
   socket.on("join", ({ username1, username2 }, callback) => {
     // console.log("tying to get" + username1 + username2);
@@ -291,11 +292,16 @@ io.on("connection", (socket) => {
     });
   });
   socket.on("sendMessage", ({ room, message }, callback) => {
-    console.log("room issssssssssss");
-    console.log(room);
-    console.log("message + " + message);
+    // console.log("room issssssssssss");
+    // console.log(room);
+    // console.log("message + " + message);
     addDataToChat(room, message);
     socket.broadcast.to(room).emit("message", message);
+    console.log("room");
+    console.log(room);
+    const clients = io.sockets.adapter.rooms.get(room);
+    console.log("clients");
+    console.log(clients);
   });
   socket.on("disconnect", (usernamne) => {
     // socket.broadcast.to(room).emit("offline", usernamne);
