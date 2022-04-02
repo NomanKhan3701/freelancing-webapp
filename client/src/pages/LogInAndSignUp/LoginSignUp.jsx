@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
@@ -13,19 +13,19 @@ const axios = require("axios").default;
 
 const LoginSignUp = (props) => {
   //to redirect after cliking signUp or login option on LoginSignUp page
-  let navigate = useNavigate(); 
-  const routeChangeToSignUp = () =>{ 
-    let path = `/signup`; 
+  let navigate = useNavigate();
+  const routeChangeToSignUp = () => {
+    let path = `/signup`;
     navigate(path);
     toggle();
-  }
-  
-  const routeChangeToLogin = () =>{ 
-    let path = `/login`; 
+  };
+
+  const routeChangeToLogin = () => {
+    let path = `/login`;
     navigate(path);
     toggle();
-  }
-  
+  };
+
   const toggle = () => {
     const container = document.querySelector(".login-signup-container");
     container.classList.toggle("login");
@@ -33,9 +33,9 @@ const LoginSignUp = (props) => {
   };
 
   useEffect(() => {
-    const container  =  document.querySelector(".login-signup-container");
+    const container = document.querySelector(".login-signup-container");
     container.classList.add(`${props.status}`);
-    //ask noman before removing 
+    //ask noman before removing
     // setTimeout(() => {
     //   const container  =  document.querySelector(".login-signup-container");
     //   container.classList.add(`${props.status}`);
@@ -45,178 +45,218 @@ const LoginSignUp = (props) => {
   const [userSignUpData, setUserSignUpData] = useState({
     usernameSignUp: "",
     passwordSignUp: "",
-    confirmPasswordSignUp: ""
+    confirmPasswordSignUp: "",
   });
-  
+
   const [userLoginData, setUserLoginData] = useState({
     usernameLogin: "",
-    passwordLogin: ""
+    passwordLogin: "",
   });
 
   const loginDataChange = (event) => {
-    const {value, name} = event.target;
+    const { value, name } = event.target;
     setUserLoginData((prevValue) => {
       return {
         ...prevValue,
-        [name]: value
+        [name]: value,
       };
     });
-  }
+  };
 
   const signUpDataChange = (event) => {
-    const {value, name} = event.target;
+    const { value, name } = event.target;
     setUserSignUpData((prevValue) => {
       return {
         ...prevValue,
-        [name]: value
+        [name]: value,
       };
     });
-  }
+  };
 
   const loginOrSubmit = (event) => {
-
     const context = event.target.getAttribute("name");
     let username1, password1;
-    if(context === "login"){
+    if (context === "login") {
       const username = userLoginData.usernameLogin;
       const password = userLoginData.passwordLogin;
-      if(username === "" || password === ""){
+      if (username === "" || password === "") {
         //pop up
-        toast.error("Please enter all the field values",{
-          position: "top-right"
-        })
+        toast.error("Please enter all the field values", {
+          position: "top-right",
+        });
         return;
       }
       username1 = username;
       password1 = password;
-    }else{
+    } else {
       const username = userSignUpData.usernameSignUp;
       const password = userSignUpData.passwordSignUp;
       const confirmPassword = userSignUpData.confirmPasswordSignUp;
-      if(username === "" || password === "" || confirmPassword === ""){
+      if (username === "" || password === "" || confirmPassword === "") {
         //pop up
-        toast.error("Please enter all the fields",{
-          position: "top-right"
-        })
+        toast.error("Please enter all the fields", {
+          position: "top-right",
+        });
         return;
-      }else if(password !== confirmPassword){
+      } else if (password !== confirmPassword) {
         //pop up
-        toast.error("Password is not matching with confirm password",{
-          position: "top-right"
-        })
+        toast.error("Password is not matching with confirm password", {
+          position: "top-right",
+        });
         return;
       }
       username1 = username;
       password1 = password;
     }
-    
+
     axios
-      .post(`http://localhost:8080/${context.toLowerCase()}`, {username: username1, password: password1})
+      .post(`http://localhost:8080/${context.toLowerCase()}`, {
+        username: username1,
+        password: password1,
+      })
       .then((response) => {
-          //response is the object that contains data sent from server
-          //response.data is that data
-          if(response.data.result === 3 || response.data.result === 4){
-            localStorage.setItem("username", username1);
-          }
-          console.log(response.data.result);
-          onResult(response.data.result);
+        //response is the object that contains data sent from server
+        //response.data is that data
+        if (
+          response.data.result === 3 ||
+          response.data.result === 4 ||
+          response.data.result === 6
+        ) {
+          localStorage.setItem("username", username1);
+          localStorage.setItem("loggedIn", true);
+        }
+        console.log(response.data.result);
+        onResult(response.data.result);
       })
       .catch((err) => {
-          console.log(err);
-      });     
-  }
+        console.log(err);
+      });
+  };
 
   let onResult = (data) => {
+    switch (data) {
+      case 1:
+        //pop up on screen that username already exists
+        toast.error("Username already exist", {
+          position: "top-right",
+        });
+        break;
+      case 2:
+        //nothing
+        break;
+      case 3:
+        //user exist with username and google signUP trying
+        navigate("/");
+        break;
+      case 4:
+        //new user created successfully
 
-    switch(data){
-        case 1: 
-            //pop up on screen that username already exists
-            toast.error("Username already exist",{
-              position: "top-right"
-            })
-            break;
-        case 2:
-            //nothing
-            break;
-        case 3: 
-            //user exist with username and google signUP trying
-            navigate("/");
-            break;
-        case 4:
-            //new user created successfully
-            
-            navigate("/");
-            break;
-        case 5:
-            //username matched not password
-            toast.error("Username or password not matched",{
-              position: "top-right"
-            })
-            break;
-        case 6:
-            //login succesfull
-            navigate("/");
-            break;
-        default:
-            //    
+        navigate("/");
+        break;
+      case 5:
+        //username matched not password
+        toast.error("Username or password not matched", {
+          position: "top-right",
+        });
+        break;
+      case 6:
+        //login succesfull
+        navigate("/");
+        break;
+      default:
+      //
     }
-}
+  };
 
   return (
-    <div className = "login-signup-container">
-        <div className = "row">
-        <div className = "col align-items-center flex-col">
-          <div className = "form-wrapper align-items-center signup">
-            <div className = "form">
-              <div className = "input-group">
-                <i className = "bx bxs-user"></i>
-                <input type = "text" name = "usernameSignUp" value = {userSignUpData.username} placeholder = "Username" onChange={signUpDataChange}/>
+    <div className="login-signup-container">
+      <div className="row">
+        <div className="col align-items-center flex-col">
+          <div className="form-wrapper align-items-center signup">
+            <div className="form">
+              <div className="input-group">
+                <i className="bx bxs-user"></i>
+                <input
+                  type="text"
+                  name="usernameSignUp"
+                  value={userSignUpData.username}
+                  placeholder="Username"
+                  onChange={signUpDataChange}
+                />
               </div>
-              <div className = "input-group">
-                <i className = "bx bxs-lock-alt"></i>
-                <input type = "password" name = "passwordSignUp" value = {userSignUpData.password} placeholder = "Password" onChange={signUpDataChange}/>
+              <div className="input-group">
+                <i className="bx bxs-lock-alt"></i>
+                <input
+                  type="password"
+                  name="passwordSignUp"
+                  value={userSignUpData.password}
+                  placeholder="Password"
+                  onChange={signUpDataChange}
+                />
               </div>
-              <div className = "input-group">
-                <i className = "bx bxs-lock-alt"></i>
-                <input type = "password" name = "confirmPasswordSignUp" value = {userSignUpData.confirmPassword} placeholder = "Confirm Password" onChange={signUpDataChange}/>
+              <div className="input-group">
+                <i className="bx bxs-lock-alt"></i>
+                <input
+                  type="password"
+                  name="confirmPasswordSignUp"
+                  value={userSignUpData.confirmPassword}
+                  placeholder="Confirm Password"
+                  onChange={signUpDataChange}
+                />
               </div>
-              <div className = "btn" name = "signup" onClick = {loginOrSubmit}>Sign Up</div>
+              <div className="btn" name="signup" onClick={loginOrSubmit}>
+                Sign Up
+              </div>
               <p>
                 <b>Forgot Password?</b>
               </p>
               <p>
                 <span>Have an account? </span>
-                <b onClick = {routeChangeToLogin}>Log In</b>
+                <b onClick={routeChangeToLogin}>Log In</b>
               </p>
             </div>
           </div>
-          <div className = "social-wrapper signup">
-            <GLogin context = "SignUp"></GLogin>       
+          <div className="social-wrapper signup">
+            <GLogin context="SignUp"></GLogin>
           </div>
         </div>
-        <div className = "col align-items-center flex-col">
-          <div className = "form-wrapper align-items-center login">
-            <div className = "form">
-              <div className = "input-group">
-                <i className = "bx bxs-user"></i>
-                <input type = "text" name = "usernameLogin" value = {userLoginData.username} placeholder = "Username" onChange = {loginDataChange}/>
+        <div className="col align-items-center flex-col">
+          <div className="form-wrapper align-items-center login">
+            <div className="form">
+              <div className="input-group">
+                <i className="bx bxs-user"></i>
+                <input
+                  type="text"
+                  name="usernameLogin"
+                  value={userLoginData.username}
+                  placeholder="Username"
+                  onChange={loginDataChange}
+                />
               </div>
-              <div className = "input-group">
-                <i className = "bx bxs-lock-alt"></i>
-                <input type = "password" name = "passwordLogin" value = {userLoginData.password} placeholder = "Password" onChange = {loginDataChange}/>
+              <div className="input-group">
+                <i className="bx bxs-lock-alt"></i>
+                <input
+                  type="password"
+                  name="passwordLogin"
+                  value={userLoginData.password}
+                  placeholder="Password"
+                  onChange={loginDataChange}
+                />
               </div>
-              <div className = "btn" name = "login" onClick = {loginOrSubmit}>Log in</div>
+              <div className="btn" name="login" onClick={loginOrSubmit}>
+                Log in
+              </div>
               <p>
                 <b>Forgot Password?</b>
               </p>
               <p>
                 <span>Don't have an account? </span>
-                <b onClick = {routeChangeToSignUp}>Sign up</b>
+                <b onClick={routeChangeToSignUp}>Sign up</b>
               </p>
             </div>
           </div>
-          <div className = "social-wrapper login">
-            <GLogin context = "Login"></GLogin> 
+          <div className="social-wrapper login">
+            <GLogin context="Login"></GLogin>
           </div>
         </div>
       </div>

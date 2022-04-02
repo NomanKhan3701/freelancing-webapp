@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ChatMiddle.scss";
 import { Dehaze, Search } from "@material-ui/icons";
 import peopleImg1 from "../../assets/images/Cha2.jpg";
@@ -12,7 +12,7 @@ const ChatMiddle = () => {
         <Search className="i" />
       </div>
       <div className="people-container">
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -24,7 +24,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -36,7 +36,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -48,7 +48,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -60,7 +60,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -72,7 +72,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -84,7 +84,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -96,7 +96,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -108,7 +108,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -120,7 +120,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -132,7 +132,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -144,7 +144,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -156,7 +156,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -168,7 +168,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -180,7 +180,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -192,7 +192,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -204,7 +204,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -216,7 +216,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
@@ -228,7 +228,7 @@ const ChatMiddle = () => {
             <div className="last-chat-time">09:00pm</div>
           </div>
         </div>
-        <div className="person-wrapper">
+        <div className="person-wrserverer">
           <div className="person">
             <div className="person-img">
               <img src={peopleImg1} alt="" />
