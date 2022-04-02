@@ -31,7 +31,7 @@ function App() {
         <Route path = "/findtalent/postwork" element = {<PostWork/>} />
 
 
-        <Route path = "/findwork" element = {<FindWork />} />
+        <Route path = "/findwork" element = {<FindWork type="findwork"/>} />
         <Route path = "/findwork/category" element = {<FindWorkParams />} />
         <Route path = "/findwork/bid" element = {<Bid/>}/>
 
