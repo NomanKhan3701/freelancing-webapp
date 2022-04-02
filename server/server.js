@@ -47,8 +47,16 @@ const {
   addCommentToWorkBid,
 } = require("./WorkBidCommentsData");
 const { getBids, addBid } = require("./Bids");
-const { getRoomNo, addNewUsersToChat } = require("./UserAndChatRoom");
-const { getChatData, addDataToChat } = require("./ChatData");
+const {
+  getRoomNo,
+  addNewUsersToChat,
+  findAllRoomsWithGivenUser,
+} = require("./UserAndChatRoom");
+const {
+  addDataToChat,
+  getChatDataWithRoom,
+  getChatDataWithOneUsername,
+} = require("./ChatData");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -246,7 +254,12 @@ app.get("/chat/:username", (req, res, err) => {
   if (err) {
     console.log(err);
   }
-  findAll;
+  const username = req.params.username;
+  findAllRoomsWithGivenUser(username).then((chats) => {
+    getChatDataWithOneUsername(username).then((chatData) => {
+      res.send({ chats: chats, chatData: chatData });
+    });
+  });
 });
 
 app.get("/chat/:username/:usernameToConnect", (req, res, err) => {
@@ -255,24 +268,24 @@ app.get("/chat/:username/:usernameToConnect", (req, res, err) => {
 
 //have u closed the connction and there things do here first.
 io.on("connection", (socket) => {
-  console.log("connected successfully.");
+  // console.log("connected successfully.");
   socket.on("join", ({ username1, username2 }, callback) => {
-    console.log("tying to get" + username1 + username2);
+    // console.log("tying to get" + username1 + username2);
     getRoomNo(username1, username2).then((room) => {
-      console.log("room + ");
-      console.log(room);
-      console.log("socket.id : " + socket.id);
+      // console.log("room + ");
+      // console.log(room);
+      // console.log("socket.id : " + socket.id);
       socket.join(room);
-      getChatData(room).then((chatData) => {
-        console.log("chatData.data");
-        console.log(chatData.data);
+      getChatDataWithRoom(room).then((chatData) => {
+        // console.log("chatData.data");
+        // console.log(chatData.data);
         socket.emit("chatData", chatData.data);
       });
     });
   });
   socket.on("getRoomNo", ({ username1, username2 }, callback) => {
-    console.log(username1);
-    console.log(username2);
+    // console.log(username1);
+    // console.log(username2);
     getRoomNo(username1, username2).then((room) => {
       socket.emit("getRoomNo", room);
     });
@@ -286,6 +299,6 @@ io.on("connection", (socket) => {
   });
   socket.on("disconnect", (usernamne) => {
     // socket.broadcast.to(room).emit("offline", usernamne);
-    console.log("disconnect signal sent.");
+    // console.log("disconnect signal sent.");
   });
 });

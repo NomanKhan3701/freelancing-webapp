@@ -18,7 +18,7 @@ const addDataToChat = async (room, message) => {
   console.log("room and message");
   console.log(room);
   console.log(message);
-  const getPreviuosChat = await getChatData(room);
+  const getPreviuosChat = await getChatDataWithRoom(room);
   console.log("previous chat");
   console.log(getPreviuosChat);
   const previousMessages = getPreviuosChat.data;
@@ -36,12 +36,22 @@ const addDataToChat = async (room, message) => {
   console.log(doc);
 };
 
-const getChatData = async (room) => {
+const getChatDataWithRoom = async (room) => {
   const data = await UserChatData.find({ room: room });
   return data[0];
 };
 
-module.exports = { addDataToChat, UserChatData, getChatData };
+const getChatDataWithOneUsername = async (username) => {
+  const data = await UserChatData.find({ username: /username/i });
+  return data;
+};
+
+module.exports = {
+  addDataToChat,
+  UserChatData,
+  getChatDataWithRoom,
+  getChatDataWithOneUsername,
+};
 
 //1 chat doesnt exist between users
 //2 chat exist between users

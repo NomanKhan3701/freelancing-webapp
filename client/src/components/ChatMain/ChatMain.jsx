@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./ChatMain.scss";
 import robot from "../../assets/videos/robot.gif";
 import { IoMdSend } from "react-icons/io";
@@ -10,9 +12,21 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import LoadingSpinner from "../NormalSlider/LoadingSpinner";
 
+import {
+  update,
+  selectChatMainData,
+} from "./../../features/chatMain/chatMainSlice";
+
 var socket = io("http://localhost:8080");
 
 const ChatMain = () => {
+  const customizedMiddleware = getDefaultMiddleware({
+    serializableCheck: false,
+  });
+  const chatMainData = useSelector(selectChatMainData);
+  const dispatch = useDispatch();
+  console.log(chatMainData);
+  const sender = localStorage.getItem("username");
   const [isLoading, setLoading] = useState(true);
   const [chatData, setChatData] = useState();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -23,20 +37,29 @@ const ChatMain = () => {
   const ENDPOINT = "localhost:8080";
   // const [room, setRoom] = useState();
   const room = "shreyashnoman";
-  const message = {
-    username: "shreyash",
-    message: "this is a message",
-    time: new Date(),
-  };
 
+  const newChatMainDataFunction = (data, message) => {
+    return {
+      ...data,
+      chatData: [...data.chatData, message],
+    };
+  };
   useEffect(() => {
-    axios.get(`http://localhost:8080/chat`).then(function (response) {
-      if (chatData === undefined) {
-        setChatData(response.data);
-      }
+    if (chatMainData) {
       setLoading(false);
-    });
-  }, []);
+    }
+  });
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8080/chat/:${sender}`)
+  //     .then(function (response) {
+  //       if (chatData === undefined) {
+  //         setChatData(response.data);
+  //       }
+  //       setLoading(false);
+  //     });
+  // }, []);
   useEffect(() => {
     socket.emit("join", { username1, username2 }, (error) => {
       if (error) {
@@ -49,22 +72,24 @@ const ChatMain = () => {
     };
   }, [ENDPOINT]);
   useEffect(() => {
-    socket.on("message", (message) => {
-      console.log("message is ");
-      console.log(message.username);
-      console.log(message.message);
-      console.log(message.time);
-    });
+    socket.on("message", (message) => {});
+    const message = {
+      username: sender,
+      message: msg,
+      time: new Date(),
+    };
+
+    dispatch(update(newChatMainDataFunction(chatMainData, message)));
   }, []);
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
-  socket.emit("getRoomNo", { username1, username2 }, (error) => {
-    if (error) {
-      alert(error);
-    }
-  });
+  // socket.emit("getRoomNo", { username1, username2 }, (error) => {
+  //   if (error) {
+  //     alert(error);
+  //   }
+  // });
   //below caused infinite loop thing in backend
   // socket.on("getRoomNo", (rooom) => {
   //   setRoom(rooom);
@@ -75,15 +100,26 @@ const ChatMain = () => {
   //   });
   // });
 
-  socket.emit("sendMessage", { room, message }, (error) => {
-    if (error) {
-      alert(error);
-    }
-  });
+  // socket.emit("sendMessage", { room, message }, (error) => {
+  //   if (error) {
+  //     alert(error);
+  //   }
+  // });
 
   // const message = "shreyashdhamane is meesage";
-  const handleSendMsg = async (msg) => {
-    alert(msg);
+  const handleSendMsg = (msg) => {
+    const message = {
+      username: sender,
+      message: msg,
+      time: new Date(),
+    };
+
+    dispatch(update(newChatMainDataFunction(chatMainData, message)));
+    socket.emit("sendMessage", { room, message }, (error) => {
+      if (error) {
+        alert(error);
+      }
+    });
   };
 
   const handleEmojiPickerHideShow = () => {
@@ -103,7 +139,6 @@ const ChatMain = () => {
       setMsg("");
     }
   };
-  const sender = localStorage.getItem("username");
   return (
     <div className="chat-main">
       {/* <div className="robot-container">
@@ -116,8 +151,8 @@ const ChatMain = () => {
             <img src={user_img} alt="User image" />
           </div>
           <div className="user-info">
-            <div className="user-name">Cha Eun Woo</div>
-            <div className="user-status">Online</div>
+            <div className="user-name">{chatMainData.receiver}</div>
+            <div className="user-status">{chatMainData.status}</div>
           </div>
         </div>
         <div className="top-menu">
@@ -129,7 +164,25 @@ const ChatMain = () => {
           </div>
         </div>
       </div>
-      <div className="middle-container"></div>
+      <div className="middle-container">
+        {chatMainData.chatData.map((chatData) => {
+          let classForSendOrReciever =
+            chatData.username === sender ? "sended" : "recieved";
+          classForSendOrReciever =
+            "message-container " + classForSendOrReciever;
+          let time = new Date(chatData.time);
+          time =
+            String(time.getHours()).padStart(2, "0") +
+            ":" +
+            String(time.getMinutes()).padStart(2, "0");
+          return (
+            <div className={classForSendOrReciever} key={chatData.room}>
+              <div className="msg">{chatData.message}</div>
+              <div className="timestamp">{time}</div>
+            </div>
+          );
+        })}
+      </div>
       <div className="bottom-container">
         <div className="left-btn-container">
           <div className="emoji">
