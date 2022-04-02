@@ -26,14 +26,20 @@ const ChatMain = (props) => {
   });
   //redux
   const chatMainData = useSelector(selectChatMainData);
-  const dispatch = useDispatch();
+  console.log("chatMainData");
   console.log(chatMainData);
+  const dispatch = useDispatch();
   //browser
   const sender = localStorage.getItem("username");
   //react hooks
   const [isLoading, setLoading] = useState(true);
   const [chatData, setChatData] = useState(props.chatData);
-  const [findalData, setFinalData] = useState(chatMainData);
+  const [finalData, setFinalData] = useState(chatMainData);
+  useEffect(() => {
+    setFinalData(chatMainData);
+  }, [chatMainData]);
+  console.log("finalData");
+  console.log(finalData);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -51,21 +57,11 @@ const ChatMain = (props) => {
     };
   };
   useEffect(() => {
-    if (chatMainData) {
+    if (finalData) {
       setLoading(false);
     }
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8080/chat/:${sender}`)
-  //     .then(function (response) {
-  //       if (chatData === undefined) {
-  //         setChatData(response.data);
-  //       }
-  //       setLoading(false);
-  //     });
-  // }, []);
   useEffect(() => {
     socket.emit("join", { username1, username2 }, (error) => {
       if (error) {
@@ -83,10 +79,17 @@ const ChatMain = (props) => {
       //   if (chatData[i].room === msg.usernames) {
       //   }
       // }
-      console.log(chatMainData);
+      console.log(finalData);
       console.log("message");
-      console.log(newChatMainDataFunction(chatMainData, msg));
-      dispatch(update(newChatMainDataFunction(chatMainData, msg)));
+      console.log(newChatMainDataFunction(finalData, msg));
+      // dispatch(update(newChatMainDataFunction(chatMainData, msg)));
+      setFinalData((data) => {
+        return {
+          ...data,
+          chatData: [...data.chatData, msg],
+        };
+      });
+      // setFinalData(newChatMainDataFunction(finalData, msg));
     });
   }, []);
   if (isLoading) {
@@ -122,8 +125,15 @@ const ChatMain = (props) => {
       time: new Date(),
     };
     console.log("new data");
-    console.log(newChatMainDataFunction(chatMainData, message));
-    dispatch(update(newChatMainDataFunction(chatMainData, message)));
+    console.log(newChatMainDataFunction(finalData, message));
+    // setFinalData(newChatMainDataFunction(finalData, message));
+    setFinalData((data) => {
+      return {
+        ...data,
+        chatData: [...data.chatData, message],
+      };
+    });
+    // dispatch(update(newChatMainDataFunction(chatMainData, message)));
     socket.emit("sendMessage", { room, message }, (error) => {
       if (error) {
         alert(error);
@@ -160,8 +170,8 @@ const ChatMain = (props) => {
             <img src={user_img} alt="User image" />
           </div>
           <div className="user-info">
-            <div className="user-name">{chatMainData.receiver}</div>
-            <div className="user-status">{chatMainData.status}</div>
+            <div className="user-name">{finalData.receiver}</div>
+            <div className="user-status">{finalData.status}</div>
           </div>
         </div>
         <div className="top-menu">
@@ -174,7 +184,7 @@ const ChatMain = (props) => {
         </div>
       </div>
       <div className="middle-container">
-        {chatMainData.chatData.map((chatData) => {
+        {finalData.chatData.map((chatData) => {
           let classForSendOrReciever =
             chatData.username === sender ? "sended" : "recieved";
           classForSendOrReciever =
