@@ -2,8 +2,15 @@ import React from "react";
 import "./ChatSidebar.scss";
 import user_image from "../../assets/images/Cha2.jpg";
 import { Home } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const ChatSidebar = (props) => {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.setItem('loggedIn', false);
+    navigate('/');
+  }
   return (
     <div className = "chat-sidebar">
       <div className = "profile-picture">
@@ -12,9 +19,9 @@ const ChatSidebar = (props) => {
       <div className = "sidebar-links">
         <div className = "top-links">
           <div className = "link">
-            <a href = "">
+            <Link to='/'>
               <i class = "bx bxs-home"></i>
-            </a>
+            </Link>
           </div>
           <div className = "link">
             <a href = "">
@@ -30,7 +37,7 @@ const ChatSidebar = (props) => {
         <div className = "bottom-links">
           {props.loggedIn ? (
             <div className = "link">
-              <a href = "">
+              <a href = "" onClick={logout}>
                 <i class = "bx bx-log-out"></i>
               </a>
             </div>
