@@ -165,7 +165,7 @@ const ChatMain = () => {
         </div>
       </div>
       <div className="middle-container">
-        {chatMainData.chatData.map((chatData) => {
+        {chatMainData.chatData.map((chatData, index) => {
           let classForSendOrReciever =
             chatData.username === sender ? "sended" : "recieved";
           classForSendOrReciever =
@@ -176,7 +176,7 @@ const ChatMain = () => {
             ":" +
             String(time.getMinutes()).padStart(2, "0");
           return (
-            <div className={classForSendOrReciever} key={chatData.room}>
+            <div className={classForSendOrReciever} key={index}>
               <div className="msg">{chatData.message}</div>
               <div className="timestamp">{time}</div>
             </div>

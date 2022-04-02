@@ -63,6 +63,7 @@ const ChatMiddle = (props) => {
         <Search className="i" />
       </div>
       <div className="people-container">
+<<<<<<< HEAD
         {chats.map((chat) => {
           const username1 = chat.username1;
           const username2 = chat.username2;
@@ -93,6 +94,236 @@ const ChatMiddle = (props) => {
             </div>
           );
         })}
+=======
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+        <div className="person-wrapper">
+          <div className="person">
+            <div className="person-img">
+              <img src={peopleImg1} alt="" />
+            </div>
+            <div className="person-mid">
+              <div className="person-name">Cha Eun Woo</div>
+              <div className="last-chat">Your biggest Fann 😍</div>
+            </div>
+            <div className="last-chat-time">09:00pm</div>
+          </div>
+        </div>
+>>>>>>> aa893749a7fa946ee82eedcf4de144d90034051b
       </div>
     </div>
   );

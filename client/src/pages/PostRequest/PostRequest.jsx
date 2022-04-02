@@ -17,12 +17,12 @@ const PostRequest = () => {
   ];
 
   const [sOptions, setSOptions] = useState([
-    { value: "HTML" , label: "HTML"},
-    { value: "CSS", label: "CSS" }, 
-    { value: "JavaScript", label: "JavaScript" },
-    { value: "ReactJs",  label: "ReactJs" },
-    { value: "NodeJs",label: "NodeJs" },
-    { value: "MongoDB" ,label: "MongoDB"},
+    { value: "Web development" , label: "Web development"},
+    { value: "App development", label: "App development" }, 
+    { value: "Designer", label: "Designer" },
+    { value: "Video Editor",  label: "Video Editor" },
+    { value: "Cyber Security",label: "Cyber Security" },
+    { value: "Model" ,label: "Model"},
   ]);
   const [options, setOptions] = useState(data);
   return (
