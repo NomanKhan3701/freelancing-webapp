@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post("/post", (req, res, err) => {});
+app.post("/post", (req, res, err) => { });
 
 app.post("/login", (req, res, err) => {
   if (err) {
@@ -268,6 +268,7 @@ app.get("/chat/:username/:usernameToConnect", (req, res, err) => {
 
 //have u closed the connction and there things do here first.
 io.on("connection", (socket) => {
+  console.log(socket.id);
   // console.log("connected successfully.");
   socket.on("join", ({ username1, username2 }, callback) => {
     // console.log("tying to get" + username1 + username2);
