@@ -242,6 +242,13 @@ const io = require("socket.io")(Server, {
   },
 });
 
+app.get("/chat/:username", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  findAll;
+});
+
 app.get("/chat/:username/:usernameToConnect", (req, res, err) => {
   console.log(req.params);
 });

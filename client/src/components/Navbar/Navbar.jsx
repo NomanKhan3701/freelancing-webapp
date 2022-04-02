@@ -8,8 +8,6 @@ import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
 import { NavLink, Link } from "react-router-dom";
 
-
-
 const SearchAndLinks = (props) => {
   const navLinkStyle = ({ isActive }) => {
     return {
@@ -67,23 +65,23 @@ const renderFooter = () => {};
 const user_menu = [
   {
     content: "Profile",
-    link: '/userprofile'
+    link: "/userprofile",
   },
   {
     content: "Dashboard",
-    link: '/'
+    link: "/",
   },
   {
     content: "Manage Requests",
-    link: '/'
+    link: "/",
   },
   {
     content: "Post a Request",
-    link: '/postrequest'
+    link: "/postrequest",
   },
   {
     content: "My wallet",
-    link: '/'
+    link: "/",
   },
   {
     content: "Logout",
@@ -99,12 +97,13 @@ const renderUserToggle = (user) => (
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
-  let navigate = useNavigate(); 
+  let navigate = useNavigate();
 
   const logout = () => {
     localStorage.setItem("loggedIn", false);
+    localStorage.setItem("username", undefined);
     setLoggedIn("false");
-    navigate('/');
+    navigate("/");
   };
 
   const renderUserMenu = (item, index) => {
@@ -119,10 +118,10 @@ const Navbar = (props) => {
     } else {
       return (
         <Link to={item.link} key={index}>
-        <div className="user-menu-item">
-          <span>{item.content}</span>
-        </div>
-      </Link>
+          <div className="user-menu-item">
+            <span>{item.content}</span>
+          </div>
+        </Link>
       );
     }
   };

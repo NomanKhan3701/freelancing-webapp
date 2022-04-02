@@ -53,7 +53,11 @@ const addNewUsersToChat = async (username1, username2) => {
   return { newChat: true, room: username1.concat(username2) };
 };
 
-module.exports = { getRoomNo, addNewUsersToChat };
+const findAllRoomsWithGivenUser = async (username) => {
+  const data = await UserChatRoom.find({ username: /username/i });
+  return data;
+};
+module.exports = { getRoomNo, addNewUsersToChat, findAllRoomsWithGivenUser };
 
 //1 chat doesnt exist between users
 //2 chat exist between users

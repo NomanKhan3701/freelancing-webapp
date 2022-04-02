@@ -7,17 +7,10 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 import { io } from "socket.io-client";
-import axios from "axios";
-import LoadingSpinner from "../NormalSlider/LoadingSpinner";
 
 var socket = io("http://localhost:8080");
 
 const ChatMain = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [chatData, setChatData] = useState();
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [msg, setMsg] = useState("");
-
   const username1 = "shreyash";
   const username2 = "noman";
   const ENDPOINT = "localhost:8080";
@@ -28,15 +21,6 @@ const ChatMain = () => {
     message: "this is a message",
     time: new Date(),
   };
-
-  useEffect(() => {
-    axios.get(`http://localhost:8080/chat`).then(function (response) {
-      if (chatData === undefined) {
-        setChatData(response.data);
-      }
-      setLoading(false);
-    });
-  }, []);
   useEffect(() => {
     socket.emit("join", { username1, username2 }, (error) => {
       if (error) {
@@ -48,18 +32,6 @@ const ChatMain = () => {
       socket.off();
     };
   }, [ENDPOINT]);
-  useEffect(() => {
-    socket.on("message", (message) => {
-      console.log("message is ");
-      console.log(message.username);
-      console.log(message.message);
-      console.log(message.time);
-    });
-  }, []);
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   socket.emit("getRoomNo", { username1, username2 }, (error) => {
     if (error) {
       alert(error);
@@ -81,10 +53,21 @@ const ChatMain = () => {
     }
   });
 
+  useEffect(() => {
+    socket.on("message", (message) => {
+      console.log("message is ");
+      console.log(message.username);
+      console.log(message.message);
+      console.log(message.time);
+    });
+  }, []);
   // const message = "shreyashdhamane is meesage";
   const handleSendMsg = async (msg) => {
     alert(msg);
   };
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
