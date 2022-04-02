@@ -173,7 +173,7 @@ const LoginSignUp = (props) => {
       <div className="row">
         <div className="col align-items-center flex-col">
           <div className="form-wrapper align-items-center signup">
-            <div className="form">
+            <form className="form">
               <div className="input-group">
                 <i className="bx bxs-user"></i>
                 <input
@@ -182,6 +182,7 @@ const LoginSignUp = (props) => {
                   value={userSignUpData.username}
                   placeholder="Username"
                   onChange={signUpDataChange}
+                  autoComplete="false"
                 />
               </div>
               <div className="input-group">
@@ -192,6 +193,7 @@ const LoginSignUp = (props) => {
                   value={userSignUpData.password}
                   placeholder="Password"
                   onChange={signUpDataChange}
+                  autoComplete="false"
                 />
               </div>
               <div className="input-group">
@@ -202,6 +204,7 @@ const LoginSignUp = (props) => {
                   value={userSignUpData.confirmPassword}
                   placeholder="Confirm Password"
                   onChange={signUpDataChange}
+                  autoComplete="false"
                 />
               </div>
               <div className="btn" name="signup" onClick={loginOrSubmit}>
@@ -214,7 +217,7 @@ const LoginSignUp = (props) => {
                 <span>Have an account? </span>
                 <b onClick={routeChangeToLogin}>Log In</b>
               </p>
-            </div>
+            </form>
           </div>
           <div className="social-wrapper signup">
             <GLogin context="SignUp"></GLogin>
@@ -222,7 +225,7 @@ const LoginSignUp = (props) => {
         </div>
         <div className="col align-items-center flex-col">
           <div className="form-wrapper align-items-center login">
-            <div className="form">
+            <form className="form">
               <div className="input-group">
                 <i className="bx bxs-user"></i>
                 <input
@@ -231,6 +234,7 @@ const LoginSignUp = (props) => {
                   value={userLoginData.username}
                   placeholder="Username"
                   onChange={loginDataChange}
+                  autoComplete="false"
                 />
               </div>
               <div className="input-group">
@@ -241,6 +245,7 @@ const LoginSignUp = (props) => {
                   value={userLoginData.password}
                   placeholder="Password"
                   onChange={loginDataChange}
+                  autoComplete="false"
                 />
               </div>
               <div className="btn" name="login" onClick={loginOrSubmit}>
@@ -253,7 +258,7 @@ const LoginSignUp = (props) => {
                 <span>Don't have an account? </span>
                 <b onClick={routeChangeToSignUp}>Sign up</b>
               </p>
-            </div>
+            </form>
           </div>
           <div className="social-wrapper login">
             <GLogin context="Login"></GLogin>
