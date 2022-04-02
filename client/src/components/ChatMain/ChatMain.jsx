@@ -26,44 +26,37 @@ const ChatMain = (props) => {
   });
   //redux
   const chatMainData = useSelector(selectChatMainData);
-  console.log("chatMainData");
-  console.log(chatMainData);
-  const dispatch = useDispatch();
   //browser
   const sender = localStorage.getItem("username");
   //react hooks
   const [isLoading, setLoading] = useState(true);
-  const [chatData, setChatData] = useState(props.chatData);
   const [finalData, setFinalData] = useState(chatMainData);
+  const [receiver, setReceiver] = useState(chatMainData.receiver);
   useEffect(() => {
     setFinalData(chatMainData);
   }, [chatMainData]);
-  console.log("finalData");
-  console.log(finalData);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const username1 = "shreyash";
-  const username2 = "noman";
+  // const username1 = "shreyash";
+  // const username2 = "noman";
   const ENDPOINT = "localhost:8080";
   // const [room, setRoom] = useState();
   const room = "shreyashnoman";
 
   //to update the variable in all redux
-  const newChatMainDataFunction = (data, message) => {
-    return {
-      ...data,
-      chatData: [...data.chatData, message],
-    };
-  };
   useEffect(() => {
+    // setReceiver(finalData.receiver););
+    // console.log("receiver");
+    // console.log(receiver);
     if (finalData) {
       setLoading(false);
     }
-  });
+  }, [finalData]);
 
   useEffect(() => {
-    socket.emit("join", { username1, username2 }, (error) => {
+    const username1 = localStorage.getItem("username");
+    socket.emit("join", { username1, receiver }, (error) => {
       if (error) {
         alert(error);
       }
@@ -74,22 +67,14 @@ const ChatMain = (props) => {
     };
   }, [ENDPOINT]);
   useEffect(() => {
+    console.log("amigos");
     socket.on("message", (msg) => {
-      // for (let i = 0; i < chatData.length; i++) {
-      //   if (chatData[i].room === msg.usernames) {
-      //   }
-      // }
-      console.log(finalData);
-      console.log("message");
-      console.log(newChatMainDataFunction(finalData, msg));
-      // dispatch(update(newChatMainDataFunction(chatMainData, msg)));
       setFinalData((data) => {
         return {
           ...data,
           chatData: [...data.chatData, msg],
         };
       });
-      // setFinalData(newChatMainDataFunction(finalData, msg));
     });
   }, []);
   if (isLoading) {
@@ -124,9 +109,6 @@ const ChatMain = (props) => {
       message: msg,
       time: new Date(),
     };
-    console.log("new data");
-    console.log(newChatMainDataFunction(finalData, message));
-    // setFinalData(newChatMainDataFunction(finalData, message));
     setFinalData((data) => {
       return {
         ...data,

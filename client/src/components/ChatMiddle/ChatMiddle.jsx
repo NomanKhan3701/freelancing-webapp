@@ -44,13 +44,6 @@ const ChatMiddle = (props) => {
       sender === chatForUser.username1
         ? chatForUser.username2
         : chatForUser.username1;
-    console.log({
-      image: "not added yet",
-      receiver: receiver,
-      status: "not done",
-      room: room,
-      chatData: chatDataForUser.data,
-    });
     dispatch(
       update({
         image: "not added yet",
