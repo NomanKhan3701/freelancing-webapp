@@ -15,33 +15,43 @@ const UserChatDataSchema = new mongoose.Schema({
 const UserChatData = new mongoose.model("UserChatData", UserChatDataSchema);
 
 const addDataToChat = async (room, message) => {
-  console.log("room and message");
-  console.log(room);
-  console.log(message);
-  const getPreviuosChat = await getChatData(room);
-  console.log("previous chat");
-  console.log(getPreviuosChat);
+  // console.log("room and message");
+  // console.log(room);
+  // console.log(message);
+  const getPreviuosChat = await getChatDataWithRoom(room);
+  // console.log("previous chat");
+  // console.log(getPreviuosChat);
   const previousMessages = getPreviuosChat.data;
   previousMessages.push(message);
-  console.log("=====================");
-  console.log(previousMessages);
-  console.log("=====================");
+  // console.log("=====================");
+  // console.log(previousMessages);
+  // console.log("=====================");
   const filter = { room: room };
   const update = { room: room, data: previousMessages };
 
   const doc = await UserChatData.findOneAndUpdate(filter, update, {
     new: true,
   });
-  console.log("doc");
-  console.log(doc);
+  // console.log("doc");
+  // console.log(doc);
 };
 
-const getChatData = async (room) => {
+const getChatDataWithRoom = async (room) => {
   const data = await UserChatData.find({ room: room });
   return data[0];
 };
 
-module.exports = { addDataToChat, UserChatData, getChatData };
+const getChatDataWithOneUsername = async (username) => {
+  const data = await UserChatData.find({ username: /username/i });
+  return data;
+};
+
+module.exports = {
+  addDataToChat,
+  UserChatData,
+  getChatDataWithRoom,
+  getChatDataWithOneUsername,
+};
 
 //1 chat doesnt exist between users
 //2 chat exist between users

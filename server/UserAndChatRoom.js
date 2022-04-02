@@ -7,6 +7,14 @@ var UserChatRoomSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  username1: {
+    type: String,
+    required: true,
+  },
+  username2: {
+    type: String,
+    required: true,
+  },
 });
 
 const UserChatRoom = new mongoose.model("UserChatRoom", UserChatRoomSchema);
@@ -40,6 +48,8 @@ const addNewUsersToChat = async (username1, username2) => {
   }
   const newChatRoom = new UserChatRoom({
     usernames: username1.concat(username2),
+    username1: username1,
+    username2: username2,
   });
   const newUserChatData = new UserChatData({
     room: username1.concat(username2),

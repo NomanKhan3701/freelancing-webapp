@@ -20,17 +20,17 @@ const ChatSidebar = (props) => {
         <div className = "top-links">
           <div className = "link">
             <Link to='/'>
-              <i class = "bx bxs-home"></i>
+              <i className = "bx bxs-home"></i>
             </Link>
           </div>
           <div className = "link">
             <a href = "">
-              <i class = "bx bxs-message-rounded-dots"></i>
+              <i className = "bx bxs-message-rounded-dots"></i>
             </a>
           </div>
           <div className = "link">
             <a href = "">
-              <i class = "bx bxs-group"></i>
+              <i className = "bx bxs-group"></i>
             </a>
           </div>
         </div>
@@ -38,13 +38,13 @@ const ChatSidebar = (props) => {
           {props.loggedIn ? (
             <div className = "link">
               <a href = "" onClick={logout}>
-                <i class = "bx bx-log-out"></i>
+                <i className = "bx bx-log-out"></i>
               </a>
             </div>
           ) : (
             <div className = "link">
               <a href = "">
-                <i class = "bx bx-log-in"></i>
+                <i className = "bx bx-log-in"></i>
               </a>
             </div>
           )}
