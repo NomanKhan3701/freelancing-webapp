@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./FindWork.scss";
 import {
   Card,
@@ -65,7 +65,7 @@ const FindWork = (props) => {
         <Navbar />
         <div className="categories-container">
           <h1>Categories</h1>
-          <div className="categories-slider">
+          <div className="find-work-categories">
             {items.map((item) => {
               let imagetype = "data:image/" + item.img.contentType;
               let imageData = toBase64(item.img.data.data);
