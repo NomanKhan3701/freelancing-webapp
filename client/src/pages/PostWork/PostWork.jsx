@@ -168,7 +168,7 @@ const PostWork = () => {
 
 
   return (
-    <div className = "post-request">
+    <div className = "post-request-form">
       <Navbar />
       <div className = "form">
         <div className = "title">
