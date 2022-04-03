@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./ChatMain.scss";
-<<<<<<< HEAD
-import robot from "../../assets/images/Robot.gif";
-=======
->>>>>>> ea4b1ba4c9e5146310f8aadccf61473faddddce3
 import { IoMdSend } from "react-icons/io";
 import user_img from "../../assets/images/Cha2.jpg";
 import { BsEmojiSmileFill } from "react-icons/bs";
@@ -34,51 +30,6 @@ const ChatMain = (props) => {
   useEffect(() => {
     socket = io("http://localhost:8080");
     setFinalData(chatMainData);
-<<<<<<< HEAD
-  }, [chatMainData]);
-  console.log("finalData");
-  console.log(finalData);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [msg, setMsg] = useState("");
-
-  const username1 = "shreyash";
-  const username2 = "noman";
-  const ENDPOINT = "localhost:8080";
-  // const [room, setRoom] = useState();
-  const room = "shreyashnoman";
-
-  //to update the variable in all redux
-  const newChatMainDataFunction = (data, message) => {
-    return {
-      ...data,
-      chatData: [...data.chatData, message],
-    };
-  };
-  useEffect(() => {
-    if (finalData) {
-      setLoading(false);
-    }
-    const chatContainer = document.querySelector(".chat-main .middle-container");
-    if(chatContainer!==null){
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    } 
-      
-  });
-
-  useEffect(() => {
-    socket.emit("join", { username1, username2 }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-    return () => {
-      socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
-      socket.off();
-    };
-  }, [ENDPOINT]);
-  useEffect(() => {
-=======
->>>>>>> ea4b1ba4c9e5146310f8aadccf61473faddddce3
     socket.on("message", (msg) => {
       setFinalData((data) => {
         return {
