@@ -72,6 +72,8 @@
 
         .contact {
           height: max-content;
+          display: flex;
+          flex-direction: column;
 
           .contact-item {
             margin-bottom: 15px;
@@ -88,6 +90,29 @@
 
             &:hover i {
               color: var(--main-color);
+            }
+          }
+
+          .btn {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 60px;
+            background: linear-gradient(90deg, #755bea, #ff72c0);
+            padding: 10px 20px;
+            border-radius: var(--border-radius-big);
+            color: white;
+            width: max-content;
+            height: max-content;
+            cursor: pointer;
+
+            a {
+              &:hover {
+                color: white;
+              }
+            }
+
+            &:hover {
+              background: linear-gradient(90deg, #634fbb, #d863a3);
             }
           }
         }

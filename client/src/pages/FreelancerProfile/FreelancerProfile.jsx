@@ -2,6 +2,7 @@ import React from "react";
 import "./FreelancerProfile.scss";
 import { Navbar } from "../../components/import";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import userBanner from "../../assets/images/bgUser.jpg";
 import userImg from "../../assets/images/Cha2.jpg";
 
@@ -89,6 +90,14 @@ const FreelancerProfile = () => {
                     Mumbai, Maharashtra 400058
                   </div>
                 </motion.div>
+                <motion.div
+              initial={{ opacity: 0, translateX: -200 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              transition={{ duration: 1, ease: "linear" }}
+              className="btn"
+            >
+              <Link to='/chat'>Chat</Link>
+            </motion.div>
               </div>
             </div>
           </div>
