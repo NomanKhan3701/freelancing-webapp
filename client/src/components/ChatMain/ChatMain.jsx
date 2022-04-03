@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./ChatMain.scss";
-import robot from "../../assets/videos/robot.gif";
 import { IoMdSend } from "react-icons/io";
 import user_img from "../../assets/images/Cha2.jpg";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 import { io } from "socket.io-client";
-import axios from "axios";
 import LoadingSpinner from "../NormalSlider/LoadingSpinner";
 
-import {
-  update,
-  selectChatMainData,
-} from "./../../features/chatMain/chatMainSlice";
+import { selectChatMainData } from "./../../features/chatMain/chatMainSlice";
 
-var socket = io("http://localhost:8080");
+var socket;
 
 const ChatMain = (props) => {
   //disabling the serializable check
@@ -31,43 +26,10 @@ const ChatMain = (props) => {
   //react hooks
   const [isLoading, setLoading] = useState(true);
   const [finalData, setFinalData] = useState(chatMainData);
-  const [receiver, setReceiver] = useState(chatMainData.receiver);
+  const [room, setRoom] = useState();
   useEffect(() => {
+    socket = io("http://localhost:8080");
     setFinalData(chatMainData);
-  }, [chatMainData]);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [msg, setMsg] = useState("");
-
-  // const username1 = "shreyash";
-  // const username2 = "noman";
-  const ENDPOINT = "localhost:8080";
-  // const [room, setRoom] = useState();
-  const room = "shreyashnoman";
-
-  //to update the variable in all redux
-  useEffect(() => {
-    // setReceiver(finalData.receiver););
-    // console.log("receiver");
-    // console.log(receiver);
-    if (finalData) {
-      setLoading(false);
-    }
-  }, [finalData]);
-
-  useEffect(() => {
-    const username1 = localStorage.getItem("username");
-    socket.emit("join", { username1, receiver }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-    return () => {
-      socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
-      socket.off();
-    };
-  }, [ENDPOINT]);
-  useEffect(() => {
-    console.log("amigos");
     socket.on("message", (msg) => {
       setFinalData((data) => {
         return {
@@ -76,33 +38,38 @@ const ChatMain = (props) => {
         };
       });
     });
-  }, []);
+    socket.on("error", function (err) {
+      console.log(err);
+    });
+    const username1 = localStorage.getItem("username");
+    const username2 = localStorage.getItem("receiver");
+    if (username1 && username2) {
+      socket.emit("join", { username1, username2 }, (error) => {
+        if (error) {
+          alert(error);
+        }
+      });
+    }
+    socket.on("getRoomNo", (room) => {
+      setRoom(room);
+    });
+    return () => {
+      socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
+      socket.off();
+    };
+  }, [chatMainData]);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [msg, setMsg] = useState("");
+  useEffect(() => {
+    if (finalData) {
+      setLoading(false);
+    }
+  }, [finalData]);
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
-  // socket.emit("getRoomNo", { username1, username2 }, (error) => {
-  //   if (error) {
-  //     alert(error);
-  //   }
-  // });
-  //below caused infinite loop thing in backend
-  // socket.on("getRoomNo", (rooom) => {
-  //   setRoom(rooom);
-  //   socket.emit("sendMessage", { room, message }, (error) => {
-  //     if (error) {
-  //       alert(error);
-  //     }
-  //   });
-  // });
-
-  // socket.emit("sendMessage", { room, message }, (error) => {
-  //   if (error) {
-  //     alert(error);
-  //   }
-  // });
-
-  // const message = "shreyashdhamane is meesage";
   const handleSendMsg = (msg) => {
     const message = {
       username: sender,
@@ -115,7 +82,6 @@ const ChatMain = (props) => {
         chatData: [...data.chatData, message],
       };
     });
-    // dispatch(update(newChatMainDataFunction(chatMainData, message)));
     socket.emit("sendMessage", { room, message }, (error) => {
       if (error) {
         alert(error);
@@ -142,10 +108,6 @@ const ChatMain = (props) => {
   };
   return (
     <div className="chat-main">
-      {/* <div className="robot-container">
-        <img src={robot} alt="robot-waving" />
-      </div> */}
-
       <div className="top-container">
         <div className="user">
           <div className="user-img">

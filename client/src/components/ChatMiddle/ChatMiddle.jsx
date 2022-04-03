@@ -44,6 +44,7 @@ const ChatMiddle = (props) => {
       sender === chatForUser.username1
         ? chatForUser.username2
         : chatForUser.username1;
+    localStorage.setItem("receiver", receiver);
     dispatch(
       update({
         image: "not added yet",

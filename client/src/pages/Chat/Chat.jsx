@@ -38,7 +38,7 @@ const Chat = () => {
       <div className="chat">
         <ChatSidebar loggedIn="true" />
         <ChatMiddle chats={chats} chatData={chatData} />
-        <ChatMain chats={chats} chatData={chatData} />
+        <ChatMain />
       </div>
     </div>
   );

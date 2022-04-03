@@ -5,6 +5,7 @@ import WhyUs from "../../components/WhyUs/WhyUs";
 import "./home.scss";
 
 const Home = () => {
+  localStorage.setItem("receiver", undefined);
   return (
     <div className="home">
       <Navbar />
