@@ -16,35 +16,35 @@ const ChatSidebar = (props) => {
       <div className="profile-picture">
         <img src={user_image} alt="" />
       </div>
-      <div className="sidebar-links">
-        <div className="top-links">
-          <div className="link">
-            <Link to="/">
-              <i className="bx bxs-home"></i>
+      <div className = "sidebar-links">
+        <div className = "top-links">
+          <div className = "link">
+            <Link to='/'>
+              <i className= "bx bxs-home"></i>
             </Link>
           </div>
-          <div className="link">
-            <a href="">
-              <i className="bx bxs-message-rounded-dots"></i>
+          <div className = "link">
+            <a href = "">
+              <i className= "bx bxs-message-rounded-dots"></i>
             </a>
           </div>
-          <div className="link">
-            <a href="">
-              <i className="bx bxs-group"></i>
+          <div className = "link">
+            <a href = "">
+              <i className= "bx bxs-group"></i>
             </a>
           </div>
         </div>
         <div className="bottom-links">
           {props.loggedIn ? (
-            <div className="link">
-              <a href="" onClick={logout}>
-                <i className="bx bx-log-out"></i>
+            <div className = "link">
+              <a href = "" onClick={logout}>
+                <i className= "bx bx-log-out"></i>
               </a>
             </div>
           ) : (
-            <div className="link">
-              <a href="">
-                <i className="bx bx-log-in"></i>
+            <div className = "link">
+              <a href = "">
+                <i className= "bx bx-log-in"></i>
               </a>
             </div>
           )}

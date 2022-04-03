@@ -4,8 +4,8 @@
   padding-right: 40px;
   padding-bottom: 50px;
   background: url(../../assets/images/lightBg.jpg);
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
 
   .form {
     display: flex;
@@ -17,7 +17,6 @@
       rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 0.1)
     );
-
     box-shadow: 0 0 50px rgba(38, 38, 39, 0.1);
     border-radius: 20px;
     min-width: max-content;
@@ -43,14 +42,13 @@
           rgba(255, 255, 255, 0.1)
         );
         box-shadow: var(--box-shadow);
-
         border-radius: 60px;
         margin: 20px 0px;
 
         border: none;
 
         &:focus {
-          outline: none;
+          border: none;
         }
       }
 
@@ -70,18 +68,14 @@
         font-size: 16px;
         background: linear-gradient(
           to right bottom,
-          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.3),
           rgba(255, 255, 255, 0.1)
         );
         box-shadow: var(--box-shadow);
-        // border: 1px solid black;
+        border: none;
+        outline: none;
         border-radius: 20px;
         resize: vertical;
-        border: none;
-
-        &:focus {
-          outline: none;
-        }
       }
     }
 
@@ -98,7 +92,6 @@
           rgba(255, 255, 255, 0.1)
         );
         box-shadow: var(--box-shadow);
-
         border-radius: 60px;
 
         input {
@@ -109,6 +102,7 @@
         }
 
         .react-dropdown-select-dropdown {
+          
           .react-dropdown-select-item {
             padding: 10px;
             &:hover {
@@ -151,10 +145,10 @@
             padding: 10px 20px;
             font-size: 16px;
             background: linear-gradient(
-              to right bottom,
-              rgba(255, 255, 255, 1),
-              rgba(255, 255, 255, 0.1)
-            );
+          to right bottom,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.1)
+        );
             box-shadow: var(--box-shadow);
             border-radius: 60px;
           }
@@ -202,7 +196,6 @@
           rgba(255, 255, 255, 0.1)
         );
         box-shadow: var(--box-shadow);
-
         border-radius: 60px;
         border: none;
 
