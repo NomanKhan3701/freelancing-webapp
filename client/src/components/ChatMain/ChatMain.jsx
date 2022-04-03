@@ -9,6 +9,7 @@ import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 import { io } from "socket.io-client";
 import LoadingSpinner from "../NormalSlider/LoadingSpinner";
+import gif from '../../assets/images/talkingGif.gif';
 
 import {
   selectChatMainData,
@@ -130,68 +131,83 @@ const ChatMain = (props) => {
   };
   return (
     <div className="chat-main">
-      <div className="top-container">
-        <div className="user">
-          <div className="user-img">
-            <img src={user_img} alt="User image" />
-          </div>
-          <div className="user-info">
-            <div className="user-name">{finalData.receiver}</div>
-            <div className="user-status">{finalData.status}</div>
-          </div>
-        </div>
-        <div className="top-menu">
-          <div className="call">
-            <Call />
-          </div>
-          <div className="video-call">
-            <VideoCall />
-          </div>
-        </div>
-      </div>
-      <div className="middle-container">
-        {finalData.chatData.map((chatData) => {
-          let classForSendOrReciever =
-            chatData.username === sender ? "sended" : "recieved";
-          classForSendOrReciever =
-            "message-container " + classForSendOrReciever;
-          let time = new Date(chatData.time);
-          time =
-            String(time.getHours()).padStart(2, "0") +
-            ":" +
-            String(time.getMinutes()).padStart(2, "0");
-          return (
-            <div className={classForSendOrReciever} key={chatData.room}>
-              <div className="msg">{chatData.message}</div>
-              <div className="timestamp">{time}</div>
+      {finalData.username == "default" ? (
+        <>
+          <div className="top-container">
+            <div className="user">
+              <div className="user-img">
+                <img src={user_img} alt="User image" />
+              </div>
+              <div className="user-info">
+                <div className="user-name">{finalData.receiver}</div>
+                <div className="user-status">{finalData.status}</div>
+              </div>
             </div>
-          );
-        })}
-      </div>
-      <div className="bottom-container">
-        <div className="left-btn-container">
-          <div className="emoji">
-            <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
-            {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick} />}
+            <div className="top-menu">
+              <div className="call">
+                <Call />
+              </div>
+              <div className="video-call">
+                <VideoCall />
+              </div>
+            </div>
           </div>
-          <div className="attach-file">
-            <AttachFile />
+          <div className="middle-container">
+            {finalData.chatData.map((chatData) => {
+              let classForSendOrReciever =
+                chatData.username === sender ? "sended" : "recieved";
+              classForSendOrReciever =
+                "message-container " + classForSendOrReciever;
+              let time = new Date(chatData.time);
+              time =
+                String(time.getHours()).padStart(2, "0") +
+                ":" +
+                String(time.getMinutes()).padStart(2, "0");
+              return (
+                <div className={classForSendOrReciever} key={chatData.room}>
+                  <div className="msg">{chatData.message}</div>
+                  <div className="timestamp">{time}</div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="bottom-container">
+            <div className="left-btn-container">
+              <div className="emoji">
+                <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
+                {showEmojiPicker && (
+                  <EmojiPicker onEmojiClick={handleEmojiClick} />
+                )}
+              </div>
+              <div className="attach-file">
+                <AttachFile />
+              </div>
+            </div>
+            <form onSubmit={(e) => sendChat(e)} className="input-container">
+              <div className="message-input">
+                <input
+                  type="text"
+                  placeholder="Type your message here..."
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                />
+              </div>
+              <button className="submit">
+                <IoMdSend />
+              </button>
+            </form>
+          </div>
+        </>
+      ) : (
+        <div className="chat-default-section">
+          <div className="robot-container">
+            <div className="robot">
+              <img src={gif} alt="" />
+            </div>
+            <div className="info">Chat with anyone you want to, Call anyone you need to, A totally lovely place for you</div>
           </div>
         </div>
-        <form onSubmit={(e) => sendChat(e)} className="input-container">
-          <div className="message-input">
-            <input
-              type="text"
-              placeholder="Type your message here..."
-              value={msg}
-              onChange={(e) => setMsg(e.target.value)}
-            />
-          </div>
-          <button className="submit">
-            <IoMdSend />
-          </button>
-        </form>
-      </div>
+      )}
     </div>
   );
 };

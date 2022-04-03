@@ -4,6 +4,38 @@
   padding-right: 20px;
   display: flex;
   flex-direction: column;
+  // background: rgb(253, 250, 250);
+  // background: url(../../assets/images/lightBg.jpg);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  .chat-default-section {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+
+    .robot-container {
+      width: 100%;
+      .robot {
+        width: 100%;
+        position: relative;
+        transform: translate(17%, -10%);
+        
+        img {
+          width: 60%;
+        }
+      }
+
+      .info {
+        font-family: 'cursive';
+        font-size: 20px;
+        text-align: center;
+      }
+  
+      
+    }
+  }
 
   .top-container {
     display: flex;
@@ -50,15 +82,7 @@
       }
     }
   }
-
-  .robot-container {
-    width: 100px;
-    position: relative;
-
-    img {
-      width: 100%;
-    }
-  }
+  
 
   .top-container {
     height: 60px;
