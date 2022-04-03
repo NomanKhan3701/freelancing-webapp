@@ -41,102 +41,12 @@ const ReviewSlider = () => {
         className="mySwiper"
       >
         <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
           <Card
             headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
             userImg={userImg}
             name="shreyash"
             desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
-            startPrice="2000"
-          />
-        </SwiperSlide>
-        <SwiperSlide onClick={gigSelected}>
-        <Card
-            headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-            userImg={userImg}
-            name="shreyash"
-            desc="Inventor"
-            rating="4"
+            rating="0"
             startPrice="2000"
           />
         </SwiperSlide>

@@ -25,8 +25,6 @@ const Chat = () => {
     axios
       .get(`http://localhost:8080/chat/:${sender}`)
       .then(function (response) {
-        console.log(11111111111111111);
-        console.log(response.data);
         setChats(response.data.chats);
         setChatData(response.data.chatData);
         setLoading(false);
@@ -40,7 +38,7 @@ const Chat = () => {
       <div className="chat">
         <ChatSidebar loggedIn="true" />
         <ChatMiddle chats={chats} chatData={chatData} />
-        <ChatMain chats={chats} chatData={chatData} />
+        <ChatMain />
       </div>
     </div>
   );
