@@ -204,7 +204,11 @@ const ChatMain = (props) => {
             <div className="robot">
               <img src={gif} alt="" />
             </div>
-            <div className="info">Chat with anyone you want to, Call anyone you need to, A totally lovely place for you</div>
+            <div className="info">
+              <div className="line">Chat with anyone you want to</div>
+              <div className="line">Call anyone you need to</div>
+              <div className="line">A totally lovely place for you</div>
+            </div>
           </div>
         </div>
       )}
