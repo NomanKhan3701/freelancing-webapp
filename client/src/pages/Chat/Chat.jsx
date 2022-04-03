@@ -8,8 +8,15 @@ import {
 } from "../../components/import";
 import "./Chat.scss";
 import LoadingSpinner from "./LoadingSpinner";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  update,
+  selectChatMainData,
+} from "./../../features/chatMain/chatMainSlice";
 
 const Chat = () => {
+  const chatMainData = useSelector(selectChatMainData);
+  const dispatch = useDispatch();
   const sender = localStorage.getItem("username");
   const [isLoading, setLoading] = useState(true);
   const [chats, setChats] = useState();
@@ -18,7 +25,6 @@ const Chat = () => {
     axios
       .get(`http://localhost:8080/chat/:${sender}`)
       .then(function (response) {
-        console.log(response.data);
         setChats(response.data.chats);
         setChatData(response.data.chatData);
         setLoading(false);

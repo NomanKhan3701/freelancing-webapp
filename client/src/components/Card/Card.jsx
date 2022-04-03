@@ -5,10 +5,7 @@ const Card = (props) => {
   return (
     <div className="card">
       <div className="header-img">
-        <img
-          src={props.headerImg}
-          alt="header img"
-        />
+        <img src={props.headerImg} alt="header img" />
       </div>
       <div className="user-img">
         <img src={props.userImg} alt="user img" />
@@ -19,7 +16,7 @@ const Card = (props) => {
         </h2>
         <div className="desc">{props.desc}</div>
       </div>
-      {props.rating ? (
+      {props.rating && props.rating != 0 ? (
         <div className="card-mid">
           <div className="rating-container">
             <i className="bx bxs-star"></i>
@@ -27,7 +24,7 @@ const Card = (props) => {
           </div>
           <div className="follow">
             <i className="bx bxs-user-plus"></i>
-            <span>Follow</span>
+            <span>Profile</span>
           </div>
         </div>
       ) : (
@@ -35,7 +32,7 @@ const Card = (props) => {
           <div className="new-freelancer">New Freelancer</div>
           <div className="follow">
             <i className="bx bxs-user-plus"></i>
-            <span>Follow</span>
+            <span>Profile</span>
           </div>
         </div>
       )}

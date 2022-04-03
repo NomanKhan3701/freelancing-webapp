@@ -125,7 +125,6 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
         }
-        console.log(response.data.result);
         onResult(response.data.result);
       })
       .catch((err) => {
