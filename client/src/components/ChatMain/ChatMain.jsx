@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./ChatMain.scss";
-import robot from "../../assets/videos/robot.gif";
+import robot from "../../assets/images/Robot.gif";
 import { IoMdSend } from "react-icons/io";
 import user_img from "../../assets/images/Cha2.jpg";
 import { BsEmojiSmileFill } from "react-icons/bs";
@@ -184,7 +184,7 @@ const ChatMain = (props) => {
         </div>
       </div>
       <div className="middle-container">
-        {finalData.chatData.map((chatData) => {
+        {chatMainData.chatData.map((chatData, index) => {
           let classForSendOrReciever =
             chatData.username === sender ? "sended" : "recieved";
           classForSendOrReciever =
@@ -195,7 +195,7 @@ const ChatMain = (props) => {
             ":" +
             String(time.getMinutes()).padStart(2, "0");
           return (
-            <div className={classForSendOrReciever} key={chatData.room}>
+            <div className={classForSendOrReciever} key={index}>
               <div className="msg">{chatData.message}</div>
               <div className="timestamp">{time}</div>
             </div>
