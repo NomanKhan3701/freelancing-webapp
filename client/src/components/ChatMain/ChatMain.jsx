@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./ChatMain.scss";
 import { IoMdSend } from "react-icons/io";
@@ -10,7 +10,10 @@ import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 import { io } from "socket.io-client";
 import LoadingSpinner from "../NormalSlider/LoadingSpinner";
 
-import { selectChatMainData } from "./../../features/chatMain/chatMainSlice";
+import {
+  selectChatMainData,
+  update,
+} from "./../../features/chatMain/chatMainSlice";
 
 var socket;
 
@@ -21,6 +24,7 @@ const ChatMain = (props) => {
   });
   //redux
   const chatMainData = useSelector(selectChatMainData);
+  const dispatch = useDispatch();
   //browser
   const sender = localStorage.getItem("username");
   //react hooks
@@ -37,6 +41,12 @@ const ChatMain = (props) => {
           chatData: [...data.chatData, msg],
         };
       });
+      // dispatch(
+      //   update({
+      //     ...finalData,
+      //     chatData: [...finalData.chatData, msg],
+      //   })
+      // );
     });
     socket.on("error", function (err) {
       console.log(err);
@@ -50,6 +60,7 @@ const ChatMain = (props) => {
         }
       });
     }
+
     socket.on("getRoomNo", (room) => {
       setRoom(room);
     });
@@ -87,6 +98,12 @@ const ChatMain = (props) => {
         chatData: [...data.chatData, message],
       };
     });
+    // dispatch(
+    //   update({
+    //     ...finalData,
+    //     chatData: [...finalData.chatData, message],
+    //   })
+    // );
     socket.emit("sendMessage", { room, message }, (error) => {
       if (error) {
         alert(error);
