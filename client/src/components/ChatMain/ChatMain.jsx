@@ -41,12 +41,12 @@ const ChatMain = (props) => {
           chatData: [...data.chatData, msg],
         };
       });
-      // dispatch(
-      //   update({
-      //     ...finalData,
-      //     chatData: [...finalData.chatData, msg],
-      //   })
-      // );
+      dispatch(
+        update({
+          ...finalData,
+          chatData: [...finalData.chatData, msg],
+        })
+      );
     });
     socket.on("error", function (err) {
       console.log(err);
@@ -98,12 +98,12 @@ const ChatMain = (props) => {
         chatData: [...data.chatData, message],
       };
     });
-    // dispatch(
-    //   update({
-    //     ...finalData,
-    //     chatData: [...finalData.chatData, message],
-    //   })
-    // );
+    dispatch(
+      update({
+        ...finalData,
+        chatData: [...finalData.chatData, message],
+      })
+    );
     socket.emit("sendMessage", { room, message }, (error) => {
       if (error) {
         alert(error);

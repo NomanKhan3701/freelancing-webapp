@@ -15,8 +15,11 @@ const ChatMiddle = (props) => {
   const dispatch = useDispatch();
 
   const sender = localStorage.getItem("username");
-  const chats = props.chats;
-  const chatData = props.chatData;
+  // const chats = props.chats;
+  // const chatData = props.chatData;
+
+  const [chats, setChats] = useState(props.chats);
+  const [chatData, setChatData] = useState(props.chatData);
 
   const getLastMsg = (room) => {
     for (let i = 0; i < chatData.length; i++) {
@@ -25,6 +28,25 @@ const ChatMiddle = (props) => {
       }
     }
   };
+
+  useEffect(() => {
+    setChatData((pData) => {
+      for (let i = 0; i < pData.length; i++) {
+        if (
+          pData[i].room === chatMainData.room &&
+          pData[i].data.length !== chatMainData.chatData.length
+        ) {
+          pData[i].data = chatMainData.chatData;
+          const element = document.querySelector(
+            `#${chatMainData.room} .last-chat`
+          );
+          element.textContent = chatMainData.chatData.slice(-1)[0].message;
+          break;
+        }
+      }
+      return pData;
+    });
+  }, [chatMainData]);
 
   const changeChatMain = (room) => {
     let chatDataForUser, chatForUser;
@@ -87,6 +109,7 @@ const ChatMiddle = (props) => {
             <div
               className="person-wrapper"
               key={room}
+              id={room}
               onClick={() => {
                 changeChatMain(room);
               }}
