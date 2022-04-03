@@ -60,6 +60,11 @@ const ChatMain = (props) => {
     if (finalData) {
       setLoading(false);
     }
+    const chatContainer = document.querySelector(".chat-main .middle-container");
+    if(chatContainer!==null){
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    } 
+      
   });
 
   useEffect(() => {
