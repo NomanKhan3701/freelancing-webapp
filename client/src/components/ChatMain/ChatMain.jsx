@@ -53,6 +53,14 @@ const ChatMain = (props) => {
     socket.on("getRoomNo", (room) => {
       setRoom(room);
     });
+    if (username2) {
+      const chatContainer = document.querySelector(
+        ".chat-main .middle-container"
+      );
+      if (chatContainer !== null) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    }
     return () => {
       socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
       socket.off();
@@ -64,8 +72,13 @@ const ChatMain = (props) => {
     if (finalData) {
       setLoading(false);
     }
+    const chatContainer = document.querySelector(
+      ".chat-main .middle-container"
+    );
+    if (chatContainer !== null) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
   }, [finalData]);
-
   if (isLoading) {
     return <LoadingSpinner />;
   }

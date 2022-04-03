@@ -67,10 +67,20 @@ const ChatMiddle = (props) => {
           const username2 = chat.username2;
           const receiver = sender === username1 ? username2 : username1;
           const room = chat.usernames;
-          const lastMsg = getLastMsg(room);
-          const lstTimeOfMsg = new Date(lastMsg.time);
-          const lastMsgTime =
-            lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
+          let lastMsg;
+          let lstTimeOfMsg;
+          let lastMsgTime;
+          try {
+            lastMsg = getLastMsg(room);
+            lstTimeOfMsg = new Date(lastMsg.time);
+            lastMsgTime =
+              lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
+          } catch (error) {
+            lastMsg = "start the conversation";
+            lstTimeOfMsg = "";
+            lastMsgTime = "";
+          }
+
           return (
             <div
               className="person-wrapper"
