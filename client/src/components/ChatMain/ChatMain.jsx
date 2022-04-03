@@ -53,14 +53,6 @@ const ChatMain = (props) => {
     socket.on("getRoomNo", (room) => {
       setRoom(room);
     });
-    if (username2) {
-      const chatContainer = document.querySelector(
-        ".chat-main .middle-container"
-      );
-      if (chatContainer !== null) {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }
-    }
     return () => {
       socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
       socket.off();
