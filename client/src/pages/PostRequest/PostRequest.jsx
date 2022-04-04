@@ -5,7 +5,7 @@ import Select from "react-dropdown-select";
 import "./PostRequest.scss";
 
 const PostRequest = () => {
-  
+
   const data = [
     { Skill: "HTML" },
     { Skill: "CSS" },
@@ -17,12 +17,12 @@ const PostRequest = () => {
   ];
 
   const [sOptions, setSOptions] = useState([
-    { value: "HTML" , label: "HTML"},
-    { value: "CSS", label: "CSS" }, 
+    { value: "HTML", label: "HTML" },
+    { value: "CSS", label: "CSS" },
     { value: "JavaScript", label: "JavaScript" },
-    { value: "ReactJs",  label: "ReactJs" },
-    { value: "NodeJs",label: "NodeJs" },
-    { value: "MongoDB" ,label: "MongoDB"},
+    { value: "ReactJs", label: "ReactJs" },
+    { value: "NodeJs", label: "NodeJs" },
+    { value: "MongoDB", label: "MongoDB" },
   ]);
   const [options, setOptions] = useState(data);
   return (
