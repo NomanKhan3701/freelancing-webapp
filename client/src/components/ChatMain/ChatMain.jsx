@@ -131,7 +131,7 @@ const ChatMain = (props) => {
   };
   return (
     <div className="chat-main">
-      {finalData.username == "default" ? (
+      {finalData.username === "default" ? (
         <>
           <div className="top-container">
             <div className="user">

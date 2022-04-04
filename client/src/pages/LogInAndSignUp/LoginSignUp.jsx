@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -171,6 +172,7 @@ const LoginSignUp = (props) => {
     <div className="login-signup-container">
       <div className="row">
         <div className="col align-items-center flex-col">
+          <Link to='/' className="logo-login-signup signup">Freelance</Link>
           <div className="form-wrapper align-items-center signup">
             <form className="form">
               <div className="input-group">
@@ -223,6 +225,7 @@ const LoginSignUp = (props) => {
           </div>
         </div>
         <div className="col align-items-center flex-col">
+          <Link to='/' className="logo-login-signup login">Freelance</Link>
           <div className="form-wrapper align-items-center login">
             <form className="form">
               <div className="input-group">
