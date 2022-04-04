@@ -1,93 +1,91 @@
 require("dotenv/config");
 
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs")
-const saltRounds = 10
+const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 
-mongoose.connect(process.env.MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true }, err => {
-      console.log('connected')
-  });
+mongoose.connect(
+  process.env.MONGO_URL,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    console.log("connected");
+  }
+);
 const userSignUpSchema = new mongoose.Schema({
-    username: {
-            type : String,
-            required : true,
-            unique : true 
-          },
-    password: {
-        type : String
-    }
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+  },
 });
 
 userSignUpSchema.pre("save", function (next) {
-  
-    const user = this;
-    if (this.isModified("password") || this.isNew) {
-      bcrypt.genSalt(saltRounds, function (saltError, salt) {
-        if (saltError) {
-          return next(saltError)
-        } else {
-          bcrypt.hash(user.password, salt, function(hashError, hash) {
-            if (hashError) {
-              return next(hashError)
-            }
-  
-            user.password = hash
-            next()
-          })
-        }
-      })
-    } else {
-      return next()
-    }
-  })
+  const user = this;
+  if (this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(saltRounds, function (saltError, salt) {
+      if (saltError) {
+        return next(saltError);
+      } else {
+        bcrypt.hash(user.password, salt, function (hashError, hash) {
+          if (hashError) {
+            return next(hashError);
+          }
+
+          user.password = hash;
+          next();
+        });
+      }
+    });
+  } else {
+    return next();
+  }
+});
 
 const UserSignUp = mongoose.model("UserSignUp", userSignUpSchema);
 
-var createNewUser = (data) => {
-
-    let username = data.username;
-    let userExistWithUsername = doesUsernameExist(username);
-    if(userExistWithUsername === 1){
-        if(data.password === ""){
-          return 3;
-        }
-        return 1;
+var createNewUser = async (data) => {
+  let username = data.username;
+  let userExistWithUsername = await doesUsernameExist(username);
+  if (userExistWithUsername === 1) {
+    if (data.password === "") {
+      return 3;
     }
-    const newUser = new UserSignUp({
-        username: data.username,
-        password: data.password
-    });
-    try{
-      newUser.save();
-      return 4;
-    }catch(error){
-      console.log(error);
-    }
-    return 0;
-}
+    return 1;
+  }
+  const newUser = new UserSignUp({
+    username: data.username,
+    password: data.password,
+  });
+  try {
+    newUser.save();
+    return 4;
+  } catch (error) {
+    console.log(error);
+  }
+  return 0;
+};
 
 const doesUsernameExist = async (username) => {
-  
   let result;
-  await UserSignUp.find({username: username}, function(err, users){
-    if(err)
-        console.log(err);
-    if(users.length == 0){
+  try {
+    const users = await UserSignUp.find({ username: username });
+    if (users.length == 0) {
       result = 2;
-    }else{
+    } else {
       result = 1;
     }
-  }).clone().catch((error) => {
+  } catch (error) {
     console.log(error);
-  });     
-  return result;        
-}
+  }
+  return result;
+};
 
 const UserSignUpFindData = async (username, passwordEnteredByUser) => {
-
   let result;
-  let data = await UserSignUp .find({username: username});
+  let data = await UserSignUp.find({ username: username });
 
   //we can make all the mongoose functions wait using await as below and dont have to worry about callback,
   //bcrypt.compare(passwordEnteredByUser, hash, function(err, isMatch) {
@@ -99,32 +97,36 @@ const UserSignUpFindData = async (username, passwordEnteredByUser) => {
   //     console.log("Password matches!")
   //   }
   // })
-  //this will get cahgned to as below, 
+  //this will get cahgned to as below,
   // const match = await bcrypt.compare(passwordEnteredByUser, hashedPasswordFromDB);
 
+  if (data.length === 0) {
+    return 2;
+  }
+
   const hashedPasswordFromDB = data[0].password;
-  const match = await bcrypt.compare(passwordEnteredByUser, hashedPasswordFromDB);
-  if(data.length === 0)
-    result = 2;
-  else
-    result = match ? 6 : 5;
+  const match = await bcrypt.compare(
+    passwordEnteredByUser,
+    hashedPasswordFromDB
+  );
+  if (data.length === 0) result = 2;
+  else result = match ? 6 : 5;
   return result;
-}
+};
 
 const isValidUser = async (user) => {
-
   let result;
-  let {username, password} = user;
+  let { username, password } = user;
   result = await UserSignUpFindData(username, password);
   return result;
-}
+};
 
-module.exports = {createNewUser, isValidUser, UserSignUp}
+module.exports = { createNewUser, isValidUser, UserSignUp };
 
 //0 something wrong with database
 //1 user exist with username
 //2 user doesnt exist with username
-//3 user exist with username and google SIGN UP trying, 
+//3 user exist with username and google SIGN UP trying,
 //do login directly for him,
 //4 user didnt exist created succesfully new user
 //5 username matched but not password

@@ -6,6 +6,8 @@ import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 import { Select } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+toast.configure();
 
 const PostWork = () => {
   const navigate = useNavigate();
@@ -103,14 +105,60 @@ const PostWork = () => {
   };
 
   const isValidToNavigate = () => {
-    const title = document.querySelector("input[name = title]").value;
-    const desc = document.querySelector("textarea[name = desc]").value;
-    const category = document
-      .getElementById("category")
-      .getElementsByTagName("span")[0].innerText;
-    const skills = [];
-    const minBid = document.querySelector("input[name = minBid]").value;
-    const maxBid = document.querySelector("input[name = maxBid]").value;
+    let title, desc, category, minBid, maxBid;
+    let skills = [];
+    try {
+      title = document.querySelector("input[name = title]").value;
+      desc = document.querySelector("textarea[name = desc]").value;
+
+      minBid = document.querySelector("input[name = minBid]").value;
+      maxBid = document.querySelector("input[name = maxBid]").value;
+      if (!title || !desc || !minBid || !maxBid) {
+        toast.error("Input cannot be empty.", {
+          position: "top-center",
+        });
+        return false;
+      }
+    } catch (err) {
+      toast.error("Input cannot be empty.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    try {
+      category = document
+        .getElementById("category")
+        .getElementsByTagName("span")[0].innerText;
+    } catch (error) {
+      toast.error("Select Category.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (title.length < 15) {
+      toast.error("Title must be atleast 15 characters long.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (desc.length < 100) {
+      toast.error("Description must be atleast 100 characters long.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (maxBid < 0 || minBid < 0) {
+      toast.error("Bid cannot be less than 0.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (maxBid <= minBid) {
+      toast.error("Max bid has to be greater than min bid.", {
+        position: "top-center",
+      });
+      return false;
+    }
 
     for (
       let i = 0;
@@ -123,24 +171,18 @@ const PostWork = () => {
       );
     }
 
-    if (
-      title &&
-      desc &&
-      category &&
-      minBid &&
-      maxBid &&
-      skills !== undefined &&
-      skills !== null &&
-      skills.length > 0
-    ) {
+    if (skills !== undefined && skills !== null && skills.length > 0) {
       navigate("/");
       return true;
+    } else {
+      toast.error("please select atleast one skill.", {
+        position: "top-center",
+      });
     }
     return false;
   };
 
   const newPostForWork = (event) => {
-    console.log("Ola amigos");
     const goAhead = isValidToNavigate();
     if (!goAhead) {
       return;
@@ -176,7 +218,7 @@ const PostWork = () => {
           <textarea
             type="text"
             name="desc"
-            placeholder="Describe your project here..."
+            placeholder="Describe your project here in more than 100 characters"
             onChange={onDataChange}
           />
         </div>

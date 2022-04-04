@@ -74,6 +74,7 @@ app.post("/login", (req, res, err) => {
     //
   }
   const { username, password } = req.body;
+  console.log(req.body);
   isValidUser({ username: username, password: password })
     .then((response) => {
       res.send({ result: response });
@@ -91,8 +92,9 @@ app.post("/signup", (req, res, err) => {
   //user exist or user dont exist
   let result;
   try {
-    result = createNewUser(req.body);
-    res.send({ result: result });
+    createNewUser(req.body).then((result) => {
+      res.send({ result: result });
+    });
   } catch (error) {
     console.log("some error");
   }
