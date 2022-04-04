@@ -31,8 +31,10 @@ const ChatMain = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [finalData, setFinalData] = useState(chatMainData);
   const [room, setRoom] = useState();
+  const [onlineUsers, setOnlineUsers] = useState([]);
   useEffect(() => {
     socket = io("http://localhost:8080");
+    socket.emit("online", sender);
     setFinalData(chatMainData);
     socket.on("message", (msg) => {
       setFinalData((data) => {
@@ -60,7 +62,6 @@ const ChatMain = (props) => {
         }
       });
     }
-
     socket.on("getRoomNo", (room) => {
       setRoom(room);
     });
@@ -73,6 +74,7 @@ const ChatMain = (props) => {
       }
     }
     return () => {
+      socket.emit("offline", username1);
       socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
       socket.off();
     };
@@ -90,6 +92,55 @@ const ChatMain = (props) => {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
   }, [finalData]);
+
+  useEffect(() => {
+    const status = onlineUsers.includes(finalData.receiver)
+      ? "online"
+      : "offline";
+    setFinalData((data) => {
+      return {
+        ...data,
+        status: status,
+      };
+    });
+  }, [onlineUsers]);
+
+  useEffect(() => {
+    socket.on("onJoin", (users) => {
+      // console.log(onlineUsers);
+      // console.log("onJoin all users");
+      // console.log(users);
+      setOnlineUsers(users);
+    });
+    socket.on("newUserJoined", (user) => {
+      setOnlineUsers((users) => {
+        if (sender === user) {
+          return users;
+        } else {
+          return [...users, user];
+        }
+      });
+    });
+    socket.on("userLeft", (username) => {
+      setOnlineUsers((users) => {
+        if (users.includes(username) && sender !== username) {
+          return users.filter((user) => user !== username);
+        } else {
+          return users;
+        }
+      });
+    });
+    window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      e.returnValue = "";
+      socket.emit("offline", sender);
+    });
+    return () => {
+      window.removeEventListener("beforeunload", function (e) {
+        socket.emit("offline", sender);
+      });
+    };
+  });
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -117,6 +168,7 @@ const ChatMain = (props) => {
         alert(error);
       }
     });
+    socket.emit("getOnlineUsers", sender);
   };
 
   const handleEmojiPickerHideShow = () => {

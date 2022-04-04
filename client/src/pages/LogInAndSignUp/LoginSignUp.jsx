@@ -108,7 +108,6 @@ const LoginSignUp = (props) => {
       username1 = username;
       password1 = password;
     }
-
     axios
       .post(`http://localhost:8080/${context.toLowerCase()}`, {
         username: username1,
@@ -117,6 +116,7 @@ const LoginSignUp = (props) => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
+        console.log(response);
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||
@@ -139,9 +139,11 @@ const LoginSignUp = (props) => {
         toast.error("Username already exist", {
           position: "top-right",
         });
+        alert("user already exists");
         break;
       case 2:
         //nothing
+        alert("user doesnt exists");
         break;
       case 3:
         //user exist with username and google signUP trying
@@ -157,6 +159,7 @@ const LoginSignUp = (props) => {
         toast.error("Username or password not matched", {
           position: "top-right",
         });
+        alert("incorrect password");
         break;
       case 6:
         //login succesfull

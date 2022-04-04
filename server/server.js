@@ -37,7 +37,7 @@ const { categoryImageData } = require("./categoryData");
 const {
   getWorkData,
   getWorkFilterData,
-  FindWorkData,
+  addWorkData,
 } = require("./FindWorkData");
 const { createNewUser, isValidUser, UserSignUp } = require("./database.js");
 const { json } = require("body-parser");
@@ -58,6 +58,11 @@ const {
   getChatDataWithOneUsername,
 } = require("./ChatData");
 
+const {
+  getOnlineUsers,
+  addOnlineUser,
+  removeOnlineUser,
+} = require("./onlineUsers");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
@@ -104,6 +109,37 @@ app.get("/findtalent", (req, res, err) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+app.post("/findtalent/postwork", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const body = req.body.postWorkData;
+  // const newPostWorkData = new FindWorkData({
+  //   title: body.title,
+  //   desc: body.desc,
+  //   category: body.category,
+  //   qualifications: body.skills,
+  //   minBid: body.minBid,
+  //   maxBid: body.maxBid,
+  // });
+
+  try {
+    // newPostWorkData.save();
+    addWorkData({
+      title: body.title,
+      desc: body.desc,
+      category: body.category,
+      qualifications: body.skills,
+      minBid: body.minBid,
+      maxBid: body.maxBid,
+    });
+    res.send({ result: 1 });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
 });
 
 app.get("/findtalent/:category", (req, res, err) => {
@@ -214,28 +250,6 @@ app.post("/findwork/bid/newBid", (req, res, err) => {
   }
 });
 
-app.post("/findtalent/postwork", (req, res, err) => {
-  if (err) {
-    console.log(err);
-  }
-  const body = req.body.postWorkData;
-  const newPostWorkData = new FindWorkData({
-    title: body.title,
-    desc: body.desc,
-    category: body.category,
-    skills: body.skills,
-    minBid: body.minBid,
-    maxBid: body.maxBid,
-  });
-  try {
-    newPostWorkData.save();
-    res.send({ result: 1 });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("An error occurred", error);
-  }
-});
-
 const PORT = process.env.PORT || 8080;
 // app.listen(PORT, console.log(`Server started on port ${PORT}`));
 //chat application using socket.io
@@ -266,6 +280,24 @@ app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});
 
 //have u closed the connction and there things do here first.
 io.on("connection", (socket) => {
+  socket.on("online", (username) => {
+    addOnlineUser(socket.id, username);
+    getOnlineUsers(username).then((data) => {
+      const onlineUsernamesForYou = data.map((o) => o.username);
+      socket.emit("onJoin", onlineUsernamesForYou);
+      for (let i = 0; i < data.length; i++) {
+        io.to(data[i].socketId).emit("newUserJoined", username);
+      }
+    });
+  });
+  socket.on("offline", (username) => {
+    removeOnlineUser(username);
+    getOnlineUsers(username).then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        io.to(data[i].socketId).emit("userLeft", username);
+      }
+    });
+  });
   socket.on("join", ({ username1, username2 }, callback) => {
     getRoomNo(username1, username2).then((room) => {
       socket.join(room);
@@ -281,8 +313,9 @@ io.on("connection", (socket) => {
     addDataToChat(room, message);
     socket.broadcast.to(room).emit("message", message);
   });
-  socket.on("disconnect", (usernamne) => {
+  socket.on("disconnect", (username) => {
     // socket.broadcast.to(room).emit("offline", usernamne);
     // console.log("disconnect signal sent.");
+    // removeOnlineUser(username);
   });
 });

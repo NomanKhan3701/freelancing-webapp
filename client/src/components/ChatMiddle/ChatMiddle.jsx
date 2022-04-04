@@ -49,6 +49,9 @@ const ChatMiddle = (props) => {
   }, [chatMainData]);
 
   const changeChatMain = (room) => {
+    if (chatMainData.room === room) {
+      return;
+    }
     let chatDataForUser, chatForUser;
     for (let i = 0; i < chats.length; i++) {
       if (chats[i].usernames === room) {
@@ -71,7 +74,7 @@ const ChatMiddle = (props) => {
       update({
         image: "not added yet",
         receiver: receiver,
-        status: "not done",
+        status: "offline",
         room: room,
         chatData: chatDataForUser.data,
       })
