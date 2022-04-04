@@ -12,7 +12,7 @@ import {
   UserProfile,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/import";
+import { DragAndDropImg, Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
 
@@ -25,8 +25,7 @@ function App() {
       <Routes>
         <Route path = "/" element = {<Home />} />
         <Route path = "findtalent" element = {<FindTalent />} />
-        
-        {/* //write category component, post component */}
+
         <Route path = "/findtalent/category" element = {<FindTalentParams />} />        
         <Route path = "/findtalent/postwork" element = {<PostWork/>} />
 
@@ -46,6 +45,8 @@ function App() {
         <Route path = "/signup" element = {<LoginSignup status="signup" />} />
         
         <Route path = "/chat" element = {<Chat />} />
+
+        
         
         <Route
           path = "*"
