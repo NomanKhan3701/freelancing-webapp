@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Footer, Navbar } from "../../components/import";
 import "./FindWork.scss";
+import './FindWorkParams.scss';
 import { InfoPagination } from "../../components/import";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";

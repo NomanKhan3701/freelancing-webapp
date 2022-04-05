@@ -1,9 +1,50 @@
 .chat-main {
   width: 70%;
-  padding: 10px ;
+  padding: 10px;
   padding-right: 20px;
   display: flex;
   flex-direction: column;
+  // background: rgb(253, 250, 250);
+  // background: url(../../assets/images/lightBg.jpg);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  .chat-default-section {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+
+    .robot-container {
+      width: 100%;
+      .robot {
+        width: 100%;
+        position: relative;
+        transform: translate(25%, -10%);
+
+        img {
+          width: 50%;
+        }
+      }
+
+      .info {
+        font-family: "cursive";
+        font-size: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .line {
+          text-transform: capitalize;
+          text-align: center;
+          line-height: 35px;
+          font-weight: 900;
+          color: rgb(49, 97, 136);
+        }
+      }
+    }
+  }
 
   .top-container {
     display: flex;
@@ -11,7 +52,7 @@
     .user {
       display: flex;
       margin-top: auto;
-        margin-bottom: auto;
+      margin-bottom: auto;
       .user-img {
         width: 45px;
         height: 45px;
@@ -51,15 +92,6 @@
     }
   }
 
-  .robot-container {
-    width: 100px;
-    position: relative;
-
-    img {
-      width: 100%;
-    }
-  }
-
   .top-container {
     height: 60px;
     // border: 2px solid red;
@@ -82,10 +114,6 @@
       border-radius: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 10px;
-
-      .msg {
-      }
-
       //   .timestamp {
       //       position: absolute;
       //       bottom: 0;

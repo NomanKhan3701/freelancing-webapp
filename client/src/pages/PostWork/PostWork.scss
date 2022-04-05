@@ -214,8 +214,10 @@
       box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
       width: max-content;
       height: max-content;
-      margin: 40px 0px;
+      margin: 40px auto;
+      // margin: 40px 0px;
       cursor: pointer;
+
 
       &:hover {
         background: linear-gradient(90deg, #634fbb, #d863a3);

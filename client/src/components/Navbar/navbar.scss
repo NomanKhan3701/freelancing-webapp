@@ -194,6 +194,11 @@
     height: 55px;
     width: 55px;
     margin-left: auto;
+   
+
+    .no-link {
+      cursor: pointer;
+    }
 
     .user-menu-item {
       display: flex;

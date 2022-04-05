@@ -45,7 +45,12 @@ const addCommentToWorkBid = (data) => {
     return 4;
 }
 
-module.exports = {WorkBidCommentsData, addCommentToWorkBid};
+const getWorkBidCommentsData = async (workId) => {
+
+    const data = WorkBidCommentsData.find({workId: workId});
+    return data;
+}
+module.exports = {getWorkBidCommentsData, addCommentToWorkBid};
 
 //1 - insufficient data
 //4 - successfully added the data

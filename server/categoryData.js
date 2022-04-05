@@ -13,5 +13,13 @@ var categoryDataSchema = new mongoose.Schema({
 });
   
 //Image is a model which has a schema imageSchema
-  
-module.exports = new mongoose.model('CategoryData', categoryDataSchema);
+
+const CategoryData = new mongoose.model('CategoryData', categoryDataSchema);
+
+const categoryImageData = async () => {
+    
+    const data = await CategoryData.find({});
+    return data;
+}
+
+module.exports = {categoryImageData};

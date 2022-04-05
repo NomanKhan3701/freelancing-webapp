@@ -1,253 +1,224 @@
+require("dotenv/config");
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-var fs = require('fs');
-var path = require('path');
-require("dotenv/config");
+const socketio = require("socket.io");
+const http = require("http");
+const app = express();
+
+// const server = http.createServer(app);
+// const io = socketio(server);
+// const Server = app.listen(8080);
+
+var fs = require("fs");
+var path = require("path");
 
 // set up multer for storing uploaded files image upload database
-var multer = require('multer');
+var multer = require("multer");
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
 });
 var upload = multer({ storage: storage });
 
-var categoryImgModel = require('./categoryData');
-var findWorkDataModel = require('./FindWorkData');
-
 const corsOptions = {
-   origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions)); // Use this after the variable declaration
 
-const {createNewUser, isValidUser, UserSignUp} = require("./database.js");
+const { categoryImageData } = require("./categoryData");
+const {
+  getWorkData,
+  getWorkFilterData,
+  FindWorkData,
+} = require("./FindWorkData");
+const { createNewUser, isValidUser, UserSignUp } = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
-const commentsData = require("./WorkBidCommentsData");
-const Bids = require('./Bids');
+const {
+  getWorkBidCommentsData,
+  addCommentToWorkBid,
+} = require("./WorkBidCommentsData");
+const { getBids, addBid } = require("./Bids");
+const {
+  getRoomNo,
+  addNewUsersToChat,
+  findAllRoomsWithGivenUser,
+} = require("./UserAndChatRoom");
+const {
+  addDataToChat,
+  getChatDataWithRoom,
+  getChatDataWithOneUsername,
+} = require("./ChatData");
 
-app.use(cors(corsOptions)) // Use this after the variable declaration
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post("/post", (req, res, err) => {
-});
+app.post("/post", (req, res, err) => { });
 
 app.post("/login", (req, res, err) => {
-
-  if(err){
+  if (err) {
     //
   }
-  const {username, password} = req.body;
-  isValidUser({username: username, password: password}).then((response) => {
-    console.log(response.result);
-    res.send({result: response.result});
-  }).catch(err => {
-    console.log("guyz error hai");
-  })
-  // let sent = false;
-  // UserSignUp.find({username: username, password: password}, function(err, users){
-  //   if(err)
-  //       console.log(err);
-  //   if(users.length == 0){
-  //     UserSignUp.find({username: username}, function(err, users){
-  //       if(err)
-  //           console.log(err);
-  //       if(users.length == 0){
-  //         res.send({result: 2});
-  //         return;
-  //       }
-  //       else{
-  //         res.send({result: 5});
-  //         return;
-  //       }
-  //     });
-  //   }
-    
-  //   res.send({result: result});
-  //   return;
-  // });
-  //send to react the result code
-
+  const { username, password } = req.body;
+  isValidUser({ username: username, password: password })
+    .then((response) => {
+      res.send({ result: response });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send("An error occurred", error);
+    });
 });
 
 app.post("/signup", (req, res, err) => {
-
-  if(err){
+  if (err) {
     //
   }
   //user exist or user dont exist
   let result;
-  try{
+  try {
     result = createNewUser(req.body);
-    res.send({result: result});
-  }catch(error){    
+    res.send({ result: result });
+  } catch (error) {
     console.log("some error");
   }
 });
 
-app.get('/findtalent', (req, res, err) => {
-
-  if(err){
+app.get("/findtalent", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  categoryImgModel.find({}, (error, items) => {
-    if (error) {
+  categoryImageData()
+    .then((response) => {
+      res.send({ items: response });
+    })
+    .catch((error) => {
       console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      res.send({ items: items });
-    }
-  });
+    });
 });
 
-app.get('/findtalent/:category', (req, res, err) => {
-  
-  if(err){
+app.get("/findtalent/:category", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  const findWorkData = findWorkDataModel.FindWorkData;
-  const FindWorkFilterData = findWorkDataModel.FindWorkFilterData;
-
-  findWorkData.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      FindWorkFilterData.find({}, (error, filterData) => {
-        if (error) {
-          console.log(error);
-          res.status(500).send('An error occurred', err);
-        }
-        else 
-          res.send({ items: items, filterData: filterData });
+  try {
+    getWorkData().then((items) => {
+      getWorkFilterData().then((filterData) => {
+        res.send({ items: items, filterData: filterData });
       });
-    }
-  });
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", err);
+  }
 });
 
-app.get('/findwork', (req, res, err) => {
-
-  if(err){
+app.get("/findwork", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  categoryImgModel.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      res.send({ items: items });
-    }
-  });
+  categoryImageData()
+    .then((response) => {
+      res.send({ items: response });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
-app.get('/findwork/:category', (req, res, err) => {
-
-  const category = req.params.category;
-  if(err){
+app.get("/findwork/:category", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  const findWorkData = findWorkDataModel.FindWorkData;
-  const FindWorkFilterData = findWorkDataModel.FindWorkFilterData;
-
-  findWorkData.find({}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      FindWorkFilterData.find({}, (error, filterData) => {
-        if (error) {
-          console.log(error);
-          res.status(500).send('An error occurred', err);
-        }
-        else 
-          res.send({ items: items, filterData: filterData });
+  try {
+    getWorkData().then((items) => {
+      getWorkFilterData().then((filterData) => {
+        res.send({ items: items, filterData: filterData });
       });
-    }
-  });
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
 });
 
 //this was supposed to be get requst but we have manipulated using post
-app.post('/findwork/bid', (req, res, err) => {
-
-  if(err){
+app.post("/findwork/bid", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  const workBidCommentsData = commentsData.WorkBidCommentsData;
-  
-  workBidCommentsData.find({workId: req.body.id}, (error, items) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('An error occurred', err);
-    }
-    else {
-      Bids.Bid.find({workId: req.body.id}, (errorrr, bids) => {
-        if(errorrr){
-          console.log(errorrr);
-        }
+  const workId = req.body.id;
+  try {
+    getWorkBidCommentsData(workId).then((items) => {
+      getBids(workId).then((bids) => {
         let totalBids = 0;
-        for(let i = 0 ; i < bids.length ; i++){
+        for (let i = 0; i < bids.length; i++) {
           totalBids += bids[i].amount;
         }
-        res.send({items: items, bids: bids, avgBid: totalBids/bids.length});  
-      })
-    }
-  });
+        res.send({
+          items: items,
+          bids: bids,
+          avgBid: Math.floor(totalBids / bids.length),
+        });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
 });
 
-app.post('/findwork/bid/newComment', (req, res, err) => {  
-
-  console.log(req.body);
-  const body = req.body;
-  if(err){
+app.post("/findwork/bid/newComment", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  const addCommentToWorkBid = commentsData.addCommentToWorkBid;
-  const result = addCommentToWorkBid({
-    workId: body.workId,
-    username: body.username,
-    desc: body.desc,
-  });
-  res.send({result: result});
+  const body = req.body;
+  try {
+    const result = addCommentToWorkBid({
+      workId: body.workId,
+      username: body.username,
+      desc: body.desc,
+    });
+    res.send({ result: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
 });
 
-app.post('/findwork/bid/newBid', (req, res, err) => {
-
-  const body = req.body;
-  if(err){
+app.post("/findwork/bid/newBid", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
-  const addBid = Bids.addBid;
-  const result = addBid({
-    workId: body.workId,
-    username: body.username,
-    desc: body.desc,
-    amount: body.amount,
-  });
-  console.log(result);
-  res.send({result: result});
+  const body = req.body;
+  try {
+    const result = addBid({
+      workId: body.workId,
+      username: body.username,
+      desc: body.desc,
+      amount: body.amount,
+    });
+    res.send({ result: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
 });
 
-app.post('/findtalent/postwork', (req, res, err) => {
-
-  if(err){
+app.post("/findtalent/postwork", (req, res, err) => {
+  if (err) {
     console.log(err);
   }
   const body = req.body.postWorkData;
-  const FindWorkData = findWorkDataModel.FindWorkData;
   const newPostWorkData = new FindWorkData({
     title: body.title,
     desc: body.desc,
@@ -256,13 +227,62 @@ app.post('/findtalent/postwork', (req, res, err) => {
     minBid: body.minBid,
     maxBid: body.maxBid,
   });
-  try{
+  try {
     newPostWorkData.save();
-    res.send({result: 1});
-  }catch(error){
+    res.send({ result: 1 });
+  } catch (error) {
     console.log(error);
+    res.status(500).send("An error occurred", error);
   }
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+// app.listen(PORT, console.log(`Server started on port ${PORT}`));
+//chat application using socket.io
+const Server = app.listen(PORT, () => {
+  console.log("server started on port 8080");
+});
+
+const io = require("socket.io")(Server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+app.get("/chat/:username", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const username = req.params.username;
+  findAllRoomsWithGivenUser(username).then((chats) => {
+    getChatDataWithOneUsername(username).then((chatData) => {
+      res.send({ chats: chats, chatData: chatData });
+    });
+  });
+});
+
+app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});
+
+//have u closed the connction and there things do here first.
+io.on("connection", (socket) => {
+  socket.on("join", ({ username1, username2 }, callback) => {
+    getRoomNo(username1, username2).then((room) => {
+      socket.join(room);
+      socket.emit("getRoomNo", room);
+    });
+  });
+  socket.on("getRoomNo", ({ username1, username2 }, callback) => {
+    getRoomNo(username1, username2).then((room) => {
+      socket.emit("getRoomNo", room);
+    });
+  });
+  socket.on("sendMessage", ({ room, message }, callback) => {
+    addDataToChat(room, message);
+    socket.broadcast.to(room).emit("message", message);
+  });
+  socket.on("disconnect", (usernamne) => {
+    // socket.broadcast.to(room).emit("offline", usernamne);
+    // console.log("disconnect signal sent.");
+  });
+});

@@ -48,13 +48,19 @@ const addBid = (data) => {
 }
 
 const doesUserExistWithBid = (username) => {
-    console.log(username);
+    
     Bid.find({username: username}, (error, data) => {
         return !data.length === 0;
     })
 }
 
-module.exports = {Bid, addBid};
+const getBids = async (workid) => {
+
+    const data = await Bid.find({workid: workid});
+    return data;
+}
+
+module.exports = {getBids, addBid};
 
 //1 insufficient data
 //3 only 1 bid per user is allowed 
