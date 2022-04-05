@@ -64,7 +64,7 @@
         justify-content: center;
         align-items: center;
 
-        textarea{
+        textarea {
           width: 400px;
           height: 200px;
           padding: 10px;
@@ -211,6 +211,8 @@
       }
 
       .freelancers {
+        overflow-y: auto;
+        max-height: calc(100vh + 5rem);
         .flex {
           display: flex;
         }

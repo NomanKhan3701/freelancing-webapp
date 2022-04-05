@@ -2,13 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./InfoPagination.scss";
 
 const InfoPagination = (props) => {
-  console.log(props.bodyData);
   let initDataShow = props.limit
     ? props.bodyData.slice(0, Number(props.limit))
     : props.bodyData;
-  // = props.limit
-  //   ? props.bodyData.slice(0, Number(props.limit))
-  //   : props.bodyData;
   const [dataShow, setDataShow] = useState(initDataShow);
   useEffect(() => {
     initDataShow = props.limit

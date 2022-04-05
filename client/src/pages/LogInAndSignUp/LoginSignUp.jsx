@@ -1,13 +1,12 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
-import { NavLink } from "react-router-dom";
 
 toast.configure();
 
