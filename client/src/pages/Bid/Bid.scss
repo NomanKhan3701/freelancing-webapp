@@ -64,16 +64,16 @@
         justify-content: center;
         align-items: center;
 
-        textarea{
+        textarea {
           width: 450px;
           height: 200px;
           padding: 10px 20px;
-            font-size: 16px;
+          font-size: 16px;
           background: white;
-            border: 1px solid black;
-            box-shadow: var(--box-shadow);
-            border-radius: 20px;
-            resize: vertical;
+          border: 1px solid black;
+          box-shadow: var(--box-shadow);
+          border-radius: 16px;
+          resize: vertical;
         }
 
         .price {
