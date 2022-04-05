@@ -20,8 +20,8 @@ const WorkSlider = () => {
         {items.map((item, index) => {
           return (
             <SwiperSlide key={index}>
-              <img src={imageSrc} />
-              <div className="slide">{item.category}</div>
+              <div className="title"></div>
+              <div className="desc"></div>
             </SwiperSlide>
           );
         })}
