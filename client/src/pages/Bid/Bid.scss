@@ -162,6 +162,8 @@
       }
 
       .comments {
+        overflow-y: auto;
+        max-height: 40vh;
         .comment {
           margin-bottom: 30px;
           .user-profile {
