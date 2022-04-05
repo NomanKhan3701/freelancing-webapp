@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useEffect } from "react/cjs/react.production.min";
 import "./InfoPagination.scss";
 
 const InfoPagination = (props) => {
+  console.log(props);
   const initDataShow = props.limit
     ? props.bodyData.slice(0, Number(props.limit))
     : props.bodyData;
+  console.log();
   const [dataShow, setDataShow] = useState(initDataShow);
   let pages = 1;
   let range = [];
@@ -24,6 +27,11 @@ const InfoPagination = (props) => {
     setDataShow(props.bodyData.slice(start, end));
     setCurrPage(page);
   };
+  useEffect(() => {}, [props]);
+  const renderWork = (item, index) => {
+    console.log(dataShow);
+    return props.renderBody(item, index);
+  };
 
   return (
     <div className="info-pagination">
@@ -32,8 +40,9 @@ const InfoPagination = (props) => {
           {range.map((item, index) => (
             <div
               key={index}
-              className={`pagination-item ${currPage === index ? "active" : ""
-                }`}
+              className={`pagination-item ${
+                currPage === index ? "active" : ""
+              }`}
               onClick={() => selectPage(index)}
             >
               {item + 1}
@@ -44,17 +53,16 @@ const InfoPagination = (props) => {
         ""
       )}
       {props.bodyData && props.renderBody ? (
-        <>
-          {dataShow.map((item, index) => props.renderBody(item, index))}
-        </>
+        <>{dataShow.map((item, index) => renderWork(item, index))}</>
       ) : null}
       {pages > 1 ? (
         <div className="pagination">
           {range.map((item, index) => (
             <div
               key={index}
-              className={`pagination-item ${currPage === index ? "active" : ""
-                }`}
+              className={`pagination-item ${
+                currPage === index ? "active" : ""
+              }`}
               onClick={() => selectPage(index)}
             >
               {item + 1}
