@@ -102,7 +102,6 @@
         }
 
         .react-dropdown-select-dropdown {
-          
           .react-dropdown-select-item {
             padding: 10px;
             &:hover {
@@ -145,10 +144,10 @@
             padding: 10px 20px;
             font-size: 16px;
             background: linear-gradient(
-          to right bottom,
-          rgba(255, 255, 255, 1),
-          rgba(255, 255, 255, 0.1)
-        );
+              to right bottom,
+              rgba(255, 255, 255, 1),
+              rgba(255, 255, 255, 0.1)
+            );
             box-shadow: var(--box-shadow);
             border-radius: 60px;
           }
