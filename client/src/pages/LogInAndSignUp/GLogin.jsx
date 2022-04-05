@@ -5,16 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const axios = require("axios").default;
 
+toast.configure();
+
 function GLogin(props) {
   //i have changed isSignIn = false, in GoogleLogin, works
   const context = props.context;
   let navigate = useNavigate();
   const onSuccess = (res) => {
-    console.log("[Login Success] CurrentUser:", res.profileObj);
+    // console.log("[Login Success] CurrentUser:", res.profileObj);
     localStorage.setItem("username", res.profileObj.email);
+    localStorage.setItem("loggedIn", true);
     //redirect to home page with logo changed on right only if username and password matches
     let onResult = async (data) => {
-      console.log("data is " + data);
       switch (data) {
         case 1:
           //pop up on screen that username already exists
@@ -28,7 +30,7 @@ function GLogin(props) {
           break;
         case 4:
           //new user created successfully
-          localStorage.setItem("loggedIn", "true");
+          localStorage.setItem("loggedIn", true);
           navigate("/");
           break;
         case 5:
@@ -59,7 +61,9 @@ function GLogin(props) {
     refreshTokenSetup(res);
   };
   const onFailure = (res) => {
-    console.log("[Login failed] res : ", res);
+    toast.error(`error in google ${context}`, {
+      position: "top-center",
+    });
   };
   return (
     <div className="glogin">

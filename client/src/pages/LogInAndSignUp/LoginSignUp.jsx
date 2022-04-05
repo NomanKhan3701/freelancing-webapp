@@ -2,13 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
-import { NavLink } from "react-router-dom";
 
 toast.configure();
 
@@ -122,7 +121,6 @@ const LoginSignUp = (props) => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
-        console.log(response);
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||

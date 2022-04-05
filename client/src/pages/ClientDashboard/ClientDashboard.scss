@@ -1,227 +1,223 @@
-.bid {
-    margin-top: 90px;
-    padding: 20px 40px;
-    display: flex;
-  
-    .bid-left {
-      width: 65%;
-  
-      .bid-info-container {
-        background-color: white;
-        border-radius: 30px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        padding: 20px;
-        margin-bottom: 30px;
-        .client-profile {
-          display: flex;
-          .user-img {
-            width: 45px;
-            height: 45px;
-            img {
-              width: 100%;
-              height: 100%;
-              border-radius: 50%;
-              cursor: pointer;
-            }
-          }
-  
-          .title {
-            margin-top: auto;
-            margin-bottom: auto;
-            margin-left: 30px;
-            font-size: 30px;
-            font-weight: 800;
-          }
-        }
-  
-        .desc {
-          margin: 20px 0px;
-        }
-  
-        .skills {
-          margin-top: 20px;
-          display: flex;
-          flex-wrap: wrap;
-  
-          .skill {
+.client-dashboard {
+  margin-top: 90px;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+
+  .bid-left {
+    width: 57%;
+
+    .bid-info-container {
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin-bottom: 30px;
+      .client-profile {
+        display: flex;
+        .user-img {
+          width: 45px;
+          height: 45px;
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             cursor: pointer;
-            font-size: 14px;
-            margin-right: 20px;
-            line-height: 30px;
-            width: max-content;
-            margin-bottom: 5px;
-            padding: 5px 10px;
-            border-radius: 15px;
-            color: white;
-            background: var(--primary-color);
           }
         }
-  
-        .form {
-          margin-top: 20px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-  
-          textarea{
-            width: 400px;
-            height: 200px;
-            padding: 10px;
-          }
-  
-          .price {
-            input {
-              padding: 10px 20px;
-              font-size: 16px;
-              background: white;
-              border: 1px solid black;
-              box-shadow: var(--box-shadow);
-              border-radius: 60px;
-              width: 300px;
-              margin-bottom: 20px;
-  
-              &:focus {
-                border: 1px solid var(--main-color);
-              }
-            }
-          }
-  
-          .btn {
-            background: linear-gradient(90deg, #755bea, #ff72c0);
-            padding: 10px 20px;
-            border-radius: var(--border-radius-big);
-            color: white;
-            width: max-content;
-            height: max-content;
-            margin-left: 20px;
-            cursor: pointer;
-  
-            &:hover {
-              background: linear-gradient(90deg, #634fbb, #d863a3);
-            }
-          }
+
+        .title {
+          margin-top: auto;
+          margin-bottom: auto;
+          margin-left: 30px;
+          font-size: 30px;
+          font-weight: 800;
         }
       }
-  
-      .comments-container {
-        background-color: white;
-        border-radius: 30px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        padding: 20px;
-  
-        .title {
-          font-size: 25px;
-          font-weight: 600;
-          margin-bottom: 30px;
+
+      .desc {
+        margin: 20px 0px;
+      }
+
+      .skills {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .skill {
+          cursor: pointer;
+          font-size: 14px;
+          margin-right: 20px;
+          line-height: 30px;
+          width: max-content;
+          margin-bottom: 5px;
+          padding: 5px 10px;
+          border-radius: 15px;
+          color: white;
+          background: var(--primary-color);
         }
-  
-        .form {
-          margin-top: 20px;
-          margin-bottom: 20px;
-          display: flex;
-  
-          img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            transform: translateY(-5px);
-            cursor: pointer;
-          }
-  
-          input {
-            padding: 10px 20px;
-            font-size: 16px;
-            background: white;
-            border: 1px solid black;
-            box-shadow: var(--box-shadow);
-            border-radius: 60px;
-            width: 100%;
-            margin-bottom: 20px;
-            margin-left: 20px;
-  
-            &:focus {
-              border: 1px solid var(--main-color);
-            }
-          }
-  
-          .btn {
-            background: linear-gradient(90deg, #755bea, #ff72c0);
-            padding: 10px 20px;
-            border-radius: var(--border-radius-big);
-            color: white;
-            width: max-content;
-            height: max-content;
-            margin-left: 20px;
-            cursor: pointer;
-  
-            &:hover {
-              background: linear-gradient(90deg, #634fbb, #d863a3);
-            }
-          }
-        }
-  
-        .comments {
-          .comment {
-            margin-bottom: 30px;
-            .user-profile {
-              display: flex;
-              img {
-                width: 45px;
-                height: 45px;
-                border-radius: 50%;
-              }
-  
-              .info {
-                margin-left: 20px;
-                .user-name {
-                  font-size: 18px;
-                  font-weight: 500;
-                  margin-bottom: 5px;
-                }
-                // .comment-desc {
-                // }
-              }
-            }
-          }
-        }
+      }
       }
     }
-  
-    .bid-right {
-      width: 35%;
-  
-      .people-bid-info {
-        background-color: white;
-        border-radius: 30px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        padding: 20px;
+
+    .comments-container {
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+
+      .title {
+        font-size: 25px;
+        font-weight: 600;
         margin-bottom: 30px;
-        margin-left: 30px;
-  
+      }
+
+      .form {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+
         img {
           width: 45px;
           height: 45px;
           border-radius: 50%;
+          transform: translateY(-5px);
+          cursor: pointer;
         }
-  
-        .title {
-          font-size: 20px;
-          font-weight: 700;
-        }
-  
-        .freelancers {
-          .flex {
-            display: flex;
+
+        input {
+          padding: 10px 20px;
+          font-size: 16px;
+          background: white;
+          border: 1px solid black;
+          box-shadow: var(--box-shadow);
+          border-radius: 60px;
+          width: 100%;
+          margin-bottom: 20px;
+          margin-left: 20px;
+
+          &:focus {
+            border: 1px solid var(--main-color);
           }
-          .freelancer {
-            margin: 20px 0px;
-            background-color: white;
-            border-radius: 30px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+        }
+
+        .btn {
+          background: linear-gradient(90deg, #755bea, #ff72c0);
+          padding: 10px 20px;
+          border-radius: var(--border-radius-big);
+          color: white;
+          width: max-content;
+          height: max-content;
+          margin-left: 20px;
+          cursor: pointer;
+
+          &:hover {
+            background: linear-gradient(90deg, #634fbb, #d863a3);
+          }
+        }
+      }
+
+      .comments {
+        overflow-y: auto;
+        max-height: 60vh;
+        .comment {
+          margin-bottom: 30px;
+          .user-profile {
+            display: flex;
+            img {
+              width: 45px;
+              height: 45px;
+              border-radius: 50%;
+            }
+
+            .info {
+              margin-left: 20px;
+              .user-name {
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 5px;
+              }
+              // .comment-desc {
+              // }
+            }
+          }
+        }
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgb(124, 185, 197);
+          border-radius: 50px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: rgb(233, 231, 231);
+          border-radius: 50px;
+        }
+      }
+    }
+  }
+
+  .bid-right {
+    width: 40%;
+
+    .people-bid-info {
+      background-color: white;
+      border-radius: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      margin-bottom: 30px;
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+      }
+
+      .title {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .freelancers {
+        overflow-y: auto;
+        max-height: calc(140vh);
+        padding: 0px 20px;
+        padding-left: 10px;
+        margin-top: 20px;
+
+        .flex {
+          display: flex;
+        }
+        .freelancer {
+          margin: 20px 0px;
+          background-color: white;
+          border-radius: 30px;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+
+          .freelancer-bid-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .sell-bid-info {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .sell-info {
+                &:first-child {
+                  margin-right: 30px;
+                }
+              }
+
+            }
+
             .user-info {
               display: flex;
+              margin-bottom: 5px;
               .user-name {
                 margin-top: auto;
                 margin-bottom: auto;
@@ -230,23 +226,79 @@
                 font-size: 18px;
               }
             }
-            .price,
-            .star {
-              cursor: pointer;
-              font-size: 14px;
-              margin-right: 20px;
-              line-height: 30px;
-              width: max-content;
-              padding: 5px 10px;
-              border-radius: 20px;
-              margin: 10px 0px;
-              color: white;
-              background: var(--primary-color);
-              margin-right: 10px;
-            }
           }
+
+          .desc {
+            margin-top: 5px;
+            text-align: center;
+            // background: rgb(244, 240, 240);
+            border: 1px solid rgb(216, 212, 212);
+            padding: 20px;
+            border-radius: 10px;
+          }
+
+          .freelancer-bid-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .btn {
+              margin-top: 20px;
+              margin-bottom: 10px;
+              background: linear-gradient(90deg, #755bea, #ff72c0);
+              padding: 10px 20px;
+              border-radius: var(--border-radius-big);
+              color: white;
+              width: max-content;
+              height: max-content;
+              cursor: pointer;
+    
+              &:hover {
+                background: linear-gradient(90deg, #634fbb, #d863a3);
+              }
+
+              &:first-child {
+                margin-right: 55px;
+              }
+
+              a {
+                &:hover {
+                  color: white;
+                }
+              }
+            
+          }
+          
+          }
+          .price,
+          .star {
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 20px;
+            line-height: 30px;
+            width: max-content;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin: 10px 0px;
+            color: white;
+            background: var(--primary-color);
+            margin-right: 10px;
+          }
+          
+        }
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgb(124, 185, 197);
+          border-radius: 50px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: rgb(233, 231, 231);
+          border-radius: 50px;
         }
       }
     }
   }
-  
