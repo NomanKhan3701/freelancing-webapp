@@ -62,6 +62,7 @@ const {
   getOnlineUsers,
   addOnlineUser,
   removeOnlineUser,
+  getSocketId,
 } = require("./onlineUsers");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -311,9 +312,17 @@ io.on("connection", (socket) => {
       socket.emit("getRoomNo", room);
     });
   });
-  socket.on("sendMessage", ({ room, message }, callback) => {
+  socket.on("sendMessage", ({ room, message, receiver }, callback) => {
     addDataToChat(room, message);
     socket.broadcast.to(room).emit("message", message);
+    // if (io.sockets.adapter.rooms.get(room).size === 2) {
+    //   socket.broadcast.to(room).emit("message", message);
+    // } else {
+    //   const otherUsersocketId = getSocketId(receiver);
+    //   if (otherUsersocketId) {
+    //     io.to(otherUsersocketId).emit("msgWithoutRoom", { room, message });
+    //   }
+    // }
   });
   socket.on("disconnect", (username) => {
     // socket.broadcast.to(room).emit("offline", usernamne);

@@ -7,15 +7,15 @@ const Footer = () => {
     <div className="footer">
       <div className="footer-up">
         <div className="footer-up-content">
-          <h3>For Client</h3>
+          {/* <h3>For Client</h3>
           <div className="flex-container">
             <div>How to hire</div>
             <div>Talent Marketplace</div>
             <div>Project Catalog</div>
             <div>Talent Scout</div>
             <div>Hire an Agency</div>
-            <div>Enterprise</div>
-          </div>
+            <div>Enterprise</div> 
+          </div> */}
         </div>
         <div className="address">
           <h3>For Talent</h3>

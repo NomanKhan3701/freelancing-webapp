@@ -36,20 +36,7 @@ const ChatMain = (props) => {
     socket = io("http://localhost:8080");
     socket.emit("online", sender);
     setFinalData(chatMainData);
-    socket.on("message", (msg) => {
-      setFinalData((data) => {
-        return {
-          ...data,
-          chatData: [...data.chatData, msg],
-        };
-      });
-      dispatch(
-        update({
-          ...finalData,
-          chatData: [...finalData.chatData, msg],
-        })
-      );
-    });
+
     socket.on("error", function (err) {
       console.log(err);
     });
@@ -130,6 +117,23 @@ const ChatMain = (props) => {
         }
       });
     });
+    socket.on("message", (msg) => {
+      setFinalData((data) => {
+        return {
+          ...data,
+          chatData: [...data.chatData, msg],
+        };
+      });
+      dispatch(
+        update({
+          ...finalData,
+          chatData: [...finalData.chatData, msg],
+        })
+      );
+    });
+    // socket.on("msgWithoutRoom", ({ room, message }) => {
+
+    // });
     window.addEventListener("beforeunload", function (e) {
       e.preventDefault();
       e.returnValue = "";
@@ -163,7 +167,8 @@ const ChatMain = (props) => {
         chatData: [...finalData.chatData, message],
       })
     );
-    socket.emit("sendMessage", { room, message }, (error) => {
+    const receiver = localStorage.getItem("receiver");
+    socket.emit("sendMessage", { room, message, receiver }, (error) => {
       if (error) {
         alert(error);
       }

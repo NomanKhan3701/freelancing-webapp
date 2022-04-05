@@ -36,4 +36,8 @@ const removeOnlineUser = (username) => {
     onlineUsersAndSocketId.delete(username);
   }
 };
+
+const getSocketId = (username) => {
+  return onlineUsersAndSocketId.get(username);
+};
 module.exports = { getOnlineUsers, addOnlineUser, removeOnlineUser };
