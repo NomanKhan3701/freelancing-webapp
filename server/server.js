@@ -137,6 +137,7 @@ app.post("/findtalent/postwork", (req, res, err) => {
       qualifications: body.skills,
       minBid: body.minBid,
       maxBid: body.maxBid,
+      username: body.username,
     });
     res.send({ result: 1 });
   } catch (error) {

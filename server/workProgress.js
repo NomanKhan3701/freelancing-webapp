@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
 
-var ReviewSchema = new mongoose.Schema({
+var workProgressSchema = new mongoose.Schema({
   workId: {
     type: String,
     required: true,

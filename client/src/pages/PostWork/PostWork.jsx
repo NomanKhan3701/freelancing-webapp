@@ -187,9 +187,13 @@ const PostWork = () => {
     if (!goAhead) {
       return;
     }
+    const data = {
+      ...postWorkData,
+      username: localStorage.getItem("username"),
+    };
     axios
       .post(`http://localhost:8080/findtalent/postwork`, {
-        postWorkData: postWorkData,
+        postWorkData: data,
       })
       .then((response) => {
         //response is the object that contains data sent from server
