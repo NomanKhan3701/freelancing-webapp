@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { useEffect } from "react/cjs/react.production.min";
+import React, { useState, useEffect } from "react";
 import "./InfoPagination.scss";
 
 const InfoPagination = (props) => {
-  console.log(props);
-  const initDataShow = props.limit
+  console.log(props.bodyData);
+  let initDataShow = props.limit
     ? props.bodyData.slice(0, Number(props.limit))
     : props.bodyData;
-  console.log();
+  // = props.limit
+  //   ? props.bodyData.slice(0, Number(props.limit))
+  //   : props.bodyData;
   const [dataShow, setDataShow] = useState(initDataShow);
+  useEffect(() => {
+    initDataShow = props.limit
+      ? props.bodyData.slice(0, Number(props.limit))
+      : props.bodyData;
+    setDataShow(initDataShow);
+  }, [props.bodyData]);
   let pages = 1;
   let range = [];
 
@@ -27,9 +34,8 @@ const InfoPagination = (props) => {
     setDataShow(props.bodyData.slice(start, end));
     setCurrPage(page);
   };
-  useEffect(() => {}, [props]);
+
   const renderWork = (item, index) => {
-    console.log(dataShow);
     return props.renderBody(item, index);
   };
 

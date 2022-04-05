@@ -57,8 +57,6 @@ const FindTalentParams = () => {
   };
 
   const renderBidBody = (work) => {
-    console.log("to render");
-    console.log(work);
     return (
       <div id={work._id} key={work._id} className="user-bid">
         <div className="bid-left">
@@ -111,7 +109,10 @@ const FindTalentParams = () => {
         );
       }
     }
-
+    if (selectedSkills.length === 0) {
+      settalents(originalTalents);
+      return;
+    }
     for (let k = 0; k < originalTalents.length; k++) {
       const work = originalTalents[k];
       if (selectedSkills.length === 0) {
@@ -139,7 +140,6 @@ const FindTalentParams = () => {
     }
 
     settalents(newWorks);
-    console.log(newWorks);
   };
 
   const dropdown = (data) => {
