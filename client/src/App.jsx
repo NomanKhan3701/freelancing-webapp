@@ -2,6 +2,7 @@ import "./App.css";
 import {
   Bid,
   Chat,
+  ClientDashboard,
   FindPartner,
   FindTalent,
   FindWork,
@@ -33,6 +34,7 @@ function App() {
         <Route path = "/findwork" element = {<FindWork type="findwork"/>} />
         <Route path = "/findwork/category" element = {<FindWorkParams />} />
         <Route path = "/findwork/bid" element = {<Bid/>}/>
+        <Route path = '/clientDashboard' element = {<ClientDashboard/>}/>
 
         <Route path = "/findpartner" element = {<FindPartner />} />
         
@@ -46,8 +48,6 @@ function App() {
         
         <Route path = "/chat" element = {<Chat />} />
 
-        
-        
         <Route
           path = "*"
           element = {

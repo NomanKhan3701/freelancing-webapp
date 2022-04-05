@@ -31,7 +31,7 @@ const UserProfile = () => {
               transition={{ duration: 1, ease: "linear" }}
               className="user-name"
             >
-              BNC
+              Noman
             </motion.h1>
             <motion.div
               initial={{ opacity: 0, translateX: 400 }}
@@ -65,7 +65,7 @@ const UserProfile = () => {
                 className="contact-item"
               >
                 <i className="bx bxl-gmail"></i>
-                <div>BNC.rules3701@gmail.com</div>
+                <div>noman.khan3701@gmail.com</div>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, translateX: -200 }}
