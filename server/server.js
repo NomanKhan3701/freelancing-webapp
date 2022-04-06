@@ -73,7 +73,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post("/post", (req, res, err) => {});
+app.post("/post", (req, res, err) => { });
 
 app.post("/login", (req, res, err) => {
   if (err) {

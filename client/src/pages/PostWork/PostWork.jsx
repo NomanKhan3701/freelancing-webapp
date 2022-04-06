@@ -210,7 +210,7 @@ const PostWork = () => {
   };
 
   return (
-    <div className="post-request">
+    <div className = "post-request-form">
       <Navbar />
       <div className="form">
         <div className="title">
@@ -242,14 +242,7 @@ const PostWork = () => {
         </div> */}
         <div className="skills-required">
           <h1>Category</h1>
-          <Multiselect
-            id="category"
-            options={categories}
-            displayValue="Category"
-            onSelect={onSelectCategory}
-            onRemove={onRemoveCategory}
-            name="category"
-          />
+          <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>

@@ -80,6 +80,8 @@ const ChatMiddle = (props) => {
       })
     );
   };
+
+
   return (
     <div className="chat-middle">
       <div className={`search-container`}>

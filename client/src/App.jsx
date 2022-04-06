@@ -2,6 +2,7 @@ import "./App.css";
 import {
   Bid,
   Chat,
+  ClientDashboard,
   FindPartner,
   FindTalent,
   FindWork,
@@ -13,7 +14,7 @@ import {
   UserDashboard,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/import";
+import { DragAndDropImg, Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
 import PostTalent from "./pages/PostTalent/PostTalent";
@@ -24,8 +25,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="findtalent" element={<FindTalent />} />
-        <Route path="/userdashboard" element={<UserDashboard />}></Route>
-        <Route path="/clientdashboard" element={<UserDashboard />}></Route>
 
         {/* //write category component, post component */}
         <Route path="/findtalent/category" element={<FindTalentParams />} />
@@ -45,6 +44,14 @@ function App() {
 
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/postrequest" element={<PostWork />} />
+
+        <Route path="/findwork" element={<FindWork type="findwork" />} />
+        <Route path="/findwork/category" element={<FindWorkParams />} />
+        <Route path="/findwork/bid" element={<Bid />} />
+        <Route path="/clientDashboard" element={<ClientDashboard />} />
+        <Route path="/freelancerprofile" element={<FreelancerProfile />} />
+
+        <Route path="/chat" element={<Chat />} />
 
         <Route path="/login" element={<LoginSignup status="login" />} />
         <Route path="/signup" element={<LoginSignup status="signup" />} />

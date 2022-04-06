@@ -12,6 +12,16 @@
     .col {
       width: 50%;
 
+      .logo-login-signup {
+        margin-bottom: 20px;
+        font-size: 38px;
+        cursor: pointer;
+        color: var(--primary-color);
+        transform: scale(0);
+        transition: 1s var(--transition-cubic);
+        transition-delay: 0.6s;
+      }
+
       .form-wrapper {
         width: 100%;
         max-width: 28rem;
@@ -100,7 +110,7 @@
         max-width: 28rem;
         margin-top: 30px;
         transform: scale(0);
-        transition: 1s ease;
+        transition: 1s var(--transition-cubic);
         transition-delay: 1s;
         background-color: white;
         box-shadow: var(--box-shadow);
@@ -157,10 +167,12 @@
   &.login .social-list.login,
   &.login .social-list.login > div,
   &.login .social-wrapper.login,
+  &.login .logo-login-signup.login,
   &.signup .form-wrapper.signup,
   &.signup .social-list.signup,
   &.signup .social-list.signup > div ,
-  &.signup .social-wrapper.signup{
+  &.signup .social-wrapper.signup,
+  &.signup .logo-login-signup.signup{
     transform: scale(1);
   }
 
