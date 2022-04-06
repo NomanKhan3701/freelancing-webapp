@@ -1,7 +1,7 @@
 import React from "react";
-import "./WorkSlider.scss";
+import "./WorkPostedSlider.scss";
 
-const WorkSlider = () => {
+const WorkPostedSlider = () => {
   return (
     <div className="work-slider">
       <Swiper
@@ -30,4 +30,4 @@ const WorkSlider = () => {
   );
 };
 
-export default WorkSlider;
+export default WorkPostedSlider;

@@ -91,7 +91,11 @@ const UserProfile = () => {
           </div>
           <div className="main-container">
             <div className="latest-work-posted">
+              <div className="info-section">
               <h1>Latest work posted</h1>
+              <Link to='/'>All post</Link>
+              </div>
+              
               <div className="work-cards">
                 <motion.div
                   initial={{ scale: 0 }}
