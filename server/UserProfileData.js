@@ -97,8 +97,26 @@ const addUserProfile = (data) => {
     return 2;
   }
 };
+
+const getRating = async (username) => {
+  const data = await UserProfileData.find({ username: username }).select(
+    "username"
+  );
+  return data;
+};
+
+const setRating = (username, rating) => {
+  const filter = { username: username};
+  const update = { rating: rating };
+  try{
+    await Character.findOneAndUpdate(filter, update);
+    return 1;
+  }catch(error){
+    return 2;
+  }
+}
 module.exports = { getWorkBidCommentsData, addCommentToWorkBid };
 
 //0 no user with that user id,
-//1 success in adding new user
-//2 error in adding new user
+//1 success in adding new user or just success
+//2 error in adding new user or just error
