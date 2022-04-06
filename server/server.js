@@ -39,6 +39,11 @@ const {
   getWorkFilterData,
   addWorkData,
 } = require("./FindWorkData");
+const {
+  getTalentData,
+  getTalentFilterData,
+  addTalentData,
+} = require("./FindTalentData");
 const { createNewUser, isValidUser, UserSignUp } = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
@@ -145,13 +150,35 @@ app.post("/findtalent/postwork", (req, res, err) => {
     res.status(500).send("An error occurred", error);
   }
 });
+app.post("/findwork/posttalent", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const body = req.body.postTalentData;
+  try {
+    // newPostWorkData.save();
+    addTalentData({
+      title: body.title,
+      desc: body.desc,
+      category: body.category,
+      qualifications: body.skills,
+      price: body.price,
+      perHourRate: body.perHourRate,
+      username: body.username,
+    });
+    res.send({ result: 1 });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
+});
 
 app.get("/findtalent/:category", (req, res, err) => {
   if (err) {
     console.log(err);
   }
   try {
-    getWorkData().then((items) => {
+    getTalentData().then((items) => {
       getWorkFilterData().then((filterData) => {
         res.send({ items: items, filterData: filterData });
       });

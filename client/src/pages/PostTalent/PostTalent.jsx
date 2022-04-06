@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { DragAndDropImg, Navbar } from "../../components/import";
 import { Multiselect } from "multiselect-react-dropdown";
-import "./PostWork.scss";
+import "./PostTalent.scss";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 import { Select } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 toast.configure();
 
-const PostWork = () => {
+const PostTalent = () => {
   const navigate = useNavigate();
   // const [sOptions, setSOptions] = useState([
   //   { value: "HTML", label: "HTML" },
@@ -20,13 +20,13 @@ const PostWork = () => {
   //   { value: "MongoDB", label: "MongoDB" },
   // ]);
   const [isLoading, setLoading] = useState(true);
-  const [postWorkData, setPostWorkData] = useState({
+  const [postTalentData, setPostTalentData] = useState({
     title: "",
     desc: "",
     category: "",
     skills: [],
-    minBid: null,
-    maxBid: null,
+    price: null,
+    perHourRate: null,
   });
   const [categories, setCategories] = useState([]);
   const [originalData, setOriginalData] = useState([]);
@@ -54,22 +54,22 @@ const PostWork = () => {
 
   const onDataChange = (event) => {
     const { name, value } = event.target;
-    setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, [name]: value };
+    setPostTalentData((previousTalentData) => {
+      return { ...previousTalentData, [name]: value };
     });
   };
 
   const onSelectCategory = (selectedList, selectedItem) => {
     changeSkills(selectedItem.Category);
-    setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, category: selectedItem.Category };
+    setPostTalentData((previousTalentData) => {
+      return { ...previousTalentData, category: selectedItem.Category };
     });
   };
 
   const onRemoveCategory = (selectedList, selectedItem) => {
     changeSkills("");
-    setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, category: "" };
+    setPostTalentData((previousTalentData) => {
+      return { ...previousTalentData, category: "" };
     });
   };
 
@@ -94,8 +94,8 @@ const PostWork = () => {
     for (let i = 0; i < selectedList.length; i++) {
       skillsList.push(selectedList[i].Skill);
     }
-    setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, skills: skillsList };
+    setPostTalentData((previousTalentData) => {
+      return { ...previousTalentData, skills: skillsList };
     });
   };
 
@@ -104,21 +104,21 @@ const PostWork = () => {
     for (let i = 0; i < selectedList.length; i++) {
       skillsList.push(selectedList[i].Skill);
     }
-    setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, skills: skillsList };
+    setPostTalentData((previousTalentData) => {
+      return { ...previousTalentData, skills: skillsList };
     });
   };
 
   const isValidToNavigate = () => {
-    let title, desc, category, minBid, maxBid;
+    let title, desc, category, perHourRate, price;
     let skills = [];
     try {
       title = document.querySelector("input[name = title]").value;
       desc = document.querySelector("textarea[name = desc]").value;
 
-      minBid = document.querySelector("input[name = minBid]").value;
-      maxBid = document.querySelector("input[name = maxBid]").value;
-      if (!title || !desc || !minBid || !maxBid) {
+      perHourRate = document.querySelector("input[name = perHourRate]").value;
+      price = document.querySelector("input[name = price]").value;
+      if (!title || !desc || !perHourRate || !price) {
         toast.error("Input cannot be empty.", {
           position: "top-center",
         });
@@ -152,14 +152,8 @@ const PostWork = () => {
       });
       return false;
     }
-    if (maxBid < 0 || minBid < 0) {
-      toast.error("Bid cannot be less than 0.", {
-        position: "top-center",
-      });
-      return false;
-    }
-    if (maxBid <= minBid) {
-      toast.error("Max bid has to be greater than min bid.", {
+    if (price < 0 || perHourRate < 0) {
+      toast.error("Prices cannot be less than 0.", {
         position: "top-center",
       });
       return false;
@@ -187,18 +181,18 @@ const PostWork = () => {
     return false;
   };
 
-  const newPostForWork = (event) => {
+  const newPostForTalent = (event) => {
     const goAhead = isValidToNavigate();
     if (!goAhead) {
       return;
     }
     const data = {
-      ...postWorkData,
+      ...postTalentData,
       username: localStorage.getItem("username"),
     };
     axios
-      .post(`http://localhost:8080/findtalent/postwork`, {
-        postWorkData: data,
+      .post(`http://localhost:8080/findwork/posttalent`, {
+        postTalentData: data,
       })
       .then((response) => {
         //response is the object that contains data sent from server
@@ -214,20 +208,20 @@ const PostWork = () => {
       <Navbar />
       <div className="form">
         <div className="title">
-          <h1>Choose a name for your project</h1>
+          <h1>Title </h1>
           <input
             name="title"
             type="text"
-            placeholder="e.g. Build me a freelancing website"
+            placeholder="e.g. Web Devloper"
             onChange={onDataChange}
           />
         </div>
         <div className="desc">
-          <h1>Tell us more about your project</h1>
+          <h1>Tell us more about you</h1>
           <textarea
             type="text"
             name="desc"
-            placeholder="Describe your project here in more than 100 characters"
+            placeholder="Describe yourself here in more than 100 characters"
             onChange={onDataChange}
           />
         </div>
@@ -252,7 +246,7 @@ const PostWork = () => {
           />
         </div>
         <div className="skills-required">
-          <h1>What skills are required</h1>
+          <h1>Your Skills</h1>
           <Multiselect
             id="skills"
             options={skills}
@@ -266,24 +260,24 @@ const PostWork = () => {
           <h1>Enter your budget</h1>
           <input
             type="text"
-            placeholder="min"
+            placeholder="perHour"
             onChange={onDataChange}
-            name="minBid"
+            name="perHourRate"
           />
           <span>to</span>
           <input
             type="text"
-            placeholder="max"
+            placeholder="total"
             onChange={onDataChange}
-            name="maxBid"
+            name="price"
           />
         </div>
-        <div className="btn" onClick={newPostForWork}>
-          Post Project
+        <div className="btn" onClick={newPostForTalent}>
+          Post Talent
         </div>
       </div>
     </div>
   );
 };
 
-export default PostWork;
+export default PostTalent;

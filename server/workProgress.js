@@ -9,58 +9,46 @@ var workProgressSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  clientUsername: {
+  startDate: {
     type: String,
     required: true,
   },
-  freelancerUsername: {
+  endDate: {
     type: String,
-    required: true,
   },
-  forClient: {
+  moneyExchanged: {
     type: Object,
     required: true,
-  },
-  forFreelancer: {
-    type: Object,
-    unique: true,
   },
 });
 
-const Review = new mongoose.model("Review", ReviewSchema);
+const WorkProgress = new mongoose.model("WorkProgress", workProgressSchema);
 
-const getReviewForWorkId = async (id) => {
-  const data = await ReviewSchema.find({ workId: id });
+const getWorkProcess = async (id) => {
+  const data = await WorkProgress.find({ workId: id });
   if (data.length === 0) {
     return 0;
   }
   return data[0];
 };
 
-const addReview = (data) => {
-  const {
-    workId,
-    clientUsername,
-    freelancerUsername,
-    forClient,
-    forFreelancer,
-  } = data;
-  const newReview = new UserProfileData({
+const addWorkProgress = (data) => {
+  const { workId, startDate, endDate, moneyExchanged } = data;
+  const newWorkProgress = new WorkProgress({
     workId: workId,
-    clientUsername: clientUsername,
-    freelancerUsername: freelancerUsername,
-    forClient: forClient,
-    forFreelancer: forFreelancer,
+    startDate: startDate,
+    endDate: endDate,
+    moneyExchanged: moneyExchanged,
   });
   try {
-    newReview.save();
+    newWorkProgress.save();
     return 1;
   } catch (error) {
     console.log(error);
     return 2;
   }
 };
-module.exports = { addReview, getReviewForWorkId };
+module.exports = { addWorkProgress, getWorkProcess };
 
 //0 no user with that user id,
 //1 success in adding new review

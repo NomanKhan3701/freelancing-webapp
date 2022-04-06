@@ -9,6 +9,10 @@ var ReviewSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
   clientUsername: {
     type: String,
     required: true,
@@ -19,18 +23,16 @@ var ReviewSchema = new mongoose.Schema({
   },
   forClient: {
     type: Object,
-    required: true,
   },
   forFreelancer: {
     type: Object,
-    unique: true,
   },
 });
 
 const Review = new mongoose.model("Review", ReviewSchema);
 
 const getReviewForWorkId = async (id) => {
-  const data = await ReviewSchema.find({ workId: id });
+  const data = await Review.find({ workId: id });
   if (data.length === 0) {
     return 0;
   }
@@ -45,7 +47,7 @@ const addReview = (data) => {
     forClient,
     forFreelancer,
   } = data;
-  const newReview = new UserProfileData({
+  const newReview = new Review({
     workId: workId,
     clientUsername: clientUsername,
     freelancerUsername: freelancerUsername,
