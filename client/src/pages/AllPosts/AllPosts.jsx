@@ -1,9 +1,10 @@
 import React from "react";
-import { Navbar } from "../../components/import";
+import { Footer, Navbar } from "../../components/import";
 import "./AllPosts.scss";
 
 const AllPosts = () => {
   return (
+    <>
     <div className="all-posts-container">
       <Navbar />
       <h1>All Posts</h1>
@@ -110,6 +111,8 @@ const AllPosts = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

@@ -1,9 +1,10 @@
 import React from "react";
-import { Navbar } from "../../components/import";
+import { Footer, Navbar } from "../../components/import";
 import "./AllWorks.scss";
 
 const AllWorks = () => {
   return (
+    <>
     <div className="all-works-container">
       <Navbar />
       <h1>All works</h1>
@@ -130,6 +131,8 @@ const AllWorks = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
