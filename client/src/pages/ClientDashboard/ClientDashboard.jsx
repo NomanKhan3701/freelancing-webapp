@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "../../components/import";
-import "./Bid.scss";
+import "./../Bid/Bid.scss";
 import clientImg from "../../assets/images/Cha2.jpg";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -176,21 +176,26 @@ const ClientDashboard = () => {
               return (
                 <div key={bid._id} className="freelancer">
                   <div className="freelancer-bid-top">
-                  <div className="user-info">
-                    <img src={clientImg} alt="user image" />
-                    <div className="user-name">{bid.username}</div>
-                  </div>
-                  <div className="flex sell-bid-info">
-                    <div className="price sell-info">Price : {bid.amount}₹</div>
-                    <div className="star sell-info">Rating : 4.9</div>
-                  </div>
-                  <div className="desc">{bid.desc}</div>
+                    <div className="user-info">
+                      <img src={clientImg} alt="user image" />
+                      <div className="user-name">{bid.username}</div>
+                    </div>
+                    <div className="flex sell-bid-info">
+                      <div className="price sell-info">
+                        Price : {bid.amount}₹
+                      </div>
+                      <div className="star sell-info">Rating : 4.9</div>
+                    </div>
+                    <div className="desc">{bid.desc}</div>
                   </div>
                   <div className="freelancer-bid-bottom">
-                    <div className="btn"><Link to='/userprofile'>Visit profile</Link></div>
-                  <div className="btn"><Link to='#'>Accept Bid</Link></div>
+                    <div className="btn">
+                      <Link to="/userprofile">Visit profile</Link>
+                    </div>
+                    <div className="btn">
+                      <Link to="#">Accept Bid</Link>
+                    </div>
                   </div>
-                  
                 </div>
               );
             })}
