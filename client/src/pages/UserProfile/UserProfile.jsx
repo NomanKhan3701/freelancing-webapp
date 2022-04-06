@@ -93,7 +93,7 @@ const UserProfile = () => {
             <div className="latest-work-posted">
               <div className="info-section">
               <h1>Latest work posted</h1>
-              <Link to='/'>All post</Link>
+              <Link to='allPost'>All post</Link>
               </div>
               <div className="work-cards">
                 <WorkDoneSlider/>
@@ -102,7 +102,7 @@ const UserProfile = () => {
             <div className="latest-work-posted">
               <div className="info-section">
               <h1>Work done</h1>
-              <Link to='/'>All work</Link>
+              <Link to='allWork'>All work</Link>
               </div>
               <div className="work-cards">
                 <WorkDoneSlider/>

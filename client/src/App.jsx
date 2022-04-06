@@ -12,6 +12,8 @@ import {
   PostWork,
   UserProfile,
   UserDashboard,
+  AllWorks,
+  AllPosts,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DragAndDropImg, Navbar } from "./components/import";
@@ -36,6 +38,8 @@ function App() {
         <Route path = "/findwork/bid" element = {<Bid/>}/>
         <Route path = '/clientDashboard' element = {<ClientDashboard/>}/>
         <Route path = '/freelancerprofile' element = {<FreelancerProfile/>}/>
+        <Route path = 'userprofile/allwork' element = {<AllWorks/>}/>
+        <Route path = 'userprofile/allpost' element = {<AllPosts/>}/>
 
         <Route path="/chat" element={<Chat />} />
 

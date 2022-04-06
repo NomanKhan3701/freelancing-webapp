@@ -1,0 +1,13 @@
+.all-posts-container {
+    padding-top: 90px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    .post-cards {
+        .post-card {
+            width: 400px;
+            height: 300px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    }
+}
