@@ -47,9 +47,17 @@
           padding: 10px 20px;
           width: max-content;
           margin: auto;
-          background: rgb(88, 155, 93);
-          color: white;
           border-radius: 20px;
+
+          &.progress {
+            background: rgb(66, 134, 133);
+            color: white;
+          }
+  
+          &.done {
+            background: rgb(88, 155, 93);
+            color: white;
+          }
         }
       }
 

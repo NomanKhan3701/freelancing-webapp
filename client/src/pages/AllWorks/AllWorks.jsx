@@ -17,7 +17,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status progress">In progress</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -27,7 +27,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -37,7 +37,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status progress">In progress</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -47,7 +47,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -57,7 +57,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -67,7 +67,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -77,7 +77,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status progress">In progress</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -87,7 +87,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -97,7 +97,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -107,7 +107,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -117,7 +117,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status done">Done</div>
         </div>
         <div className="work-card">
           <h1 className="title">Aws work</h1>
@@ -127,7 +127,7 @@ const AllWorks = () => {
             asperiores, voluptas iure ad minus sit iusto nisi quisquam libero
             magnam.
           </div>
-          <div className="status">In progress</div>
+          <div className="status progress">In progress</div>
         </div>
       </div>
     </div>
