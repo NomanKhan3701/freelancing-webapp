@@ -106,7 +106,7 @@ const user_message = [
 ];
 
 const renderMessageToggle = () => (
-  <div className="chat-dropdown">Message(5)</div>
+  <div className="chat-dropdown">Message({user_message.length})</div>
 );
 
 const renderMessageMenu = (item, index) => (
