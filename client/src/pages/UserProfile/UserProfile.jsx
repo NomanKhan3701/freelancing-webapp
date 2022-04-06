@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "../../components/import";
+import { Navbar, WorkDoneSlider } from "../../components/import";
 import { motion } from "framer-motion";
 import "./UserProfile.scss";
 import { Link } from "react-router-dom";
@@ -91,52 +91,21 @@ const UserProfile = () => {
           </div>
           <div className="main-container">
             <div className="latest-work-posted">
+              <div className="info-section">
               <h1>Latest work posted</h1>
+              <Link to='/'>All post</Link>
+              </div>
               <div className="work-cards">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                >
-                  
-                </motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
+                <WorkDoneSlider/>
+              </div>
+            </div>
+            <div className="latest-work-posted">
+              <div className="info-section">
+              <h1>Work done</h1>
+              <Link to='/'>All work</Link>
+              </div>
+              <div className="work-cards">
+                <WorkDoneSlider/>
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 import { Select } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 toast.configure();
 
 const PostWork = () => {
@@ -201,7 +201,7 @@ const PostWork = () => {
   };
 
   return (
-    <div className = "post-request-form">
+    <div className="post-request-form">
       <Navbar />
       <div className="form">
         <div className="title">
@@ -233,7 +233,14 @@ const PostWork = () => {
         </div> */}
         <div className="skills-required">
           <h1>Category</h1>
-          <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
+          <Select
+            id="category"
+            options={categories}
+            displayValue="Category"
+            onSelect={onSelectCategory}
+            onRemove={onRemoveCategory}
+            name="category"
+          />
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>

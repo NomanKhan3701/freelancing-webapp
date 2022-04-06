@@ -9,6 +9,8 @@ import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
 
+import { useLocation } from "react-router-dom";
+
 toast.configure();
 
 const axios = require("axios").default;
@@ -16,6 +18,8 @@ const axios = require("axios").default;
 const LoginSignUp = (props) => {
   //to redirect after cliking signUp or login option on LoginSignUp page
   let navigate = useNavigate();
+  const location = useLocation();
+
   const routeChangeToSignUp = () => {
     let path = `/signup`;
     navigate(path);
@@ -154,11 +158,18 @@ const LoginSignUp = (props) => {
         break;
       case 3:
         //user exist with username and google signUP trying
+        if (location.state.goingTo) {
+          navigate(location.state.goingTo);
+          return;
+        }
         navigate("/");
         break;
       case 4:
         //new user created successfully
-
+        if (location.state.goingTo) {
+          navigate(location.state.goingTo);
+          return;
+        }
         navigate("/");
         break;
       case 5:
@@ -169,6 +180,10 @@ const LoginSignUp = (props) => {
         break;
       case 6:
         //login succesfully
+        if (location.state.goingTo) {
+          navigate(location.state.goingTo);
+          return;
+        }
         navigate("/");
         break;
       default:
@@ -180,7 +195,9 @@ const LoginSignUp = (props) => {
     <div className="login-signup-container">
       <div className="row">
         <div className="col align-items-center flex-col">
-          <Link to='/' className="logo-login-signup signup">Freelance</Link>
+          <Link to="/" className="logo-login-signup signup">
+            Freelance
+          </Link>
           <div className="form-wrapper align-items-center signup">
             <form className="form">
               <div className="input-group">
@@ -233,7 +250,9 @@ const LoginSignUp = (props) => {
           </div>
         </div>
         <div className="col align-items-center flex-col">
-          <Link to='/' className="logo-login-signup login">Freelance</Link>
+          <Link to="/" className="logo-login-signup login">
+            Freelance
+          </Link>
           <div className="form-wrapper align-items-center login">
             <form className="form">
               <div className="input-group">

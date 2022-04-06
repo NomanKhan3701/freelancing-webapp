@@ -12,9 +12,11 @@ import RandomDev from "./json/RandomDev.json";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
-
+import { toast } from "react-toastify";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+
+toast.configure();
 
 const FindWork = (props) => {
   let navigate = useNavigate();
@@ -59,6 +61,27 @@ const FindWork = (props) => {
     );
   };
 
+  const validator = () => {
+    const isLoggedIn = localStorage.getItem("loggedIn");
+    if (isLoggedIn === "false") {
+      toast.error("please login before posting your talents.", {
+        position: "top-center",
+      });
+      navigate("/login", { state: { goingTo: "/findwork" } });
+      return;
+    }
+
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    if (isDataTaken === "false") {
+      toast.error("please fill this data before posting work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput", { state: { goingTo: "/findwork" } });
+      return;
+    }
+    navigate("/findwork/posttalent");
+  };
+
   return (
     <>
       <div className="find-talent-container">
@@ -77,6 +100,12 @@ const FindWork = (props) => {
                 </SwiperSlide>
               );
             })}
+          </div>
+        </div>
+        <div className="post-request">
+          <h1>Add Yourself as a freelancer</h1>
+          <div className="btn" onClick={validator}>
+            Post Talent
           </div>
         </div>
       </div>
