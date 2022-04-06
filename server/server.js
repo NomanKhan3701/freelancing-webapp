@@ -73,17 +73,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.post("/post", (req, res, err) => { });
+// app.post("/post", (req, res, err) => {});
 
 app.post("/login", (req, res, err) => {
   if (err) {
     //
   }
   const { username, password } = req.body;
-  console.log(req.body);
   isValidUser({ username: username, password: password })
     .then((response) => {
-      res.send({ result: response });
+      res.send({
+        result: response.result,
+        userDataTaken: response.userDataTaken,
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -99,7 +101,7 @@ app.post("/signup", (req, res, err) => {
   let result;
   try {
     createNewUser(req.body).then((result) => {
-      res.send({ result: result });
+      res.send({ result: result, userDataTaken: false });
     });
   } catch (error) {
     console.log("some error");

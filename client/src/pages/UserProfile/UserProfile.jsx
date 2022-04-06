@@ -79,14 +79,14 @@ const UserProfile = () => {
                   Mumbai, Maharashtra 400058
                 </div>
               </motion.div>
-            <motion.div
-              initial={{ opacity: 0, translateX: -200 }}
-              animate={{ opacity: 1, translateX: 0 }}
-              transition={{ duration: 1, ease: "linear" }}
-              className="btn"
-            >
-              <Link to='/chat'>Chat</Link>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, translateX: -200 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1, ease: "linear" }}
+                className="btn"
+              >
+                <Link to="/chat">Chat</Link>
+              </motion.div>
             </div>
           </div>
           <div className="main-container">
@@ -98,9 +98,7 @@ const UserProfile = () => {
                   animate={{ scale: 1 }}
                   transition={{ duration: 1, ease: "linear" }}
                   className="work-card"
-                >
-                  
-                </motion.div>
+                ></motion.div>
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}

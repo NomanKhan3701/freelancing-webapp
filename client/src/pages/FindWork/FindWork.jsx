@@ -16,6 +16,9 @@ import { SwiperSlide } from "swiper/react";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 
+import { toast } from "react-toastify";
+toast.configure();
+
 const FindWork = (props) => {
   let navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
@@ -58,7 +61,17 @@ const FindWork = (props) => {
       arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
     );
   };
-
+  const goToPostRequest = () => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    if (!isDataTaken) {
+      navigate("/findwork/posttalent");
+    } else {
+      toast.error("You must fill your details before posting the work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+    }
+  };
   return (
     <>
       <div className="find-talent-container">
@@ -81,8 +94,11 @@ const FindWork = (props) => {
         </div>
         <div className="post-request">
           <h1>Post Your Talents As A Freelancer</h1>
-          <div className="btn">
+          {/* <div className="btn">
             <Link to="/findwork/posttalent">Post Talents</Link>
+          </div> */}
+          <div className="btn" onClick={goToPostRequest}>
+            Post Your Talent
           </div>
         </div>
       </div>

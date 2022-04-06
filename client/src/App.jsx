@@ -11,20 +11,19 @@ import {
   LoginSignup,
   PostWork,
   UserProfile,
-  UserDashboard,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DragAndDropImg, Navbar } from "./components/import";
+import { Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
 import PostTalent from "./pages/PostTalent/PostTalent";
-
 function App() {
   return (
     <BrowserRouter className="App">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="findtalent" element={<FindTalent />} />
+        {/* <Route path="/clientdashboard" element={<UserDashboard />}></Route> */}
 
         {/* //write category component, post component */}
         <Route path="/findtalent/category" element={<FindTalentParams />} />
