@@ -64,10 +64,24 @@ const addNewUsersToChat = async (username1, username2) => {
 };
 
 const findAllRoomsWithGivenUser = async (username) => {
-  const data = await UserChatRoom.find({ username: /username/i });
+  // const data = await UserChatRoom.find({ usernames: /`${username}`/i });
+  const regex = new RegExp(username, "i"); // i for case insensitive
+  const data = await UserChatRoom.find({ usernames: { $regex: regex } });
   return data;
 };
-module.exports = { getRoomNo, addNewUsersToChat, findAllRoomsWithGivenUser };
+
+const findAllOtherUsersChattingWithGivenUser = async (username) => {
+  // const data = await UserChatRoom.find({ usernames: /`${username}`/i });
+  const regex = new RegExp(username, "i"); // i for case insensitive
+  const data = await UserChatRoom.find({ usernames: { $regex: regex } });
+  return data;
+};
+module.exports = {
+  getRoomNo,
+  addNewUsersToChat,
+  findAllRoomsWithGivenUser,
+  findAllOtherUsersChattingWithGivenUser,
+};
 
 //1 chat doesnt exist between users
 //2 chat exist between users

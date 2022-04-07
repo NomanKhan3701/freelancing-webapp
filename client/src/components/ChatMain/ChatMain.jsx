@@ -32,23 +32,12 @@ const ChatMain = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [finalData, setFinalData] = useState(chatMainData);
   const [room, setRoom] = useState();
+  const [onlineUsers, setOnlineUsers] = useState([]);
   useEffect(() => {
     socket = io("http://localhost:8080");
+    socket.emit("online", sender);
     setFinalData(chatMainData);
-    socket.on("message", (msg) => {
-      setFinalData((data) => {
-        return {
-          ...data,
-          chatData: [...data.chatData, msg],
-        };
-      });
-      dispatch(
-        update({
-          ...finalData,
-          chatData: [...finalData.chatData, msg],
-        })
-      );
-    });
+
     socket.on("error", function (err) {
       console.log(err);
     });
@@ -61,11 +50,11 @@ const ChatMain = (props) => {
         }
       });
     }
-
     socket.on("getRoomNo", (room) => {
       setRoom(room);
     });
     return () => {
+      socket.emit("offline", username1);
       socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
       socket.off();
     };
@@ -83,6 +72,72 @@ const ChatMain = (props) => {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
   }, [finalData]);
+
+  useEffect(() => {
+    const status = onlineUsers.includes(finalData.receiver)
+      ? "online"
+      : "offline";
+    setFinalData((data) => {
+      return {
+        ...data,
+        status: status,
+      };
+    });
+  }, [onlineUsers]);
+
+  useEffect(() => {
+    socket.on("onJoin", (users) => {
+      // console.log(onlineUsers);
+      // console.log("onJoin all users");
+      // console.log(users);
+      setOnlineUsers(users);
+    });
+    socket.on("newUserJoined", (user) => {
+      setOnlineUsers((users) => {
+        if (sender === user) {
+          return users;
+        } else {
+          return [...users, user];
+        }
+      });
+    });
+    socket.on("userLeft", (username) => {
+      setOnlineUsers((users) => {
+        if (users.includes(username) && sender !== username) {
+          return users.filter((user) => user !== username);
+        } else {
+          return users;
+        }
+      });
+    });
+    socket.on("message", (msg) => {
+      setFinalData((data) => {
+        return {
+          ...data,
+          chatData: [...data.chatData, msg],
+        };
+      });
+      dispatch(
+        update({
+          ...finalData,
+          chatData: [...finalData.chatData, msg],
+        })
+      );
+    });
+    // socket.on("msgWithoutRoom", ({ room, message }) => {
+
+    // });
+    window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      e.returnValue = "";
+      socket.emit("offline", sender);
+    });
+    return () => {
+      window.removeEventListener("beforeunload", function (e) {
+        socket.emit("offline", sender);
+      });
+    };
+  });
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -105,11 +160,13 @@ const ChatMain = (props) => {
         chatData: [...finalData.chatData, message],
       })
     );
-    socket.emit("sendMessage", { room, message }, (error) => {
+    const receiver = localStorage.getItem("receiver");
+    socket.emit("sendMessage", { room, message, receiver }, (error) => {
       if (error) {
         alert(error);
       }
     });
+    socket.emit("getOnlineUsers", sender);
   };
 
   const handleEmojiPickerHideShow = () => {
@@ -131,7 +188,7 @@ const ChatMain = (props) => {
   };
   return (
     <div className="chat-main">
-      {finalData.username === "default" ? (
+      {/* {finalData.username === "default" ? ( */}
         <>
           <div className="top-container">
             <div className="user">
@@ -198,20 +255,20 @@ const ChatMain = (props) => {
             </form>
           </div>
         </>
-      ) : (
-        <div className="chat-default-section">
-          <div className="robot-container">
-            <div className="robot">
-              <img src={gif} alt="" />
-            </div>
-            <div className="info">
-              <div className="line">Chat with anyone you want to</div>
-              <div className="line">Call anyone you need to</div>
-              <div className="line">A totally lovely place for you</div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* // ) : (
+      //   <div className="chat-default-section">
+      //     <div className="robot-container">
+      //       <div className="robot">
+      //         <img src={gif} alt="" />
+      //       </div>
+      //       <div className="info">
+      //         <div className="line">Chat with anyone you want to</div>
+      //         <div className="line">Call anyone you need to</div>
+      //         <div className="line">A totally lovely place for you</div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // )} */}
     </div>
   );
 };

@@ -22,13 +22,11 @@ const Chat = () => {
   const [chats, setChats] = useState();
   const [chatData, setChatData] = useState();
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/chat/:${sender}`)
-      .then(function (response) {
-        setChats(response.data.chats);
-        setChatData(response.data.chatData);
-        setLoading(false);
-      });
+    axios.get(`http://localhost:8080/chat/${sender}`).then(function (response) {
+      setChats(response.data.chats);
+      setChatData(response.data.chatData);
+      setLoading(false);
+    });
   }, []);
   if (isLoading) {
     return <LoadingSpinner />;

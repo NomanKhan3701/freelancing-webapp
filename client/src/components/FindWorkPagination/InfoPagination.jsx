@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./InfoPagination.scss";
 
 const InfoPagination = (props) => {
-  const initDataShow = props.limit
+  let initDataShow = props.limit
     ? props.bodyData.slice(0, Number(props.limit))
     : props.bodyData;
   const [dataShow, setDataShow] = useState(initDataShow);
+  useEffect(() => {
+    initDataShow = props.limit
+      ? props.bodyData.slice(0, Number(props.limit))
+      : props.bodyData;
+    setDataShow(initDataShow);
+  }, [props.bodyData]);
   let pages = 1;
   let range = [];
 
@@ -25,6 +31,10 @@ const InfoPagination = (props) => {
     setCurrPage(page);
   };
 
+  const renderWork = (item, index) => {
+    return props.renderBody(item, index);
+  };
+
   return (
     <div className="info-pagination">
       {pages > 1 ? (
@@ -32,8 +42,14 @@ const InfoPagination = (props) => {
           {range.map((item, index) => (
             <div
               key={index}
+<<<<<<< HEAD
               className={`pagination-item ${currPage === index ? "active" : ""
                 }`}
+=======
+              className={`pagination-item ${
+                currPage === index ? "active" : ""
+              }`}
+>>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
               onClick={() => selectPage(index)}
             >
               {item + 1}
@@ -44,17 +60,27 @@ const InfoPagination = (props) => {
         ""
       )}
       {props.bodyData && props.renderBody ? (
+<<<<<<< HEAD
         <>
           {dataShow.map((item, index) => props.renderBody(item, index))}
         </>
+=======
+        <>{dataShow.map((item, index) => renderWork(item, index))}</>
+>>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
       ) : null}
       {pages > 1 ? (
         <div className="pagination">
           {range.map((item, index) => (
             <div
               key={index}
+<<<<<<< HEAD
               className={`pagination-item ${currPage === index ? "active" : ""
                 }`}
+=======
+              className={`pagination-item ${
+                currPage === index ? "active" : ""
+              }`}
+>>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
               onClick={() => selectPage(index)}
             >
               {item + 1}

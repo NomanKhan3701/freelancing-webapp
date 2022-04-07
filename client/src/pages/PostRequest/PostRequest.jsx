@@ -5,7 +5,10 @@ import Select from "react-dropdown-select";
 import "./PostRequest.scss";
 
 const PostRequest = () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
   const data = [
     { Skill: "HTML" },
     { Skill: "CSS" },
@@ -17,14 +20,25 @@ const PostRequest = () => {
   ];
 
   const [sOptions, setSOptions] = useState([
+<<<<<<< HEAD
     { value: "Web development", label: "Web development" },
     { value: "App development", label: "App development" },
     { value: "Designer", label: "Designer" },
     { value: "Video Editor", label: "Video Editor" },
     { value: "Cyber Security", label: "Cyber Security" },
     { value: "Model", label: "Model" },
+=======
+    { value: "HTML", label: "HTML" },
+    { value: "CSS", label: "CSS" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "ReactJs", label: "ReactJs" },
+    { value: "NodeJs", label: "NodeJs" },
+    { value: "MongoDB", label: "MongoDB" },
+>>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
   ]);
   const [options, setOptions] = useState(data);
+
+  const postRequest = () => {};
   return (
     <div className="post-request">
       <Navbar />
@@ -45,9 +59,7 @@ const PostRequest = () => {
         </div>
         <div className="category-select">
           <h1>Select a category</h1>
-          <Select
-            options={sOptions}
-          />
+          <Select options={sOptions} />
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>
@@ -59,7 +71,9 @@ const PostRequest = () => {
           <span>to</span>
           <input type="text" placeholder="max" />
         </div>
-        <div className="btn">Post Project</div>
+        <div className="btn" onClick={postRequest}>
+          Post Project
+        </div>
       </div>
     </div>
   );

@@ -30,11 +30,14 @@ const Dropdown = (props) => {
       </div>
       <div ref={dropdown_content_el} className="dropdown__content">
         <div ref={point_toggle} className="point"></div>
-        {props.contentData && props.renderItems
-          ? props.contentData.map((item, index) =>
-              props.renderItems(item, index)
-            )
-          : ""}
+        <div className="main-content">
+          {props.contentData && props.renderItems
+            ? props.contentData.map((item, index) =>
+                props.renderItems(item, index)
+              )
+            : ""}
+        </div>
+
         {props.renderFooter ? (
           <div className="dropdown__footer">{props.renderFooter()}</div>
         ) : (

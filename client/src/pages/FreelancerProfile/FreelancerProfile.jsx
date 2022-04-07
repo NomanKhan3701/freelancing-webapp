@@ -61,15 +61,6 @@ const FreelancerProfile = () => {
             <div className="contact-info">
               <div className="contact">
                 <motion.div
-                  initial={{ opacity: 0, translateX: -100 }}
-                  animate={{ opacity: 1, translateX: 0 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="contact-item"
-                >
-                  <i className="bx bxs-phone"></i>
-                  <div>9278237823</div>
-                </motion.div>
-                <motion.div
                   initial={{ opacity: 0, translateX: -200 }}
                   animate={{ opacity: 1, translateX: 0 }}
                   transition={{ duration: 1, ease: "linear" }}
@@ -82,22 +73,10 @@ const FreelancerProfile = () => {
                   initial={{ opacity: 0, translateX: -200 }}
                   animate={{ opacity: 1, translateX: 0 }}
                   transition={{ duration: 1, ease: "linear" }}
-                  className="contact-item"
+                  className="btn"
                 >
-                  <i className="bx bxs-home"></i>
-                  <div>
-                    Bhavans Campus, Old D N Nagar, Munshi Nagar, Andheri West,
-                    Mumbai, Maharashtra 400058
-                  </div>
+                  <Link to="/chat">Chat</Link>
                 </motion.div>
-                <motion.div
-              initial={{ opacity: 0, translateX: -200 }}
-              animate={{ opacity: 1, translateX: 0 }}
-              transition={{ duration: 1, ease: "linear" }}
-              className="btn"
-            >
-              <Link to='/chat'>Chat</Link>
-            </motion.div>
               </div>
             </div>
           </div>

@@ -12,3 +12,5 @@ export {default as ChatMain} from './ChatMain/ChatMain';
 export {default as ChatMiddle} from './ChatMiddle/ChatMiddle';
 export {default as InfoPagination} from './FindWorkPagination/InfoPagination';
 export {default as DragAndDropImg} from './DragAndDropImg/DragAndDropImg';
+export {default as WorkPostedSlider} from './WorkPostedSlider/WorkPostedSlider';
+export {default as WorkDoneSlider} from './WorkDoneSlider/WorkDoneSlider';

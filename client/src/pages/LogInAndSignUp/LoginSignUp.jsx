@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
-import { NavLink } from "react-router-dom";
+
+toast.configure();
 
 const axios = require("axios").default;
 
@@ -82,8 +83,11 @@ const LoginSignUp = (props) => {
       const password = userLoginData.passwordLogin;
       if (username === "" || password === "") {
         //pop up
+        // toast.error("Please enter all the field values", {
+        //   position: "top-right",
+        // });
         toast.error("Please enter all the field values", {
-          position: "top-right",
+          position: toast.POSITION.TOP_RIGHT,
         });
         return;
       }
@@ -95,21 +99,20 @@ const LoginSignUp = (props) => {
       const confirmPassword = userSignUpData.confirmPasswordSignUp;
       if (username === "" || password === "" || confirmPassword === "") {
         //pop up
-        toast.error("Please enter all the fields", {
-          position: "top-right",
+        toast.error("Input cannot be empty.", {
+          position: "top-left",
         });
         return;
       } else if (password !== confirmPassword) {
         //pop up
         toast.error("Password is not matching with confirm password", {
-          position: "top-right",
+          position: "top-left",
         });
         return;
       }
       username1 = username;
       password1 = password;
     }
-
     axios
       .post(`http://localhost:8080/${context.toLowerCase()}`, {
         username: username1,
@@ -126,23 +129,28 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
         }
-        onResult(response.data.result);
+        onResult(response.data.result, context.toLowerCase());
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  let onResult = (data) => {
+  let onResult = (data, page) => {
     switch (data) {
       case 1:
         //pop up on screen that username already exists
         toast.error("Username already exist", {
-          position: "top-right",
+          position: "top-left",
         });
         break;
       case 2:
         //nothing
+        const position = page === "login" ? "top-right" : "top-left";
+        toast.error("Username doesnt exist.", {
+          position: position,
+        });
+
         break;
       case 3:
         //user exist with username and google signUP trying
@@ -160,7 +168,7 @@ const LoginSignUp = (props) => {
         });
         break;
       case 6:
-        //login succesfull
+        //login succesfully
         navigate("/");
         break;
       default:
