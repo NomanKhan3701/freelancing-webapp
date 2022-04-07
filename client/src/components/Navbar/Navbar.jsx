@@ -119,7 +119,7 @@ const renderMessageMenu = (item, index) => (
 );
 
 const renderMessageFooter = () => (
-  <div className="btn">Chat</div>
+  <Link to='/chat' className="btn">Chat</Link>
 );
 
 // const user_order = [];
