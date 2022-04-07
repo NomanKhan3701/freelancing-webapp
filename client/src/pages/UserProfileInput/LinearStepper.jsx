@@ -15,7 +15,10 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
+import { toast } from "react-toastify";
+import Multiselect from "multiselect-react-dropdown";
 
+const skills = ["HTML", "CSS", "Js", "ReactJS", "NodeJs", "Scss", "Vuejs"];
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
@@ -72,7 +75,7 @@ const BasicForm = () => {
         render={({ field }) => (
           <TextField
             id="linkdin"
-            label="Linkdin Link"
+            label="Linkdin Link(Optional)"
             variant="outlined"
             placeholder="Enter Your linkidin profile link"
             fullWidth
@@ -84,113 +87,12 @@ const BasicForm = () => {
     </>
   );
 };
-// const ContactForm = () => {
-//   const { control } = useFormContext();
-//   return (
-//     <>
-//       <Controller
-//         control={control}
-//         name="emailAddress"
-//         render={({ field }) => (
-//           <TextField
-//             id="email"
-//             label="E-mail"
-//             variant="outlined"
-//             placeholder="Enter Your E-mail Address"
-//             fullWidth
-//             margin="normal"
-//             {...field}
-//           />
-//         )}
-//       />
 
-//       <Controller
-//         control={control}
-//         name="phoneNumber"
-//         render={({ field }) => (
-//           <TextField
-//             id="phone-number"
-//             label="Phone Number"
-//             variant="outlined"
-//             placeholder="Enter Your Phone Number"
-//             fullWidth
-//             margin="normal"
-//             {...field}
-//           />
-//         )}
-//       />
-//       <Controller
-//         control={control}
-//         name="alternatePhone"
-//         render={({ field }) => (
-//           <TextField
-//             id="alternate-phone"
-//             label="Alternate Phone"
-//             variant="outlined"
-//             placeholder="Enter Your Alternate Phone"
-//             fullWidth
-//             margin="normal"
-//             {...field}
-//           />
-//         )}
-//       />
-//     </>
-//   );
-// };
-// const PersonalForm = () => {
-//   const { control } = useFormContext();
-//   return (
-//     <>
-//       <Controller
-//         control={control}
-//         name="address1"
-//         render={({ field }) => (
-//           <TextField
-//             id="address1"
-//             label="Address 1"
-//             variant="outlined"
-//             placeholder="Enter Your Address 1"
-//             fullWidth
-//             margin="normal"
-//             {...field}
-//           />
-//         )}
-//       />
-//       <Controller
-//         control={control}
-//         name="address2"
-//         render={({ field }) => (
-//           <TextField
-//             id="address2"
-//             label="Address 2"
-//             variant="outlined"
-//             placeholder="Enter Your Address 2"
-//             fullWidth
-//             margin="normal"
-//             {...field}
-//           />
-//         )}
-//       />
-//       <Controller
-//         control={control}
-//         name="country"
-//         render={({ field }) => (
-//           <TextField
-//             id="country"
-//             label="Country"
-//             variant="outlined"
-//             placeholder="Enter Your Country Name"
-//             fullWidth
-//             margin="normal"
-//             {...field}
-//           />
-//         )}
-//       />
-//     </>
-//   );
-// };
 const Profile = () => {
   const { control } = useFormContext();
+  const onSelectSkills = (selectedList, selectedItem) => {};
+
+  const onRemoveSkills = (selectedList, selectedItem) => {};
   return (
     <>
       <Controller
@@ -213,7 +115,7 @@ const Profile = () => {
         name="Image"
         render={({ field }) => (
           <div>
-            <label for="myfile">Select a file:</label>
+            <label for="myfile">Profile Image:</label>
             <input type="file" id="image" name="image" />
           </div>
         )}
@@ -222,14 +124,13 @@ const Profile = () => {
         control={control}
         name="skills"
         render={({ field }) => (
-          <TextField
-            id="Skills"
-            label="category and skills"
-            variant="outlined"
-            placeholder=""
-            fullWidth
-            margin="normal"
-            {...field}
+          <Multiselect
+            id="skills"
+            options={skills}
+            displayValue="Skill"
+            onSelect={onSelectSkills}
+            onRemove={onRemoveSkills}
+            name="skills"
           />
         )}
       />
@@ -241,10 +142,6 @@ function getStepContent(step) {
   switch (step) {
     case 0:
       return <BasicForm />;
-    // case 1:
-    //   return <ContactForm />;
-    // case 2:
-    //   return <PersonalForm />;
     case 1:
       return <Profile />;
     default:
@@ -262,12 +159,6 @@ const LinearStepper = () => {
       Description: "",
       Image: "",
       Linkedin: "",
-      // address1: "",
-      // address2: "",
-      // country: "",
-      // cardNumber: "",
-      // cardMonth: "",
-      // cardYear: "",
     },
   });
   const [activeStep, setActiveStep] = useState(0);
@@ -313,23 +204,60 @@ const LinearStepper = () => {
   // const onSubmit = (data) => {
   //   console.log(data);
   // };
+
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
+  const submitUserProfile = (event) => {
+    if (event.target.textContent === "Finish") {
+      event.preventDefault();
+      const username = localStorage.getItem("username");
+      const fullname = document.getElementById("fullname").textContent;
+      const email = document.getElementById("email").textContent;
+      const linkdin = document.getElementById("linkdin");
+      const desc = document.getElementById("description");
+      const image = document.getElementById("image").files[0];
+      if (!fullname) {
+        toast.error("please enter your full name.", {
+          position: "top-center",
+        });
+        return;
+      }
+      if (!email) {
+        toast.error("please enter your email address.", {
+          position: "top-center",
+        });
+        return;
+      }
+      if (!validateEmail(email)) {
+        toast.error("Invalid email address.", {
+          position: "top-center",
+        });
+        return;
+      }
+      if (!desc && desc.length < 100) {
+        toast.error(
+          "description is mandatory and has to be greater than 100characters.",
+          {
+            position: "top-center",
+          }
+        );
+        return;
+      }
+    }
+  };
   return (
     <div>
       <Stepper alternativeLabel activeStep={activeStep}>
         {steps.map((step, index) => {
           const labelProps = {};
           const stepProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography
-                variant="caption"
-                align="center"
-                style={{ display: "block" }}
-              >
-                optional
-              </Typography>
-            );
-          }
+
           if (isStepSkipped(index)) {
             stepProps.completed = false;
           }
@@ -358,22 +286,13 @@ const LinearStepper = () => {
               >
                 back
               </Button>
-              {/* {isStepOptional(activeStep) && (
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSkip}
-                >
-                  skip
-                </Button>
-              )} */}
               <Button
                 className={classes.button}
                 variant="contained"
                 color="primary"
                 // onClick={handleNext}
                 type="submit"
+                onClick={submitUserProfile}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>

@@ -16,6 +16,10 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 
+<<<<<<< HEAD
+=======
+import { toast } from "react-toastify";
+>>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
 toast.configure();
 
 const FindWork = (props) => {
@@ -60,6 +64,7 @@ const FindWork = (props) => {
       arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
     );
   };
+<<<<<<< HEAD
 
   const validator = () => {
     const isLoggedIn = localStorage.getItem("loggedIn");
@@ -82,6 +87,19 @@ const FindWork = (props) => {
     navigate("/findwork/posttalent");
   };
 
+=======
+  const goToPostRequest = () => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    if (!isDataTaken) {
+      navigate("/findwork/posttalent");
+    } else {
+      toast.error("You must fill your details before posting the work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+    }
+  };
+>>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
   return (
     <>
       <div className="find-talent-container">
@@ -103,9 +121,18 @@ const FindWork = (props) => {
           </div>
         </div>
         <div className="post-request">
+<<<<<<< HEAD
           <h1>Add Yourself as a freelancer</h1>
           <div className="btn" onClick={validator}>
             Post Talent
+=======
+          <h1>Post Your Talents As A Freelancer</h1>
+          {/* <div className="btn">
+            <Link to="/findwork/posttalent">Post Talents</Link>
+          </div> */}
+          <div className="btn" onClick={goToPostRequest}>
+            Post Your Talent
+>>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
           </div>
         </div>
       </div>

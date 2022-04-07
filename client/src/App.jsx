@@ -11,23 +11,46 @@ import {
   LoginSignup,
   PostWork,
   UserProfile,
-  UserDashboard,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DragAndDropImg, Navbar } from "./components/import";
+import { Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
+<<<<<<< HEAD
 import UserProfileInput from "./pages/UserProfileInput/UserProfileInput";
 
+=======
+import PostTalent from "./pages/PostTalent/PostTalent";
+>>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
 function App() {
   return (
     <BrowserRouter className="App">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="findtalent" element={<FindTalent />} />
+<<<<<<< HEAD
 
         <Route path="/findtalent/category" element={<FindTalentParams />} />
         <Route path="/findtalent/postwork" element={<PostWork />} />
+=======
+        {/* <Route path="/clientdashboard" element={<UserDashboard />}></Route> */}
+
+        {/* //write category component, post component */}
+        <Route path="/findtalent/category" element={<FindTalentParams />} />
+        <Route path="/findtalent/postwork" element={<PostWork />} />
+
+        <Route path="/findwork" element={<FindWork type="findwork" />} />
+        <Route path="/findwork/category" element={<FindWorkParams />} />
+        <Route path="/findwork/bid" element={<Bid />} />
+        <Route
+          path="/findwork/posttalent"
+          element={<PostTalent type="postTalent" />}
+        />
+
+        <Route path="/findpartner" element={<FindPartner />} />
+
+        <Route path="/freelancerprofile" element={<FreelancerProfile />} />
+>>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
 
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/userprofileinput" element={<UserProfileInput />} />

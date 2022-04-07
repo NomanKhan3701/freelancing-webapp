@@ -79,33 +79,65 @@ const UserProfile = () => {
                   Mumbai, Maharashtra 400058
                 </div>
               </motion.div>
-            <motion.div
-              initial={{ opacity: 0, translateX: -200 }}
-              animate={{ opacity: 1, translateX: 0 }}
-              transition={{ duration: 1, ease: "linear" }}
-              className="btn"
-            >
-              <Link to='/chat'>Chat</Link>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, translateX: -200 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 1, ease: "linear" }}
+                className="btn"
+              >
+                <Link to="/chat">Chat</Link>
+              </motion.div>
             </div>
           </div>
           <div className="main-container">
             <div className="latest-work-posted">
               <div className="info-section">
-              <h1>Latest work posted</h1>
-              <Link to='/'>All post</Link>
+                <h1>Latest work posted</h1>
+                <Link to="/">All post</Link>
               </div>
               <div className="work-cards">
-                <WorkDoneSlider/>
-              </div>
-            </div>
-            <div className="latest-work-posted">
-              <div className="info-section">
-              <h1>Work done</h1>
-              <Link to='/'>All work</Link>
-              </div>
-              <div className="work-cards">
-                <WorkDoneSlider/>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="work-card"
+                ></motion.div>
               </div>
             </div>
           </div>
