@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FileBase64 from "react-file-base64";
 import {
   Typography,
   TextField,
@@ -18,6 +19,8 @@ import {
 import { toast } from "react-toastify";
 import Multiselect from "multiselect-react-dropdown";
 import { UserProfile } from "../import";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
 const skills = [
   { Skill: "HTML" },
@@ -55,6 +58,7 @@ function getSteps() {
 }
 
 const LinearStepper = () => {
+  const navigate = useNavigate();
   const [getUserData, setUserData] = useState({
     username: localStorage.getItem("username"),
     fullname: "",
@@ -76,129 +80,6 @@ const LinearStepper = () => {
     });
   };
   const getStepContent = (step) => {
-    // const Profile = () => {
-    //   const { control } = useFormContext();
-    //   const onSelectSkills = (selectedList, selectedItem) => {};
-
-    //   const onRemoveSkills = (selectedList, selectedItem) => {};
-
-    //   const onSelectCategory = (selectedList, selectedItem) => {};
-
-    //   const onRemoveCategory = (selectedList, selectedItem) => {};
-    //   return (
-    //     <>
-    //       <Controller
-    //         control={control}
-    //         name="description"
-    //         render={({ field }) => (
-    //           <TextField
-    //             id="description"
-    //             label="Description"
-    //             variant="outlined"
-    //             placeholder="Tell me about yourself ..."
-    //             fullWidth
-    //             margin="normal"
-    //             {...field}
-    //           />
-    //         )}
-    //       />
-    //       <Controller
-    //         control={control}
-    //         name="image"
-    //         render={({ field }) => (
-    //           <div>
-    //             <label for="myfile">Profile Image:</label>
-    //             <input type="file" id="image" name="image" />
-    //           </div>
-    //         )}
-    //       />
-    //       <Controller
-    //         control={control}
-    //         name="category"
-    //         render={({ field }) => (
-    //           <Multiselect
-    //             id="category"
-    //             options={category}
-    //             displayValue="Category"
-    //             onSelect={onSelectCategory}
-    //             onRemove={onRemoveCategory}
-    //             name="category"
-    //           />
-    //         )}
-    //       />
-    //       <Controller
-    //         control={control}
-    //         name="skills"
-    //         render={({ field }) => (
-    //           <Multiselect
-    //             id="skills"
-    //             options={skills}
-    //             displayValue="Skill"
-    //             onSelect={onSelectSkills}
-    //             onRemove={onRemoveSkills}
-    //             name="skills"
-    //           />
-    //         )}
-    //       />
-    //     </>
-    //   );
-    // };
-    // const BasicForm = () => {
-    //   const { control } = useFormContext();
-    //   return (
-    //     <>
-    //       <Controller
-    //         control={control}
-    //         name="fullname"
-    //         render={({ field }) => (
-    //           <TextField
-    //             id="fullname"
-    //             label="Fullname"
-    //             variant="outlined"
-    //             placeholder="Enter your fullname"
-    //             fullWidth
-    //             margin="normal"
-    //             {...field}
-    //             value={getUserData.fullname}
-    //             onChange={onChangeData}
-    //           />
-    //         )}
-    //       />
-
-    //       <Controller
-    //         control={control}
-    //         name="email"
-    //         render={({ field }) => (
-    //           <TextField
-    //             id="email"
-    //             label="Email"
-    //             variant="outlined"
-    //             placeholder="Enter your email id"
-    //             fullWidth
-    //             margin="normal"
-    //             {...field}
-    //           />
-    //         )}
-    //       />
-
-    //       <Controller
-    //         control={control}
-    //         name="linkdin"
-    //         render={({ field }) => (
-    //           <TextField
-    //             id="linkdin"
-    //             label="Linkdin Link(Optional)"
-    //             variant="outlined"
-    //             placeholder="Enter Your linkidin profile link"
-    //             fullWidth
-    //             margin="normal"
-    //             {...field}
-    //           />
-    //         )}
-    //       />
-    //     </>
-    //   );
-    // };
     const onSelectCategory = (event) => {
       let category = [];
       for (let i = 0; i < event.length; i++) {
@@ -323,7 +204,15 @@ const LinearStepper = () => {
           render={({ field }) => (
             <div>
               <label for="myfile">Profile Image:</label>
-              <input type="file" id="image" name="image" />
+              <FileBase64
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) =>
+                  setUserData((prevValue) => {
+                    return { ...prevValue, image: base64 };
+                  })
+                }
+              />
             </div>
           )}
         />
@@ -393,7 +282,6 @@ const LinearStepper = () => {
       fetch("https://jsonplaceholder.typicode.com/comments")
         .then((data) => data.json())
         .then((res) => {
-          console.log(res);
           setActiveStep(activeStep + 1);
         });
     } else {
@@ -428,16 +316,7 @@ const LinearStepper = () => {
   };
 
   const submitUserProfile = (event) => {
-    console.log(getUserData);
-    // try{
-    //   setUserData((prevData) => {
-    //     return ({
-    //       ...prevData,
-    //     });
-    //   })
-    // }
     if (event.target.textContent === "Finish") {
-      event.preventDefault();
       let username, fullname, email, linkdin, desc, image, category, skills;
       username = localStorage.getItem("username");
       fullname = getUserData.fullname;
@@ -474,8 +353,20 @@ const LinearStepper = () => {
         );
         return;
       }
+      axios
+        .post("http://localhost:8080/userprofileinput", {
+          userData: getUserData,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      navigate("/");
     }
   };
+
   return (
     <div>
       <Stepper alternativeLabel activeStep={activeStep}>

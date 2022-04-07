@@ -27,10 +27,10 @@ const FindTalent = () => {
       navigate("/login");
       return;
     }
-    if (!isDataTaken) {
+    if (isDataTaken) {
       navigate("/findtalent/postwork");
     } else {
-      toast.error("You must fill your details before posting the work.", {
+      toast.success("You must fill your details before posting the work.", {
         position: "top-center",
       });
       navigate("/userprofileinput");

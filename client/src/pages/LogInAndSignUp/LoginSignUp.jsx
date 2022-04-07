@@ -125,7 +125,11 @@ const LoginSignUp = (props) => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
-        localStorage.setItem("isDataTaken", response.data.userDataTaken);
+        try {
+          localStorage.setItem("isDataTaken", response.data.userDataTaken);
+        } catch (error) {
+          localStorage.setItem("isDataTaken", false);
+        }
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||
@@ -159,18 +163,22 @@ const LoginSignUp = (props) => {
         break;
       case 3:
         //user exist with username and google signUP trying
-        if (location.state.goingTo) {
-          navigate(location.state.goingTo);
-          return;
-        }
+        try {
+          if (location.state.goingTo) {
+            navigate(location.state.goingTo);
+            return;
+          }
+        } catch (error) {}
         navigate("/");
         break;
       case 4:
         //new user created successfully
-        if (location.state.goingTo) {
-          navigate(location.state.goingTo);
-          return;
-        }
+        try {
+          if (location.state.goingTo) {
+            navigate(location.state.goingTo);
+            return;
+          }
+        } catch (error) {}
         navigate("/");
         break;
       case 5:
@@ -181,10 +189,12 @@ const LoginSignUp = (props) => {
         break;
       case 6:
         //login succesfully
-        if (location.state.goingTo) {
-          navigate(location.state.goingTo);
-          return;
-        }
+        try {
+          if (location.state.goingTo) {
+            navigate(location.state.goingTo);
+            return;
+          }
+        } catch (error) {}
         navigate("/");
         break;
       default:

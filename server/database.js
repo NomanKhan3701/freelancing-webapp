@@ -130,7 +130,21 @@ const isValidUser = async (user) => {
   return { result: result, userDataTaken: userDataTaken };
 };
 
-module.exports = { createNewUser, isValidUser, UserSignUp };
+const updateUserDataTaken = async (username, is) => {
+  const filter = { username: username };
+  const update = { userDataTaken: is };
+  console.log(filter);
+  console.log(update);
+  // `doc` is the document _before_ `update` was applied
+  await UserSignUp.findOneAndUpdate(filter, update);
+};
+
+module.exports = {
+  createNewUser,
+  isValidUser,
+  UserSignUp,
+  updateUserDataTaken,
+};
 
 //0 something wrong with database
 //1 user exist with username

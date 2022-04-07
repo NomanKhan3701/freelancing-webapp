@@ -1,3 +1,5 @@
+const { updateUserDataTaken } = require("./database");
+
 var mongoose = require("mongoose");
 
 //requiring string field to not to be null or undefined
@@ -21,15 +23,14 @@ var UserProfileDataSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   linkdin: {
     type: String,
-    unique: true,
+    default: "",
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    default: "",
   },
   category: {
     type: Array,
@@ -82,8 +83,9 @@ const getUserProfileDataUsingId = async (id) => {
   return data[0];
 };
 
-const addUserProfile = (data) => {
-  const { username, fullname, desc, email, linkdin, image, skills, category } = data;
+const addUserProfile = async (data) => {
+  const { username, fullname, desc, email, linkdin, image, skills, category } =
+    data;
   const newUser = new UserProfileData({
     fullname: fullname,
     username: username,
@@ -96,6 +98,7 @@ const addUserProfile = (data) => {
   });
   try {
     newUser.save();
+    await updateUserDataTaken(username, true);
     return 1;
   } catch (error) {
     console.log(error);
@@ -110,17 +113,22 @@ const getRating = async (username) => {
   return data;
 };
 
-const setRating = (username, rating) => {
-  const filter = { username: username};
+const setRating = async (username, rating) => {
+  const filter = { username: username };
   const update = { rating: rating };
-  try{
+  try {
     await Character.findOneAndUpdate(filter, update);
     return 1;
-  }catch(error){
+  } catch (error) {
     return 2;
   }
-}
-module.exports = { getWorkBidCommentsData, addCommentToWorkBid };
+};
+module.exports = {
+  addUserProfile,
+  getRating,
+  setRating,
+  getUserProfileDataUsingId,
+};
 
 //0 no user with that user id,
 //1 success in adding new user or just success
