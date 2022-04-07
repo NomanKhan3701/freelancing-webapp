@@ -33,13 +33,8 @@ const PostWork = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
-
-    axios.get(`http://localhost:8080/findtalent/postwork`)
-=======
     axios
       .get(`http://localhost:8080/findtalent/postwork`)
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
       .then(function (response) {
         setOriginalData(response.data.filterData);
         let category = [];
@@ -50,11 +45,7 @@ const PostWork = () => {
           setCategories(category);
         }
         setLoading(false);
-<<<<<<< HEAD
-      })
-=======
       });
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
   }, []);
 
   if (isLoading) {
@@ -62,66 +53,26 @@ const PostWork = () => {
   }
 
   const onDataChange = (event) => {
-<<<<<<< HEAD
-
-    const { name, value } = event.target;
-    setPostWorkData((previousWorkData) => {
-      return (
-        {
-          ...previousWorkData,
-          [name]: value,
-        }
-      );
-    });
-  }
-
-  const onSelectCategory = (selectedList, selectedItem) => {
-=======
     const { name, value } = event.target;
     setPostWorkData((previousWorkData) => {
       return { ...previousWorkData, [name]: value };
     });
   };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
 
   const onSelectCategory = (selectedList, selectedItem) => {
     changeSkills(selectedItem.Category);
     setPostWorkData((previousWorkData) => {
-<<<<<<< HEAD
-      return (
-        {
-          ...previousWorkData,
-          category: selectedItem.Skill,
-        }
-      );
-=======
       return { ...previousWorkData, category: selectedItem.Skill };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
     });
   };
 
   const onRemoveCategory = (selectedList, selectedItem) => {
-<<<<<<< HEAD
-
-    setPostWorkData((previousWorkData) => {
-      return (
-        {
-          ...previousWorkData,
-          category: "",
-        }
-      );
-=======
     setPostWorkData((previousWorkData) => {
       return { ...previousWorkData, category: "" };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
     });
   };
 
   const changeSkills = (category) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
     let skills = [];
     for (let i = 0; i < originalData.length; i++) {
       if (originalData[i].category === category) {
@@ -131,11 +82,7 @@ const PostWork = () => {
         setSkills(skills);
       }
     }
-<<<<<<< HEAD
-  }
-=======
   };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
 
   const onSelectSkills = (selectedList, selectedItem) => {
     let skillsList = [];
@@ -143,16 +90,7 @@ const PostWork = () => {
       skillsList.push(selectedList[i].Skill);
     }
     setPostWorkData((previousWorkData) => {
-<<<<<<< HEAD
-      return (
-        {
-          ...previousWorkData,
-          skills: skillsList,
-        }
-      );
-=======
       return { ...previousWorkData, skills: skillsList };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
     });
   };
 
@@ -162,16 +100,7 @@ const PostWork = () => {
       skillsList.push(selectedList[i].Skill);
     }
     setPostWorkData((previousWorkData) => {
-<<<<<<< HEAD
-      return (
-        {
-          ...previousWorkData,
-          skills: skillsList,
-        }
-      );
-=======
       return { ...previousWorkData, skills: skillsList };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
     });
   };
 
@@ -182,20 +111,6 @@ const PostWork = () => {
       title = document.querySelector("input[name = title]").value;
       desc = document.querySelector("textarea[name = desc]").value;
 
-<<<<<<< HEAD
-    const title = document.querySelector('input[name = title]').value;
-    const desc = document.querySelector('textarea[name = desc]').value;
-    const category = document.getElementById("category").getElementsByTagName("span")[0].innerText;
-    const skills = [];
-    const minBid = document.querySelector('input[name = minBid]').value;
-    const maxBid = document.querySelector('input[name = maxBid]').value;
-
-    for (let i = 0; i < document.getElementById("skills").getElementsByTagName("span").length; i++) {
-      skills.push(document.getElementById("skills").getElementsByTagName("span")[i].innerText);
-    }
-
-    if (title && desc && category && minBid && maxBid && skills !== undefined && skills !== null && skills.length > 0) {
-=======
       minBid = document.querySelector("input[name = minBid]").value;
       maxBid = document.querySelector("input[name = maxBid]").value;
       if (!title || !desc || !minBid || !maxBid) {
@@ -257,7 +172,6 @@ const PostWork = () => {
     }
 
     if (skills !== undefined && skills !== null && skills.length > 0) {
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
       navigate("/");
       return true;
     } else {
@@ -274,13 +188,9 @@ const PostWork = () => {
       return;
     }
     axios
-<<<<<<< HEAD
-      .post(`http://localhost:8080/findtalent/postwork`, { postWorkData: postWorkData })
-=======
       .post(`http://localhost:8080/findtalent/postwork`, {
         postWorkData: postWorkData,
       })
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
@@ -288,13 +198,7 @@ const PostWork = () => {
       .catch((err) => {
         console.log(err);
       });
-<<<<<<< HEAD
-
-  }
-
-=======
   };
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
 
   return (
     <div className="post-request-form">
@@ -314,14 +218,9 @@ const PostWork = () => {
           <textarea
             type="text"
             name="desc"
-<<<<<<< HEAD
-            placeholder="Describe your project here..."
-            onChange={onDataChange} />
-=======
             placeholder="Describe your project here in more than 100 characters"
             onChange={onDataChange}
           />
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
         </div>
         <div className="dragDrop">
           <h1>{"{Select Files}"}</h1>
@@ -338,17 +237,6 @@ const PostWork = () => {
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>
-<<<<<<< HEAD
-          <Multiselect id="skills" options={skills} displayValue="Skill" onSelect={onSelectSkills} onRemove={onRemoveSkills} name="skills" />
-        </div>
-        <div className="budget">
-          <h1>Enter your budget</h1>
-          <input type="text" placeholder="min" onChange={onDataChange} name="minBid" />
-          <span>to</span>
-          <input type="text" placeholder="max" onChange={onDataChange} name="maxBid" />
-        </div>
-        <div className="btn" onClick={newPostForWork}>Post Project
-=======
           <Multiselect
             id="skills"
             options={skills}
@@ -376,7 +264,6 @@ const PostWork = () => {
         </div>
         <div className="btn" onClick={newPostForWork}>
           Post Project
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
         </div>
       </div>
     </div>

@@ -42,14 +42,8 @@ const InfoPagination = (props) => {
           {range.map((item, index) => (
             <div
               key={index}
-<<<<<<< HEAD
               className={`pagination-item ${currPage === index ? "active" : ""
                 }`}
-=======
-              className={`pagination-item ${
-                currPage === index ? "active" : ""
-              }`}
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
               onClick={() => selectPage(index)}
             >
               {item + 1}
@@ -60,27 +54,15 @@ const InfoPagination = (props) => {
         ""
       )}
       {props.bodyData && props.renderBody ? (
-<<<<<<< HEAD
-        <>
-          {dataShow.map((item, index) => props.renderBody(item, index))}
-        </>
-=======
         <>{dataShow.map((item, index) => renderWork(item, index))}</>
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
       ) : null}
       {pages > 1 ? (
         <div className="pagination">
           {range.map((item, index) => (
             <div
               key={index}
-<<<<<<< HEAD
               className={`pagination-item ${currPage === index ? "active" : ""
                 }`}
-=======
-              className={`pagination-item ${
-                currPage === index ? "active" : ""
-              }`}
->>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
               onClick={() => selectPage(index)}
             >
               {item + 1}
