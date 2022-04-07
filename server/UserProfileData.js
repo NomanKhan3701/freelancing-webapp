@@ -31,6 +31,10 @@ var UserProfileDataSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
+  category: {
+    type: Array,
+    default: [],
+  },
   skills: {
     type: Array,
     default: [],
@@ -79,7 +83,7 @@ const getUserProfileDataUsingId = async (id) => {
 };
 
 const addUserProfile = (data) => {
-  const { username, fullname, desc, email, linkdin, image, skills } = data;
+  const { username, fullname, desc, email, linkdin, image, skills, category } = data;
   const newUser = new UserProfileData({
     fullname: fullname,
     username: username,
@@ -88,6 +92,7 @@ const addUserProfile = (data) => {
     linkdin: linkdin,
     image: image,
     skills: skills,
+    category: category,
   });
   try {
     newUser.save();

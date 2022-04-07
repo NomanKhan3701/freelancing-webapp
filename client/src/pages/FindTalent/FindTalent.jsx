@@ -10,38 +10,12 @@ import {
 import userImg from "../../assets/images/Cha2.jpg";
 import RandomDev from "./json/RandomDev.json";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import { useNavigate } from "react-router-dom";
-=======
 import { useNavigate } from "react-router";
 
->>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
 import { toast } from "react-toastify";
 toast.configure();
 
 const FindTalent = () => {
-<<<<<<< HEAD
-  const navigate = useNavigate();
-  const validator = () => {
-    const isLoggedIn = localStorage.getItem("loggedIn");
-    if (isLoggedIn === "false") {
-      toast.error("please login before posting any work.", {
-        position: "top-center",
-      });
-      navigate("/login", { state: { goingTo: "/findtalent" } });
-      return;
-    }
-
-    const isDataTaken = localStorage.getItem("isDataTaken");
-    if (isDataTaken === "false") {
-      toast.error("please fill this data before posting work.", {
-        position: "top-center",
-      });
-      navigate("/userprofileinput", { state: { goingTo: "/findtalent" } });
-      return;
-    }
-    navigate("/findtalent/postwork");
-=======
   let navigate = useNavigate();
   const goToPostRequest = () => {
     const isDataTaken = localStorage.getItem("isDataTaken");
@@ -61,7 +35,6 @@ const FindTalent = () => {
       });
       navigate("/userprofileinput");
     }
->>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
   };
 
   return (
@@ -76,13 +49,8 @@ const FindTalent = () => {
         </div>
         <div className="post-request">
           <h1>Start a bid for your project</h1>
-<<<<<<< HEAD
-          <div className="btn" onClick={validator}>
-            Post Work
-=======
           <div className="btn" onClick={goToPostRequest}>
             Post a Request
->>>>>>> 0862749b805008c4d2e8a1a0dc532bc4c42b4527
           </div>
         </div>
         <div className="recommended-container">
