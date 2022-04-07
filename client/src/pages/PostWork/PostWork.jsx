@@ -4,7 +4,7 @@ import { Multiselect } from "multiselect-react-dropdown";
 import "./PostWork.scss";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
-import { Select } from "@material-ui/core";
+import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 toast.configure();
@@ -201,7 +201,7 @@ const PostWork = () => {
   };
 
   return (
-    <div className = "post-request-form">
+    <div className="post-request-form">
       <Navbar />
       <div className="form">
         <div className="title">
@@ -231,9 +231,10 @@ const PostWork = () => {
             options = {sOptions}
           />
         </div> */}
-        <div className="skills-required">
+        <div className="category-select">
           <h1>Category</h1>
-          <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/>
+          <Select options={sOptions} />
+          {/* <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/> */}
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>
