@@ -71,10 +71,14 @@ const FindWork = (props) => {
               let imageData = toBase64(item.img.data.data);
               let imageSrc = imagetype + ";base64," + imageData;
               return (
-                <SwiperSlide onClick={categorySelected} key={item._id}>
+                <div
+                  className="swiper-slide"
+                  onClick={categorySelected}
+                  key={item._id}
+                >
                   <img src={imageSrc} />
                   <div className="category-name">{item.category}</div>
-                </SwiperSlide>
+                </div>
               );
             })}
           </div>
