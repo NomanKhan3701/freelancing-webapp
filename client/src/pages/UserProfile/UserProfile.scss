@@ -52,7 +52,6 @@
         margin-left: 40px;
 
         h1 {
-
           margin-bottom: 14px;
           color: rgb(85, 116, 126);
         }
@@ -64,33 +63,83 @@
       padding: 20px 40px;
       height: calc(100% - 160px);
 
-      .contact-info {
-        border-right: 1px solid black;
-        max-height: 100%;
-        max-width: 400px;
-        display: grid;
-        place-items: center;
-
-        .contact {
-          height: max-content;
+      .skills-container {
+        margin-bottom: 20px;
+        margin-left: 20px;
+        .skills {
+          margin-top: 20px;
           display: flex;
-          flex-direction: column;
+          flex-wrap: wrap;
 
-          .contact-item {
-            margin-bottom: 15px;
-            padding-right: 20px;
-            display: flex;
-            // align-items: center;
+          .skill {
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 20px;
+            line-height: 30px;
+            width: max-content;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: white;
+            background: var(--primary-color);
+          }
+        }
+      }
+
+      .profile-main-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100%;
+        align-items: center;
+        min-width: 300px;
+
+        .rating-container {
+          margin-bottom: 50px;
+          font-size: 20px;
+          display: flex;
+
+          h3 {
+            font-size: 22px;
+          }
+
+          .rating {
+            margin-left: 5px;
+            font-size: 22px;
+            transform: translateY(2px);
+
             i {
-              font-size: 23px;
-              cursor: pointer;
+              font-size: 22px;
+              color: rgb(131, 131, 35);
+              //   transform: translateY(1px);
             }
-            div {
-              margin-left: 10px;
-            }
+          }
+        }
 
-            &:hover i {
-              color: var(--main-color);
+        .contact-info {
+          //   border-right: 1px solid black;
+
+          max-width: 400px;
+
+          .contact {
+            height: max-content;
+
+            .contact-item {
+              margin-bottom: 15px;
+              padding-right: 20px;
+              display: flex;
+              // align-items: center;
+              i {
+                font-size: 23px;
+                cursor: pointer;
+              }
+              div {
+                margin-left: 10px;
+              }
+
+              &:hover i {
+                color: var(--main-color);
+              }
             }
           }
 
@@ -125,7 +174,6 @@
         padding-left: 30px;
 
         .latest-work-posted {
-
           .info-section {
             display: flex;
             justify-content: space-between;

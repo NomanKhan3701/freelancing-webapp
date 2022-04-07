@@ -52,15 +52,83 @@ const curr_user = {
   image: userImage,
 };
 
-const message_notification = [{}];
+const user_message = [
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+  {
+    user_img: { userImage },
+    message:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
+  },
+];
 
 const renderMessageToggle = () => (
-  <div className="chat-dropdown">Message(5)</div>
+  <div className="chat-dropdown">Message({user_message.length})</div>
 );
 
-const renderOrderToggle = () => <div className="order-dropdown">Order(2)</div>;
+const renderMessageMenu = (item, index) => (
+  <Link to='/chat' className="notification">
+    <div className="img">
+      <img src={userImage} alt="user image" />
+    </div>
+    <div className="message">{item.message}</div>
+  </Link>
+);
 
-const renderFooter = () => {};
+const renderMessageFooter = () => (
+  <div className="btn">Chat</div>
+);
+
+// const user_order = [];
+
+// const renderOrderToggle = () => <div className="order-dropdown">Order(2)</div>;
+
+// const renderOrderMenu = (item,index) => ();
+
+// const renderOrderFooter = () => ();
 
 const user_menu = [
   {
@@ -170,17 +238,19 @@ const Navbar = (props) => {
           <div className="message-notify">
             <Dropdown
               customToggle={() => renderMessageToggle()}
-              contentData={user_menu}
-              renderItems={(item, index) => renderUserMenu(item, index)}
+              contentData={user_message}
+              renderItems={(item, index) => renderMessageMenu(item, index)}
+              renderFooter={renderMessageFooter}
             />
           </div>
-          <div className="order-notify">
+          {/* <div className="order-notify">
             <Dropdown
               customToggle={() => renderOrderToggle()}
-              contentData={user_menu}
-              renderItems={(item, index) => renderUserMenu(item, index)}
+              contentData={user_order}
+              renderItems={(item, index) => renderOrderMenu(item, index)}
+              renderFooter={renderOrderFooter}
             />
-          </div>
+          </div> */}
           <div className="user-profile">
             <Dropdown
               customToggle={() => renderUserToggle(curr_user)}

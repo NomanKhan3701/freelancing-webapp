@@ -12,6 +12,9 @@ import {
   PostWork,
   UserProfile,
   UserDashboard,
+  AllWorks,
+  AllPosts,
+  ClientProjectProgress,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DragAndDropImg, Navbar } from "./components/import";
@@ -33,12 +36,23 @@ function App() {
         <Route path="/userprofileinput" element={<UserProfileInput />} />
         <Route path="/postrequest" element={<PostWork />} />
 
+<<<<<<< HEAD
         <Route path="/findwork" element={<FindWork type="findwork" />} />
         <Route path="/findwork/category" element={<FindWorkParams />} />
         <Route path="/findwork/bid" element={<Bid />} />
         <Route path="/clientDashboard" element={<ClientDashboard />} />
         <Route path="/freelancerprofile" element={<FreelancerProfile />} />
 
+=======
+        <Route path = "/findwork" element = {<FindWork type="findwork"/>} />
+        <Route path = "/findwork/category" element = {<FindWorkParams />} />
+        <Route path = "/findwork/bid" element = {<Bid/>}/>
+        <Route path = '/clientDashboard' element = {<ClientDashboard/>}/>
+        <Route path = '/freelancerprofile' element = {<FreelancerProfile/>}/>
+        <Route path = 'userprofile/allwork' element = {<AllWorks/>}/>
+        <Route path = 'userprofile/allpost' element = {<AllPosts/>}/>
+        <Route path = '/clientprojectprogress' element = {<ClientProjectProgress/>}/>
+>>>>>>> fae37e3682b96f65cec387c83f2788f225c6b64d
         <Route path="/chat" element={<Chat />} />
 
         <Route path="/login" element={<LoginSignup status="login" />} />
