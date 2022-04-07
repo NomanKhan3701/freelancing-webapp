@@ -53,7 +53,7 @@ const WorkPostedSlider = () => {
                 >
                   <div className="card-title">{work.title}</div>
                   <div className="card-desc">{work.desc}</div>
-                  <div className="card-status">{work.status}</div>
+                  <div className={`card-status ${work.status==='In progress'?"progress":"done"}`}>{work.status}</div>
                 </motion.div>
             </SwiperSlide>
           );

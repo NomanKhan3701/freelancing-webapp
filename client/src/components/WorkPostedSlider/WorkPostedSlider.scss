@@ -1,38 +1,56 @@
 .work-posted-slider {
+  width: 100%;
+  .swiper {
     width: 100%;
-    .swiper {
-      width: 100%;
-      height: 100%;
-      padding: 10px;
-    }
-  
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      cursor: pointer;
-  
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  
-      .work-posted-slider-card {
-        width: 350px;
-        height: 180px;
-        border-radius: 30px;
-        padding: 20px;
-        background: rgb(253, 249, 249);
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
+    height: 100%;
+    padding: 10px;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .work-posted-slider-card {
+      width: 350px;
+      height: 230px;
+      border-radius: 30px;
+      padding: 20px;
+      background: rgb(253, 249, 249);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      .card-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .card-desc {
+        margin-bottom: 10px;
+        max-height: 100px;
+        min-height: 99px;
+      }
+
+      .card-status {
+        padding: 10px 20px;
+        width: max-content;
+        margin: auto;
+        border-radius: 20px;
+
+        &.progress {
+          background: rgb(77, 163, 162);
+          color: white;
         }
-  
-        .card-desc {
-            margin-bottom: 10px;
+
+        &.done {
+          background: rgb(88, 155, 93);
+          color: white;
         }
       }
     }
   }
-  
+}

@@ -1,5 +1,9 @@
 import React from "react";
-import { Navbar, WorkDoneSlider } from "../../components/import";
+import {
+  Navbar,
+  WorkDoneSlider,
+  WorkPostedSlider,
+} from "../../components/import";
 import { motion } from "framer-motion";
 import "./UserProfile.scss";
 import { Link } from "react-router-dom";
@@ -47,97 +51,67 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="profile-main">
-          <div className="contact-info">
-            <div className="contact">
-              <motion.div
-                initial={{ opacity: 0, translateX: -100 }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ duration: 1, ease: "linear" }}
-                className="contact-item"
-              >
-                <i className="bx bxs-phone"></i>
-                <div>9278237823</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, translateX: -200 }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ duration: 1, ease: "linear" }}
-                className="contact-item"
-              >
-                <i className="bx bxl-gmail"></i>
-                <div>noman.khan3701@gmail.com</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, translateX: -200 }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ duration: 1, ease: "linear" }}
-                className="contact-item"
-              >
-                <i className="bx bxs-home"></i>
-                <div>
-                  Bhavans Campus, Old D N Nagar, Munshi Nagar, Andheri West,
-                  Mumbai, Maharashtra 400058
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, translateX: -200 }}
-                animate={{ opacity: 1, translateX: 0 }}
-                transition={{ duration: 1, ease: "linear" }}
-                className="btn"
-              >
-                <Link to="/chat">Chat</Link>
-              </motion.div>
+          <div className="profile-main-left">
+            <motion.div
+              initial={{ opacity: 0, translateX: -200 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              transition={{ duration: 1, ease: "linear" }}
+              className="rating-container"
+            >
+              <h3>Rating </h3>
+              <div className="rating">
+                4<i className="bx bxs-star"></i>
+              </div>
+            </motion.div>
+            <div className="contact-info">
+              <div className="contact">
+                <motion.div
+                  initial={{ opacity: 0, translateX: -200 }}
+                  animate={{ opacity: 1, translateX: 0 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="contact-item"
+                >
+                  <i className="bx bxl-gmail"></i>
+                  <div>dad.OP@gmail.com</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, translateX: -200 }}
+                  animate={{ opacity: 1, translateX: 0 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="btn"
+                >
+                  <Link to="/chat">Chat</Link>
+                </motion.div>
+              </div>
             </div>
           </div>
           <div className="main-container">
+            <div className="skills-container">
+              <h1>Skills</h1>
+              <div className="skills">
+                <div className="skill">ReactJs</div>
+                <div className="skill">HTML</div>
+                <div className="skill">CSS</div>
+                <div className="skill">VanillaJs</div>
+                <div className="skill">NodeJs</div>
+              </div>
+            </div>
             <div className="latest-work-posted">
               <div className="info-section">
                 <h1>Latest work posted</h1>
-                <Link to="/">All post</Link>
+                <Link to="allPost">All post</Link>
               </div>
               <div className="work-cards">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1, ease: "linear" }}
-                  className="work-card"
-                ></motion.div>
+                <WorkDoneSlider />
+              </div>
+            </div>
+            <div className="latest-work-posted">
+              <div className="info-section">
+                <h1>Work done</h1>
+                <Link to="allWork">All work</Link>
+              </div>
+              <div className="work-cards">
+                <WorkPostedSlider />
               </div>
             </div>
           </div>
