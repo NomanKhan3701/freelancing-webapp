@@ -7,16 +7,27 @@ import {
   SearchTwoTone,
   Security,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import "./whyUs.scss";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const WhyUs = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      offset: 300, // offset (in px) from the original trigger point
+      delay: 0, // values from 0 to 3000, with step 50ms
+      easing: "ease",
+      anchorPlacement: "top-center",
+    });
+  }, []);
   return (
     <div className="whyUs">
       <div className="whyUs-top">
         <h1>Why Us?</h1>
         <div className="content-container">
-          <div className="content">
+          <div data-aos="fade-right" className="content">
             <div className="content-header">
               <PostAdd />
               <h3>Post a Job</h3>
@@ -26,7 +37,7 @@ const WhyUs = () => {
               description and budget and competitive bids come within minutes.
             </div>
           </div>
-          <div className="content">
+          <div data-aos="fade-right" className="content">
             <div className="content-header">
               <PersonAdd />
               <h3>Choose freelancers</h3>
@@ -37,7 +48,7 @@ const WhyUs = () => {
               can get it done!
             </div>
           </div>
-          <div className="content">
+          <div data-aos="fade-left" className="content">
             <div className="content-header">
               <Security />
               <h3>Pay safely</h3>
@@ -47,7 +58,7 @@ const WhyUs = () => {
               satisfied with the quality using our milestone payment system.
             </div>
           </div>
-          <div className="content">
+          <div data-aos="fade-left" className="content">
             <div className="content-header">
               <PostAdd />
               <h3>Browse portfolios</h3>
@@ -62,7 +73,7 @@ const WhyUs = () => {
       <div className="whyUs-bottom">
         <h1>What's great about it?</h1>
         <div className="content-container">
-          <div className="content">
+          <div data-aos="fade-right" className="content">
             <div className="content-header">
               <SearchTwoTone />
               <h3>Browse portfolios</h3>
@@ -72,7 +83,7 @@ const WhyUs = () => {
               previous work and reading their profile reviews.
             </div>
           </div>
-          <div className="content">
+          <div data-aos="fade-up" className="content">
             <div className="content-header">
               <AutorenewSharp />
               <h3>Fast bids</h3>
@@ -82,7 +93,7 @@ const WhyUs = () => {
               80% of projects get bid on within 60 seconds.
             </div>
           </div>
-          <div className="content">
+          <div data-aos="fade-down" className="content">
             <div className="content-header">
               <PresentToAllSharp />
               <h3>Quality work</h3>
@@ -92,7 +103,7 @@ const WhyUs = () => {
               globally- over 50 million to choose from.
             </div>
           </div>
-          <div className="content">
+          <div data-aos="fade-left" className="content">
             <div className="content-header">
               <SearchTwoTone />
               <h3>Browse portfolios</h3>

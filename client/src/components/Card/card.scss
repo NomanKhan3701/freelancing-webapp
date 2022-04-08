@@ -1,0 +1,151 @@
+.card {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  box-shadow: var(--box-shadow-dark);
+  border-radius: var(--border-radius-big);
+  background: white;
+  overflow: hidden;
+
+  .header-img {
+    width: 100%;
+    height: 100px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .user-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      border: 5px solid white;
+      cursor: pointer;
+    }
+  }
+
+  .user-info {
+    transform: translateY(-30px);
+    text-align: center;
+    padding: 0px 20px;
+
+    .title {
+      margin-bottom: 6px;
+      height: 38px;
+    }
+
+    .desc {
+      height: 70px;
+    }
+  }
+
+  .card-mid {
+    display: flex;
+  }
+
+  .rating-container {
+    font-size: 20px;
+    width: 90px;
+    height: 40px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: rgb(71, 148, 131);
+
+    i {
+      color: #c9b68a;
+      margin-right: 5px;
+      text-shadow: 0px 0px 20px #a78e53;
+    }
+  }
+
+  .follow {
+    margin-left: auto;
+    font-size: 20px;
+    width: 130px;
+    height: 40px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: rgb(71, 148, 131);
+    cursor: pointer;
+    transform: translateX(80px);
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateX(0);
+    }
+
+    i {
+      color: #ffffff;
+      margin-right: 5px;
+      font-size: 25px;
+      text-shadow: 0px 0px 20px #a78e53;
+    }
+  }
+
+  .card-mid-new {
+    display: flex;
+    flex-direction: row;
+
+    .new-freelancer {
+      font-weight: 600;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      color: white;
+      display: flex;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      // padding: 20px;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      width: 160px;
+      padding-right: 5px;
+      background: rgb(71, 148, 131);
+    }
+  }
+
+  .card-footer {
+    position: absolute;
+    width: 100%;
+    background: rgb(71, 148, 131);
+    color: white;
+    bottom: 0;
+    font-size: 16px;
+    padding: 15px;
+
+    .price-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .price {
+        font-weight: 700;
+
+        a {
+          &:hover {
+            color: rgb(224, 176, 176);
+          }
+        }
+      }
+    }
+  }
+}

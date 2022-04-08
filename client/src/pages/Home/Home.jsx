@@ -1,16 +1,19 @@
+import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 import { Footer, Header, Navbar } from "../../components/import";
 import WhyUs from "../../components/WhyUs/WhyUs";
-import Chat from "../Chat/Chat";
 import "./home.scss";
 
 const Home = () => {
+  localStorage.setItem("receiver", undefined);
   return (
     <div className="home">
-      <Navbar loggedIn="no"/>
-      <Header/>
-      <WhyUs/>
-      <Footer/>
+      <Navbar />
+      <Header />
+      <WhyUs />
+      <Link to='/clientDashboard'>Client Dashboard</Link>
+      <Footer />
     </div>
   );
 };

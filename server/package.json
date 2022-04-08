@@ -9,7 +9,17 @@
   "author": "nst",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
-    "express": "^4.17.3"
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "font-awesome": "^4.7.0",
+    "mongoose": "^6.2.6",
+    "multer": "^1.4.4"
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^7.1.0",
+    "ws": "3.3.2"
   }
 }

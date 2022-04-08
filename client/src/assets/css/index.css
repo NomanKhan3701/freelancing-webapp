@@ -12,6 +12,20 @@ body {
     letter-spacing: 0.7px;
 }
 
+body::-webkit-scrollbar {
+    width: 10px;
+  }
+
+body::-webkit-scrollbar-thumb {
+    background: rgb(124, 185, 197);
+    border-radius: 50px;
+  }
+
+body::-webkit-scrollbar-track {
+    background: rgb(233, 231, 231);
+    border-radius: 50px;
+  }
+
 a {
     text-decoration: none;
     color: unset;

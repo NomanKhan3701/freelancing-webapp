@@ -5,7 +5,6 @@ const clickOutsideRef = (content_ref, toggle_ref) => {
   document.addEventListener("mousedown", (e) => {
     if (toggle_ref.current && toggle_ref.current.contains(e.target)) {
       content_ref.current.classList.toggle("active");
-
     } else if (content_ref.current && !content_ref.current.contains(e.target)) {
       content_ref.current.classList.remove("active");
     }
@@ -30,12 +29,15 @@ const Dropdown = (props) => {
         {props.customToggle ? props.customToggle() : ""}
       </div>
       <div ref={dropdown_content_el} className="dropdown__content">
-      <div ref={point_toggle} className="point"></div>
-        {props.contentData && props.renderItems
-          ? props.contentData.map((item, index) =>
-              props.renderItems(item, index)
-            )
-          : ""}
+        <div ref={point_toggle} className="point"></div>
+        <div className="main-content">
+          {props.contentData && props.renderItems
+            ? props.contentData.map((item, index) =>
+                props.renderItems(item, index)
+              )
+            : ""}
+        </div>
+
         {props.renderFooter ? (
           <div className="dropdown__footer">{props.renderFooter()}</div>
         ) : (

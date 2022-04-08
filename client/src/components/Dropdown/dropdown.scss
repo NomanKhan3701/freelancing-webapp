@@ -45,18 +45,39 @@
 
 .dropdown__content {
   position: absolute;
+  overflow: hidden;
   top: calc(100% + 15px);
   right: 0;
   width: max-content;
-  max-width: 400px;
+  padding-top: 10px;
+
   background-color: var(--main-bg);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius-sm);
-//   overflow: hidden;
+  //   overflow: hidden;
   transform-origin: top right;
   transform: scale(0);
   transition: transform 0.3s ease 0s;
   z-index: 99;
+
+ .main-content {
+  max-width: 400px;
+  max-height: 500px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(124, 185, 197);
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(233, 231, 231);
+    border-radius: 50px;
+  }
+ }
 }
 
 .dropdown__content.active {

@@ -126,14 +126,14 @@
     justify-content: center;
 
     button {
-      background: linear-gradient(90deg, #755bea,#ff72c0);
+      background: linear-gradient(90deg, #755bea, #ff72c0);
       padding: 10px 30px;
       font-size: 20px;
       border-radius: var(--border-radius-big);
       color: white;
 
       &:hover {
-        background: linear-gradient(90deg, #634fbb,#d863a3);
+        background: linear-gradient(90deg, #634fbb, #d863a3);
       }
     }
 
@@ -172,10 +172,74 @@
     }
   }
 
+  .chat-dropdown {
+    margin: 0px 10px;
+    position: relative;
+
+    &:hover {
+      color: rgb(94, 88, 88);
+    }
+  }
+
+  .order-dropdown {
+    margin: 0px 10px;
+    position: relative;
+
+    &:hover {
+      color: rgb(94, 88, 88);
+    }
+  }
+
+  .message-notify {
+    .notification {
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      
+      .img {
+        min-width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        img{
+          min-width: 100%;
+          height: 100%;
+        }
+      }
+      .message {
+        max-height: 50px;
+        margin-left: 20px;
+        overflow: hidden;
+      }
+    }
+
+    .btn {
+      background: linear-gradient(90deg, #755bea, #ff72c0);
+      padding: 10px 30px;
+      width: max-content;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: var(--border-radius-big);
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(90deg, #634fbb, #d863a3);
+      }
+    }
+
+    
+  }
+
   .user-profile {
-    height: 60px;
-    width: 60px;
+    height: 55px;
+    width: 55px;
     margin-left: auto;
+   
+
+    .no-link {
+      cursor: pointer;
+    }
 
     .user-menu-item {
       display: flex;
