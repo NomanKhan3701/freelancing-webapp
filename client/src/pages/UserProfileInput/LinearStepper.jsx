@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FileBase64 from "react-file-base64";
+import './LinearStepper.scss';
 import {
   Typography,
   TextField,
