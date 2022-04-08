@@ -53,7 +53,19 @@ const FindWork = (props) => {
   };
   const goToPostRequest = () => {
     const isDataTaken = localStorage.getItem("isDataTaken");
-    if (isDataTaken) {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn === "false") {
+      toast.error("Please login to post.", {
+        position: "top-center",
+      });
+      navigate("/login", {
+        state: {
+          goingTo: "/findwork/posttalent",
+        },
+      });
+      return;
+    }
+    if (isDataTaken === "true") {
       navigate("/findwork/posttalent");
     } else {
       toast.success("You must fill your details before posting the work.", {

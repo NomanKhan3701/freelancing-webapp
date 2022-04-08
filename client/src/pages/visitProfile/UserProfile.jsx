@@ -16,12 +16,19 @@ import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 toast.configure();
 
-const UserProfile = () => {
+const UserProfile = (props) => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState();
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
-  const [otherUser, setOtherUser] = useState();
+  const [postWorkData, setPostWorkData] = useState({
+    title: "",
+    desc: "",
+    category: "",
+    skills: [],
+    minBid: null,
+    maxBid: null,
+  });
   useEffect(() => {
     let username;
     try {
@@ -29,15 +36,11 @@ const UserProfile = () => {
     } catch (error) {
       username = localStorage.getItem("username");
     }
-    setOtherUser(username);
+    // console.log(username);
     axios
       .get(`http://localhost:8080/userprofiledata/${username}`)
       .then(function (response) {
-        setUserData({
-          ...response.data.data._doc,
-          workPosted: response.data.data.workPosted,
-          freelancingWork: response.data.data.freelancingWork,
-        });
+        setUserData(response.data.data);
         setLoading(false);
       });
   }, []);
@@ -48,35 +51,27 @@ const UserProfile = () => {
       position: "top-center",
     });
     navigate("/login");
-    return <LoadingSpinner />;
   }
   if (isDataTaken === "false") {
     toast.success("You must fill your details before viewing the profile.", {
       position: "top-center",
     });
     navigate("/userprofileinput");
-    return <LoadingSpinner />;
   }
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
-  const chat = (event) => {
-    navigate("/chat", {
-      state: {
-        receiver: otherUser,
-      },
-    });
-  };
-  const goToAllPost = (event) => {
+  const chat = () => {};
+  const goToAllPosts = () => {
     navigate("/userprofile/allpost", {
       state: {
-        workPosted: userData.workPosted,
+        wordPosted: userData.workPosted,
       },
     });
   };
-  const goToAllWork = (event) => {
+  const goToAllFreelanceWorks = () => {
     navigate("/userprofile/allwork", {
       state: {
         freelancingWork: userData.freelancingWork,
@@ -143,41 +138,18 @@ const UserProfile = () => {
                   <i className="bx bxl-gmail"></i>
                   <div>{userData.email}</div>
                 </motion.div>
-                {userData.linkdin && (
-                  <motion.div
-                    initial={{ opacity: 0, translateX: -200 }}
-                    animate={{ opacity: 1, translateX: 0 }}
-                    transition={{ duration: 1, ease: "linear" }}
-                    className="contact-item"
-                  >
-                    <i className="bx bxl-gmail"></i>
-                    <div>{userData.linkdin}</div>
-                  </motion.div>
-                )}
-                {localStorage.getItem("username") !== otherUser && (
-                  <motion.div
-                    initial={{ opacity: 0, translateX: -200 }}
-                    animate={{ opacity: 1, translateX: 0 }}
-                    transition={{ duration: 1, ease: "linear" }}
-                    className="btn"
-                  >
-                    <button onClick={chat} datausername={otherUser}>
-                      Chat
-                    </button>
-                  </motion.div>
-                )}
+                <motion.div
+                  initial={{ opacity: 0, translateX: -200 }}
+                  animate={{ opacity: 1, translateX: 0 }}
+                  transition={{ duration: 1, ease: "linear" }}
+                  className="btn"
+                >
+                  <button onClick={chat}>Chat</button>
+                </motion.div>
               </div>
             </div>
           </div>
           <div className="main-container">
-            <div className="skills-container">
-              <h1>Category</h1>
-              <div className="skills">
-                {userData.category.map((category) => {
-                  return <div className="skill">{category}</div>;
-                })}
-              </div>
-            </div>
             <div className="skills-container">
               <h1>Skills</h1>
               <div className="skills">
@@ -186,11 +158,10 @@ const UserProfile = () => {
                 })}
               </div>
             </div>
-
             <div className="latest-work-posted">
               <div className="info-section">
                 <h1>Latest work posted</h1>
-                <button onClick={goToAllPost}>All post</button>
+                <button onClick={goToAllPosts}> All Posts </button>
               </div>
               <div className="work-cards">
                 <WorkPostedSlider work={userData.workPosted} />
@@ -199,7 +170,7 @@ const UserProfile = () => {
             <div className="latest-work-posted">
               <div className="info-section">
                 <h1>Work done</h1>
-                <button onClick={goToAllWork}>All work</button>
+                <Link to="allWork">All work</Link>
               </div>
               <div className="work-cards">
                 <WorkDoneSlider freelance={userData.freelancingWork} />

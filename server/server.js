@@ -38,6 +38,7 @@ const {
   getWorkData,
   getWorkFilterData,
   addWorkData,
+  getWorkPostedDataByUsername,
 } = require("./FindWorkData");
 const {
   getTalentData,
@@ -52,10 +53,12 @@ const {
   addCommentToWorkBid,
 } = require("./WorkBidCommentsData");
 const { getBids, addBid } = require("./Bids");
+const { getFreelancerWorkByUsername } = require("./workProgress");
 const {
   getRoomNo,
   addNewUsersToChat,
   findAllRoomsWithGivenUser,
+  findAllRoomsWithGivenUserAndDoOtherUSerExits,
 } = require("./UserAndChatRoom");
 const {
   addDataToChat,
@@ -70,7 +73,10 @@ const {
   getSocketId,
 } = require("./onlineUsers");
 
-const { addUserProfile } = require("./UserProfileData");
+const {
+  addUserProfile,
+  getUserProfileDataUsingUsername,
+} = require("./UserProfileData");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.json());
@@ -117,6 +123,20 @@ app.get("/findtalent", (req, res, err) => {
   categoryImageData()
     .then((response) => {
       res.send({ items: response });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.post("/userprofileinput", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const body = req.body.userData;
+  addUserProfile(body)
+    .then((response) => {
+      res.send({ result: response });
     })
     .catch((error) => {
       console.log(error);
@@ -193,14 +213,33 @@ app.get("/findtalent/:category", (req, res, err) => {
   }
 });
 
-app.post("/userprofileinput", (req, res, err) => {
-  addUserProfile(req.body.userData)
-    .then((res) => {
-      console.log(res);
+app.get("/userprofiledata/:username", (req, res, err) => {
+  const username = req.params.username;
+  getUserProfileDataUsingUsername(username)
+    .then((response) => {
+      getWorkPostedDataByUsername(username).then((workPosted) => {
+        getFreelancerWorkByUsername(username).then((freelancingWork) => {
+          res.send({ data: { ...response, workPosted, freelancingWork } });
+        });
+      });
     })
-    .catch((err) => {
-      console.log("err");
+    .catch((error) => {
+      console.log(error);
     });
+});
+
+app.get("/userprofiledata", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+
+  // categoryImageData()
+  //   .then((response) => {
+  //     res.send({ items: response });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 });
 
 app.get("/findwork", (req, res, err) => {
@@ -319,6 +358,23 @@ app.get("/chat/:username", (req, res, err) => {
       res.send({ chats: chats, chatData: chatData });
     });
   });
+});
+
+app.get("/chat/:username/:receiver", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const { username, receiver } = req.params;
+  console.log(username + " " + receiver);
+
+  //below if showing data after adding new user after refresh
+  findAllRoomsWithGivenUserAndDoOtherUSerExits(username, receiver).then(
+    (chats) => {
+      getChatDataWithOneUsername(username).then((chatData) => {
+        res.send({ chats: chats, chatData: chatData });
+      });
+    }
+  );
 });
 
 app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});

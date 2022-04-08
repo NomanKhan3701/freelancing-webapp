@@ -23,6 +23,7 @@ import FindWorkParams from "./pages/FindWork/FindWorkParams";
 import PostTalent from "./pages/PostTalent/PostTalent";
 import UserProfileInput from "./pages/UserProfileInput/UserProfileInput";
 function App() {
+  localStorage.setItem("isDataTaken", "false");
   return (
     <BrowserRouter className="App">
       <Routes>
@@ -47,6 +48,7 @@ function App() {
         <Route path="/freelancerprofile" element={<FreelancerProfile />} />
 
         <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/userprofile/:username" element={<UserProfile />} />
         <Route path="/userprofileinput" element={<UserProfileInput />} />
         <Route path="/postrequest" element={<PostWork />} />
 

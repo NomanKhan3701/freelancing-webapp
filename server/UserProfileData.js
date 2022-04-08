@@ -83,6 +83,14 @@ const getUserProfileDataUsingId = async (id) => {
   return data[0];
 };
 
+const getUserProfileDataUsingUsername = async (username) => {
+  const data = await UserProfileData.find({ username: username });
+  if (data.length === 0) {
+    return 0;
+  }
+  return data[0];
+};
+
 const addUserProfile = async (data) => {
   const { username, fullname, desc, email, linkdin, image, skills, category } =
     data;
@@ -128,6 +136,7 @@ module.exports = {
   getRating,
   setRating,
   getUserProfileDataUsingId,
+  getUserProfileDataUsingUsername,
 };
 
 //0 no user with that user id,

@@ -125,11 +125,6 @@ const LoginSignUp = (props) => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
-        try {
-          localStorage.setItem("isDataTaken", response.data.userDataTaken);
-        } catch (error) {
-          localStorage.setItem("isDataTaken", false);
-        }
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||
@@ -137,11 +132,16 @@ const LoginSignUp = (props) => {
         ) {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
+          localStorage.setItem("isDataTaken", response.data.userDataTaken);
+          console.log(response.data.userDataTaken);
+          console.log("response.data.userDataTaken");
         }
         onResult(response.data.result, context.toLowerCase());
       })
       .catch((err) => {
+        console.log("if type error no worries");
         console.log(err);
+        navigate("/");
       });
   };
 
@@ -163,22 +163,18 @@ const LoginSignUp = (props) => {
         break;
       case 3:
         //user exist with username and google signUP trying
-        try {
-          if (location.state.goingTo) {
-            navigate(location.state.goingTo);
-            return;
-          }
-        } catch (error) {}
+        if (location.state.goingTo) {
+          navigate(location.state.goingTo);
+          return;
+        }
         navigate("/");
         break;
       case 4:
         //new user created successfully
-        try {
-          if (location.state.goingTo) {
-            navigate(location.state.goingTo);
-            return;
-          }
-        } catch (error) {}
+        if (location.state.goingTo) {
+          navigate(location.state.goingTo);
+          return;
+        }
         navigate("/");
         break;
       case 5:
@@ -189,12 +185,10 @@ const LoginSignUp = (props) => {
         break;
       case 6:
         //login succesfully
-        try {
-          if (location.state.goingTo) {
-            navigate(location.state.goingTo);
-            return;
-          }
-        } catch (error) {}
+        if (location.state.goingTo) {
+          navigate(location.state.goingTo);
+          return;
+        }
         navigate("/");
         break;
       default:

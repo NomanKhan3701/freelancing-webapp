@@ -46,14 +46,12 @@ const FindTalentParams = () => {
   }
 
   const visitProfile = (event) => {
-    let username;
-    const target = event.target;
-    //   navigate("/profile", {
-    //       state: {
-    //           username: username;
-    //       }
-    //   });
-    navigate("/userProfile");
+    const username = event.target.getAttribute("datausername");
+    navigate(`/userprofile`, {
+      state: {
+        username: username,
+      },
+    });
   };
 
   const renderBidBody = (talent) => {
@@ -71,13 +69,14 @@ const FindTalentParams = () => {
           </div>
         </div>
         <div className="bid-right">
-          {/* <div className="range">
-            ₹{talent.price} - ₹{talent.perHourRate}
-          </div> */}
           <div>perHourRate: ₹{talent.perHourRate}</div>
           <div>total: ₹{talent.price}</div>
           {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
-          <div className="btn" onClick={visitProfile}>
+          <div
+            className="btn"
+            datausername={talent.username}
+            onClick={visitProfile}
+          >
             Visite Profile
           </div>
         </div>

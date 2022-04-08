@@ -13,6 +13,7 @@ import {
   update,
   selectChatMainData,
 } from "./../../features/chatMain/chatMainSlice";
+import { useLocation } from "react-router";
 
 const Chat = () => {
   const chatMainData = useSelector(selectChatMainData);
@@ -21,8 +22,19 @@ const Chat = () => {
   const [isLoading, setLoading] = useState(true);
   const [chats, setChats] = useState();
   const [chatData, setChatData] = useState();
+  const { state } = useLocation();
+  let receiver;
+  try {
+    receiver = state.receiver;
+  } catch (error) {
+    receiver = "";
+  }
   useEffect(() => {
-    axios.get(`http://localhost:8080/chat/${sender}`).then(function (response) {
+    let url = `http://localhost:8080/chat/${sender}`;
+    if (receiver) {
+      url += `/${receiver}`;
+    }
+    axios.get(url).then(function (response) {
       setChats(response.data.chats);
       setChatData(response.data.chatData);
       setLoading(false);

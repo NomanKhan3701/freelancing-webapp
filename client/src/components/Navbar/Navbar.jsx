@@ -110,7 +110,7 @@ const renderMessageToggle = () => (
 );
 
 const renderMessageMenu = (item, index) => (
-  <Link to='/chat' className="notification">
+  <Link to="/chat" className="notification">
     <div className="img">
       <img src={userImage} alt="user image" />
     </div>
@@ -118,9 +118,7 @@ const renderMessageMenu = (item, index) => (
   </Link>
 );
 
-const renderMessageFooter = () => (
-  <div className="btn">Chat</div>
-);
+const renderMessageFooter = () => <div className="btn">Chat</div>;
 
 // const user_order = [];
 
@@ -170,6 +168,7 @@ const Navbar = (props) => {
   const logout = () => {
     localStorage.setItem("loggedIn", false);
     localStorage.setItem("username", undefined);
+    localStorage.setItem("isDataTaken", false);
     setLoggedIn("false");
     navigate("/");
   };

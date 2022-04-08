@@ -19,7 +19,7 @@ import {
 import { toast } from "react-toastify";
 import Multiselect from "multiselect-react-dropdown";
 import { UserProfile } from "../import";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import axios from "axios";
 
 const skills = [
@@ -59,6 +59,7 @@ function getSteps() {
 
 const LinearStepper = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [getUserData, setUserData] = useState({
     username: localStorage.getItem("username"),
     fullname: "",
@@ -358,12 +359,17 @@ const LinearStepper = () => {
           userData: getUserData,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
           console.log(err);
         });
-      navigate("/");
+      localStorage.setItem("isDataTaken", "true");
+      try {
+        navigate(state.goingTo);
+      } catch (error) {
+        navigate("/");
+      }
     }
   };
 
