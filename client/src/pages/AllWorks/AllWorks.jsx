@@ -1,31 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { Footer, Navbar } from "../../components/import";
 import "./AllWorks.scss";
 import { Link } from "react-router-dom";
 
 const AllWorks = () => {
-  const navigate = useNavigate();
+  const { state } = useLocation();
   return (
     <>
       <div className="all-works-container">
         <Navbar />
         <h1>All works</h1>
         <div className="work-cards">
-          {StaticRange.freelancingWork.length === 0 ? (
-            "No Work Done."
-          ) : (
+          {state.freelancingWork.length === 0 ? (
+            <div className="no-works">No works</div>
+          ) : state.freelancingWork.map((work) => {
+            return(
             <div className="work-card">
-              <h1 className="title">Aws work</h1>
+              <h1 className="title">{work.title}</h1>
               <div className="desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-                labore nulla sequi reiciendis sunt iste atque cumque dicta
-                voluptates asperiores, voluptas iure ad minus sit iusto nisi
-                quisquam libero magnam.
+                {work.desc}
               </div>
-              <div className="status progress">In progress</div>
+              <div className={work.progress==="Completed" ? "status progress":"status done"}>{work.progress}</div>
             </div>
-          )}
+            );
+          })}
         </div>
       </div>
       <Footer />

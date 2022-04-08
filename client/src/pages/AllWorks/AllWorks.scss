@@ -10,6 +10,15 @@
     margin-top: 20px;
     margin-bottom: 40px;
 
+    .no-works {
+      height: 60vh;
+      display: grid;
+      place-items: center;
+      font-size: 27px;
+      font-weight: 700;
+      width: 100%;
+    }
+
     .work-card {
       margin-bottom: 20px;
       width: 450px;

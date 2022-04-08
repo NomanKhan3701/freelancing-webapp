@@ -96,8 +96,8 @@ const UserProfile = () => {
             animate={{ opacity: 1, translateX: 0 }}
             transition={{ duration: 1, ease: "linear" }}
             className="user-img"
-          >
-            <img src={userData.image} alt="user image" />
+          >{userData.image?<img src={userData.image} alt="user image" />:<img src={userImg} alt="user image" />}
+            
           </motion.div>
           <div className="user-info">
             <motion.h1

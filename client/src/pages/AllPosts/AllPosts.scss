@@ -9,6 +9,15 @@
     justify-content: space-between;
     margin-top: 20px;
     margin-bottom: 40px;
+
+    .no-posts {
+      height: 60vh;
+      display: grid;
+      place-items: center;
+      font-size: 27px;
+      font-weight: 700;
+      width: 100%;
+    }
     .post-card {
       margin-bottom: 20px;
       width: 450px;
