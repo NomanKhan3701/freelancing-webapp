@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const { getWorkPostedDataById } = require("./FindWorkData");
 
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
@@ -18,7 +19,14 @@ var workProgressSchema = new mongoose.Schema({
   },
   moneyExchanged: {
     type: Object,
-    required: true,
+  },
+  progress: {
+    type: String,
+    default: "not started",
+  },
+  freelancer: {
+    type: String,
+    default: "not selected",
   },
 });
 
@@ -33,12 +41,15 @@ const getWorkProcess = async (id) => {
 };
 
 const addWorkProgress = (data) => {
-  const { workId, startDate, endDate, moneyExchanged } = data;
+  const { workId, startDate, endDate, moneyExchanged, progress, freelancer } =
+    data;
   const newWorkProgress = new WorkProgress({
     workId: workId,
     startDate: startDate,
     endDate: endDate,
     moneyExchanged: moneyExchanged,
+    progress: progress,
+    freelancer: freelancer,
   });
   try {
     newWorkProgress.save();
@@ -48,7 +59,38 @@ const addWorkProgress = (data) => {
     return 2;
   }
 };
-module.exports = { addWorkProgress, getWorkProcess };
+
+const getFreelancerWorkByUsername = async (username) => {
+  const data = await WorkProgress.find(
+    { freelancer: username },
+    { workId: 1, progress: 1 }
+  );
+  if (data.length === 0) {
+    return [];
+  } else {
+    const freelancerWork = [];
+    for (let i = 0; i < data.length; i++) {
+      const dat = await getWorkPostedDataById(data[i].workId);
+      freelancerWork.push({ ...data[i], ...dat });
+    }
+    return freelancerWork;
+  }
+};
+
+const getFreelancerAndProgress = async (workId) => {
+  const data = await WorkProgress.find(
+    { workId: workId },
+    { progress: 1, freelancer: 1 }
+  );
+  return data;
+};
+
+module.exports = {
+  addWorkProgress,
+  getWorkProcess,
+  getFreelancerWorkByUsername,
+  getFreelancerAndProgress,
+};
 
 //0 no user with that user id,
 //1 success in adding new review

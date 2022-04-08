@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const { getFreelancerAndProgress } = require("./workProgress");
 
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
@@ -95,7 +96,43 @@ const addWorkData = (data) => {
   return 4;
 };
 
-module.exports = { getWorkData, addWorkData, getWorkFilterData };
+const getWorkPostedDataByUsername = async (username) => {
+  const data = await FindWorkData.find(
+    { username: username },
+    {
+      _id: 1,
+      title: 1,
+      desc: 1,
+      username: 1,
+    }
+  );
+  let finalData = [];
+  for (let i = 0; i < data.length; i++) {
+    const dat = await getFreelancerAndProgress(data[i]._id);
+    finalData.push({ ...data[i], ...dat });
+  }
+  return finalData;
+};
+
+const getWorkPostedDataById = async (id) => {
+  const data = await FindWorkData.find(
+    { _id: id },
+    {
+      title: 1,
+      desc: 1,
+      username: 1,
+    }
+  );
+  return data;
+};
+
+module.exports = {
+  getWorkData,
+  addWorkData,
+  getWorkFilterData,
+  getWorkPostedDataByUsername,
+  getWorkPostedDataById,
+};
 
 //1 - insufficient data
 //4 - successfully added the data

@@ -24,13 +24,17 @@ const FindTalent = () => {
       toast.error("Please login to post.", {
         position: "top-center",
       });
-      navigate("/login");
+      navigate("/login", {
+        state: {
+          goingTo: "/findtalent/postwork",
+        },
+      });
       return;
     }
-    if (!isDataTaken) {
+    if (isDataTaken === "true") {
       navigate("/findtalent/postwork");
     } else {
-      toast.error("You must fill your details before posting the work.", {
+      toast.success("You must fill your details before posting the work.", {
         position: "top-center",
       });
       navigate("/userprofileinput");
