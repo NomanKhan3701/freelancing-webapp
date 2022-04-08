@@ -11,14 +11,14 @@ toast.configure();
 
 const PostWork = () => {
   const navigate = useNavigate();
-  const [sOptions, setSOptions] = useState([
-    { value: "HTML", label: "HTML" },
-    { value: "CSS", label: "CSS" },
-    { value: "JavaScript", label: "JavaScript" },
-    { value: "ReactJs", label: "ReactJs" },
-    { value: "NodeJs", label: "NodeJs" },
-    { value: "MongoDB", label: "MongoDB" },
-  ]);
+  // const [sOptions, setSOptions] = useState([
+  //   { value: "HTML", label: "HTML" },
+  //   { value: "CSS", label: "CSS" },
+  //   { value: "JavaScript", label: "JavaScript" },
+  //   { value: "ReactJs", label: "ReactJs" },
+  //   { value: "NodeJs", label: "NodeJs" },
+  //   { value: "MongoDB", label: "MongoDB" },
+  // ]);
   const [isLoading, setLoading] = useState(true);
   const [postWorkData, setPostWorkData] = useState({
     title: "",
@@ -62,17 +62,22 @@ const PostWork = () => {
   const onSelectCategory = (selectedList, selectedItem) => {
     changeSkills(selectedItem.Category);
     setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, category: selectedItem.Skill };
+      return { ...previousWorkData, category: selectedItem.Category };
     });
   };
 
   const onRemoveCategory = (selectedList, selectedItem) => {
+    changeSkills("");
     setPostWorkData((previousWorkData) => {
       return { ...previousWorkData, category: "" };
     });
   };
 
   const changeSkills = (category) => {
+    if (category === "") {
+      setSkills([]);
+      return;
+    }
     let skills = [];
     for (let i = 0; i < originalData.length; i++) {
       if (originalData[i].category === category) {
@@ -187,9 +192,13 @@ const PostWork = () => {
     if (!goAhead) {
       return;
     }
+    const data = {
+      ...postWorkData,
+      username: localStorage.getItem("username"),
+    };
     axios
       .post(`http://localhost:8080/findtalent/postwork`, {
-        postWorkData: postWorkData,
+        postWorkData: data,
       })
       .then((response) => {
         //response is the object that contains data sent from server

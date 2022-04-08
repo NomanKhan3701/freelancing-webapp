@@ -121,6 +121,7 @@ const LoginSignUp = (props) => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
+        localStorage.setItem("isDataTaken", response.data.userDataTaken);
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||
@@ -180,7 +181,9 @@ const LoginSignUp = (props) => {
     <div className="login-signup-container">
       <div className="row">
         <div className="col align-items-center flex-col">
-          <Link to='/' className="logo-login-signup signup">Freelance</Link>
+          <Link to="/" className="logo-login-signup signup">
+            Freelance
+          </Link>
           <div className="form-wrapper align-items-center signup">
             <form className="form">
               <div className="input-group">
@@ -233,7 +236,9 @@ const LoginSignUp = (props) => {
           </div>
         </div>
         <div className="col align-items-center flex-col">
-          <Link to='/' className="logo-login-signup login">Freelance</Link>
+          <Link to="/" className="logo-login-signup login">
+            Freelance
+          </Link>
           <div className="form-wrapper align-items-center login">
             <form className="form">
               <div className="input-group">

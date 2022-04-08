@@ -32,6 +32,7 @@
 
     .title {
       margin-top: 20px;
+
       input {
         width: 100%;
         padding: 10px 20px;
@@ -109,6 +110,7 @@
           width: 95%;
           .react-dropdown-select-item {
             padding: 10px;
+
             &:hover {
               background: #0096fb;
             }
@@ -119,6 +121,7 @@
               border: none;
             }
           }
+
           &::-webkit-scrollbar {
             width: 8px;
           }
@@ -138,12 +141,15 @@
 
     .skills-required {
       margin: 20px 0px;
+
       .multiselect-container {
         // margin: 0px auto;
         width: min-content;
+
         .search-wrapper {
           border: none;
           margin-top: 20px;
+
           input {
             width: 400px;
             padding: 10px 20px;
@@ -161,10 +167,12 @@
         .optionListContainer {
           width: calc(400px - 15px);
           transform: translateX(15px);
+
           .optionContainer {
             li {
               font-size: 16px;
             }
+
             &::-webkit-scrollbar {
               width: 8px;
             }
@@ -181,50 +189,53 @@
           }
         }
       }
-    }
 
-    .budget {
-      width: max-content;
-      // margin: 0 auto;
+      .budget {
+        width: max-content;
+        // margin: 0 auto;
 
-      h1 {
-        margin-bottom: 20px;
-      }
-      input {
-        width: 200px;
-        padding: 10px 20px;
-        font-size: 16px;
-        background: linear-gradient(
-          to right bottom,
-          rgba(255, 255, 255, 1),
-          rgba(255, 255, 255, 0.1)
-        );
-        box-shadow: var(--box-shadow);
-        border-radius: 60px;
-        border: none;
+        h1 {
+          margin-bottom: 20px;
+        }
 
-        &:focus {
+        input {
+          width: 200px;
+          padding: 10px 20px;
+          font-size: 16px;
+          background: linear-gradient(
+            to right bottom,
+            rgba(255, 255, 255, 1),
+            rgba(255, 255, 255, 0.1)
+          );
+          box-shadow: var(--box-shadow);
+          border-radius: 60px;
           border: none;
+
+          &:focus {
+            border: none;
+          }
+        }
+
+        span {
+          margin: 0px 20px;
         }
       }
-      span {
-        margin: 0px 20px;
-      }
-    }
 
-    .btn {
-      background: linear-gradient(90deg, #755bea, #ff72c0);
-      padding: 10px 20px;
-      border-radius: var(--border-radius-big);
-      color: white;
-      box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
-      width: max-content;
-      height: max-content;
-      margin: 40px 0px;
-      cursor: pointer;
+      .btn {
+        background: linear-gradient(90deg, #755bea, #ff72c0);
+        padding: 10px 20px;
+        border-radius: var(--border-radius-big);
+        color: white;
+        box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+        width: max-content;
+        height: max-content;
+        margin: 40px auto;
+        // margin: 40px 0px;
+        cursor: pointer;
 
-      &:hover {
-        background: linear-gradient(90deg, #634fbb, #d863a3);
+        &:hover {
+          background: linear-gradient(90deg, #634fbb, #d863a3);
+        }
       }
     }
   }
