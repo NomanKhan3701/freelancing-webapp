@@ -375,7 +375,7 @@ const LinearStepper = () => {
   };
 
   return (
-    <div>
+    <div className="linear-stepper">
       <Stepper alternativeLabel activeStep={activeStep}>
         {steps.map((step, index) => {
           const labelProps = {};
