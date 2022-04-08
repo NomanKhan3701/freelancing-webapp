@@ -69,15 +69,6 @@ const FindTalentParams = () => {
           </div>
         </div>
         <div className="bid-right">
-<<<<<<< HEAD
-          {/* <div className="range">
-            ₹{talent.price} - ₹{talent.perHourRate}
-          </div> */}
-          <div>perHourRate: ₹{talent.perHourRate}</div>
-          <div>total: ₹{talent.price}</div>
-          {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
-          <div className="btn" onClick={visitProfile}>
-=======
           <div>perHourRate: ₹{talent.perHourRate}</div>
           <div>total: ₹{talent.price}</div>
           {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
@@ -86,7 +77,6 @@ const FindTalentParams = () => {
             datausername={talent.username}
             onClick={visitProfile}
           >
->>>>>>> 1464c155137195d72d4a7eea59c84923ea19a370
             Visite Profile
           </div>
         </div>
