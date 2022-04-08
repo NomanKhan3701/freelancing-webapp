@@ -228,6 +228,7 @@ const LinearStepper = () => {
               onSelect={onSelectCategory}
               onRemove={onRemoveCategory}
               name="category"
+              placeholder="Select Category"
             />
           )}
         />
@@ -241,6 +242,7 @@ const LinearStepper = () => {
               onSelect={onSelectSkills}
               onRemove={onRemoveSkills}
               name="skills"
+              placeholder="Select skills"
             />
           )}
         />
