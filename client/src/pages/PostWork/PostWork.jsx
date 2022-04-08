@@ -11,14 +11,14 @@ toast.configure();
 
 const PostWork = () => {
   const navigate = useNavigate();
-  // const [sOptions, setSOptions] = useState([
-  //   { value: "HTML", label: "HTML" },
-  //   { value: "CSS", label: "CSS" },
-  //   { value: "JavaScript", label: "JavaScript" },
-  //   { value: "ReactJs", label: "ReactJs" },
-  //   { value: "NodeJs", label: "NodeJs" },
-  //   { value: "MongoDB", label: "MongoDB" },
-  // ]);
+  const [sOptions, setSOptions] = useState([
+    { value: "HTML", label: "HTML" },
+    { value: "CSS", label: "CSS" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "ReactJs", label: "ReactJs" },
+    { value: "NodeJs", label: "NodeJs" },
+    { value: "MongoDB", label: "MongoDB" },
+  ]);
   const [isLoading, setLoading] = useState(true);
   const [postWorkData, setPostWorkData] = useState({
     title: "",

@@ -110,7 +110,7 @@ const renderMessageToggle = () => (
 );
 
 const renderMessageMenu = (item, index) => (
-  <Link to="/chat" className="notification">
+  <Link to="/chat" className="notification" key={index}>
     <div className="img">
       <img src={userImage} alt="user image" />
     </div>
