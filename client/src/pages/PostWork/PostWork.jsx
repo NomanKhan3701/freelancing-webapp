@@ -4,21 +4,21 @@ import { Multiselect } from "multiselect-react-dropdown";
 import "./PostWork.scss";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
-import { Select } from "@material-ui/core";
+import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 toast.configure();
 
 const PostWork = () => {
   const navigate = useNavigate();
-  // const [sOptions, setSOptions] = useState([
-  //   { value: "HTML", label: "HTML" },
-  //   { value: "CSS", label: "CSS" },
-  //   { value: "JavaScript", label: "JavaScript" },
-  //   { value: "ReactJs", label: "ReactJs" },
-  //   { value: "NodeJs", label: "NodeJs" },
-  //   { value: "MongoDB", label: "MongoDB" },
-  // ]);
+  const [sOptions, setSOptions] = useState([
+    { value: "HTML", label: "HTML" },
+    { value: "CSS", label: "CSS" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "ReactJs", label: "ReactJs" },
+    { value: "NodeJs", label: "NodeJs" },
+    { value: "MongoDB", label: "MongoDB" },
+  ]);
   const [isLoading, setLoading] = useState(true);
   const [postWorkData, setPostWorkData] = useState({
     title: "",
@@ -240,16 +240,10 @@ const PostWork = () => {
             options = {sOptions}
           />
         </div> */}
-        <div className="skills-required">
+        <div className="category-select">
           <h1>Category</h1>
-          <Select
-            id="category"
-            options={categories}
-            displayValue="Category"
-            onSelect={onSelectCategory}
-            onRemove={onRemoveCategory}
-            name="category"
-          />
+          <Select options={sOptions} />
+          {/* <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/> */}
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>

@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router";
 import { Footer, Navbar } from "../../components/import";
 import "./AllPosts.scss";
+import { Link } from "react-router-dom";
 
 const AllPosts = (props) => {
   const { state } = useLocation();

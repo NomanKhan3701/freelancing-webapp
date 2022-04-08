@@ -59,7 +59,7 @@ const NormalSlider = (props) => {
       <Swiper
         slidesPerView={5}
         spaceBetween={10}
-        slidesPerGroup={3}
+        slidesPerGroup={2}
         loop={true}
         loopFillGroupWithBlank={true}
         pagination={{

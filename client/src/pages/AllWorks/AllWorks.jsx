@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Footer, Navbar } from "../../components/import";
 import "./AllWorks.scss";
+import { Link } from "react-router-dom";
 
 const AllWorks = () => {
   const navigate = useNavigate();

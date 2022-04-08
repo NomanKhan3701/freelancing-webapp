@@ -4,16 +4,16 @@
   padding-right: 40px;
 
   .categories-container {
-
     h1 {
       margin-bottom: 30px;
     }
 
     .find-work-categories {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-gap: 20px;
       margin-bottom: 40px;
-      justify-content: space-between;
+      place-items: center;
 
       .swiper-slide {
         text-align: center;
