@@ -190,7 +190,7 @@
 //                     <div className="btn"><Link to='/userprofile'>Visit profile</Link></div>
 //                   <div className="btn"><Link to='#'>Accept Bid</Link></div>
 //                   </div>
-                  
+
 //                 </div>
 //               );
 //             })}

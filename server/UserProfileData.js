@@ -1,3 +1,5 @@
+const { updateUserDataTaken } = require("./database");
+
 var mongoose = require("mongoose");
 
 //requiring string field to not to be null or undefined
@@ -21,15 +23,18 @@ var UserProfileDataSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   linkdin: {
     type: String,
-    unique: true,
+    default: "",
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    default: "",
+  },
+  category: {
+    type: Array,
+    default: [],
   },
   skills: {
     type: Array,
@@ -78,8 +83,17 @@ const getUserProfileDataUsingId = async (id) => {
   return data[0];
 };
 
-const addUserProfile = (data) => {
-  const { username, fullname, desc, email, linkdin, image, skills } = data;
+const getUserProfileDataUsingUsername = async (username) => {
+  const data = await UserProfileData.find({ username: username });
+  if (data.length === 0) {
+    return 0;
+  }
+  return data[0];
+};
+
+const addUserProfile = async (data) => {
+  const { username, fullname, desc, email, linkdin, image, skills, category } =
+    data;
   const newUser = new UserProfileData({
     fullname: fullname,
     username: username,
@@ -88,17 +102,43 @@ const addUserProfile = (data) => {
     linkdin: linkdin,
     image: image,
     skills: skills,
+    category: category,
   });
   try {
     newUser.save();
+    await updateUserDataTaken(username, true);
     return 1;
   } catch (error) {
     console.log(error);
     return 2;
   }
 };
-module.exports = { getWorkBidCommentsData, addCommentToWorkBid };
+
+const getRating = async (username) => {
+  const data = await UserProfileData.find({ username: username }).select(
+    "username"
+  );
+  return data;
+};
+
+const setRating = async (username, rating) => {
+  const filter = { username: username };
+  const update = { rating: rating };
+  try {
+    await Character.findOneAndUpdate(filter, update);
+    return 1;
+  } catch (error) {
+    return 2;
+  }
+};
+module.exports = {
+  addUserProfile,
+  getRating,
+  setRating,
+  getUserProfileDataUsingId,
+  getUserProfileDataUsingUsername,
+};
 
 //0 no user with that user id,
-//1 success in adding new user
-//2 error in adding new user
+//1 success in adding new user or just success
+//2 error in adding new user or just error

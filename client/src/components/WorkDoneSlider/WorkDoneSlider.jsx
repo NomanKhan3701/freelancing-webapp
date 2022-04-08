@@ -8,44 +8,53 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
 
-const WorkDoneSlider = () => {
+const WorkDoneSlider = (props) => {
+  // const works = [
+  //   {
+  //     title: "Javscript dev",
+  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
+  //     status: "In progress",
+  //   },
+  //   {
+  //     title: "Javscript dev",
+  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
+  //     status: "Done",
+  //   },
+  //   {
+  //     title: "Javscript dev",
+  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
+  //     status: "Ongoing",
+  //   },
+  //   {
+  //     title: "Javscript dev",
+  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
+  //     status: "Long term",
+  //   },
+  // ];
+  // useEffect(() => {}, [props.work]);
 
-  const works = [{
-    title: 'Javscript dev',
-    desc: 'Javascrit developer with 2 year experience and a good knowledge of frontend',
-    status: 'In progress'
-  },{
-    title: 'Javscript dev',
-    desc: 'Javascrit developer with 2 year experience and a good knowledge of frontend',
-    status: 'Done'
-  },{
-    title: 'Javscript dev',
-    desc: 'Javascrit developer with 2 year experience and a good knowledge of frontend',
-    status: 'Ongoing'
-  },{
-    title: 'Javscript dev',
-    desc: 'Javascrit developer with 2 year experience and a good knowledge of frontend',
-    status: 'Long term'
-  },]
   return (
     <div className="work-done-slider">
-      <Swiper
-        slidesPerView={2}
-        spaceBetween={20}
-        slidesPerGroup={2}
-        loop={true}
-        loopFillGroupWithBlank={true}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-        {works.map((work, index) => {
-          return (
-            <SwiperSlide key={index}>
-              <motion.div
+      {props.freelance.length === 0 ? (
+        "No Work Done as a freelancer."
+      ) : (
+        <Swiper
+          slidesPerView={2}
+          spaceBetween={20}
+          slidesPerGroup={2}
+          loop={true}
+          loopFillGroupWithBlank={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+          {props.freelance.map((work, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 1, ease: "linear" }}
@@ -53,12 +62,19 @@ const WorkDoneSlider = () => {
                 >
                   <div className="card-title">{work.title}</div>
                   <div className="card-desc">{work.desc}</div>
-                  <div className={`card-status ${work.status==='In progress'?"progress":"done"}`}>{work.status}</div>
+                  <div
+                    className={`card-status ${
+                      work.progress === "In progress" ? "progress" : "done"
+                    }`}
+                  >
+                    {work.progress}
+                  </div>
                 </motion.div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      )}
     </div>
   );
 };

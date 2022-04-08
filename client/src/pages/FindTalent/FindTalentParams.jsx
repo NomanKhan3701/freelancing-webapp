@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dropdown, Footer, Navbar } from "../../components/import";
-import "./FindWork.scss";
+import "./FindTalent.scss";
 import { InfoPagination } from "../../components/import";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -46,24 +46,22 @@ const FindTalentParams = () => {
   }
 
   const visitProfile = (event) => {
-    let username;
-    const target = event.target;
-    //   navigate("/profile", {
-    //       state: {
-    //           username: username;
-    //       }
-    //   });
-    navigate("/userProfile");
+    const username = event.target.getAttribute("datausername");
+    navigate(`/userprofile`, {
+      state: {
+        username: username,
+      },
+    });
   };
 
-  const renderBidBody = (work) => {
+  const renderBidBody = (talent) => {
     return (
-      <div id={work._id} key={work._id} className="user-bid">
+      <div id={talent._id} key={talent._id} className="user-bid">
         <div className="bid-left">
-          <div className="title">{work.title}</div>
-          <div className="description">{work.desc}</div>
+          <div className="title">{talent.title}</div>
+          <div className="description">{talent.desc}</div>
           <div className="skills">
-            {work.qualifications.map((skill, index) => (
+            {talent.qualifications.map((skill, index) => (
               <div key={index} className="skill">
                 {skill}
               </div>
@@ -71,11 +69,14 @@ const FindTalentParams = () => {
           </div>
         </div>
         <div className="bid-right">
-          <div className="range">
-            ₹{work.minBid} - ₹{work.maxBid}
-          </div>
-          <div className="total-bid">{work.numberOfBids} bids</div>
-          <div className="btn" onClick={visitProfile}>
+          <div>perHourRate: ₹{talent.perHourRate}</div>
+          <div>total: ₹{talent.price}</div>
+          {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
+          <div
+            className="btn"
+            datausername={talent.username}
+            onClick={visitProfile}
+          >
             Visite Profile
           </div>
         </div>
@@ -97,10 +98,10 @@ const FindTalentParams = () => {
     setSkills(skillsForcategory);
   };
 
-  const changeWorkData = (event) => {
+  const changeTalentData = (event) => {
     const checkboxArray = document.getElementsByClassName("checkbox");
     let selectedSkills = [];
-    let newWorks = [];
+    let newTalents = [];
 
     for (let i = 0; i < checkboxArray.length; i++) {
       if (checkboxArray[i].getElementsByTagName("input")[0].checked) {
@@ -114,7 +115,7 @@ const FindTalentParams = () => {
       return;
     }
     for (let k = 0; k < originalTalents.length; k++) {
-      const work = originalTalents[k];
+      const talent = originalTalents[k];
       if (selectedSkills.length === 0) {
         settalents(originalTalents);
         break;
@@ -130,16 +131,16 @@ const FindTalentParams = () => {
       };
 
       for (let i = 0; i < selectedSkills.length; i++) {
-        if (!isPresent(work.qualifications, selectedSkills[i])) {
+        if (!isPresent(talent.qualifications, selectedSkills[i])) {
           break;
         }
         if (i === selectedSkills.length - 1) {
-          newWorks.push(work);
+          newTalents.push(talent);
         }
       }
     }
 
-    settalents(newWorks);
+    settalents(newTalents);
   };
 
   const dropdown = (data) => {
@@ -183,6 +184,8 @@ const FindTalentParams = () => {
               <input type="text" placeholder="min" />
               <span>to</span>
               <input type="text" placeholder="max" />
+              <h1>perHour</h1>
+              <input type="text" placeholder="perHourRate" />
             </div>
             <div className="skill-filter">
               <h1>Skills</h1>
@@ -192,7 +195,7 @@ const FindTalentParams = () => {
                     <input
                       type="checkbox"
                       id={`skill-checkbox-${index}`}
-                      onChange={changeWorkData}
+                      onChange={changeTalentData}
                     />
                     <label htmlFor={`skill-checkbox-${index}`}>{skill}</label>
                   </div>

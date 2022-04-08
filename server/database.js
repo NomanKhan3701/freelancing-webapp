@@ -20,6 +20,10 @@ const userSignUpSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  userDataTaken: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSignUpSchema.pre("save", function (next) {
@@ -118,10 +122,27 @@ const isValidUser = async (user) => {
   let result;
   let { username, password } = user;
   result = await UserSignUpFindData(username, password);
-  return result;
+  let userDataTaken = false;
+  if (result === 6) {
+    const data = await UserSignUp.find({ username: username });
+    userDataTaken = data[0].userDataTaken;
+  }
+  return { result: result, userDataTaken: userDataTaken };
 };
 
-module.exports = { createNewUser, isValidUser, UserSignUp };
+const updateUserDataTaken = async (username, is) => {
+  const filter = { username: username };
+  const update = { userDataTaken: is };
+  // `doc` is the document _before_ `update` was applied
+  await UserSignUp.findOneAndUpdate(filter, update);
+};
+
+module.exports = {
+  createNewUser,
+  isValidUser,
+  UserSignUp,
+  updateUserDataTaken,
+};
 
 //0 something wrong with database
 //1 user exist with username

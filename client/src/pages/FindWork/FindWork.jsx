@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./FindWork.scss";
-import {
-  Card,
-  Footer,
-  Navbar,
-  NormalSlider,
-  SliderThreeD,
-} from "../../components/import";
-import userImg from "../../assets/images/Cha2.jpg";
-import RandomDev from "./json/RandomDev.json";
-import { Link } from "react-router-dom";
+import { Footer, Navbar } from "../../components/import";
 import { useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
-
+import { toast } from "react-toastify";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+
+toast.configure();
 
 const FindWork = (props) => {
   let navigate = useNavigate();
@@ -58,7 +51,29 @@ const FindWork = (props) => {
       arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
     );
   };
-
+  const goToPostRequest = () => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn === "false") {
+      toast.error("Please login to post.", {
+        position: "top-center",
+      });
+      navigate("/login", {
+        state: {
+          goingTo: "/findwork/posttalent",
+        },
+      });
+      return;
+    }
+    if (isDataTaken === "true") {
+      navigate("/findwork/posttalent");
+    } else {
+      toast.success("You must fill your details before posting the work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+    }
+  };
   return (
     <>
       <div className="find-talent-container">
@@ -71,12 +86,25 @@ const FindWork = (props) => {
               let imageData = toBase64(item.img.data.data);
               let imageSrc = imagetype + ";base64," + imageData;
               return (
-                <SwiperSlide onClick={categorySelected} key={item._id}>
+                <div
+                  className="swiper-slide"
+                  onClick={categorySelected}
+                  key={item._id}
+                >
                   <img src={imageSrc} />
                   <div className="category-name">{item.category}</div>
-                </SwiperSlide>
+                </div>
               );
             })}
+          </div>
+        </div>
+        <div className="find-work-post-request">
+          <h1>Post Your Talents As A Freelancer</h1>
+          {/* <div className="btn">
+            <Link to="/findwork/posttalent">Post Talents</Link>
+          </div> */}
+          <div className="btn" onClick={goToPostRequest}>
+            Post Your Talent
           </div>
         </div>
       </div>

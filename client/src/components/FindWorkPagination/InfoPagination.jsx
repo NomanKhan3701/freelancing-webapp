@@ -11,6 +11,9 @@ const InfoPagination = (props) => {
       ? props.bodyData.slice(0, Number(props.limit))
       : props.bodyData;
     setDataShow(initDataShow);
+    if(props.bodyData.length/Number(props.limit) < currPage){
+      selectPage(Math.floor(props.bodyData.length/Number(props.limit)));
+    }
   }, [props.bodyData]);
   let pages = 1;
   let range = [];

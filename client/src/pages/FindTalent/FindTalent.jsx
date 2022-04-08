@@ -10,8 +10,37 @@ import {
 import userImg from "../../assets/images/Cha2.jpg";
 import RandomDev from "./json/RandomDev.json";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+
+import { toast } from "react-toastify";
+toast.configure();
 
 const FindTalent = () => {
+  let navigate = useNavigate();
+  const goToPostRequest = () => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn === "false") {
+      toast.error("Please login to post.", {
+        position: "top-center",
+      });
+      navigate("/login", {
+        state: {
+          goingTo: "/findtalent/postwork",
+        },
+      });
+      return;
+    }
+    if (isDataTaken === "true") {
+      navigate("/findtalent/postwork");
+    } else {
+      toast.success("You must fill your details before posting the work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+    }
+  };
+
   return (
     <>
       <div className="find-talent-container">
@@ -22,10 +51,10 @@ const FindTalent = () => {
             <NormalSlider type="findtalent" />
           </div>
         </div>
-        <div className="post-request">
+        <div className="find-talent-post-request">
           <h1>Start a bid for your project</h1>
-          <div className="btn">
-            <Link to="/findtalent/postwork">Post a Request</Link>
+          <div className="btn" onClick={goToPostRequest}>
+            Post a Request
           </div>
         </div>
         <div className="recommended-container">

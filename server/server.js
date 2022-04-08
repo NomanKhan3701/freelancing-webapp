@@ -38,7 +38,13 @@ const {
   getWorkData,
   getWorkFilterData,
   addWorkData,
+  getWorkPostedDataByUsername,
 } = require("./FindWorkData");
+const {
+  getTalentData,
+  getTalentFilterData,
+  addTalentData,
+} = require("./FindTalentData");
 const { createNewUser, isValidUser, UserSignUp } = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
@@ -47,10 +53,12 @@ const {
   addCommentToWorkBid,
 } = require("./WorkBidCommentsData");
 const { getBids, addBid } = require("./Bids");
+const { getFreelancerWorkByUsername } = require("./workProgress");
 const {
   getRoomNo,
   addNewUsersToChat,
   findAllRoomsWithGivenUser,
+  findAllRoomsWithGivenUserAndDoOtherUSerExits,
 } = require("./UserAndChatRoom");
 const {
   addDataToChat,
@@ -64,21 +72,28 @@ const {
   removeOnlineUser,
   getSocketId,
 } = require("./onlineUsers");
+
+const {
+  addUserProfile,
+  getUserProfileDataUsingUsername,
+} = require("./UserProfileData");
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.json());
 
-app.post("/post", (req, res, err) => { });
+// app.post("/post", (req, res, err) => {});
 
 app.post("/login", (req, res, err) => {
   if (err) {
     //
   }
   const { username, password } = req.body;
-  console.log(req.body);
   isValidUser({ username: username, password: password })
     .then((response) => {
-      res.send({ result: response });
+      res.send({
+        result: response.result,
+        userDataTaken: response.userDataTaken,
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -94,7 +109,7 @@ app.post("/signup", (req, res, err) => {
   let result;
   try {
     createNewUser(req.body).then((result) => {
-      res.send({ result: result });
+      res.send({ result: result, userDataTaken: false });
     });
   } catch (error) {
     console.log("some error");
@@ -108,6 +123,20 @@ app.get("/findtalent", (req, res, err) => {
   categoryImageData()
     .then((response) => {
       res.send({ items: response });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.post("/userprofileinput", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const body = req.body.userData;
+  addUserProfile(body)
+    .then((response) => {
+      res.send({ result: response });
     })
     .catch((error) => {
       console.log(error);
@@ -137,6 +166,29 @@ app.post("/findtalent/postwork", (req, res, err) => {
       qualifications: body.skills,
       minBid: body.minBid,
       maxBid: body.maxBid,
+      username: body.username,
+    });
+    res.send({ result: 1 });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
+});
+app.post("/findwork/posttalent", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const body = req.body.postTalentData;
+  try {
+    // newPostWorkData.save();
+    addTalentData({
+      title: body.title,
+      desc: body.desc,
+      category: body.category,
+      qualifications: body.skills,
+      price: body.price,
+      perHourRate: body.perHourRate,
+      username: body.username,
     });
     res.send({ result: 1 });
   } catch (error) {
@@ -150,7 +202,7 @@ app.get("/findtalent/:category", (req, res, err) => {
     console.log(err);
   }
   try {
-    getWorkData().then((items) => {
+    getTalentData().then((items) => {
       getWorkFilterData().then((filterData) => {
         res.send({ items: items, filterData: filterData });
       });
@@ -159,6 +211,35 @@ app.get("/findtalent/:category", (req, res, err) => {
     console.log(error);
     res.status(500).send("An error occurred", err);
   }
+});
+
+app.get("/userprofiledata/:username", (req, res, err) => {
+  const username = req.params.username;
+  getUserProfileDataUsingUsername(username)
+    .then((response) => {
+      getWorkPostedDataByUsername(username).then((workPosted) => {
+        getFreelancerWorkByUsername(username).then((freelancingWork) => {
+          res.send({ data: { ...response, workPosted, freelancingWork } });
+        });
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get("/userprofiledata", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+
+  // categoryImageData()
+  //   .then((response) => {
+  //     res.send({ items: response });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 });
 
 app.get("/findwork", (req, res, err) => {
@@ -277,6 +358,23 @@ app.get("/chat/:username", (req, res, err) => {
       res.send({ chats: chats, chatData: chatData });
     });
   });
+});
+
+app.get("/chat/:username/:receiver", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const { username, receiver } = req.params;
+  console.log(username + " " + receiver);
+
+  //below if showing data after adding new user after refresh
+  findAllRoomsWithGivenUserAndDoOtherUSerExits(username, receiver).then(
+    (chats) => {
+      getChatDataWithOneUsername(username).then((chatData) => {
+        res.send({ chats: chats, chatData: chatData });
+      });
+    }
+  );
 });
 
 app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});

@@ -21,8 +21,16 @@ const FindWork = (props) => {
       .get(`http://localhost:8080/findwork/${state.category}`)
       .then(function (response) {
         if (works === undefined) {
-          setworks(response.data.items);
+          // setworks(response.data.items);
           setOriginalWorks(response.data.items);
+          const newWorks = [];
+          console.log(originalWorks);
+          for (let i = 0; i < response.data.items.length; i++) {
+            if (response.data.items[i].category === state.category) {
+              newWorks.push(response.data.items[i]);
+            }
+          }
+          setworks(newWorks);
           setFilterData(response.data.filterData);
         }
         if (skills === undefined) {
@@ -41,6 +49,17 @@ const FindWork = (props) => {
         setLoading(false);
       });
   }, []);
+
+  // const setWorkWithCategory = (category) => {
+  //   const newWorks = [];
+  //   console.log(originalWorks);
+  //   for (let i = 0; i < originalWorks.length; i++) {
+  //     if (originalWorks[i].category === category) {
+  //       newWorks.push(originalWorks[i]);
+  //     }
+  //   }
+  //   setworks(newWorks);
+  // };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -103,7 +122,6 @@ const FindWork = (props) => {
   const call = (event) => {
     const category = event.target.value;
     let skillsForcategory;
-
     for (let i = 0; i < filterData.length; i++) {
       if (filterData[i].category === category) {
         skillsForcategory = filterData[i].skills;
@@ -112,6 +130,13 @@ const FindWork = (props) => {
     }
 
     setSkills(skillsForcategory);
+    const newWorks = [];
+    for (let i = 0; i < originalWorks.length; i++) {
+      if (originalWorks[i].category === category) {
+        newWorks.push(originalWorks[i]);
+      }
+    }
+    setworks(newWorks);
   };
 
   const dropdown = (data) => {

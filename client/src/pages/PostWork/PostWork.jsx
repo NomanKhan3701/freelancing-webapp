@@ -4,9 +4,9 @@ import { Multiselect } from "multiselect-react-dropdown";
 import "./PostWork.scss";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
-import { Select } from "@material-ui/core";
+import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 toast.configure();
 
 const PostWork = () => {
@@ -32,6 +32,8 @@ const PostWork = () => {
   const [originalData, setOriginalData] = useState([]);
   const [skills, setSkills] = useState([]);
 
+  const [category, setCategory] = useState();
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/findtalent/postwork`)
@@ -43,6 +45,14 @@ const PostWork = () => {
         }
         if (categories.length === 0) {
           setCategories(category);
+          const newSOptions = [];
+          for (let i = 0; i < category.length; i++) {
+            newSOptions.push({
+              value: category[i].Category,
+              label: category[i].Category,
+            });
+          }
+          setSOptions(newSOptions);
         }
         setLoading(false);
       });
@@ -58,21 +68,33 @@ const PostWork = () => {
       return { ...previousWorkData, [name]: value };
     });
   };
-
-  const onSelectCategory = (selectedList, selectedItem) => {
-    changeSkills(selectedItem.Category);
+  const categoryChange = (event) => {
+    setCategory(event[0].value);
+    changeSkills(event[0].value);
     setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, category: selectedItem.Skill };
+      return { ...previousWorkData, category: event[0].value };
     });
   };
+  // const onSelectCategory = (selectedList, selectedItem) => {
+  //   console.log(selectedItem);
+  //   changeSkills(selectedItem.Category);
+  //   setPostWorkData((previousWorkData) => {
+  //     return { ...previousWorkData, category: selectedItem.Category };
+  //   });
+  // };
 
-  const onRemoveCategory = (selectedList, selectedItem) => {
-    setPostWorkData((previousWorkData) => {
-      return { ...previousWorkData, category: "" };
-    });
-  };
+  // const onRemoveCategory = (selectedList, selectedItem) => {
+  //   changeSkills("");
+  //   setPostWorkData((previousWorkData) => {
+  //     return { ...previousWorkData, category: "" };
+  //   });
+  // };
 
   const changeSkills = (category) => {
+    if (category === "") {
+      setSkills([]);
+      return;
+    }
     let skills = [];
     for (let i = 0; i < originalData.length; i++) {
       if (originalData[i].category === category) {
@@ -105,7 +127,7 @@ const PostWork = () => {
   };
 
   const isValidToNavigate = () => {
-    let title, desc, category, minBid, maxBid;
+    let title, desc, minBid, maxBid;
     let skills = [];
     try {
       title = document.querySelector("input[name = title]").value;
@@ -125,11 +147,17 @@ const PostWork = () => {
       });
       return false;
     }
-    try {
-      category = document
-        .getElementById("category")
-        .getElementsByTagName("span")[0].innerText;
-    } catch (error) {
+    // try {
+    //   category = document
+    //     .getElementById("category")
+    //     .getElementsByTagName("span")[0].innerText;
+    // } catch (error) {
+    //   toast.error("Select Category.", {
+    //     position: "top-center",
+    //   });
+    //   return false;
+    // }
+    if (!category) {
       toast.error("Select Category.", {
         position: "top-center",
       });
@@ -147,13 +175,13 @@ const PostWork = () => {
       });
       return false;
     }
-    if (maxBid < 0 || minBid < 0) {
+    if (parseInt(maxBid) < 0 || parseInt(minBid) < 0) {
       toast.error("Bid cannot be less than 0.", {
         position: "top-center",
       });
       return false;
     }
-    if (maxBid <= minBid) {
+    if (parseInt(maxBid) <= parseInt(minBid)) {
       toast.error("Max bid has to be greater than min bid.", {
         position: "top-center",
       });
@@ -187,9 +215,13 @@ const PostWork = () => {
     if (!goAhead) {
       return;
     }
+    const data = {
+      ...postWorkData,
+      username: localStorage.getItem("username"),
+    };
     axios
       .post(`http://localhost:8080/findtalent/postwork`, {
-        postWorkData: postWorkData,
+        postWorkData: data,
       })
       .then((response) => {
         //response is the object that contains data sent from server
@@ -231,9 +263,10 @@ const PostWork = () => {
             options = {sOptions}
           />
         </div> */}
-        <div className="skills-required">
+        <div className="category-select">
           <h1>Category</h1>
-          <Select id="category" options={categories} displayValue="Category" onSelect={onSelectCategory} onRemove={onRemoveCategory} name="category" />
+          <Select options={sOptions} onChange={categoryChange} />
+          {/* <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/> */}
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>
