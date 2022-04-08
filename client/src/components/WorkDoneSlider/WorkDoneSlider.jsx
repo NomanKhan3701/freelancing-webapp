@@ -36,7 +36,7 @@ const WorkDoneSlider = (props) => {
   return (
     <div className="work-done-slider">
       {props.freelance.length === 0 ? (
-        "No Work Done as a freelancer."
+        <div className="no-work">No work done</div>
       ) : (
         <Swiper
           slidesPerView={2}

@@ -189,8 +189,13 @@
               margin-left: 20px;
             }
 
-            a {
+            .link-button {
               font-size: 18px;
+              cursor: pointer;
+
+              &:hover {
+                color: var(--main-color);
+              }
             }
           }
           .work-cards {

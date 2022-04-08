@@ -190,7 +190,7 @@ const UserProfile = () => {
             <div className="latest-work-posted">
               <div className="info-section">
                 <h1>Latest work posted</h1>
-                <button onClick={goToAllPost}>All post</button>
+                <div className="link-button" onClick={goToAllPost}>All post</div>
               </div>
               <div className="work-cards">
                 <WorkPostedSlider work={userData.workPosted} />
@@ -199,7 +199,7 @@ const UserProfile = () => {
             <div className="latest-work-posted">
               <div className="info-section">
                 <h1>Work done</h1>
-                <button onClick={goToAllWork}>All work</button>
+                <div className="link-button" onClick={goToAllWork}>All work</div>
               </div>
               <div className="work-cards">
                 <WorkDoneSlider freelance={userData.freelancingWork} />
