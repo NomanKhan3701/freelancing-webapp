@@ -171,7 +171,6 @@ const PostTalent = () => {
     }
 
     if (skills !== undefined && skills !== null && skills.length > 0) {
-      navigate("/");
       return true;
     } else {
       toast.error("please select atleast one skill.", {
@@ -182,6 +181,7 @@ const PostTalent = () => {
   };
 
   const newPostForTalent = (event) => {
+    event.preventDefault();
     const goAhead = isValidToNavigate();
     if (!goAhead) {
       return;
@@ -197,6 +197,17 @@ const PostTalent = () => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
+        if (response.data.result === 3) {
+          toast.error("User can only post talent once in each category.", {
+            position: "top-center",
+          });
+        } else if (response.data.result === 1) {
+          toast.error("Insufficient Data.", {
+            position: "top-center",
+          });
+        } else {
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);

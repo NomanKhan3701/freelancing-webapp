@@ -60,14 +60,14 @@ const WorkDoneSlider = (props) => {
                   transition={{ duration: 1, ease: "linear" }}
                   className="work-done-slider-card"
                 >
-                  <div className="card-title">{work.title}</div>
-                  <div className="card-desc">{work.desc}</div>
+                  <div className="card-title">{work._doc.title}</div>
+                  <div className="card-desc">{work._doc.desc}</div>
                   <div
                     className={`card-status ${
-                      work.progress === "In progress" ? "progress" : "done"
+                      work._doc.progress === "In progress" ? "progress" : "done"
                     }`}
                   >
-                    {work.progress}
+                    {work._doc.progress}
                   </div>
                 </motion.div>
               </SwiperSlide>

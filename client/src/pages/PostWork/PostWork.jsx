@@ -226,6 +226,7 @@ const PostWork = () => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);

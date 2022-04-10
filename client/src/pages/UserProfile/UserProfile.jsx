@@ -37,7 +37,9 @@ const UserProfile = () => {
           ...response.data.data._doc,
           workPosted: response.data.data.workPosted,
           freelancingWork: response.data.data.freelancingWork,
+          isDataTaken: response.data.data.isUserDataTaken,
         });
+        localStorage.setItem("isDataTaken", response.data.data.isUserDataTaken);
         setLoading(false);
       });
   }, []);

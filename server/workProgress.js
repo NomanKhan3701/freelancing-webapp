@@ -12,7 +12,6 @@ var workProgressSchema = new mongoose.Schema({
   },
   startDate: {
     type: String,
-    required: true,
   },
   endDate: {
     type: String,
@@ -40,7 +39,7 @@ const getWorkProcess = async (id) => {
   return data[0];
 };
 
-const addWorkProgress = (data) => {
+const addWorkProgress = async (data) => {
   const { workId, startDate, endDate, moneyExchanged, progress, freelancer } =
     data;
   const newWorkProgress = new WorkProgress({

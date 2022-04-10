@@ -19,9 +19,41 @@ const FindTalentParams = () => {
     axios
       .get(`http://localhost:8080/findtalent/${state.category}`)
       .then(function (response) {
+        // if (talents === undefined) {
+        //   settalents(response.data.items);
+        //   setOriginalTalents(response.data.items);
+        //   setFilterData(response.data.filterData);
+        // }
+        // if (skills === undefined) {
+        //   for (let i = 0; i < response.data.filterData.length; i++) {
+        //     //removing all non-alphanumeric characters.
+        //     if (
+        //       response.data.filterData[i].category
+        //         .replace(/\W/g, "")
+        //         .toLowerCase() === state.category
+        //     ) {
+        //       setSkills(response.data.filterData[i].skills);
+        //       break;
+        //     }
+        //   }
+        // }
+        console.log(state.category);
         if (talents === undefined) {
-          settalents(response.data.items);
+          // setworks(response.data.items);
+          console.log(response.data.items);
           setOriginalTalents(response.data.items);
+          const newTalents = [];
+          for (let i = 0; i < response.data.items.length; i++) {
+            console.log(response.data.items[i].category);
+            if (
+              response.data.items[i].category
+                .replace(/\W/g, "")
+                .toLowerCase() === state.category
+            ) {
+              newTalents.push(response.data.items[i]);
+            }
+          }
+          settalents(newTalents);
           setFilterData(response.data.filterData);
         }
         if (skills === undefined) {
@@ -85,9 +117,19 @@ const FindTalentParams = () => {
   };
 
   const call = (event) => {
+    // const category = event.target.value;
+    // let skillsForcategory;
+
+    // for (let i = 0; i < filterData.length; i++) {
+    //   if (filterData[i].category === category) {
+    //     skillsForcategory = filterData[i].skills;
+    //     break;
+    //   }
+    // }
+
+    // setSkills(skillsForcategory);
     const category = event.target.value;
     let skillsForcategory;
-
     for (let i = 0; i < filterData.length; i++) {
       if (filterData[i].category === category) {
         skillsForcategory = filterData[i].skills;
@@ -96,6 +138,13 @@ const FindTalentParams = () => {
     }
 
     setSkills(skillsForcategory);
+    const newWorks = [];
+    for (let i = 0; i < originalTalents.length; i++) {
+      if (originalTalents[i].category === category) {
+        newWorks.push(originalTalents[i]);
+      }
+    }
+    settalents(newWorks);
   };
 
   const changeTalentData = (event) => {

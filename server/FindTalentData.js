@@ -67,7 +67,7 @@ const getTalentFilterData = async () => {
   return data;
 };
 
-const addTalentData = (data) => {
+const addTalentData = async (data) => {
   //user posting this information
   const {
     category,
@@ -81,6 +81,16 @@ const addTalentData = (data) => {
   if (title.length < 10 || desc.length < 30 || qualifications.length < 1) {
     return 1;
   }
+
+  const hasUserPostedTalentBeforeInSameCategory = await FindTalentData.find({
+    username: username,
+    category: category,
+  });
+
+  if (hasUserPostedTalentBeforeInSameCategory.length !== 0) {
+    return 3;
+  }
+
   const newTalentData = new FindTalentData({
     title: title,
     desc: desc,
@@ -90,6 +100,7 @@ const addTalentData = (data) => {
     price: price,
     username: username,
   });
+
   try {
     newTalentData.save();
   } catch (err) {
@@ -102,3 +113,4 @@ module.exports = { getTalentData, addTalentData, getTalentFilterData };
 
 //1 - insufficient data
 //4 - successfully added the data
+//3 - user alredy posted talent in this category

@@ -39,13 +39,20 @@ const {
   getWorkFilterData,
   addWorkData,
   getWorkPostedDataByUsername,
+  updateBidCount,
+  getWorkPostedDataById,
 } = require("./FindWorkData");
 const {
   getTalentData,
   getTalentFilterData,
   addTalentData,
 } = require("./FindTalentData");
-const { createNewUser, isValidUser, UserSignUp } = require("./database.js");
+const {
+  createNewUser,
+  isValidUser,
+  UserSignUp,
+  isUserDataTaken,
+} = require("./database.js");
 const { json } = require("body-parser");
 const { log } = require("console");
 const {
@@ -167,8 +174,9 @@ app.post("/findtalent/postwork", (req, res, err) => {
       minBid: body.minBid,
       maxBid: body.maxBid,
       username: body.username,
+    }).then((response) => {
+      res.send({ result: response.result });
     });
-    res.send({ result: 1 });
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred", error);
@@ -189,8 +197,9 @@ app.post("/findwork/posttalent", (req, res, err) => {
       price: body.price,
       perHourRate: body.perHourRate,
       username: body.username,
+    }).then((response) => {
+      res.send({ result: response });
     });
-    res.send({ result: 1 });
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred", error);
@@ -219,7 +228,16 @@ app.get("/userprofiledata/:username", (req, res, err) => {
     .then((response) => {
       getWorkPostedDataByUsername(username).then((workPosted) => {
         getFreelancerWorkByUsername(username).then((freelancingWork) => {
-          res.send({ data: { ...response, workPosted, freelancingWork } });
+          isUserDataTaken(username).then((isUserDataTaken) => {
+            res.send({
+              data: {
+                ...response,
+                workPosted,
+                freelancingWork,
+                isUserDataTaken,
+              },
+            });
+          });
         });
       });
     })
@@ -271,30 +289,13 @@ app.get("/findwork/:category", (req, res, err) => {
   }
 });
 
-//this was supposed to be get requst but we have manipulated using post
-app.post("/findwork/bid", (req, res, err) => {
+app.get(`/findworkdata/:workId`, (req, res, err) => {
   if (err) {
     console.log(err);
   }
-  const workId = req.body.id;
-  try {
-    getWorkBidCommentsData(workId).then((items) => {
-      getBids(workId).then((bids) => {
-        let totalBids = 0;
-        for (let i = 0; i < bids.length; i++) {
-          totalBids += bids[i].amount;
-        }
-        res.send({
-          items: items,
-          bids: bids,
-          avgBid: Math.floor(totalBids / bids.length),
-        });
-      });
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("An error occurred", error);
-  }
+  getWorkPostedDataById(req.params.workId).then((response) => {
+    res.send({ result: response });
+  });
 });
 
 app.post("/findwork/bid/newComment", (req, res, err) => {
@@ -321,13 +322,40 @@ app.post("/findwork/bid/newBid", (req, res, err) => {
   }
   const body = req.body;
   try {
-    const result = addBid({
+    addBid({
       workId: body.workId,
       username: body.username,
       desc: body.desc,
       amount: body.amount,
+    }).then((result) => {
+      res.send({ result: result });
     });
-    res.send({ result: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", error);
+  }
+});
+
+//this was supposed to be get requst but we have manipulated using post
+app.post("/findwork/bid/:workId", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const workId = req.params.workId;
+  try {
+    getWorkBidCommentsData(workId).then((items) => {
+      getBids(workId).then((bids) => {
+        let totalBids = 0;
+        for (let i = 0; i < bids.length; i++) {
+          totalBids += bids[i].amount;
+        }
+        res.send({
+          items: items,
+          bids: bids,
+          avgBid: Math.floor(totalBids / bids.length),
+        });
+      });
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred", error);
