@@ -13,7 +13,7 @@ const WorkPostedSlider = (props) => {
   return (
     <div className="work-posted-slider">
       {props.work.length === 0 ? (
-        "No work posted."
+        <div className="no-work">No work posted</div>
       ) : (
         <Swiper
           slidesPerView={2}

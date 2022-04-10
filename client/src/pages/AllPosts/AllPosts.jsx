@@ -32,36 +32,38 @@ const AllPosts = (props) => {
         <Navbar />
         <h1>All Posts</h1>
         <div className="post-cards">
-          {state.workPosted.length === 0
-            ? "No Work Posted"
-            : state.workPosted.map((work) => {
-                return (
-                  <div className="post-card">
-                    <h1 className="title">{work.title}</h1>
-                    <div className="desc">{work.desc}</div>
-                    <div className="btn-container">
-                      {work.username !== localStorage.getItem("username") && (
-                        <div className="btn">Chat</div>
+          {state.workPosted.length === 0 ? (
+            <div className="no-posts">No posts</div>
+          ) : (
+            state.workPosted.map((work) => {
+              return (
+                <div className="post-card">
+                  <h1 className="title">{work.title}</h1>
+                  <div className="desc">{work.desc}</div>
+                  <div className="btn-container">
+                    {work.username !== localStorage.getItem("username") && (
+                      <div className="btn">Chat</div>
+                    )}
+                    <div className="status progress">{work.progress}</div>
+                    {work.progress === "not started" &&
+                      work.username === localStorage.getItem("username") && (
+                        <div
+                          className="btn"
+                          onClick={() => {
+                            viewBids(work._id);
+                          }}
+                        >
+                          View Bids
+                        </div>
                       )}
-                      <div className="status progress">{work.progress}</div>
-                      {work.progress === "not started" &&
-                        work.username === localStorage.getItem("username") && (
-                          <div
-                            className="btn"
-                            onClick={() => {
-                              viewBids(work._id);
-                            }}
-                          >
-                            View Bids
-                          </div>
-                        )}
-                      {work.username !== localStorage.getItem("username") && (
-                        <div className="btn">Visit Profile</div>
-                      )}
-                    </div>
+                    {work.username !== localStorage.getItem("username") && (
+                      <div className="btn">Visit Profile</div>
+                    )}
                   </div>
-                );
-              })}
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
       <Footer />

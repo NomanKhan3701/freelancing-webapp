@@ -51,7 +51,7 @@ const FindTalent = () => {
             <NormalSlider type="findtalent" />
           </div>
         </div>
-        <div className="post-request">
+        <div className="find-talent-post-request">
           <h1>Start a bid for your project</h1>
           <div className="btn" onClick={goToPostRequest}>
             Post a Request

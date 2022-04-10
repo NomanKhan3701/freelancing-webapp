@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FileBase64 from "react-file-base64";
+import './LinearStepper.scss';
 import {
   Typography,
   TextField,
@@ -227,6 +228,7 @@ const LinearStepper = () => {
               onSelect={onSelectCategory}
               onRemove={onRemoveCategory}
               name="category"
+              placeholder="Select Category"
             />
           )}
         />
@@ -240,6 +242,7 @@ const LinearStepper = () => {
               onSelect={onSelectSkills}
               onRemove={onRemoveSkills}
               name="skills"
+              placeholder="Select skills"
             />
           )}
         />
@@ -374,7 +377,7 @@ const LinearStepper = () => {
   };
 
   return (
-    <div>
+    <div className="linear-stepper">
       <Stepper alternativeLabel activeStep={activeStep}>
         {steps.map((step, index) => {
           const labelProps = {};

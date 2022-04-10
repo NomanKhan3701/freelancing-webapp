@@ -189,53 +189,51 @@
           }
         }
       }
+    }
+    .budget {
+      width: max-content;
+      // margin: 0 auto;
 
-      .budget {
-        width: max-content;
-        // margin: 0 auto;
+      h1 {
+        margin-bottom: 20px;
+      }
 
-        h1 {
-          margin-bottom: 20px;
-        }
+      input {
+        width: 200px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: linear-gradient(
+          to right bottom,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.1)
+        );
+        box-shadow: var(--box-shadow);
+        border-radius: 60px;
+        border: none;
 
-        input {
-          width: 200px;
-          padding: 10px 20px;
-          font-size: 16px;
-          background: linear-gradient(
-            to right bottom,
-            rgba(255, 255, 255, 1),
-            rgba(255, 255, 255, 0.1)
-          );
-          box-shadow: var(--box-shadow);
-          border-radius: 60px;
+        &:focus {
           border: none;
-
-          &:focus {
-            border: none;
-          }
-        }
-
-        span {
-          margin: 0px 20px;
         }
       }
 
-      .btn {
-        background: linear-gradient(90deg, #755bea, #ff72c0);
-        padding: 10px 20px;
-        border-radius: var(--border-radius-big);
-        color: white;
-        box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
-        width: max-content;
-        height: max-content;
-        margin: 40px auto;
-        // margin: 40px 0px;
-        cursor: pointer;
+      span {
+        margin: 0px 20px;
+      }
+    }
+    .btn {
+      background: linear-gradient(90deg, #755bea, #ff72c0);
+      padding: 10px 20px;
+      border-radius: var(--border-radius-big);
+      color: white;
+      box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+      width: max-content;
+      height: max-content;
+      margin: 40px auto;
+      // margin: 40px 0px;
+      cursor: pointer;
 
-        &:hover {
-          background: linear-gradient(90deg, #634fbb, #d863a3);
-        }
+      &:hover {
+        background: linear-gradient(90deg, #634fbb, #d863a3);
       }
     }
   }

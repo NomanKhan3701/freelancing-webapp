@@ -98,7 +98,7 @@ const FindWork = (props) => {
             })}
           </div>
         </div>
-        <div className="post-request">
+        <div className="find-work-post-request">
           <h1>Post Your Talents As A Freelancer</h1>
           {/* <div className="btn">
             <Link to="/findwork/posttalent">Post Talents</Link>

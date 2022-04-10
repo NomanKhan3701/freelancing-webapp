@@ -1,6 +1,14 @@
 .work-done-slider {
   width: 100%;
   margin-bottom: 20px;
+
+  .no-work {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    font-size: 19px;
+    font-weight: 600;
+  }
+
   .swiper {
     width: 100%;
     height: 100%;
