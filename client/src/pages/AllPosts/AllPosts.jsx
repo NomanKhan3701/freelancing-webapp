@@ -8,6 +8,7 @@ const AllPosts = (props) => {
   const { state } = useLocation();
   return (
     <>
+    
       <div className="all-posts-container">
         <Navbar />
         <h1>All Posts</h1>
