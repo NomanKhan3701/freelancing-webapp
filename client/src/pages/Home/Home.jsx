@@ -12,7 +12,6 @@ const Home = () => {
       <Navbar />
       <Header />
       <WhyUs />
-      <Link to='/clientDashboard'>Client Dashboard</Link>
       <Footer />
     </div>
   );
