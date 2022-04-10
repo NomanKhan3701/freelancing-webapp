@@ -124,6 +124,24 @@
 
         .bid-left {
           padding-right: 20px;
+          overflow-x: auto;
+          margin-right: 20px;
+          padding-bottom: 10px;
+
+          &::-webkit-scrollbar {
+            height: 5px;
+          }
+  
+          &::-webkit-scrollbar-thumb {
+            background: rgb(124, 185, 197);
+            border-radius: 50px;
+          }
+  
+          &::-webkit-scrollbar-track {
+            background: rgb(233, 231, 231);
+            border-radius: 50px;
+          }
+          
           .title {
             font-weight: 500;
             font-size: 20px;
