@@ -24,9 +24,13 @@ const FindWork = (props) => {
           // setworks(response.data.items);
           setOriginalWorks(response.data.items);
           const newWorks = [];
-          console.log(originalWorks);
           for (let i = 0; i < response.data.items.length; i++) {
-            if (response.data.items[i].category === state.category) {
+            if (
+              response.data.items[i].category
+                .replace(/\W/g, "")
+                .toLowerCase() ===
+              state.category.replace(/\W/g, "").toLowerCase()
+            ) {
               newWorks.push(response.data.items[i]);
             }
           }
@@ -39,7 +43,8 @@ const FindWork = (props) => {
             if (
               response.data.filterData[i].category
                 .replace(/\W/g, "")
-                .toLowerCase() === state.category
+                .toLowerCase() ===
+              state.category.replace(/\W/g, "").toLowerCase()
             ) {
               setSkills(response.data.filterData[i].skills);
               break;
@@ -73,6 +78,7 @@ const FindWork = (props) => {
     const desc = target.getElementsByClassName("description")[0].textContent;
     const skills = target.getElementsByClassName("skill");
     let skillArray = [];
+    const username = target.parentNode.getAttribute("username");
 
     for (let i = 0; i < skills.length; i++) {
       skillArray.push(skills[i].textContent);
@@ -83,6 +89,7 @@ const FindWork = (props) => {
       title: title,
       desc: desc,
       skills: skillArray,
+      username: username,
     };
 
     navigate("/findwork/bid", {
@@ -92,9 +99,22 @@ const FindWork = (props) => {
     });
   };
 
+  const seeBids = (work) => {
+    navigate("/clientdashboard", {
+      state: {
+        work: work,
+      },
+    });
+  };
+
   const renderBidBody = (work) => {
     return (
-      <div id={work._id} key={work._id} className="user-bid">
+      <div
+        id={work._id}
+        username={work.username}
+        key={work._id}
+        className="user-bid"
+      >
         <div className="bid-left">
           <div className="title">{work.title}</div>
           <div className="description">{work.desc}</div>
@@ -111,9 +131,20 @@ const FindWork = (props) => {
             ₹{work.minBid} - ₹{work.maxBid}
           </div>
           <div className="total-bid">{work.numberOfBids} bids</div>
-          <div className="btn" onClick={bid}>
-            Bid now
-          </div>
+          {work.username !== localStorage.getItem("username") ? (
+            <div className="btn" onClick={bid}>
+              Bid now
+            </div>
+          ) : (
+            <div
+              className="btn"
+              onClick={() => {
+                seeBids(work);
+              }}
+            >
+              Posted By You
+            </div>
+          )}
         </div>
       </div>
     );

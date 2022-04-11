@@ -9,29 +9,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper";
 
 const WorkPostedSlider = (props) => {
-  // useEffect(() => {}, [props.work]);
-  // const works = [
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "In progress",
-  //   },
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "Done",
-  //   },
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "Ongoing",
-  //   },
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "Long term",
-  //   },
-  // ];
+  console.log(props);
   return (
     <div className="work-posted-slider">
       {props.work.length === 0 ? (

@@ -137,11 +137,20 @@ const updateUserDataTaken = async (username, is) => {
   await UserSignUp.findOneAndUpdate(filter, update);
 };
 
+const isUserDataTaken = async (username) => {
+  const data = await UserSignUp.find(
+    { username: username },
+    { userDataTaken: 1 }
+  );
+  return data;
+};
+
 module.exports = {
   createNewUser,
   isValidUser,
   UserSignUp,
   updateUserDataTaken,
+  isUserDataTaken,
 };
 
 //0 something wrong with database

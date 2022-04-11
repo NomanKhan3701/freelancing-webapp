@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-const { getFreelancerAndProgress } = require("./workProgress");
+const { getFreelancerAndProgress, addWorkProgress } = require("./workProgress");
 
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
@@ -72,7 +72,7 @@ const getWorkFilterData = async () => {
   return data;
 };
 
-const addWorkData = (data) => {
+const addWorkData = async (data) => {
   //user posting this information
   const { category, title, desc, qualifications, minBid, maxBid, username } =
     data;
@@ -89,10 +89,16 @@ const addWorkData = (data) => {
     username: username,
   });
   try {
-    newWorkData.save();
+    await newWorkData.save();
   } catch (err) {
     console.log(err);
+    return 2;
   }
+  const someData = await FindWorkData.find(
+    { username: username, title: title, desc: desc, category: category },
+    { _id: 1 }
+  );
+  addWorkProgress({ workId: someData[0]._id });
   return 4;
 };
 
@@ -100,7 +106,7 @@ const getWorkPostedDataByUsername = async (username) => {
   const data = await FindWorkData.find(
     { username: username },
     {
-      _id: 1,
+      workId: 1,
       title: 1,
       desc: 1,
       username: 1,
@@ -109,7 +115,8 @@ const getWorkPostedDataByUsername = async (username) => {
   let finalData = [];
   for (let i = 0; i < data.length; i++) {
     const dat = await getFreelancerAndProgress(data[i]._id);
-    finalData.push({ ...data[i], ...dat });
+    //order of opening the doc matter as both have _id, second one will be considered
+    finalData.push({ ...dat[0]._doc, ...data[i]._doc });
   }
   return finalData;
 };
@@ -121,9 +128,27 @@ const getWorkPostedDataById = async (id) => {
       title: 1,
       desc: 1,
       username: 1,
+      qualifications: 1,
     }
   );
   return data;
+};
+
+const updateBidCount = async (workId) => {
+  let data = await FindWorkData.find({ _id: workId }, { numberOfBids: 1 });
+  const filter = { _id: workId };
+  data = data[0].numberOfBids;
+  data = Number(data) + 1;
+  const update = { numberOfBids: data };
+  try {
+    await FindWorkData.findOneAndUpdate(filter, update);
+    console.log(workId);
+    return 4;
+  } catch (error) {
+    console.log("error");
+    console.log(error);
+    return 2;
+  }
 };
 
 module.exports = {
@@ -132,7 +157,10 @@ module.exports = {
   getWorkFilterData,
   getWorkPostedDataByUsername,
   getWorkPostedDataById,
+  updateBidCount,
 };
 
 //1 - insufficient data
 //4 - successfully added the data
+
+//2 failure
