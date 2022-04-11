@@ -60,7 +60,11 @@ const getBids = async (workid) => {
   return data;
 };
 
-module.exports = { getBids, addBid };
+const deleteBids = async (workId) => {
+  await Bid.deleteMany({ workId: workId });
+};
+
+module.exports = { getBids, addBid, deleteBids };
 
 //1 insufficient data
 //3 only 1 bid per user is allowed

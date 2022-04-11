@@ -110,7 +110,9 @@ const FindTalentParams = () => {
             datausername={talent.username}
             onClick={visitProfile}
           >
-            Visite Profile
+            Visit Profile{" "}
+            {localStorage.getItem("username") === talent.username &&
+              "(Posted By You)"}
           </div>
         </div>
       </div>
