@@ -147,16 +147,6 @@ const PostWork = () => {
       });
       return false;
     }
-    // try {
-    //   category = document
-    //     .getElementById("category")
-    //     .getElementsByTagName("span")[0].innerText;
-    // } catch (error) {
-    //   toast.error("Select Category.", {
-    //     position: "top-center",
-    //   });
-    //   return false;
-    // }
     if (!category) {
       toast.error("Select Category.", {
         position: "top-center",
@@ -200,6 +190,9 @@ const PostWork = () => {
     }
 
     if (skills !== undefined && skills !== null && skills.length > 0) {
+      toast.success("Work Posted successfully.", {
+        position: "top-center",
+      });
       navigate("/");
       return true;
     } else {
@@ -226,7 +219,6 @@ const PostWork = () => {
       .then((response) => {
         //response is the object that contains data sent from server
         //response.data is that data
-        console.log(response);
       })
       .catch((err) => {
         console.log(err);

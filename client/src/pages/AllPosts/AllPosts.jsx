@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Footer, Navbar } from "../../components/import";
 import "./AllPosts.scss";
@@ -26,6 +26,26 @@ const AllPosts = (props) => {
         }
       });
   };
+
+  const seeDetails = (index) => {
+    //here work datas are comign from two schemas findwork and
+    // workinprogress and in findwork id == workid but
+    // in work in progress schema id != workid we have special field workId creayed for it
+    const data = state.workPosted[index];
+    navigate("/clientprojectprogress", {
+      state: {
+        work: data,
+      },
+    });
+  };
+
+  const visitProfile = (username) => {
+    navigate("/userprofile", {
+      state: {
+        username: username,
+      },
+    });
+  };
   return (
     <>
       <div className="all-posts-container">
@@ -35,7 +55,7 @@ const AllPosts = (props) => {
           {state.workPosted.length === 0 ? (
             <div className="no-posts">No posts</div>
           ) : (
-            state.workPosted.map((work) => {
+            state.workPosted.map((work, index) => {
               return (
                 <div className="post-card">
                   <h1 className="title">{work.title}</h1>
@@ -56,8 +76,26 @@ const AllPosts = (props) => {
                           View Bids
                         </div>
                       )}
+                    {work.progress === "in progress" &&
+                      work.username === localStorage.getItem("username") && (
+                        <div
+                          className="btn"
+                          onClick={() => {
+                            seeDetails(index);
+                          }}
+                        >
+                          see details
+                        </div>
+                      )}
                     {work.username !== localStorage.getItem("username") && (
-                      <div className="btn">Visit Profile</div>
+                      <div
+                        className="btn"
+                        onClick={() => {
+                          visitProfile(work.username);
+                        }}
+                      >
+                        Visit Profile
+                      </div>
                     )}
                   </div>
                 </div>

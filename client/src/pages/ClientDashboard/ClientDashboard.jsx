@@ -8,6 +8,7 @@ import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { applyMiddleware } from "@reduxjs/toolkit";
 
 toast.configure();
 
@@ -19,7 +20,6 @@ const ClientDashboard = () => {
   if (Array.isArray(work)) {
     work = work[0];
   }
-  console.log(work);
   const [isLoading, setLoading] = useState(true);
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState("");
@@ -121,6 +121,29 @@ const ClientDashboard = () => {
     });
   };
 
+  const acceptBid = (username) => {
+    const userAns = prompt("are u sure ?(yes/no)");
+    if (userAns.toLowerCase() === "yes") {
+      axios
+        .post("http://localhost:8080/acceptbid", {
+          workId: work._id,
+          freelancer: username,
+        })
+        .then((response) => {
+          if (response.data.result === 4) {
+            toast.success("Bid accepted successfully.", {
+              position: "top-center",
+            });
+            navigate("/clientprojectprogress");
+          } else {
+            toast.success("error in updating the data..", {
+              position: "top-center",
+            });
+          }
+        });
+    }
+  };
+
   return (
     <div className="client-dashboard">
       <Navbar />
@@ -214,8 +237,13 @@ const ClientDashboard = () => {
                         >
                           Visit profile
                         </div>
-                        <div className="btn">
-                          <Link to="#">Accept Bid</Link>
+                        <div
+                          className="btn"
+                          onClick={() => {
+                            acceptBid(bid.username);
+                          }}
+                        >
+                          Accept Bid
                         </div>
                       </div>
                     </div>

@@ -9,7 +9,6 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper";
 
 const WorkPostedSlider = (props) => {
-  console.log(props);
   return (
     <div className="work-posted-slider">
       {props.work.length === 0 ? (

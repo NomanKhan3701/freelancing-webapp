@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const { getWorkInProgressDataByUsername } = require("./WorkInProgressData");
 const { getFreelancerAndProgress, addWorkProgress } = require("./workProgress");
 
 //requiring string field to not to be null or undefined
@@ -114,14 +115,17 @@ const getWorkPostedDataByUsername = async (username) => {
   );
   let finalData = [];
   for (let i = 0; i < data.length; i++) {
-    const dat = await getFreelancerAndProgress(data[i]._id);
+    const dat = await getFreelancerAndProgress(data[i]._doc._id);
     //order of opening the doc matter as both have _id, second one will be considered
     finalData.push({ ...dat[0]._doc, ...data[i]._doc });
   }
-  return finalData;
+  const moreData = await getWorkInProgressDataByUsername(username);
+
+  return [...finalData, ...moreData];
 };
 
 const getWorkPostedDataById = async (id) => {
+  console.log("AMIGOS");
   const data = await FindWorkData.find(
     { _id: id },
     {
@@ -151,6 +155,11 @@ const updateBidCount = async (workId) => {
   }
 };
 
+const findWorkDataAndDelete = async (workId) => {
+  const data = await FindWorkData.findOneAndDelete({ _id: workId });
+  return data;
+};
+
 module.exports = {
   getWorkData,
   addWorkData,
@@ -158,6 +167,7 @@ module.exports = {
   getWorkPostedDataByUsername,
   getWorkPostedDataById,
   updateBidCount,
+  findWorkDataAndDelete,
 };
 
 //1 - insufficient data

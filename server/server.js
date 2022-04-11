@@ -84,6 +84,7 @@ const {
   addUserProfile,
   getUserProfileDataUsingUsername,
 } = require("./UserProfileData");
+const { addWorkInProgressData } = require("./WorkInProgressData");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.json());
@@ -298,6 +299,20 @@ app.get(`/findworkdata/:workId`, (req, res, err) => {
   });
 });
 
+app.post("/acceptbid", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const body = req.body;
+  addWorkInProgressData(body.workId, body.freelancer)
+    .then((response) => {
+      res.send({ result: response });
+    })
+    .catch((error) => {
+      res.status(500).send("An error occurred", error);
+    });
+});
+
 app.post("/findwork/bid/newComment", (req, res, err) => {
   if (err) {
     console.log(err);
@@ -393,7 +408,6 @@ app.get("/chat/:username/:receiver", (req, res, err) => {
     console.log(err);
   }
   const { username, receiver } = req.params;
-  console.log(username + " " + receiver);
 
   //below if showing data after adding new user after refresh
   findAllRoomsWithGivenUserAndDoOtherUSerExits(username, receiver).then(
