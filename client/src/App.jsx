@@ -55,7 +55,7 @@ function App() {
         <Route path="/findwork" element={<FindWork type="findwork" />} />
         <Route path="/findwork/category" element={<FindWorkParams />} />
         <Route path="/findwork/bid" element={<Bid />} />
-        {/* <Route path="/clientDashboard" element={<ClientDashboard />} /> */}
+        <Route path="/clientDashboard" element={<ClientDashboard />} />
         <Route path="/freelancerprofile" element={<FreelancerProfile />} />
         <Route path="userprofile/allwork" element={<AllWorks />} />
         <Route path="userprofile/allpost" element={<AllPosts />} />

@@ -39,7 +39,7 @@ const getWorkProcess = async (id) => {
   return data[0];
 };
 
-const addWorkProgress = async (data) => {
+const addWorkProgress = (data) => {
   const { workId, startDate, endDate, moneyExchanged, progress, freelancer } =
     data;
   const newWorkProgress = new WorkProgress({
@@ -69,8 +69,12 @@ const getFreelancerWorkByUsername = async (username) => {
   } else {
     const freelancerWork = [];
     for (let i = 0; i < data.length; i++) {
-      const dat = await getWorkPostedDataById(data[i].workId);
-      freelancerWork.push({ ...data[i], ...dat });
+      try {
+        const dat = await getWorkPostedDataById(data[i].workId);
+        freelancerWork.push({ ...data[i], ...dat });
+      } catch (error) {
+        console.log(error);
+      }
     }
     return freelancerWork;
   }
@@ -81,7 +85,19 @@ const getFreelancerAndProgress = async (workId) => {
     { workId: workId },
     { progress: 1, freelancer: 1 }
   );
+
   return data;
+};
+
+const updateWorkProgress = async (workId, freelancer) => {
+  const filter = { workId: workId };
+  const update = {
+    freelancer: freelancer,
+    startDate: new Date(),
+    progress: "in progress",
+  };
+
+  await WorkProgress.findOneAndUpdate(filter, update);
 };
 
 module.exports = {
@@ -89,6 +105,7 @@ module.exports = {
   getWorkProcess,
   getFreelancerWorkByUsername,
   getFreelancerAndProgress,
+  updateWorkProgress,
 };
 
 //0 no user with that user id,
