@@ -1,4 +1,8 @@
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1; //for video calling
 require("dotenv/config");
+
+const fetch = require("node-fetch"); //for video calling
+const logger = require("morgan"); //for video calling
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -83,8 +87,11 @@ const {
 const {
   addUserProfile,
   getUserProfileDataUsingUsername,
+  getRatingsAndUsername,
 } = require("./UserProfileData");
 const { addWorkInProgressData } = require("./WorkInProgressData");
+
+app.use(logger("dev")); //for video calling
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.json());
@@ -135,6 +142,15 @@ app.get("/findtalent", (req, res, err) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+app.get("/findtalent/cards", (req, res, err) => {
+  if (err) {
+    console.log(err);
+    getTalentData().then((response) => {
+      res.send({ result: response });
+    });
+  }
 });
 
 app.post("/userprofileinput", (req, res, err) => {
@@ -303,13 +319,18 @@ app.post("/acceptbid", (req, res, err) => {
   if (err) {
     console.log(err);
   }
+  console.log("inside accept bid backend server");
   const body = req.body;
+  console.log("body");
+  console.log(body);
   addWorkInProgressData(body.workId, body.freelancer)
     .then((response) => {
       res.send({ result: response });
+      console.log("reponse sending fro addworkinprogress data promise");
     })
     .catch((error) => {
-      res.status(500).send("An error occurred", error);
+      console.log("error in sending final result to front end");
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 
@@ -420,6 +441,61 @@ app.get("/chat/:username/:receiver", (req, res, err) => {
 });
 
 app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});
+
+//video calling
+const VC_API_KEY = process.env.VC_API_KEY;
+
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+  Authorization: "Bearer " + VC_API_KEY,
+};
+
+const getRoom = (room) => {
+  return fetch(`https://api.daily.co/v1/rooms/${room}`, {
+    method: "GET",
+    headers,
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      return json;
+    })
+    .catch((err) => console.error("error:" + err));
+};
+
+const createRoom = (room) => {
+  return fetch("https://api.daily.co/v1/rooms", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      name: room,
+      properties: {
+        enable_screenshare: true,
+        enable_chat: true,
+        start_video_off: true,
+        start_audio_off: false,
+        lang: "en",
+      },
+    }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      return json;
+    })
+    .catch((err) => console.log("error:" + err));
+};
+
+app.get("/video-call/:id", async function (req, res) {
+  const roomId = req.params.id;
+
+  const room = await getRoom(roomId);
+  if (room.error) {
+    const newRoom = await createRoom(roomId);
+    res.status(200).send(newRoom);
+  } else {
+    res.status(200).send(room);
+  }
+});
 
 //have u closed the connction and there things do here first.
 io.on("connection", (socket) => {

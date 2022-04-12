@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-const { updateBidCount } = require("./FindWorkData");
+const { updateBidCount, updateCountForBid } = require("./FindWorkData");
+const { Schema, model } = require("mongoose");
 
-var bidsSchema = new mongoose.Schema({
+var bidsSchema = new Schema({
   workId: {
     type: String,
     required: true,
@@ -23,7 +23,7 @@ var bidsSchema = new mongoose.Schema({
   },
 });
 
-const Bid = new mongoose.model("Bid", bidsSchema);
+const Bid = new model("Bid", bidsSchema);
 
 const addBid = async (data) => {
   const { workId, username, desc, amount } = data;
@@ -43,7 +43,8 @@ const addBid = async (data) => {
   });
   try {
     newBid.save();
-    await updateBidCount(workId);
+    // await updateBidCount(workId);
+    await updateCountForBid(workId);
     return 4;
   } catch (err) {
     console.log(err);

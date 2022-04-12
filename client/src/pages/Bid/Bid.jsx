@@ -118,10 +118,14 @@ const Bid = () => {
       .then((response) => {
         if (response.data.result === 4) {
           //new bid added successfully
-          alert("new bid added successfully.");
+          toast.success("new bid added successfully.", {
+            position: "top-center",
+          });
           navigate("/");
         } else if (response.data.result === 3) {
-          alert("only one bid per user.");
+          toast.error("only one bid per user.", {
+            position: "top-center",
+          });
         }
       })
       .catch((err) => {

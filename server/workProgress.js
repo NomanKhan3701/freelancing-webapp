@@ -40,6 +40,8 @@ const getWorkProcess = async (id) => {
 };
 
 const addWorkProgress = (data) => {
+  console.log("data");
+  console.log(data);
   const { workId, startDate, endDate, moneyExchanged, progress, freelancer } =
     data;
   const newWorkProgress = new WorkProgress({

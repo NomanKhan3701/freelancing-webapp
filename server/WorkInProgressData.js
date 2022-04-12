@@ -64,7 +64,12 @@ const getWorkInProgressData = async () => {
 };
 
 const addWorkInProgressData = async (workId, freelancer) => {
-  const data = await findWorkDataAndDelete(workId);
+  try {
+    const data = await findWorkDataAndDelete(workId);
+  } catch (error) {
+    console.log("wahhhhhhhhhhhhhhhhhhhh");
+    console.log(error);
+  }
   const {
     category,
     title,
@@ -75,7 +80,12 @@ const addWorkInProgressData = async (workId, freelancer) => {
     numberOfBids,
     username,
   } = data;
-  deleteBids(workId); //no need of await here
+  console.log("whyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+  try {
+    deleteBids(workId); //no need of await here
+  } catch (error) {
+    console.log("error in deleting from backedn work data");
+  }
   const newWorkInProgressData = new WorkInProgressData({
     workId: workId,
     title: title,
@@ -87,9 +97,11 @@ const addWorkInProgressData = async (workId, freelancer) => {
     numberOfBids: numberOfBids,
     username: username,
   });
+  console.log("wasuupppppppppppppppp");
   try {
     await newWorkInProgressData.save();
     await updateWorkProgress(workId, freelancer);
+    console.log("amigos whasssup");
     return 4;
   } catch (err) {
     console.log(err);
