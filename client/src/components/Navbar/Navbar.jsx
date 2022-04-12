@@ -45,7 +45,7 @@ const SearchAndLinks = (props) => {
         dropdownRecommend.classList.remove('active');
       dropdownCategory.classList.toggle('active');
     }
-    else if(searchInput.placeholder!=="Search here..."&&(e.target==searchInput||e.target==searchSvg)){
+    else if(searchInput.placeholder!=="Search here..."&&(e.target==searchInput||e.target==searchSvg)&&!dropdownCategory.classList.contains('active')){
       dropdownRecommend.classList.toggle('active');
     }
     else if(e.target==searchInput||e.target==searchSvg){
