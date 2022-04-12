@@ -205,7 +205,7 @@ const LinearStepper = () => {
           name="image"
           render={({ field }) => (
             <div>
-              <label for="myfile">Profile Image:</label>
+              <label htmlFor="myfile">Profile Image:</label>
               <FileBase64
                 type="file"
                 multiple={false}
