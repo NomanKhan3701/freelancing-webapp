@@ -15,11 +15,82 @@ const SearchAndLinks = (props) => {
     };
   };
 
+  const searchItemClick = (e) => {
+    const title = e.currentTarget.querySelector('.item-title').innerText;
+    const dropdownCategory = document.querySelector('.dropdown-select');
+    const searchInput = document.querySelector('.search-container input');
+    if(title === "Find Talent") {
+      searchInput.placeholder = 'Find Talent';
+      dropdownCategory.classList.remove('active');
+    }
+    else if(title === "Find Work") {
+      searchInput.placeholder = 'Find Work';
+      dropdownCategory.classList.remove('active');
+    }
+    else if (title === "Find Partner") {
+      searchInput.placeholder = 'Find Partner';
+      dropdownCategory.classList.remove('active');
+    }
+  }
+
+  const toggleSearchDropdown = (e) => {
+    const dropdownCategory = document.querySelector('.dropdown-select');
+    const searchSvg = document.querySelector('.search-container .i');
+    const downSvg = document.querySelector('.search-container .down');
+    const dropdownRecommend = document.querySelector('.dropdown-recommend');
+    const searchInput = document.querySelector('.search-container input');
+
+    if(e.target==downSvg){
+      if(dropdownRecommend.classList.contains('active'))
+        dropdownRecommend.classList.remove('active');
+      dropdownCategory.classList.toggle('active');
+    }
+    else if(searchInput.placeholder!=="Search here..."&&(e.target==searchInput||e.target==searchSvg)){
+      dropdownRecommend.classList.toggle('active');
+    }
+    else if(e.target==searchInput||e.target==searchSvg){
+      dropdownCategory.classList.toggle('active');
+    }
+  }
+
   return (
     <>
-      <div className={`search-container ${props.active}`}>
+      <div className={`search-container ${props.active}`} onClick={(e)=>toggleSearchDropdown(e)}>
         <input type="text" placeholder="Search here..." />
+        <i class='bx bxs-chevron-down down'></i>
         <Search className="i" />
+        <div className="dropdown-select " >
+          <div className="dropdown-item" onClick={(e)=>searchItemClick(e)}>
+            <div className="item-left">
+              <i className="bx bxs-cart"></i>
+            </div>
+            <div className="item-right">
+              <div className="item-title">Find Talent</div>
+              <div className="item-desc">Hire freelancers</div>
+            </div>
+          </div>
+          <div className="dropdown-item" onClick={(e)=>searchItemClick(e)}>
+            <div className="item-left">
+              <i className="bx bxs-cart"></i>
+            </div>
+            <div className="item-right">
+              <div className="item-title">Find Work</div>
+              <div className="item-desc">Find work as freelancer</div>
+            </div>
+          </div>
+          <div className="dropdown-item" onClick={(e)=>searchItemClick(e)}>
+            <div className="item-left">
+              <i className="bx bxs-cart"></i>
+            </div>
+            <div className="item-right">
+              <div className="item-title">Find Partner</div>
+              <div className="item-desc">Find your partner</div>
+            </div>
+          </div>
+        </div>
+        <div className="dropdown-recommend " >
+          Hi i am recommend
+        </div>
       </div>
       <div className={`nav-links-container ${props.active}`}>
         <div className="nav-link">

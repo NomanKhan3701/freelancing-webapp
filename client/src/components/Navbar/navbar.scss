@@ -38,7 +38,6 @@
     align-items: center;
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius-big);
-    overflow: hidden;
 
     input {
       height: 100%;
@@ -55,6 +54,112 @@
       position: absolute;
       right: 20px;
       cursor: pointer;
+    }
+
+    .down {
+      font-size: 1.5rem;
+      position: absolute;
+      right: 70px;
+      cursor: pointer;
+    }
+
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   background: rgb(145, 65, 65);
+    //   box-shadow: var(--box-shadow);
+    //   top: 100%;
+    //   width: 40px;
+    //   height: 40px;
+    //   z-index: 2;
+    // }
+
+    .dropdown-select {
+      position: absolute;
+      height: max-content;
+      max-height: 400px;
+      background: white;
+      box-shadow: var(--box-shadow);
+      top: 120%;
+      left: 20px;
+      // width: calc(100% - 20px);
+      border-bottom-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      overflow: hidden;
+      z-index: 4;
+      opacity: 0;
+      transform-origin: -1%;
+      transition: 0.4s ease;
+      transform: translateY(10%);
+      pointer-events: none;
+
+      &.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+
+      .dropdown-item {
+        padding: 10px 20px;
+        display: flex;
+
+        &:first-child {
+          padding-bottom: 5px;
+        }
+
+        &:last-child {
+          padding-top: 5px;
+        }
+
+        .item-left {
+          font-size: 20px;
+          margin-right: 10px;
+        }
+
+        .item-right {
+          .item-title {
+            font-weight: 500;
+            font-size: 17px;
+          }
+
+          .item-desc {
+            font-size: 15px;
+          }
+        }
+        cursor: pointer;
+        &:hover {
+          background: rgb(235, 233, 233);
+        }
+      }
+    }
+
+    .dropdown-recommend {
+      position: absolute;
+      height: max-content;
+      max-height: 400px;
+      background: white;
+      box-shadow: var(--box-shadow);
+      top: 120%;
+      left: 20px;
+      // width: calc(100% - 20px);
+      border-bottom-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      overflow: hidden;
+      z-index: 4;
+      opacity: 0;
+      transform-origin: -1%;
+      transition: 0.4s ease;
+      transform: translateY(10%);
+      pointer-events: none;
+
+      &.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+
     }
 
     &.active {
