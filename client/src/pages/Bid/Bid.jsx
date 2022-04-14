@@ -46,28 +46,27 @@ const Bid = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
+    if (loggedIn === "false") {
+      toast.error("Please login to post.", {
+        position: "top-center",
+      });
+      navigate("/login", {
+        state: {
+          goingTo: "/findtalent/postwork",
+        },
+      });
+      return;
+    }
+    if (!isDataTaken === "true") {
+      toast.success("You must fill your details before posting the work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+    }
   }, []);
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   const loggedIn = localStorage.getItem("loggedIn");
-
-  if (loggedIn === "false") {
-    toast.error("Please login to post.", {
-      position: "top-center",
-    });
-    navigate("/login", {
-      state: {
-        goingTo: "/findtalent/postwork",
-      },
-    });
-    return;
-  }
-  if (!isDataTaken === "true") {
-    toast.success("You must fill your details before posting the work.", {
-      position: "top-center",
-    });
-    navigate("/userprofileinput");
-  }
 
   if (isLoading) {
     return <LoadingSpinner />;
