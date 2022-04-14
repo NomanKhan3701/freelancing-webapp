@@ -45,9 +45,8 @@ const InfoPagination = (props) => {
           {range.map((item, index) => (
             <div
               key={index}
-              className={`pagination-item ${
-                currPage === index ? "active" : ""
-              }`}
+              className={`pagination-item ${currPage === index ? "active" : ""
+                }`}
               onClick={() => selectPage(index)}
             >
               {item + 1}
@@ -65,9 +64,8 @@ const InfoPagination = (props) => {
           {range.map((item, index) => (
             <div
               key={index}
-              className={`pagination-item ${
-                currPage === index ? "active" : ""
-              }`}
+              className={`pagination-item ${currPage === index ? "active" : ""
+                }`}
               onClick={() => selectPage(index)}
             >
               {item + 1}

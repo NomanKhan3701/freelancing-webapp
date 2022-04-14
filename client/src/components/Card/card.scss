@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+
 .card {
   position: relative;
   width: 300px;
@@ -43,9 +46,12 @@
     .title {
       margin-bottom: 6px;
       height: 38px;
+      text-transform: uppercase;
+      font-family: 'Poppins', sans-serif;
     }
 
     .desc {
+      text-transform: uppercase;
       height: 70px;
     }
   }
@@ -107,8 +113,7 @@
 
     .new-freelancer {
       font-weight: 600;
-      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      font-family: 'Josefin Sans', sans-serif;
       color: white;
       display: flex;
       border-top-right-radius: 20px;
@@ -126,6 +131,7 @@
   .card-footer {
     position: absolute;
     width: 100%;
+    font-family: 'Josefin Sans', sans-serif;
     background: rgb(71, 148, 131);
     color: white;
     bottom: 0;

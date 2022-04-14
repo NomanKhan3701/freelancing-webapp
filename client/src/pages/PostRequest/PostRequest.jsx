@@ -25,7 +25,7 @@ const PostRequest = () => {
   ]);
   const [options, setOptions] = useState(data);
 
-  const postRequest = () => {};
+  const postRequest = () => { };
   return (
     <div className="post-request">
       <Navbar />

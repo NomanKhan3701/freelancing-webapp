@@ -63,9 +63,8 @@ const WorkDoneSlider = (props) => {
                   <div className="card-title">{work._doc.title}</div>
                   <div className="card-desc">{work._doc.desc}</div>
                   <div
-                    className={`card-status ${
-                      work._doc.progress === "In progress" ? "progress" : "done"
-                    }`}
+                    className={`card-status ${work._doc.progress === "In progress" ? "progress" : "done"
+                      }`}
                   >
                     {work._doc.progress}
                   </div>
