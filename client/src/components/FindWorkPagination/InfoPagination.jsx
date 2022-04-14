@@ -59,6 +59,11 @@ const InfoPagination = (props) => {
       {props.bodyData && props.renderBody ? (
         <>{dataShow.map((item, index) => renderWork(item, index))}</>
       ) : null}
+      {
+        props.bodyData && props.bodyData.length === 0 ? (
+          <div className='nothing'><div className="title">NO DATA</div></div>
+        ) : ''
+      }
       {pages > 1 ? (
         <div className="pagination">
           {range.map((item, index) => (

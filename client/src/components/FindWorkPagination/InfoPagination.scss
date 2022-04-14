@@ -1,35 +1,54 @@
-.pagination {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: center;
+.info-pagination {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
-    &.margin-bottom {
-        margin-bottom: 20px;
+  .nothing {
+
+    .title {
+      width: max-content;
+      font-size: 40px;
+      font-weight: 700;
     }
+  }
 }
 
-.pagination-item ~ .pagination-item{
-    margin-left: 10px;
+.pagination {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+
+  &.margin-bottom {
+    margin-bottom: 20px;
+  }
+}
+
+.pagination-item ~ .pagination-item {
+  margin-left: 10px;
 }
 
 .pagination-item {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.pagination-item.active, .pagination-item.active:hover{
-    background-color: var(--main-color);
-    color: var(--txt-white);
-    font-weight: 600;
+.pagination-item.active,
+.pagination-item.active:hover {
+  background-color: var(--main-color);
+  color: var(--txt-white);
+  font-weight: 600;
 }
 
 .pagination-item:hover {
-    color: var(--txt-white);
-    background-color: var(--second-color);
+  color: var(--txt-white);
+  background-color: var(--second-color);
 }

@@ -376,7 +376,6 @@ const FindWork = (props) => {
                 ))}
               </div>
             </div>
-            <div className="filter-btn">Filter</div>
           </div>
           <div className="user-bid-container">
             <InfoPagination
