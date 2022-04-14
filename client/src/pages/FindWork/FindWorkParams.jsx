@@ -211,7 +211,6 @@ const FindWork = (props) => {
   const changeWorkData = (event) => {
     const checkboxArray = document.getElementsByClassName("checkbox");
     let selectedSkills = [];
-    let newWorks = [];
 
     for (let i = 0; i < checkboxArray.length; i++) {
       if (checkboxArray[i].getElementsByTagName("input")[0].checked) {

@@ -120,15 +120,24 @@ const Bid = () => {
   };
 
   const addNewBid = () => {
+    const amount = bidInformation.amount;
+    if (!parseInt(amount)) {
+      toast.error("Invalid Input, Amount.", {
+        position: "top-center",
+      });
+      return;
+    }
     const object = {
       ...bidInformation,
       username: localStorage.getItem("username"),
       workId: work.id,
       image: image,
     };
+    setLoading(true);
     axios
       .post("http://localhost:8080/findwork/bid/newBid", object)
       .then((response) => {
+        setLoading(false);
         if (response.data.result === 4) {
           //new bid added successfully
           toast.success("new bid added successfully.", {
