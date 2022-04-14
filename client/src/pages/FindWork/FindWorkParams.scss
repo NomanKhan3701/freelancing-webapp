@@ -10,7 +10,8 @@
     .sidebar {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 110px);
+      height: max-content;
+      min-height: calc(100vh - 110px);
       background: white;
       box-shadow: var(--box-shadow);
       border-radius: 40px;

@@ -368,7 +368,7 @@ const FindTalentParams = () => {
   return (
     <>
       {/* //same css as fint work */}
-      <div className="find-work">
+      <div className="find-work-talent">
         <Navbar />
         <div className="filter-container"></div>
         <div className="findwork-main-body">
@@ -376,7 +376,7 @@ const FindTalentParams = () => {
             <h1 className="filter">Filter by</h1>
             <div className="category-dropdown">
               <h1>Category</h1>
-              <select name="category" id="category" onChange={call}>
+              <select className="select-filter" name="category" id="category" onChange={call}>
                 {filterData.map((data) => {
                   return dropdown(data);
                 })}
@@ -385,7 +385,7 @@ const FindTalentParams = () => {
             <div className="budget-filter">
               <h1>Total Budget</h1>
 
-              <select name="budget" id="budget" onChange={budgetCall}>
+              <select className="select-filter" name="budget" id="budget" onChange={budgetCall}>
                 {totalBudgetData.map((data, index) => {
                   return dropdownForBudget(data, index);
                 })}
@@ -395,13 +395,14 @@ const FindTalentParams = () => {
                 name="hourlyRate"
                 id="hourlyRate"
                 onChange={adjustHourlyRate}
+                className="select-filter"
               >
                 {hourlyRatesTable.map((data, index) => {
                   return dropdownForBudget(data, index);
                 })}
               </select>
               <h1>Rating</h1>
-              <select name="hourlyRate" id="hourlyRate" onChange={adjustRating}>
+              <select className="select-filter" name="hourlyRate" id="hourlyRate" onChange={adjustRating}>
                 {ratingTable.map((data, index) => {
                   return dropdownForBudget(data, index);
                 })}

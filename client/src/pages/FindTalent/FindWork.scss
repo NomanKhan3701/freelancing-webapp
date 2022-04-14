@@ -1,4 +1,4 @@
-.find-work {
+.find-work-talent {
   padding-top: 90px;
   padding-left: 40px;
   padding-right: 40px;
@@ -10,14 +10,21 @@
     .sidebar {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 110px);
-      width: 40%;
+      height: max-content;
+      min-height: calc(100vh - 110px);
+      padding-bottom: 20px;
       background: white;
       box-shadow: var(--box-shadow);
       border-radius: 40px;
       margin-right: 20px;
       padding: 20px;
-      min-width: 300px;
+      min-width: 350px;
+
+      .select-filter {
+        margin: 15px 0px;
+        width: calc(100% - 40px);
+        padding: 10px;
+      }
 
       .filter {
         text-align: center;
@@ -37,6 +44,13 @@
         &:focus {
           outline: none;
           box-shadow: 0px 0px 1px var(--main-color);
+        }
+      }
+
+      .skill-filter {
+      
+        h1{
+          margin-bottom: 15px;
         }
       }
 
@@ -60,7 +74,7 @@
       }
 
       .budget-filter {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
       }
 
       span {
@@ -70,7 +84,6 @@
       h1 {
         font-weight: 450;
         font-size: 21px;
-        margin-bottom: 20px;
       }
 
       .filter-btn {
