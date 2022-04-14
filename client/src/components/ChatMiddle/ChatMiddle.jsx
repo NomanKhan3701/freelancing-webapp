@@ -81,24 +81,31 @@ const ChatMiddle = (props) => {
     );
   };
 
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = (e) => {
-    setSearchInput(e.target.value);
+    const value = e.target.value;
+    setSearchInput(value);
     setChats(() => {
-      return(props.chats.filter((chat) => {
-        const receiver = sender === chat.username1 ? chat.username2 : chat.username1;
-        if (receiver.includes(e.target.value)) {
+      return props.chats.filter((chat) => {
+        const receiver =
+          sender === chat.username1 ? chat.username2 : chat.username1;
+        if (receiver.includes(value)) {
           return chat;
         }
-      }));
-    })
-  }
+      });
+    });
+  };
 
   return (
     <div className="chat-middle">
       <div className={`search-container`}>
-        <input type="text" placeholder="Search here..." value={searchInput} onChange={handleSearch} />
+        <input
+          type="text"
+          placeholder="Search here..."
+          value={searchInput}
+          onChange={handleSearch}
+        />
         <Search className="i" />
       </div>
       <div className="people-container">
@@ -127,6 +134,8 @@ const ChatMiddle = (props) => {
               key={room}
               id={room}
               onClick={() => {
+                setSearchInput("");
+                setChats(props.chats);
                 changeChatMain(room);
               }}
             >

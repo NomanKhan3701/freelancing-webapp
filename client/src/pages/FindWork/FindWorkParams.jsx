@@ -210,7 +210,6 @@ const FindWork = (props) => {
   const changeWorkData = (event) => {
     const checkboxArray = document.getElementsByClassName("checkbox");
     let selectedSkills = [];
-    let newWorks = [];
 
     for (let i = 0; i < checkboxArray.length; i++) {
       if (checkboxArray[i].getElementsByTagName("input")[0].checked) {
@@ -256,8 +255,6 @@ const FindWork = (props) => {
         }
       }
     }
-    console.log("newWorks");
-    console.log(newWorks);
     let newWorksV2 = [];
     if (numberOfBids === "All") {
       newWorksV2 = newWorks;
@@ -280,8 +277,6 @@ const FindWork = (props) => {
         }
       }
     }
-    console.log("newWorksV2");
-    console.log(newWorksV2);
     let newWorksV3 = [];
     if (skills.length === 0) {
       newWorksV3 = newWorksV2;
@@ -307,8 +302,6 @@ const FindWork = (props) => {
         }
       }
     }
-    console.log("newWorksV3");
-    console.log(newWorksV3);
     setworks(newWorksV3);
   };
 
