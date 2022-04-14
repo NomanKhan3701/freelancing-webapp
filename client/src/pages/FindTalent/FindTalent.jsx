@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./FindTalent.scss";
 import {
   Card,
@@ -11,12 +11,30 @@ import userImg from "../../assets/images/Cha2.jpg";
 import RandomDev from "./json/RandomDev.json";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-
+import axios from "axios";
 import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 toast.configure();
 
 const FindTalent = () => {
   let navigate = useNavigate();
+  const [isLoading, setLoading] = useState(true);
+  const [cardsData, setCardsData] = useState();
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/findtalent/cards`)
+      .then(function (response) {
+        if (cardsData === undefined) {
+          setCardsData(response.data.result);
+        }
+        setLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   const goToPostRequest = () => {
     const isDataTaken = localStorage.getItem("isDataTaken");
     const loggedIn = localStorage.getItem("loggedIn");
@@ -58,7 +76,13 @@ const FindTalent = () => {
           </div>
         </div>
         <div className="recommended-container">
-          <h1>Recommended gigs</h1>
+          <h1>Top Gigs</h1>
+          <div className="recommended-slider">
+            <SliderThreeD />
+          </div>
+        </div>
+        <div className="recommended-container">
+          <h1>New Gigs</h1>
           <div className="recommended-slider">
             <SliderThreeD />
           </div>

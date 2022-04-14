@@ -22,6 +22,9 @@ import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
 import PostTalent from "./pages/PostTalent/PostTalent";
 import UserProfileInput from "./pages/UserProfileInput/UserProfileInput";
+
+import VideoCall from "./components/ChatMain/VideoCall";
+
 function App() {
   localStorage.setItem("isDataTaken", "false");
   return (
@@ -42,6 +45,8 @@ function App() {
           path="/findwork/posttalent"
           element={<PostTalent type="postTalent" />}
         />
+
+        <Route path="/video/:id" element={<VideoCall />} />
 
         <Route path="/findpartner" element={<FindPartner />} />
 

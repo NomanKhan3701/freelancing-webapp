@@ -61,7 +61,6 @@ const NormalSlider = (props) => {
         spaceBetween={10}
         slidesPerGroup={2}
         loop={true}
-        loopFillGroupWithBlank={true}
         pagination={{
           clickable: true,
         }}

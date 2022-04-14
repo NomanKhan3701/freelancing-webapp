@@ -15,7 +15,22 @@ const FindWork = (props) => {
   const [works, setworks] = useState();
   const [filterData, setFilterData] = useState();
   const [skills, setSkills] = useState();
-
+  let [category, setCategory] = useState();
+  const [categoryWorks, setCategoryWorks] = useState([]);
+  const [externalFilter, setExternalFilter] = useState({
+    totalBudget: "All",
+    numberOfBids: "All",
+    skills: [],
+  });
+  const totalBudgetData = [
+    "All",
+    "0-1000",
+    "1000-2000",
+    "2000-5000",
+    "5000-10000",
+    ">10000",
+  ];
+  const numberOfBids = ["All", "0-10", "10-30", "30- 60", "60-100", ">100"];
   useEffect(() => {
     axios
       .get(`http://localhost:8080/findwork/${state.category}`)
@@ -35,6 +50,7 @@ const FindWork = (props) => {
             }
           }
           setworks(newWorks);
+          setCategoryWorks(newWorks);
           setFilterData(response.data.filterData);
         }
         if (skills === undefined) {
@@ -130,7 +146,7 @@ const FindWork = (props) => {
           <div className="range">
             ₹{work.minBid} - ₹{work.maxBid}
           </div>
-          <div className="total-bid">{work.numberOfBids} bids</div>
+          {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
           {work.username !== localStorage.getItem("username") ? (
             <div className="btn" onClick={bid}>
               Bid now
@@ -152,6 +168,7 @@ const FindWork = (props) => {
 
   const call = (event) => {
     const category = event.target.value;
+    setCategory(category);
     let skillsForcategory;
     for (let i = 0; i < filterData.length; i++) {
       if (filterData[i].category === category) {
@@ -167,6 +184,7 @@ const FindWork = (props) => {
         newWorks.push(originalWorks[i]);
       }
     }
+    setCategoryWorks(newWorks);
     setworks(newWorks);
   };
 
@@ -201,39 +219,122 @@ const FindWork = (props) => {
         );
       }
     }
-    if (selectedSkills.length === 0) {
-      setworks(originalWorks);
-      return;
-    }
-    for (let k = 0; k < originalWorks.length; k++) {
-      const work = originalWorks[k];
-      if (selectedSkills.length === 0) {
-        setworks(originalWorks);
-        break;
-      }
-      const isPresent = (array, element) => {
-        for (let i = 0; i < array.length; i++) {
-          if (array[i].toLowerCase() === element.toLowerCase()) {
-            return true;
-          }
-        }
-
-        return false;
-      };
-
-      for (let i = 0; i < selectedSkills.length; i++) {
-        if (!isPresent(work.qualifications, selectedSkills[i])) {
-          break;
-        }
-        if (i === selectedSkills.length - 1) {
-          newWorks.push(work);
-        }
-      }
-    }
-
-    setworks(newWorks);
+    setExternalFilter((prevData) => {
+      return { ...prevData, skills: selectedSkills };
+    });
+    applyExternalSetting("skills", selectedSkills);
   };
 
+  const applyExternalSetting = (name, value) => {
+    let { numberOfBids, totalBudget, skills } = externalFilter;
+    if (name === "bids") {
+      numberOfBids = value;
+    } else if (name === "skills") {
+      skills = value;
+    } else {
+      totalBudget = value;
+    }
+    let newWorks = [];
+    if (totalBudget === "All") {
+      newWorks = categoryWorks;
+    } else if (totalBudget === ">10000") {
+      for (let i = 0; i < categoryWorks.length; i++) {
+        if (categoryWorks[i].minBid > 10000) {
+          newWorks.push(categoryWorks[i]);
+        }
+      }
+    } else {
+      const splitArray = totalBudget.split("-");
+      const min = parseInt(splitArray[0]),
+        max = parseInt(splitArray[1]);
+      for (let i = 0; i < categoryWorks.length; i++) {
+        if (
+          categoryWorks[i].minBid >= min ||
+          (categoryWorks[i].maxBid <= max && categoryWorks[i].maxBid >= min)
+        ) {
+          newWorks.push(categoryWorks[i]);
+        }
+      }
+    }
+    console.log("newWorks");
+    console.log(newWorks);
+    let newWorksV2 = [];
+    if (numberOfBids === "All") {
+      newWorksV2 = newWorks;
+    } else if (numberOfBids === ">100") {
+      for (let i = 0; i < newWorks.length; i++) {
+        if (newWorks[i].numberOfBids > 100) {
+          newWorksV2.push(newWorks[i]);
+        }
+      }
+    } else {
+      const splitArray = numberOfBids.split("-");
+      const min = parseInt(splitArray[0]),
+        max = parseInt(splitArray[1]);
+      for (let i = 0; i < newWorks.length; i++) {
+        if (
+          newWorks[i].numberOfBids >= min &&
+          newWorks[i].numberOfBids <= max
+        ) {
+          newWorksV2.push(newWorks[i]);
+        }
+      }
+    }
+    console.log("newWorksV2");
+    console.log(newWorksV2);
+    let newWorksV3 = [];
+    if (skills.length === 0) {
+      newWorksV3 = newWorksV2;
+    } else {
+      for (let k = 0; k < newWorksV2.length; k++) {
+        const work = newWorksV2[k];
+        const isPresent = (array, element) => {
+          for (let i = 0; i < array.length; i++) {
+            if (array[i].toLowerCase() === element.toLowerCase()) {
+              return true;
+            }
+          }
+          return false;
+        };
+
+        for (let i = 0; i < skills.length; i++) {
+          if (!isPresent(work.qualifications, skills[i])) {
+            break;
+          }
+          if (i === skills.length - 1) {
+            newWorksV3.push(work);
+          }
+        }
+      }
+    }
+    console.log("newWorksV3");
+    console.log(newWorksV3);
+    setworks(newWorksV3);
+  };
+
+  const budgetCall = (event) => {
+    const value = event.target.value;
+    setExternalFilter((prevData) => {
+      return { ...prevData, totalBudget: value };
+    });
+    applyExternalSetting("totalBudget", value);
+  };
+
+  const changeBids = (event) => {
+    const value = event.target.value;
+    setExternalFilter((prevData) => {
+      return { ...prevData, numberOfBids: value };
+    });
+    applyExternalSetting("bids", value);
+  };
+
+  const dropdownForBudget = (data, index) => {
+    return (
+      <option value={data} key={index}>
+        {data}
+      </option>
+    );
+  };
   return (
     <>
       <div className="find-work">
@@ -251,10 +352,20 @@ const FindWork = (props) => {
               </select>
             </div>
             <div className="budget-filter">
-              <h1>Budget</h1>
-              <input type="text" placeholder="min" />
-              <span>to</span>
-              <input type="text" placeholder="max" />
+              <h1>Price</h1>
+              <select name="budget" id="budget" onChange={budgetCall}>
+                {totalBudgetData.map((data, index) => {
+                  return dropdownForBudget(data, index);
+                })}
+              </select>
+            </div>
+            <div className="budget-filter">
+              <h1>Number Of Bids</h1>
+              <select name="bids" id="bids" onChange={changeBids}>
+                {numberOfBids.map((data, index) => {
+                  return dropdownForBudget(data, index);
+                })}
+              </select>
             </div>
             <div className="skill-filter">
               <h1>Skills</h1>

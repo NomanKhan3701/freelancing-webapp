@@ -33,6 +33,10 @@ var findTalentDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  rating: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const findTalentFilterDataSchema = new mongoose.Schema({
@@ -82,6 +86,8 @@ const addTalentData = async (data) => {
     return 1;
   }
 
+  const rating = await getRatingForUsername(username);
+
   const hasUserPostedTalentBeforeInSameCategory = await FindTalentData.find({
     username: username,
     category: category,
@@ -99,6 +105,7 @@ const addTalentData = async (data) => {
     perHourRate: perHourRate,
     price: price,
     username: username,
+    rating: rating,
   });
 
   try {

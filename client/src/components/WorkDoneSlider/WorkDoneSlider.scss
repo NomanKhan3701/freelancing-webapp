@@ -31,6 +31,7 @@
       padding: 20px;
       background: rgb(253, 249, 249);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
 
       .card-title {
         font-size: 20px;
@@ -42,21 +43,6 @@
         margin-bottom: 10px;
         max-height: 100px;
         min-height: 99px;
-        overflow: auto;
-
-        &::-webkit-scrollbar {
-          width: 5px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: rgb(124, 185, 197);
-          border-radius: 50px;
-        }
-
-        &::-webkit-scrollbar-track {
-          background: rgb(233, 231, 231);
-          border-radius: 50px;
-        }
       }
 
       .card-status {
@@ -74,6 +60,19 @@
           background: rgb(88, 155, 93);
           color: white;
         }
+      }
+      &::-webkit-scrollbar {
+        height: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgb(124, 185, 197);
+        border-radius: 50px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgb(233, 231, 231);
+        border-radius: 50px;
       }
     }
   }

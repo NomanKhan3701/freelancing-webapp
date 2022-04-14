@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FileBase64 from "react-file-base64";
-import './LinearStepper.scss';
+import "./LinearStepper.scss";
 import {
   Typography,
   TextField,
@@ -67,7 +67,9 @@ const LinearStepper = () => {
     desc: "",
     email: "",
     linkdin: "",
-    image: "",
+    image: `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`,
     category: [],
     skills: [],
     rating: 0,
@@ -205,7 +207,7 @@ const LinearStepper = () => {
           name="image"
           render={({ field }) => (
             <div>
-              <label for="myfile">Profile Image:</label>
+              <label htmlFor="myfile">Profile Image:</label>
               <FileBase64
                 type="file"
                 multiple={false}

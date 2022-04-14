@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { selectImageData } from "../../features/images/imageSlice";
 
 const Bid = () => {
   let navigate = useNavigate();
@@ -22,6 +24,15 @@ const Bid = () => {
     amount: "",
     desc: "",
   });
+
+  let image = useSelector(selectImageData);
+  try {
+    image = image.image.image;
+  } catch (error) {
+    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
 
   useEffect(() => {
     //here get wasnt working with passing object so used post,
@@ -69,6 +80,7 @@ const Bid = () => {
   const addComment = (event) => {
     const comment = newComment;
     const object = {
+      image: image,
       workId: work.id,
       username: localStorage.getItem("username"),
       desc: comment,
@@ -112,16 +124,24 @@ const Bid = () => {
       ...bidInformation,
       username: localStorage.getItem("username"),
       workId: work.id,
+      image: image,
     };
     axios
       .post("http://localhost:8080/findwork/bid/newBid", object)
       .then((response) => {
         if (response.data.result === 4) {
           //new bid added successfully
-          alert("new bid added successfully.");
+          toast.success("new bid added successfully.", {
+            position: "top-center",
+          });
+          setOtherBids((prevData) => {
+            return [...prevData, object];
+          });
           navigate("/");
         } else if (response.data.result === 3) {
-          alert("only one bid per user.");
+          toast.error("only one bid per user.", {
+            position: "top-center",
+          });
         }
       })
       .catch((err) => {
@@ -190,7 +210,7 @@ const Bid = () => {
 
           <div className="form">
             <div className="user-img">
-              <img src={clientImg} alt="" />
+              <img src={image} alt="User Image" />
             </div>
             <input
               type="text"
@@ -208,7 +228,13 @@ const Bid = () => {
               return (
                 <div className="comment">
                   <div className="user-profile">
-                    <img src={clientImg} alt="user img" />
+                    <img
+                      src={
+                        comment.image ||
+                        `https://ui-avatars.com/api/?name=${comment.username}`
+                      }
+                      alt="user img"
+                    />
                     <div className="info">
                       <div className="user-name">{comment.username}</div>
                       <div className="comment-desc">{comment.desc}</div>
@@ -235,7 +261,13 @@ const Bid = () => {
                   return (
                     <div key={bid._id} className="freelancer">
                       <div className="user-info">
-                        <img src={clientImg} alt="user image" />
+                        <img
+                          src={
+                            bid.image ||
+                            `https://ui-avatars.com/api/?name=${bid.username}`
+                          }
+                          alt="user image"
+                        />
                         <div className="user-name">{bid.username}</div>
                       </div>
                       <div className="flex">

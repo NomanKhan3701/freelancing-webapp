@@ -130,6 +130,9 @@ const ClientDashboard = () => {
           freelancer: username,
         })
         .then((response) => {
+          toast.success("I m in.", {
+            position: "top-center",
+          });
           if (response.data.result === 4) {
             toast.success("Bid accepted successfully.", {
               position: "top-center",

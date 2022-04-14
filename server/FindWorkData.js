@@ -107,7 +107,7 @@ const getWorkPostedDataByUsername = async (username) => {
   const data = await FindWorkData.find(
     { username: username },
     {
-      workId: 1,
+      _id: 1,
       title: 1,
       desc: 1,
       username: 1,
@@ -115,8 +115,19 @@ const getWorkPostedDataByUsername = async (username) => {
   );
   let finalData = [];
   for (let i = 0; i < data.length; i++) {
-    const dat = await getFreelancerAndProgress(data[i]._doc._id);
+    console.log("data[i]");
+    console.log(data[i]);
+    // console.log("data[i]._doc._id");
+    // console.log(data[i]._doc._id);
+    const dat = await getFreelancerAndProgress(data[i]._id);
     //order of opening the doc matter as both have _id, second one will be considered
+    // if (dat.length > 0) {
+    //   finalData.push({ ...dat[0]._doc, ...data[i]._doc });
+    // } else {
+    //   finalData.push(data[i]);
+    // }
+    console.log("dat");
+    console.log(dat);
     finalData.push({ ...dat[0]._doc, ...data[i]._doc });
   }
   const moreData = await getWorkInProgressDataByUsername(username);
@@ -125,7 +136,6 @@ const getWorkPostedDataByUsername = async (username) => {
 };
 
 const getWorkPostedDataById = async (id) => {
-  console.log("AMIGOS");
   const data = await FindWorkData.find(
     { _id: id },
     {
@@ -146,7 +156,22 @@ const updateBidCount = async (workId) => {
   const update = { numberOfBids: data };
   try {
     await FindWorkData.findOneAndUpdate(filter, update);
-    console.log(workId);
+    return 4;
+  } catch (error) {
+    console.log("error");
+    console.log(error);
+    return 2;
+  }
+};
+
+const updateCountForBid = async (workId) => {
+  let data = await FindWorkData.find({ _id: workId }, { numberOfBids: 1 });
+  const filter = { _id: workId };
+  data = data[0].numberOfBids;
+  data = Number(data) + 1;
+  const update = { numberOfBids: data };
+  try {
+    await FindWorkData.findOneAndUpdate(filter, update);
     return 4;
   } catch (error) {
     console.log("error");
@@ -156,6 +181,7 @@ const updateBidCount = async (workId) => {
 };
 
 const findWorkDataAndDelete = async (workId) => {
+  console.log("shut up bro");
   const data = await FindWorkData.findOneAndDelete({ _id: workId });
   return data;
 };
@@ -167,6 +193,7 @@ module.exports = {
   getWorkPostedDataByUsername,
   getWorkPostedDataById,
   updateBidCount,
+  updateCountForBid,
   findWorkDataAndDelete,
 };
 

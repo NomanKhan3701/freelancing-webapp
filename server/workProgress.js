@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-const { getWorkPostedDataById } = require("./FindWorkData");
 
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
@@ -59,26 +58,26 @@ const addWorkProgress = (data) => {
   }
 };
 
-const getFreelancerWorkByUsername = async (username) => {
-  const data = await WorkProgress.find(
-    { freelancer: username },
-    { workId: 1, progress: 1 }
-  );
-  if (data.length === 0) {
-    return [];
-  } else {
-    const freelancerWork = [];
-    for (let i = 0; i < data.length; i++) {
-      try {
-        const dat = await getWorkPostedDataById(data[i].workId);
-        freelancerWork.push({ ...data[i], ...dat });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    return freelancerWork;
-  }
-};
+// const getFreelancerWorkByUsername = async (username) => {
+//   const data = await WorkProgress.find(
+//     { freelancer: username },
+//     { workId: 1, progress: 1 }
+//   );
+//   if (data.length === 0) {
+//     return [];
+//   } else {
+//     const freelancerWork = [];
+//     for (let i = 0; i < data.length; i++) {
+//       try {
+//         const dat = await getWorkPostedDataById(data[i].workId);
+//         freelancerWork.push({ ...data[i], ...dat });
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     }
+//     return freelancerWork;
+//   }
+// };
 
 const getFreelancerAndProgress = async (workId) => {
   const data = await WorkProgress.find(
@@ -103,9 +102,9 @@ const updateWorkProgress = async (workId, freelancer) => {
 module.exports = {
   addWorkProgress,
   getWorkProcess,
-  getFreelancerWorkByUsername,
   getFreelancerAndProgress,
   updateWorkProgress,
+  WorkProgress,
 };
 
 //0 no user with that user id,
