@@ -127,23 +127,12 @@ const getWorkPostedDataByUsername = async (username) => {
   );
   let finalData = [];
   for (let i = 0; i < data.length; i++) {
-    console.log("data[i]");
-    console.log(data[i]);
-    // console.log("data[i]._doc._id");
-    // console.log(data[i]._doc._id);
-    const dat = await getFreelancerAndProgress(data[i]._id);
-    //order of opening the doc matter as both have _id, second one will be considered
-    // if (dat.length > 0) {
-    //   finalData.push({ ...dat[0]._doc, ...data[i]._doc });
-    // } else {
-    //   finalData.push(data[i]);
-    // }
-    console.log("dat");
-    console.log(dat);
+    //when we use json.stringify in this case of JSON.stringify(data[i]._id) it returns string with "" and so
+    //that caused all the mess
+    const dat = await getFreelancerAndProgress(JSON.stringify(data[i]._id));
     finalData.push({ ...dat[0]._doc, ...data[i]._doc });
   }
   const moreData = await getWorkInProgressDataByUsername(username);
-
   return [...finalData, ...moreData];
 };
 
