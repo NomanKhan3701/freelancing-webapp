@@ -35,6 +35,8 @@ const ChatMain = (props) => {
   const [finalData, setFinalData] = useState(chatMainData);
   const [room, setRoom] = useState();
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [msg, setMsg] = useState("");
   useEffect(() => {
     socket = io("http://localhost:8080");
     socket.emit("online", sender);
@@ -60,8 +62,7 @@ const ChatMain = (props) => {
       socket.off();
     };
   }, [chatMainData]);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [msg, setMsg] = useState("");
+
   useEffect(() => {
     if (finalData) {
       setLoading(false);
@@ -198,7 +199,8 @@ const ChatMain = (props) => {
   };
   return (
     <div className="chat-main">
-      {finalData.receiver.toLowerCase() === "default" ? (
+      {finalData.receiver.toLowerCase() === "default" ||
+      finalData.receiver.toLowerCase() === "undefined" ? (
         <div className="chat-default-section">
           <div className="robot-container">
             <div className="robot">

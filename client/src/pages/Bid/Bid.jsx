@@ -46,6 +46,8 @@ const Bid = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn === "false") {
       toast.error("Please login to post.", {
         position: "top-center",
@@ -64,9 +66,6 @@ const Bid = () => {
       navigate("/userprofileinput");
     }
   }, []);
-
-  const isDataTaken = localStorage.getItem("isDataTaken");
-  const loggedIn = localStorage.getItem("loggedIn");
 
   if (isLoading) {
     return <LoadingSpinner />;
