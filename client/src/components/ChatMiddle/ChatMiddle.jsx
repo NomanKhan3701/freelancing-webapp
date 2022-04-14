@@ -113,6 +113,7 @@ const ChatMiddle = (props) => {
           let lastMsg;
           let lstTimeOfMsg;
           let lastMsgTime;
+          let lastttMessage;
           const receiverImage =
             sender === username1 ? chat.image2 : chat.image1;
           if (!receiverImage) {
@@ -124,13 +125,17 @@ const ChatMiddle = (props) => {
             lstTimeOfMsg = new Date(lastMsg.time);
             lastMsgTime =
               lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
+            lastttMessage = lastMsg.message;
             if (lastMsg.message.length > 15) {
-              lastMsg.message = lastMsg.message.substring(0, 20) + "...";
+              lastttMessage = lastttMessage.substring(0, 15) + "...";
             }
           } catch (error) {
-            lastMsg = "start the conversation";
+            lastttMessage = "Start The Conversation...";
             lstTimeOfMsg = "";
             lastMsgTime = "";
+          }
+          if (!lastttMessage) {
+            lastttMessage = "Start The Conversation...";
           }
 
           return (
@@ -150,7 +155,7 @@ const ChatMiddle = (props) => {
                 </div>
                 <div className="person-mid">
                   <div className="person-name">{receiver}</div>
-                  <div className="last-chat">{lastMsg.message}</div>
+                  <div className="last-chat">{lastttMessage}</div>
                 </div>
                 <div className="last-chat-time">{lastMsgTime}</div>
               </div>
