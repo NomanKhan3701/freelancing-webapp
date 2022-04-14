@@ -15,7 +15,7 @@ import {
   selectChatMainData,
   update,
 } from "./../../features/chatMain/chatMainSlice";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 var socket;
 

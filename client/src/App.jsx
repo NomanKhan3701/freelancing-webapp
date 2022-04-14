@@ -14,7 +14,7 @@ import {
   AllWorks,
   AllPosts,
   ClientProjectProgress,
-  FeedBack
+  FeedBack,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";

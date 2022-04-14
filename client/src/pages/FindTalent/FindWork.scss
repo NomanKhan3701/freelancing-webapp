@@ -115,12 +115,12 @@
           &::-webkit-scrollbar {
             height: 5px;
           }
-  
+
           &::-webkit-scrollbar-thumb {
             background: rgb(124, 185, 197);
             border-radius: 50px;
           }
-  
+
           &::-webkit-scrollbar-track {
             background: rgb(233, 231, 231);
             border-radius: 50px;
@@ -150,7 +150,6 @@
               background: var(--primary-color);
             }
           }
-          
         }
 
         .bid-right {
@@ -158,12 +157,12 @@
           min-width: max-content;
 
           .range {
-              width: max-content;
-              margin-bottom: 10px;
+            width: max-content;
+            margin-bottom: 10px;
           }
 
           .total-bid {
-              margin-bottom: 15px;
+            margin-bottom: 15px;
           }
 
           .btn {
@@ -183,16 +182,14 @@
               }
             }
 
-
             &:hover {
               background: linear-gradient(90deg, #634fbb, #d863a3);
             }
-            
           }
         }
 
         &:hover .btn {
-            transform: scale(1);
+          transform: scale(1);
         }
       }
     }

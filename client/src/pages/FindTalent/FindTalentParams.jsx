@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Footer, Navbar, FullDivLoader, InfoPagination, FullScreenLoader } from "../../components/import";
+import {
+  Dropdown,
+  Footer,
+  Navbar,
+  FullDivLoader,
+  InfoPagination,
+  FullScreenLoader,
+} from "../../components/import";
 import "./FindTalent.scss";
-import './FindWork.scss';
+import "./FindWork.scss";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
