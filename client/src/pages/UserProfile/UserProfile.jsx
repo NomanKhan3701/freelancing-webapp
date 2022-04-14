@@ -25,8 +25,26 @@ const UserProfile = () => {
   const [otherUser, setOtherUser] = useState();
   const params = useParams();
   useEffect(() => {
-    let username;
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    if (
+      localStorage.getItem("username") &&
+      localStorage.getItem("username") === "undefined"
+    ) {
+      toast.success("You must login before.", {
+        position: "top-center",
+      });
+      navigate("/login");
+      return <FullScreenLoader />;
+    }
+    if (isDataTaken && isDataTaken === "false") {
+      toast.success("You must fill your details before viewing the profile.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+      return <FullScreenLoader />;
+    }
 
+    let username;
     try {
       if (state) {
         username = state.username;
@@ -41,7 +59,7 @@ const UserProfile = () => {
     setOtherUser(username);
     axios
       .get(`http://localhost:8080/userprofiledata/${username}`)
-      .then(function (response) {
+      .then((response) => {
         setUserData({
           ...response.data.data._doc,
           workPosted: response.data.data.workPosted,
@@ -52,22 +70,6 @@ const UserProfile = () => {
         setLoading(false);
       });
   }, []);
-
-  const isDataTaken = localStorage.getItem("isDataTaken");
-  if (localStorage.getItem("username") === "undefined") {
-    toast.success("You must login before.", {
-      position: "top-center",
-    });
-    navigate("/login");
-    return <FullScreenLoader />;
-  }
-  if (isDataTaken === "false") {
-    toast.success("You must fill your details before viewing the profile.", {
-      position: "top-center",
-    });
-    navigate("/userprofileinput");
-    return <FullScreenLoader />;
-  }
 
   if (isLoading) {
     return <FullScreenLoader />;
