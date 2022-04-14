@@ -167,9 +167,9 @@ const Bid = () => {
               <img src={clientImg} alt="client img" />
             </div>
             <div className="title">{work.title}</div>
-            <div className="btn" onClick={visitProfile}>
+            {/* <div className="btn" onClick={visitProfile}>
               Visit Profile
-            </div>
+            </div> */}
           </div>
 
           <div className="desc">{work.desc}</div>

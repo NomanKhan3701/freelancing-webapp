@@ -1,7 +1,7 @@
 import { Dehaze, Search } from "@material-ui/icons";
 import { motion } from "framer-motion";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
@@ -10,17 +10,107 @@ import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectImageData } from "../../features/images/imageSlice";
 const SearchAndLinks = (props) => {
+  const searchDropdownRef = useRef(null);
+
+  const clickOutsideRef = (toggle_ref) => {
+    document.addEventListener("mousedown", (e) => {
+      if (toggle_ref.current && !toggle_ref.current.contains(e.target)) {
+        const dropdownCategory = document.querySelector(".dropdown-select");
+        const dropdownRecommend = document.querySelector(".dropdown-recommend");
+        if (dropdownCategory.classList.contains("active"))
+          dropdownCategory.classList.remove("active");
+        if (dropdownRecommend.classList.contains("active"))
+          dropdownRecommend.classList.remove("active");
+      }
+    });
+  };
+
+  clickOutsideRef(searchDropdownRef);
+
   const navLinkStyle = ({ isActive }) => {
     return {
       color: isActive ? "#349eff" : "#00000",
     };
   };
 
+  const searchItemClick = (e) => {
+    const title = e.currentTarget.querySelector(".item-title").innerText;
+    const dropdownCategory = document.querySelector(".dropdown-select");
+    const searchInput = document.querySelector(".search-container input");
+    if (title === "Find Talent") {
+      searchInput.placeholder = "Find Talent";
+      dropdownCategory.classList.remove("active");
+    } else if (title === "Find Work") {
+      searchInput.placeholder = "Find Work";
+      dropdownCategory.classList.remove("active");
+    } else if (title === "Find Partner") {
+      searchInput.placeholder = "Find Partner";
+      dropdownCategory.classList.remove("active");
+    }
+  };
+
+  const toggleSearchDropdown = (e) => {
+    const dropdownCategory = document.querySelector(".dropdown-select");
+    const searchSvg = document.querySelector(".search-container .i");
+    const downSvg = document.querySelector(".search-container .down");
+    const dropdownRecommend = document.querySelector(".dropdown-recommend");
+    const searchInput = document.querySelector(".search-container input");
+
+    if (e.target == downSvg) {
+      if (dropdownRecommend.classList.contains("active"))
+        dropdownRecommend.classList.remove("active");
+      dropdownCategory.classList.toggle("active");
+    } else if (
+      searchInput.placeholder !== "Search here..." &&
+      (e.target == searchInput || e.target == searchSvg) &&
+      !dropdownCategory.classList.contains("active")
+    ) {
+      dropdownRecommend.classList.toggle("active");
+    } else if (e.target == searchInput || e.target == searchSvg) {
+      dropdownCategory.classList.toggle("active");
+    }
+  };
+
   return (
     <>
-      <div className={`search-container ${props.active}`}>
+      <div
+        className={`search-container ${props.active}`}
+        onClick={(e) => toggleSearchDropdown(e)}
+        ref={searchDropdownRef}
+      >
         <input type="text" placeholder="Search here..." />
+        <i className="bx bxs-chevron-down down"></i>
         <Search className="i" />
+        <div className="dropdown-select ">
+          <div className="dropdown-item" onClick={(e) => searchItemClick(e)}>
+            <div className="item-left">
+              <i className="bx bxs-cart"></i>
+            </div>
+            <div className="item-right">
+              <div className="item-title">Find Talent</div>
+              <div className="item-desc">Hire freelancers</div>
+            </div>
+          </div>
+          <div className="dropdown-item" onClick={(e) => searchItemClick(e)}>
+            <div className="item-left">
+              <i className="bx bxs-cart"></i>
+            </div>
+            <div className="item-right">
+              <div className="item-title">Find Work</div>
+              <div className="item-desc">Find work as freelancer</div>
+            </div>
+          </div>
+          <div className="dropdown-item" onClick={(e) => searchItemClick(e)}>
+            <div className="item-left">
+              <i className="bx bxs-cart"></i>
+            </div>
+            <div className="item-right">
+              <div className="item-title">Find Partner</div>
+              <div className="item-desc">Find your partner</div>
+            </div>
+          </div>
+        </div>
+        <div className="dropdown-recommend ">Hi i am recommend</div>
       </div>
       <div className={`nav-links-container ${props.active}`}>
         <div className="nav-link">

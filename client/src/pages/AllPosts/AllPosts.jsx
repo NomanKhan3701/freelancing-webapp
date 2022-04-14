@@ -48,6 +48,7 @@ const AllPosts = (props) => {
   };
   return (
     <>
+    
       <div className="all-posts-container">
         <Navbar />
         <h1>All Posts</h1>

@@ -146,7 +146,7 @@ const FindWork = (props) => {
           <div className="range">
             ₹{work.minBid} - ₹{work.maxBid}
           </div>
-          <div className="total-bid">{work.numberOfBids} bids</div>
+          {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
           {work.username !== localStorage.getItem("username") ? (
             <div className="btn" onClick={bid}>
               Bid now
