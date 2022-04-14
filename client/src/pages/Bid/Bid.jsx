@@ -35,6 +35,8 @@ const Bid = () => {
   }
 
   useEffect(() => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    const loggedIn = localStorage.getItem("loggedIn");
     //here get wasnt working with passing object so used post,
     axios
       .post(`http://localhost:8080/findwork/bid/${work.id}`, {
@@ -65,8 +67,7 @@ const Bid = () => {
     }
   }, []);
 
-  const isDataTaken = localStorage.getItem("isDataTaken");
-  const loggedIn = localStorage.getItem("loggedIn");
+
 
   if (isLoading) {
     return <LoadingSpinner />;
