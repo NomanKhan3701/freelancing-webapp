@@ -81,11 +81,26 @@ const ChatMiddle = (props) => {
     );
   };
 
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value);
+    console.log(e.target.value);
+    setChats(() => {
+      return(props.chats.filter((chat) => {
+        const receiver = sender === chat.username1 ? chat.username2 : chat.username1;
+        console.log(receiver.includes(e.target.value));
+        if (receiver.includes(e.target.value)) {
+          return chat;
+        }
+      }));
+    })
+  }
 
   return (
     <div className="chat-middle">
       <div className={`search-container`}>
-        <input type="text" placeholder="Search here..." />
+        <input type="text" placeholder="Search here..." value={searchInput} onChange={handleSearch} />
         <Search className="i" />
       </div>
       <div className="people-container">
