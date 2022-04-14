@@ -14,6 +14,7 @@ import axios from "axios";
 import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 toast.configure();
 
 const UserProfile = () => {
@@ -22,10 +23,18 @@ const UserProfile = () => {
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
   const [otherUser, setOtherUser] = useState();
+  const params = useParams();
   useEffect(() => {
     let username;
+
     try {
-      username = state.username;
+      if (state) {
+        username = state.username;
+      } else if (Object.keys(params).length !== 0) {
+        username = params.username;
+      } else {
+        username = localStorage.getItem("username");
+      }
     } catch (error) {
       username = localStorage.getItem("username");
     }
@@ -33,6 +42,8 @@ const UserProfile = () => {
     axios
       .get(`http://localhost:8080/userprofiledata/${username}`)
       .then(function (response) {
+        console.log("response agay finally for userprofile");
+        console.log(response);
         setUserData({
           ...response.data.data._doc,
           workPosted: response.data.data.workPosted,

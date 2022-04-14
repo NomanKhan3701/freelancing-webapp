@@ -15,8 +15,8 @@
       .client-profile {
         display: flex;
         .user-img {
-          width: 45px;
-          height: 45px;
+          width: 70px;
+          height: 70px;
           img {
             width: 100%;
             height: 100%;
@@ -239,10 +239,10 @@
         }
         .freelancer {
           margin: 20px 0px;
-        background-color: white;
-        border-radius: 30px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+          background-color: white;
+          border-radius: 30px;
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          padding: 20px;
 
           .user-info {
             display: flex;
@@ -257,7 +257,6 @@
               font-weight: 500;
               font-size: 18px;
             }
-            
           }
 
           .btn-center {
@@ -265,29 +264,28 @@
             margin: auto;
           }
 
-        .desc {
-          margin-top: 5px;
-          text-align: center;
-          // background: rgb(244, 240, 240);
-          border: 1px solid rgb(216, 212, 212);
-          padding: 20px;
-          border-radius: 10px;
-          overflow-x: auto;
+          .desc {
+            margin-top: 5px;
+            text-align: center;
+            // background: rgb(244, 240, 240);
+            border: 1px solid rgb(216, 212, 212);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
 
-          &::-webkit-scrollbar {
-            height: 5px;
-          }
+            &::-webkit-scrollbar {
+              height: 5px;
+            }
 
-          &::-webkit-scrollbar-thumb {
-            background: rgb(124, 185, 197);
-            border-radius: 50px;
-          }
+            &::-webkit-scrollbar-thumb {
+              background: rgb(124, 185, 197);
+              border-radius: 50px;
+            }
 
-          &::-webkit-scrollbar-track {
-            background: rgb(233, 231, 231);
-            border-radius: 50px;
-          }
-
+            &::-webkit-scrollbar-track {
+              background: rgb(233, 231, 231);
+              border-radius: 50px;
+            }
           }
           .price,
           .star {
