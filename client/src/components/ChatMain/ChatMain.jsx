@@ -196,8 +196,6 @@ const ChatMain = (props) => {
       },
     });
   };
-  console.log("finalData");
-  console.log(finalData);
   return (
     <div className="chat-main">
       {finalData.receiver.toLowerCase() === "default" ? (

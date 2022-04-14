@@ -86,28 +86,24 @@ const FindWork = (props) => {
     return <LoadingSpinner />;
   }
 
-  const bid = (event) => {
-    const target =
-      event.target.parentNode.parentNode.getElementsByClassName("bid-left")[0];
-    const workId = target.parentNode.id;
-    const title = target.getElementsByClassName("title")[0].textContent;
-    const desc = target.getElementsByClassName("description")[0].textContent;
-    const skills = target.getElementsByClassName("skill");
-    let skillArray = [];
-    const username = target.parentNode.getAttribute("username");
-
-    for (let i = 0; i < skills.length; i++) {
-      skillArray.push(skills[i].textContent);
+  const bid = (event, workPassed) => {
+    let image;
+    try {
+      image = workPassed.image;
+      if (!image) {
+        image = `https://ui-avatars.com/api/?name=${workPassed.username}`;
+      }
+    } catch (error) {
+      image = `https://ui-avatars.com/api/?name=${workPassed.username}`;
     }
-
     const work = {
-      id: workId,
-      title: title,
-      desc: desc,
-      skills: skillArray,
-      username: username,
+      id: workPassed._id,
+      title: workPassed.title,
+      desc: workPassed.desc,
+      skills: workPassed.qualifications,
+      username: workPassed.username,
+      image: image,
     };
-
     navigate("/findwork/bid", {
       state: {
         work: work,
@@ -146,9 +142,14 @@ const FindWork = (props) => {
           <div className="range">
             ₹{work.minBid} - ₹{work.maxBid}
           </div>
-          {/* <div className="total-bid">{work.numberOfBids} bids</div> */}
+          <div className="total-bid">{work.numberOfBids} bids</div>
           {work.username !== localStorage.getItem("username") ? (
-            <div className="btn" onClick={bid}>
+            <div
+              className="btn"
+              onClick={(event) => {
+                bid(event, work);
+              }}
+            >
               Bid now
             </div>
           ) : (
@@ -256,8 +257,6 @@ const FindWork = (props) => {
         }
       }
     }
-    console.log("newWorks");
-    console.log(newWorks);
     let newWorksV2 = [];
     if (numberOfBids === "All") {
       newWorksV2 = newWorks;
@@ -280,8 +279,6 @@ const FindWork = (props) => {
         }
       }
     }
-    console.log("newWorksV2");
-    console.log(newWorksV2);
     let newWorksV3 = [];
     if (skills.length === 0) {
       newWorksV3 = newWorksV2;
@@ -307,8 +304,6 @@ const FindWork = (props) => {
         }
       }
     }
-    console.log("newWorksV3");
-    console.log(newWorksV3);
     setworks(newWorksV3);
   };
 

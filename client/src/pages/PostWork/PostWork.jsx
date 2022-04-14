@@ -7,9 +7,19 @@ import LoadingSpinner from "./LoadingSpinner";
 import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { selectImageData } from "../../features/images/imageSlice";
 toast.configure();
 
 const PostWork = () => {
+  let image = useSelector(selectImageData);
+  try {
+    image = image.image.image;
+  } catch (error) {
+    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
   const navigate = useNavigate();
   const [sOptions, setSOptions] = useState([
     { value: "HTML", label: "HTML" },
@@ -211,6 +221,7 @@ const PostWork = () => {
     const data = {
       ...postWorkData,
       username: localStorage.getItem("username"),
+      image: image,
     };
     axios
       .post(`http://localhost:8080/findtalent/postwork`, {
