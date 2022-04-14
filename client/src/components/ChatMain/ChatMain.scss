@@ -115,12 +115,21 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 10px;
       overflow-wrap: break-word;
+      display: flex;
+      flex-direction: column;
       // overflow: hidden;
       //   .timestamp {
       //       position: absolute;
       //       bottom: 0;
       //       left: 0;
       //   }
+
+      .timestamp {
+        margin-left: auto;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        color: gray;
+      }
 
       &.sended {
         background: rgb(146, 219, 195);
