@@ -6,17 +6,6 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-up">
-        <div className="footer-up-content">
-          {/* <h3>For Client</h3>
-          <div className="flex-container">
-            <div>How to hire</div>
-            <div>Talent Marketplace</div>
-            <div>Project Catalog</div>
-            <div>Talent Scout</div>
-            <div>Hire an Agency</div>
-            <div>Enterprise</div> 
-          </div> */}
-        </div>
         <div className="address">
           <h3>For Talent</h3>
           <div className="flex-container">
@@ -25,7 +14,7 @@ const Footer = () => {
             <div>Find Freelance Jobs Worldwide</div>
           </div>
         </div>
-        <div className="address">
+        {/* <div className="address">
           <h3>Resource</h3>
           <div className="flex-container">
             <div>Help & Support</div>
@@ -35,7 +24,7 @@ const Footer = () => {
             <div>Blog</div>
             <div>Community</div>
           </div>
-        </div>
+        </div> */}
         <div className="connect-us">
           <h3>Stay Connected</h3>
           <div className="icons">
@@ -47,12 +36,10 @@ const Footer = () => {
       </div>
       <div className="footer-mid">
         <div>
-          <span>© Copyright 2021</span>, Singapore Zoological Gardens. All
-          Rights Reserved. Mandai Wildlife Reserve, Mandai River Wonders,
-          Singapore Zoo, Night Safari, Wildlife Reserves Singapore and Jurong
-          Bird Park are copyrighted by and/or trade marks of Singapore
-          Zoological Gardens (and/or its affiliate(s)) in Singapore and/or other
-          countries, as the case may be.
+          <span>© Copyright 2022</span>, Except as permitted by the copyright law applicable to you, you may not reproduce or communicate any of the content on this website, including files downloadable from this website, without the permission of the copyright owner.
+          The Indian Copyright Act allows certain uses of content from the internet without the copyright owner’s permission. This includes uses by educational institutions and by Commonwealth and State governments, provided fair compensation is paid. For more information, see www.copyright.com.in and www.copyright.org.in.
+          The owners of copyright in the content on this website may receive compensation for the use of their content by educational institutions and governments, including from licensing schemes managed by Copyright Agency.
+          We may change these terms of use from time to time. Check before re-using any content from this website.
         </div>
       </div>
       <div className="footer-down">
