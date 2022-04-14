@@ -169,10 +169,15 @@ const Bid = () => {
                 <img src={work.image} alt="client img" />
               </Link>
             </div>
-            <div className="title">{work.title}</div>
-            <div className="btn">
-              <Link to={`/userprofile/${work.username}`}>{work.username}</Link>
+            <div className="profileandusername">
+              <div className="title">{work.title}</div>
+              <div className="profile-username">
+                <Link to={`/userprofile/${work.username}`} className="username2" >{work.username}</Link>
+              </div>
             </div>
+            {/* <div className="btn">
+              {work.username}
+            </div> */}
           </div>
 
           <div className="desc">{work.desc}</div>
@@ -279,8 +284,8 @@ const Bid = () => {
                             alt="user image"
                           />
                         </Link>
-                        <div className="user-name">
-                          <Link to={`/userprofile/${bid.username}`}>
+                        <div className="profile-username">
+                          <Link to={`/userprofile/${bid.username}`} className="username2">
                             {bid.username}
                           </Link>
                         </div>
@@ -298,7 +303,7 @@ const Bid = () => {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
