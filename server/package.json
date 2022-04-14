@@ -16,6 +16,7 @@
     "express": "^4.17.3",
     "font-awesome": "^4.7.0",
     "mongoose": "^6.2.10",
+    "morgan": "^1.10.0",
     "multer": "^1.4.4"
   },
   "devDependencies": {

@@ -9,17 +9,19 @@ import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 import { io } from "socket.io-client";
 import LoadingSpinner from "../NormalSlider/LoadingSpinner";
-import gif from '../../assets/images/talkingGif.gif';
+import gif from "../../assets/images/talkingGif.gif";
 
 import {
   selectChatMainData,
   update,
 } from "./../../features/chatMain/chatMainSlice";
+import { Navigate, useNavigate } from "react-router";
 
 var socket;
 
 const ChatMain = (props) => {
   //disabling the serializable check
+  const navigate = useNavigate();
   const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false,
   });
@@ -37,7 +39,6 @@ const ChatMain = (props) => {
     socket = io("http://localhost:8080");
     socket.emit("online", sender);
     setFinalData(chatMainData);
-
     socket.on("error", function (err) {
       console.log(err);
     });
@@ -186,75 +187,88 @@ const ChatMain = (props) => {
       setMsg("");
     }
   };
+
+  const goToVideoCall = (room) => {
+    // window.location.assign(`/video/${room}`);
+    navigate(`/video/${room}`, {
+      state: {
+        id: room,
+      },
+    });
+  };
   return (
     <div className="chat-main">
       {/* {finalData.username === "default" ? ( */}
-        <>
-          <div className="top-container">
-            <div className="user">
-              <div className="user-img">
-                <img src={user_img} alt="User image" />
-              </div>
-              <div className="user-info">
-                <div className="user-name">{finalData.receiver}</div>
-                <div className="user-status">{finalData.status}</div>
-              </div>
+      <>
+        <div className="top-container">
+          <div className="user">
+            <div className="user-img">
+              <img src={user_img} alt="User image" />
             </div>
-            <div className="top-menu">
-              <div className="call">
-                <Call />
-              </div>
-              <div className="video-call">
-                <VideoCall />
-              </div>
+            <div className="user-info">
+              <div className="user-name">{finalData.receiver}</div>
+              <div className="user-status">{finalData.status}</div>
             </div>
           </div>
-          <div className="middle-container">
-            {finalData.chatData.map((chatData) => {
-              let classForSendOrReciever =
-                chatData.username === sender ? "sended" : "recieved";
-              classForSendOrReciever =
-                "message-container " + classForSendOrReciever;
-              let time = new Date(chatData.time);
-              time =
-                String(time.getHours()).padStart(2, "0") +
-                ":" +
-                String(time.getMinutes()).padStart(2, "0");
-              return (
-                <div className={classForSendOrReciever} key={chatData.room}>
-                  <div className="msg">{chatData.message}</div>
-                  <div className="timestamp">{time}</div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="bottom-container">
-            <div className="left-btn-container">
-              <div className="emoji">
-                <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
-                {showEmojiPicker && (
-                  <EmojiPicker onEmojiClick={handleEmojiClick} />
-                )}
-              </div>
-              <div className="attach-file">
-                <AttachFile />
-              </div>
+          <div className="top-menu">
+            <div className="call">
+              <Call />
             </div>
-            <form onSubmit={(e) => sendChat(e)} className="input-container">
-              <div className="message-input">
-                <input
-                  type="text"
-                  placeholder="Type your message here..."
-                  value={msg}
-                  onChange={(e) => setMsg(e.target.value)}
-                />
-              </div>
-              <button className="submit">
-                <IoMdSend />
-              </button>
-            </form>
+            <div className="video-call">
+              <VideoCall
+                onClick={() => {
+                  goToVideoCall(finalData.room);
+                }}
+              />
+            </div>
           </div>
-        </>
+        </div>
+        <div className="middle-container">
+          {finalData.chatData.map((chatData, index) => {
+            let classForSendOrReciever =
+              chatData.username === sender ? "sended" : "recieved";
+            classForSendOrReciever =
+              "message-container " + classForSendOrReciever;
+            let time = new Date(chatData.time);
+            time =
+              String(time.getHours()).padStart(2, "0") +
+              ":" +
+              String(time.getMinutes()).padStart(2, "0");
+            return (
+              <div className={classForSendOrReciever} key={chatData.room}>
+                <div className="msg">{chatData.message}</div>
+                <div className="timestamp">{time}</div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="bottom-container">
+          <div className="left-btn-container">
+            <div className="emoji">
+              <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
+              {showEmojiPicker && (
+                <EmojiPicker onEmojiClick={handleEmojiClick} />
+              )}
+            </div>
+            <div className="attach-file">
+              <AttachFile />
+            </div>
+          </div>
+          <form onSubmit={(e) => sendChat(e)} className="input-container">
+            <div className="message-input">
+              <input
+                type="text"
+                placeholder="Type your message here..."
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
+              />
+            </div>
+            <button className="submit">
+              <IoMdSend />
+            </button>
+          </form>
+        </div>
+      </>
       {/* // ) : (
       //   <div className="chat-default-section">
       //     <div className="robot-container">

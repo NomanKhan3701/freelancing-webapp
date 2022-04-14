@@ -7,7 +7,8 @@ import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
 import { NavLink, Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { selectImageData } from "../../features/images/imageSlice";
 const SearchAndLinks = (props) => {
   const searchDropdownRef = useRef(null);
 
@@ -248,17 +249,18 @@ const user_menu = [
   },
 ];
 
-const renderUserToggle = (user) => (
-  <div className="user-img">
-    <img src={user.image} alt="userImage" />
-  </div>
-);
-
 const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
   let navigate = useNavigate();
-
+  let image = useSelector(selectImageData);
+  try {
+    image = image.image.image;
+  } catch (error) {
+    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
   const logout = () => {
     localStorage.setItem("loggedIn", false);
     localStorage.setItem("username", undefined);
@@ -286,7 +288,11 @@ const Navbar = (props) => {
       );
     }
   };
-
+  const renderUserToggle = (user) => (
+    <div className="user-img">
+      <img src={image} alt="User Image" />
+    </div>
+  );
   return (
     <div className="navbar">
       <div className="nav-menu">

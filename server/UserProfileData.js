@@ -44,6 +44,10 @@ var UserProfileDataSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  joiningDate: {
+    type: String,
+    default: new Date(),
+  },
 });
 
 const UserProfileData = new mongoose.model(
@@ -79,6 +83,14 @@ const getUserProfileDataUsingId = async (id) => {
   const data = await UserProfileData.find({ _id: id });
   if (data.length === 0) {
     return 0;
+  }
+  return data[0];
+};
+
+const getUserImage = async (username) => {
+  const data = await UserProfileData.find({ username: username }, { image: 1 });
+  if (data.length === 0) {
+    return "";
   }
   return data[0];
 };
@@ -131,12 +143,20 @@ const setRating = async (username, rating) => {
     return 2;
   }
 };
+
+const getRatingForUsername = async (username) => {
+  const rating = UserProfileData.find({ username: username }, { rating: 1 });
+  return rating[0];
+};
+
 module.exports = {
   addUserProfile,
   getRating,
   setRating,
   getUserProfileDataUsingId,
   getUserProfileDataUsingUsername,
+  getRatingForUsername,
+  getUserImage,
 };
 
 //0 no user with that user id,

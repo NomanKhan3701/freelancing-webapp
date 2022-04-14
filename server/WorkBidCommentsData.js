@@ -21,6 +21,9 @@ var WorkBidCommentsDataSchema = new mongoose.Schema({
     type: Number,
     default: new Date().getTime(),
   },
+  image: {
+    type: String,
+  },
 });
 
 const WorkBidCommentsData = new mongoose.model(
@@ -30,7 +33,7 @@ const WorkBidCommentsData = new mongoose.model(
 
 const addCommentToWorkBid = (data) => {
   //user posting this information
-  const { workId, username, desc } = data;
+  const { workId, username, desc, image } = data;
   if (desc.length < 20) {
     return 1;
   }
@@ -38,6 +41,7 @@ const addCommentToWorkBid = (data) => {
     workId: workId,
     username: username,
     desc: desc,
+    image: image,
   });
   try {
     newComment.save();
