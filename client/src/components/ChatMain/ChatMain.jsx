@@ -196,93 +196,95 @@ const ChatMain = (props) => {
       },
     });
   };
+  console.log("finalData");
+  console.log(finalData);
   return (
     <div className="chat-main">
-      {/* {finalData.username === "default" ? ( */}
-      <>
-        <div className="top-container">
-          <div className="user">
-            <div className="user-img">
-              <img src={user_img} alt="User image" />
+      {finalData.receiver.toLowerCase() === "default" ? (
+        <div className="chat-default-section">
+          <div className="robot-container">
+            <div className="robot">
+              <img src={gif} alt="" />
             </div>
-            <div className="user-info">
-              <div className="user-name">{finalData.receiver}</div>
-              <div className="user-status">{finalData.status}</div>
-            </div>
-          </div>
-          <div className="top-menu">
-            <div className="call">
-              <Call />
-            </div>
-            <div className="video-call">
-              <VideoCall
-                onClick={() => {
-                  goToVideoCall(finalData.room);
-                }}
-              />
+            <div className="info">
+              <div className="line">Chat with anyone you want to</div>
+              <div className="line">Call anyone you need to</div>
+              <div className="line">A totally lovely place for you</div>
             </div>
           </div>
         </div>
-        <div className="middle-container">
-          {finalData.chatData.map((chatData, index) => {
-            let classForSendOrReciever =
-              chatData.username === sender ? "sended" : "recieved";
-            classForSendOrReciever =
-              "message-container " + classForSendOrReciever;
-            let time = new Date(chatData.time);
-            time =
-              String(time.getHours()).padStart(2, "0") +
-              ":" +
-              String(time.getMinutes()).padStart(2, "0");
-            return (
-              <div className={classForSendOrReciever} key={chatData.room}>
-                <div className="msg">{chatData.message}</div>
-                <div className="timestamp">{time}</div>
+      ) : (
+        <>
+          <div className="top-container">
+            <div className="user">
+              <div className="user-img">
+                <img src={user_img} alt="User image" />
               </div>
-            );
-          })}
-        </div>
-        <div className="bottom-container">
-          <div className="left-btn-container">
-            <div className="emoji">
-              <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
-              {showEmojiPicker && (
-                <EmojiPicker onEmojiClick={handleEmojiClick} />
-              )}
+              <div className="user-info">
+                <div className="user-name">{finalData.receiver}</div>
+                <div className="user-status">{finalData.status}</div>
+              </div>
             </div>
-            <div className="attach-file">
-              <AttachFile />
+            <div className="top-menu">
+              <div className="call">
+                <Call />
+              </div>
+              <div className="video-call">
+                <VideoCall
+                  onClick={() => {
+                    goToVideoCall(finalData.room);
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <form onSubmit={(e) => sendChat(e)} className="input-container">
-            <div className="message-input">
-              <input
-                type="text"
-                placeholder="Type your message here..."
-                value={msg}
-                onChange={(e) => setMsg(e.target.value)}
-              />
+          <div className="middle-container">
+            {finalData.chatData.map((chatData, index) => {
+              let classForSendOrReciever =
+                chatData.username === sender ? "sended" : "recieved";
+              classForSendOrReciever =
+                "message-container " + classForSendOrReciever;
+              let time = new Date(chatData.time);
+              time =
+                String(time.getHours()).padStart(2, "0") +
+                ":" +
+                String(time.getMinutes()).padStart(2, "0");
+              return (
+                <div className={classForSendOrReciever} key={chatData.room}>
+                  <div className="msg">{chatData.message}</div>
+                  <div className="timestamp">{time}</div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="bottom-container">
+            <div className="left-btn-container">
+              <div className="emoji">
+                <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
+                {showEmojiPicker && (
+                  <EmojiPicker onEmojiClick={handleEmojiClick} />
+                )}
+              </div>
+              <div className="attach-file">
+                <AttachFile />
+              </div>
             </div>
-            <button className="submit">
-              <IoMdSend />
-            </button>
-          </form>
-        </div>
-      </>
-      {/* // ) : (
-      //   <div className="chat-default-section">
-      //     <div className="robot-container">
-      //       <div className="robot">
-      //         <img src={gif} alt="" />
-      //       </div>
-      //       <div className="info">
-      //         <div className="line">Chat with anyone you want to</div>
-      //         <div className="line">Call anyone you need to</div>
-      //         <div className="line">A totally lovely place for you</div>
-      //       </div>
-      //     </div>
-      //   </div>
-      // )} */}
+            <form onSubmit={(e) => sendChat(e)} className="input-container">
+              <div className="message-input">
+                <input
+                  type="text"
+                  placeholder="Type your message here..."
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+                />
+              </div>
+              <button className="submit">
+                <IoMdSend />
+              </button>
+            </form>
+          </div>
+        </>
+      )}
     </div>
   );
 };
