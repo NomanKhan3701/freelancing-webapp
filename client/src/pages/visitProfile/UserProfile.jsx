@@ -11,7 +11,7 @@ import userBanner from "../../assets/images/bgUser.jpg";
 
 import userImg from "../../assets/images/Cha2.jpg";
 import axios from "axios";
-import LoadingSpinner from "./LoadingSpinner";
+import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 toast.configure();
@@ -60,7 +60,7 @@ const UserProfile = (props) => {
   }
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const chat = () => {};

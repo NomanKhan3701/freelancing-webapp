@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { DragAndDropImg, Navbar } from "../../components/import";
+import { DragAndDropImg, Navbar, FullScreenLoader} from "../../components/import";
 import { Multiselect } from "multiselect-react-dropdown";
 import "./PostTalent.scss";
 import axios from "axios";
-import LoadingSpinner from "./LoadingSpinner";
 import { Select } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -49,7 +48,7 @@ const PostTalent = () => {
   }, []);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const onDataChange = (event) => {

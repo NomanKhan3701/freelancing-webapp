@@ -14,3 +14,6 @@ export {default as InfoPagination} from './FindWorkPagination/InfoPagination';
 export {default as DragAndDropImg} from './DragAndDropImg/DragAndDropImg';
 export {default as WorkPostedSlider} from './WorkPostedSlider/WorkPostedSlider';
 export {default as WorkDoneSlider} from './WorkDoneSlider/WorkDoneSlider';
+export {default as FullDivLoader} from './Loader/FullDivLoader/FullDivLoader';
+export {default as FullScreenLoader} from './Loader/FullScreenLoader/FullScreenLoader';
+export {default as ScreenOverlayLoader} from './Loader/ScreenOverlayLoader/ScreenOverlayLoader';

@@ -8,7 +8,7 @@ import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
-
+import { ScreenOverlayLoader } from "../../components/import";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { selectImageData, update } from "../../features/images/imageSlice";
