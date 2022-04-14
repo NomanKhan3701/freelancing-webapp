@@ -7,7 +7,7 @@ import "./home.scss";
 
 const Home = () => {
   localStorage.setItem("receiver", undefined);
-  localStorage.setItem("username", undefined);
+  // localStorage.setItem("username", undefined);
   return (
     <div className="home">
       <Navbar />
