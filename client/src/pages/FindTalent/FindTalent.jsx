@@ -6,6 +6,8 @@ import {
   Navbar,
   NormalSlider,
   SliderThreeD,
+  FullScreenLoader,
+  FullDivLoader
 } from "../../components/import";
 import userImg from "../../assets/images/Cha2.jpg";
 import RandomDev from "./json/RandomDev.json";
@@ -13,7 +15,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
-import LoadingSpinner from "./LoadingSpinner";
 toast.configure();
 
 const FindTalent = () => {
@@ -32,7 +33,7 @@ const FindTalent = () => {
   }, []);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const goToPostRequest = () => {
