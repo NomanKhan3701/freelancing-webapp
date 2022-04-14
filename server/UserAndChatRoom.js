@@ -15,6 +15,12 @@ var UserChatRoomSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image1: {
+    type: String,
+  },
+  image2: {
+    type: String,
+  },
 });
 
 const UserChatRoom = new mongoose.model("UserChatRoom", UserChatRoomSchema);
@@ -41,7 +47,7 @@ const getRoomNo = async (username1, username2) => {
   return room;
 };
 
-const addNewUsersToChat = async (username1, username2) => {
+const addNewUsersToChat = async (username1, username2, image1, image2) => {
   const result = await doUsersAlreadyChat(username1, username2);
   if (result.result === 2) {
     return { newChat: false, room: result.room };
@@ -50,6 +56,8 @@ const addNewUsersToChat = async (username1, username2) => {
     usernames: username1.concat(username2),
     username1: username1,
     username2: username2,
+    image1: image1,
+    image2: image2,
   });
   const newUserChatData = new UserChatData({
     room: username1.concat(username2),
@@ -68,23 +76,19 @@ const findAllRoomsWithGivenUser = async (username) => {
   const regex = new RegExp(username, "i"); // i for case insensitive
   const data = await UserChatRoom.find({ usernames: { $regex: regex } });
 
-  console.log("abbe");
-  console.log(data);
-  console.log("abbe");
   return data;
 };
 
 const findAllRoomsWithGivenUserAndDoOtherUSerExits = async (
   username,
-  receiver
+  receiver,
+  image1,
+  image2
 ) => {
   // const data = await UserChatRoom.find({ usernames: /`${username}`/i });
-  await addNewUsersToChat(username, receiver);
+  await addNewUsersToChat(username, receiver, image1, image2);
   const regex = new RegExp(username, "i"); // i for case insensitive
   const data = await UserChatRoom.find({ usernames: { $regex: regex } });
-  console.log("amigoes");
-  console.log(data);
-  console.log("amigoes");
   return data;
 };
 
