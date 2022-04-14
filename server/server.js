@@ -248,7 +248,6 @@ app.get("/findtalent/:category", (req, res, err) => {
 });
 
 app.get("/userprofiledata/:username", (req, res, err) => {
-  console.log("i m in");
   const username = req.params.username;
   getUserProfileDataUsingUsername(username)
     .then((response) => {

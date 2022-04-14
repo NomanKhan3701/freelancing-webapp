@@ -142,7 +142,7 @@ const isUserDataTaken = async (username) => {
     { username: username },
     { userDataTaken: 1 }
   );
-  return data;
+  return data[0].userDataTaken;
 };
 
 module.exports = {
