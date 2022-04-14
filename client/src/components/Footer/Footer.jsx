@@ -1,4 +1,8 @@
 import { Facebook, Instagram, Twitter } from "@material-ui/icons";
+import { Mail, Phone } from "@material-ui/icons";
+import { FaBeer, FaMailBulk } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { MailIcon } from 'react-mail-icon';
 import React from "react";
 import "./footer.scss";
 
@@ -6,58 +10,64 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-up">
-        <div className="footer-up-content">
-          {/* <h3>For Client</h3>
-          <div className="flex-container">
-            <div>How to hire</div>
-            <div>Talent Marketplace</div>
-            <div>Project Catalog</div>
-            <div>Talent Scout</div>
-            <div>Hire an Agency</div>
-            <div>Enterprise</div> 
-          </div> */}
-        </div>
         <div className="address">
-          <h3>For Talent</h3>
+          <h3>Address</h3>
           <div className="flex-container">
-            <div>How to Find Work</div>
+            {/* <div>How to Find Work</div>
             <div>Direct Contacts</div>
-            <div>Find Freelance Jobs Worldwide</div>
+            <div>Find Freelance Jobs Worldwide</div> */}
+            Bhavans Campus, Old D N Nagar, Munshi Nagar, Andheri West, Mumbai, Maharashtra 400058
           </div>
         </div>
         <div className="address">
-          <h3>Resource</h3>
+          <h3>Contact</h3>
           <div className="flex-container">
-            <div>Help & Support</div>
-            <div>Success Stories</div>
-            <div>Upwork Reviews</div>
-            <div>Resources</div>
-            <div>Blog</div>
-            <div>Community</div>
+            <span className="iconandtext">
+              <Mail fontSize="medium"></Mail>
+              <p> 123tarun02@gmail.com</p>
+            </span>
+            <span className="iconandtext">
+              <Phone fontSize="medium"></Phone>
+              <p> +91 8104292639</p>
+            </span>
           </div>
         </div>
         <div className="connect-us">
           <h3>Stay Connected</h3>
           <div className="icons">
-            <Facebook />
-            <Instagram />
-            <Twitter />
+            <Facebook fontSize="medium" />
+            <Instagram fontSize="medium" />
+            <Twitter fontSize="medium" />
           </div>
         </div>
       </div>
       <div className="footer-mid">
-        <div>
-          <span>© Copyright 2021</span>, Singapore Zoological Gardens. All
-          Rights Reserved. Mandai Wildlife Reserve, Mandai River Wonders,
-          Singapore Zoo, Night Safari, Wildlife Reserves Singapore and Jurong
-          Bird Park are copyrighted by and/or trade marks of Singapore
-          Zoological Gardens (and/or its affiliate(s)) in Singapore and/or other
-          countries, as the case may be.
-        </div>
+        {/* <div> */}
+        {/* <span>Copyright 2022 ©  </span> */}
+        {/* Except as permitted by the copyright law applicable to you, you may not reproduce or communicate any of the content on this website, including files downloadable from this website, without the permission of the copyright owner. */}
+        {/* The Indian Copyright Act allows certain uses of content from the internet without the copyright owner’s permission. This includes uses by educational institutions and by Commonwealth and State governments, provided fair compensation is paid. For more information, see www.copyright.com.in and www.copyright.org.in. */}
+        {/* The owners of copyright in the content on this website may receive compensation for the use of their content by educational institutions and governments, including from licensing schemes managed by Copyright Agency. */}
+        {/* We may change these terms of use from time to time. Check before re-using any content from this website. */}
+        {/* FreeLance.com */}
+        {/* </div> */}
       </div>
       <div className="footer-down">
+        <div className="numberandtext">
+          {/* <span>Developed by : </span>Noman, Shreyash and Tarun */}
+          <span className="number">58,699,420</span>
+          <p>Registered Users</p>
+        </div>
+        <div className="numberandtext">
+          <span className="number">21,99,433</span>
+          <p>Total Jobs Posted</p>
+        </div>
         <div>
-          <span>Developed by : </span>Noman, Shreyash and Tarun
+          <span>Copyright 2022 ©  </span>
+          {/* Except as permitted by the copyright law applicable to you, you may not reproduce or communicate any of the content on this website, including files downloadable from this website, without the permission of the copyright owner. */}
+          {/* The Indian Copyright Act allows certain uses of content from the internet without the copyright owner’s permission. This includes uses by educational institutions and by Commonwealth and State governments, provided fair compensation is paid. For more information, see www.copyright.com.in and www.copyright.org.in. */}
+          {/* The owners of copyright in the content on this website may receive compensation for the use of their content by educational institutions and governments, including from licensing schemes managed by Copyright Agency. */}
+          {/* We may change these terms of use from time to time. Check before re-using any content from this website. */}
+          FreeLance.com
         </div>
       </div>
     </div>
