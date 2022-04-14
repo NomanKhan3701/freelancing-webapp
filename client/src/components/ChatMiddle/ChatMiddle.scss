@@ -59,7 +59,7 @@
         box-shadow: var(--box-shadow);
         background: white;
         display: flex;
-        align-items: center;
+        // align-items: center;
         padding: 10px;
         // background: linear-gradient(
         //   to right bottom,
@@ -84,6 +84,11 @@
         }
 
         .person-mid {
+          overflow-wrap: break-word;
+          width: 220px;
+          overflow: hidden;
+          height: 40px;
+
           .person-name {
             font-weight: 600;
             font-size: 17px;
@@ -97,6 +102,7 @@
         .last-chat-time {
           margin-left: auto;
           margin-right: 10px;
+          margin-top: 11px;
           color: gray;
           transform: translateY(-10px);
         }
