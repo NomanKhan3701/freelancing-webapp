@@ -5,22 +5,20 @@ import peopleImg1 from "../../assets/images/Cha2.jpg";
 import peopleImg2 from "../../assets/images/userImage.jpg";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  update,
-  selectChatMainData,
-} from "./../../features/chatMain/chatMainSlice";
+import { update } from "./../../features/chatMain/chatMainSlice";
+import Multiselect from "multiselect-react-dropdown";
 
 const ChatMiddle = (props) => {
   const chatMainData = useSelector((state) => state.chatMainData.value);
   const dispatch = useDispatch();
 
   const sender = localStorage.getItem("username");
-  // const chats = props.chats;
-  // const chatData = props.chatData;
 
   const [chats, setChats] = useState(props.chats);
   const [chatData, setChatData] = useState(props.chatData);
-
+  const searchUserForChat = (event) => {
+    const name = event.target.value;
+  };
   const getLastMsg = (room) => {
     for (let i = 0; i < chatData.length; i++) {
       if (chatData[i].room === room) {
@@ -81,11 +79,31 @@ const ChatMiddle = (props) => {
     );
   };
 
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchInput(value);
+    setChats(() => {
+      return props.chats.filter((chat) => {
+        const receiver =
+          sender === chat.username1 ? chat.username2 : chat.username1;
+        if (receiver.includes(value)) {
+          return chat;
+        }
+      });
+    });
+  };
 
   return (
     <div className="chat-middle">
       <div className={`search-container`}>
-        <input type="text" placeholder="Search here..." />
+        <input
+          type="text"
+          placeholder="Search here..."
+          value={searchInput}
+          onChange={handleSearch}
+        />
         <Search className="i" />
       </div>
       <div className="people-container">
@@ -114,6 +132,8 @@ const ChatMiddle = (props) => {
               key={room}
               id={room}
               onClick={() => {
+                setSearchInput("");
+                setChats(props.chats);
                 changeChatMain(room);
               }}
             >

@@ -8,7 +8,7 @@ import "./LoginSignUp.scss";
 import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
-
+import { ScreenOverlayLoader } from "../../components/import";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { selectImageData, update } from "../../features/images/imageSlice";
@@ -23,6 +23,7 @@ const LoginSignUp = (props) => {
   //to redirect after cliking signUp or login option on LoginSignUp page
   let navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const routeChangeToSignUp = () => {
     let path = `/signup`;
@@ -121,6 +122,7 @@ const LoginSignUp = (props) => {
       username1 = username;
       password1 = password;
     }
+    setLoading(true);
     axios
       .post(`http://localhost:8080/${context.toLowerCase()}`, {
         username: username1,
@@ -154,6 +156,7 @@ const LoginSignUp = (props) => {
   };
 
   let onResult = (data, page) => {
+    setLoading(false);
     switch (data) {
       case 1:
         //pop up on screen that username already exists
@@ -205,139 +208,142 @@ const LoginSignUp = (props) => {
   };
 
   return (
-    <div className="login-signup-container">
-      <div className="row">
-        <div className="col align-items-center flex-col">
-          <Link to="/" className="logo-login-signup signup">
-            Freelance
-          </Link>
-          <div className="form-wrapper align-items-center signup">
-            <form className="form">
-              <div className="input-group">
-                <i className="bx bxs-user"></i>
-                <input
-                  type="text"
-                  name="usernameSignUp"
-                  value={userSignUpData.username}
-                  placeholder="Username"
-                  onChange={signUpDataChange}
-                  autoComplete="false"
-                />
-              </div>
-              <div className="input-group">
-                <i className="bx bxs-lock-alt"></i>
-                <input
-                  type="password"
-                  name="passwordSignUp"
-                  value={userSignUpData.password}
-                  placeholder="Password"
-                  onChange={signUpDataChange}
-                  autoComplete="false"
-                />
-              </div>
-              <div className="input-group">
-                <i className="bx bxs-lock-alt"></i>
-                <input
-                  type="password"
-                  name="confirmPasswordSignUp"
-                  value={userSignUpData.confirmPassword}
-                  placeholder="Confirm Password"
-                  onChange={signUpDataChange}
-                  autoComplete="false"
-                />
-              </div>
-              <div className="btn" name="signup" onClick={loginOrSubmit}>
-                Sign Up
-              </div>
-              <p>
-                <b>Forgot Password?</b>
-              </p>
-              <p>
-                <span>Have an account? </span>
-                <b onClick={routeChangeToLogin}>Log In</b>
-              </p>
-            </form>
+    <>
+      {loading ? <ScreenOverlayLoader /> : ""}
+      <div className="login-signup-container">
+        <div className="row">
+          <div className="col align-items-center flex-col">
+            <Link to="/" className="logo-login-signup signup">
+              Freelance
+            </Link>
+            <div className="form-wrapper align-items-center signup">
+              <form className="form">
+                <div className="input-group">
+                  <i className="bx bxs-user"></i>
+                  <input
+                    type="text"
+                    name="usernameSignUp"
+                    value={userSignUpData.username}
+                    placeholder="Username"
+                    onChange={signUpDataChange}
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="input-group">
+                  <i className="bx bxs-lock-alt"></i>
+                  <input
+                    type="password"
+                    name="passwordSignUp"
+                    value={userSignUpData.password}
+                    placeholder="Password"
+                    onChange={signUpDataChange}
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="input-group">
+                  <i className="bx bxs-lock-alt"></i>
+                  <input
+                    type="password"
+                    name="confirmPasswordSignUp"
+                    value={userSignUpData.confirmPassword}
+                    placeholder="Confirm Password"
+                    onChange={signUpDataChange}
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="btn" name="signup" onClick={loginOrSubmit}>
+                  Sign Up
+                </div>
+                <p>
+                  <b>Forgot Password?</b>
+                </p>
+                <p>
+                  <span>Have an account? </span>
+                  <b onClick={routeChangeToLogin}>Log In</b>
+                </p>
+              </form>
+            </div>
+            <div className="social-wrapper signup">
+              <GLogin context="SignUp"></GLogin>
+            </div>
           </div>
-          <div className="social-wrapper signup">
-            <GLogin context="SignUp"></GLogin>
+          <div className="col align-items-center flex-col">
+            <Link to="/" className="logo-login-signup login">
+              Freelance
+            </Link>
+            <div className="form-wrapper align-items-center login">
+              <form className="form">
+                <div className="input-group">
+                  <i className="bx bxs-user"></i>
+                  <input
+                    type="text"
+                    name="usernameLogin"
+                    value={userLoginData.username}
+                    placeholder="Username"
+                    onChange={loginDataChange}
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="input-group">
+                  <i className="bx bxs-lock-alt"></i>
+                  <input
+                    type="password"
+                    name="passwordLogin"
+                    value={userLoginData.password}
+                    placeholder="Password"
+                    onChange={loginDataChange}
+                    autoComplete="false"
+                  />
+                </div>
+                <div className="btn" name="login" onClick={loginOrSubmit}>
+                  Log in
+                </div>
+                <p>
+                  <b>Forgot Password?</b>
+                </p>
+                <p>
+                  <span>Don't have an account? </span>
+                  <b onClick={routeChangeToSignUp}>Sign up</b>
+                </p>
+              </form>
+            </div>
+            <div className="social-wrapper login">
+              <GLogin context="Login"></GLogin>
+            </div>
           </div>
         </div>
-        <div className="col align-items-center flex-col">
-          <Link to="/" className="logo-login-signup login">
-            Freelance
-          </Link>
-          <div className="form-wrapper align-items-center login">
-            <form className="form">
-              <div className="input-group">
-                <i className="bx bxs-user"></i>
-                <input
-                  type="text"
-                  name="usernameLogin"
-                  value={userLoginData.username}
-                  placeholder="Username"
-                  onChange={loginDataChange}
-                  autoComplete="false"
-                />
-              </div>
-              <div className="input-group">
-                <i className="bx bxs-lock-alt"></i>
-                <input
-                  type="password"
-                  name="passwordLogin"
-                  value={userLoginData.password}
-                  placeholder="Password"
-                  onChange={loginDataChange}
-                  autoComplete="false"
-                />
-              </div>
-              <div className="btn" name="login" onClick={loginOrSubmit}>
-                Log in
-              </div>
+        <div className="row content-row">
+          <div className="col align-items-center flex-col">
+            <div className="text login">
+              <h2>Welcome back</h2>
               <p>
-                <b>Forgot Password?</b>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
+                porro tempore temporibus enim eveniet, dolore voluptatibus
+                praesentium autem ducimus error nulla iusto ex eum quos,
+                voluptatum sunt optio. Consequatur, minima.
               </p>
-              <p>
-                <span>Don't have an account? </span>
-                <b onClick={routeChangeToSignUp}>Sign up</b>
-              </p>
-            </form>
+            </div>
+            <div className="img login">
+              <img src={loginImg} alt="welcome" />
+            </div>
           </div>
-          <div className="social-wrapper login">
-            <GLogin context="Login"></GLogin>
+          <div className="col align-items-center flex-col">
+            <div className="img signup">
+              <img src={signupImg} alt="join us" />
+            </div>
+            <div className="text signup">
+              <h2>Join with us</h2>
+              <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
+                porro tempore temporibus enim eveniet, dolore voluptatibus
+                praesentium autem ducimus error nulla iusto ex eum quos,
+                voluptatum sunt optio. Consequatur, minima.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div className="row content-row">
-        <div className="col align-items-center flex-col">
-          <div className="text login">
-            <h2>Welcome back</h2>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
-              porro tempore temporibus enim eveniet, dolore voluptatibus
-              praesentium autem ducimus error nulla iusto ex eum quos,
-              voluptatum sunt optio. Consequatur, minima.
-            </p>
-          </div>
-          <div className="img login">
-            <img src={loginImg} alt="welcome" />
-          </div>
-        </div>
-        <div className="col align-items-center flex-col">
-          <div className="img signup">
-            <img src={signupImg} alt="join us" />
-          </div>
-          <div className="text signup">
-            <h2>Join with us</h2>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
-              porro tempore temporibus enim eveniet, dolore voluptatibus
-              praesentium autem ducimus error nulla iusto ex eum quos,
-              voluptatum sunt optio. Consequatur, minima.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

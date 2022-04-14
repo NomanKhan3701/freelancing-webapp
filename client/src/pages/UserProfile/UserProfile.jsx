@@ -11,7 +11,7 @@ import userBanner from "../../assets/images/bgUser.jpg";
 
 import userImg from "../../assets/images/Cha2.jpg";
 import axios from "axios";
-import LoadingSpinner from "./LoadingSpinner";
+import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 toast.configure();
@@ -50,18 +50,18 @@ const UserProfile = () => {
       position: "top-center",
     });
     navigate("/login");
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
   if (isDataTaken === "false") {
     toast.success("You must fill your details before viewing the profile.", {
       position: "top-center",
     });
     navigate("/userprofileinput");
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const chat = (event) => {

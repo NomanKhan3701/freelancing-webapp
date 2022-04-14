@@ -42,6 +42,9 @@ var findWorkDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+  },
 });
 
 const findWorkFilterDataSchema = new mongoose.Schema({
@@ -75,8 +78,16 @@ const getWorkFilterData = async () => {
 
 const addWorkData = async (data) => {
   //user posting this information
-  const { category, title, desc, qualifications, minBid, maxBid, username } =
-    data;
+  const {
+    category,
+    title,
+    desc,
+    qualifications,
+    minBid,
+    maxBid,
+    username,
+    image,
+  } = data;
   if (title.length < 10 || desc.length < 30 || qualifications.length < 1) {
     return 1;
   }
@@ -88,6 +99,7 @@ const addWorkData = async (data) => {
     minBid: minBid,
     maxBid: maxBid,
     username: username,
+    image: image,
   });
   try {
     await newWorkData.save();

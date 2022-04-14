@@ -198,6 +198,7 @@ app.post("/findtalent/postwork", (req, res, err) => {
       minBid: body.minBid,
       maxBid: body.maxBid,
       username: body.username,
+      image: body.image,
     }).then((response) => {
       res.send({ result: response.result });
     });

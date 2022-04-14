@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Footer, Navbar } from "../../components/import";
+import {
+  Dropdown,
+  Footer,
+  Navbar,
+  FullDivLoader,
+  InfoPagination,
+  FullScreenLoader,
+} from "../../components/import";
 import "./FindTalent.scss";
-import './FindWork.scss';
-import { InfoPagination } from "../../components/import";
+import "./FindWork.scss";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import LoadingSpinner from "./LoadingSpinner";
 import { toast } from "react-toastify";
 import { LocalGasStation } from "@material-ui/icons";
 import { useFieldArray } from "react-hook-form";
@@ -104,7 +109,7 @@ const FindTalentParams = () => {
   }, []);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const visitProfile = (event) => {
