@@ -238,7 +238,7 @@ const Bid = () => {
                         <img src={clientImg} alt="user image" />
                         <div className="user-name">{bid.username}</div>
                       </div>
-                      <div className="flex">
+                      <div className="flex btn-center">
                         <div className="price">Price : {bid.amount}₹</div>
                         <div className="star">Rating : 4.9</div>
                       </div>
