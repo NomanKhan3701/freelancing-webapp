@@ -35,6 +35,8 @@ const Bid = () => {
   }
 
   useEffect(() => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    const loggedIn = localStorage.getItem("loggedIn");
     //here get wasnt working with passing object so used post,
     axios
       .post(`http://localhost:8080/findwork/bid/${work.id}`, {
@@ -46,8 +48,6 @@ const Bid = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
-    const isDataTaken = localStorage.getItem("isDataTaken");
-    const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn === "false") {
       toast.error("Please login to post.", {
         position: "top-center",
@@ -167,10 +167,20 @@ const Bid = () => {
                 <img src={work.image} alt="client img" />
               </Link>
             </div>
-            <div className="title">{work.title}</div>
-            <div className="btn">
-              <Link to={`/userprofile/${work.username}`}>{work.username}</Link>
+            <div className="profileandusername">
+              <div className="title">{work.title}</div>
+              <div className="profile-username">
+                <Link
+                  to={`/userprofile/${work.username}`}
+                  className="username2"
+                >
+                  {work.username}
+                </Link>
+              </div>
             </div>
+            {/* <div className="btn">
+              {work.username}
+            </div> */}
           </div>
 
           <div className="desc">{work.desc}</div>
@@ -277,8 +287,11 @@ const Bid = () => {
                             alt="user image"
                           />
                         </Link>
-                        <div className="user-name">
-                          <Link to={`/userprofile/${bid.username}`}>
+                        <div className="profile-username">
+                          <Link
+                            to={`/userprofile/${bid.username}`}
+                            className="username2"
+                          >
                             {bid.username}
                           </Link>
                         </div>
