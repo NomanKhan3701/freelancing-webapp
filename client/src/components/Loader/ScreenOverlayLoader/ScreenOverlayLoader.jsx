@@ -5,6 +5,7 @@ const ScreenOverlayLoader = () => {
   return (
     <div className='screen-overlay-loader'>
         <div className="loading-spinner"></div>
+        <div className='overlay'></div>
     </div>
   )
 }

@@ -23,6 +23,7 @@ const LoginSignUp = (props) => {
   //to redirect after cliking signUp or login option on LoginSignUp page
   let navigate = useNavigate();
   const location = useLocation();
+  const [loading,setLoading] = useState(false);
 
   const routeChangeToSignUp = () => {
     let path = `/signup`;
@@ -121,6 +122,7 @@ const LoginSignUp = (props) => {
       username1 = username;
       password1 = password;
     }
+    setLoading(true);
     axios
       .post(`http://localhost:8080/${context.toLowerCase()}`, {
         username: username1,
@@ -154,6 +156,7 @@ const LoginSignUp = (props) => {
   };
 
   let onResult = (data, page) => {
+    setLoading(false);
     switch (data) {
       case 1:
         //pop up on screen that username already exists
@@ -205,7 +208,9 @@ const LoginSignUp = (props) => {
   };
 
   return (
-    <div className="login-signup-container">
+    <>
+     {loading ? (<ScreenOverlayLoader/>) : ""}
+     <div className="login-signup-container">
       <div className="row">
         <div className="col align-items-center flex-col">
           <Link to="/" className="logo-login-signup signup">
@@ -338,6 +343,8 @@ const LoginSignUp = (props) => {
         </div>
       </div>
     </div>
+    </>
+    
   );
 };
 
