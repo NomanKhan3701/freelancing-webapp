@@ -63,8 +63,12 @@ const {
   getWorkBidCommentsData,
   addCommentToWorkBid,
 } = require("./WorkBidCommentsData");
-const { getBids, addBid } = require("./Bids");
-const { getFreelancerWorkByUsername } = require("./workProgress");
+const { getBids } = require("./Bids");
+const {
+  addBid,
+  getFreelancerWorkByUsername,
+  addWorkInProgressData,
+} = require("./BreakDependency");
 const {
   getRoomNo,
   addNewUsersToChat,
@@ -88,8 +92,8 @@ const {
   addUserProfile,
   getUserProfileDataUsingUsername,
   getRatingsAndUsername,
+  getUserImage,
 } = require("./UserProfileData");
-const { addWorkInProgressData } = require("./WorkInProgressData");
 
 app.use(logger("dev")); //for video calling
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -105,9 +109,12 @@ app.post("/login", (req, res, err) => {
   const { username, password } = req.body;
   isValidUser({ username: username, password: password })
     .then((response) => {
-      res.send({
-        result: response.result,
-        userDataTaken: response.userDataTaken,
+      getUserImage(username).then((image) => {
+        res.send({
+          result: response.result,
+          userDataTaken: response.userDataTaken,
+          image: image,
+        });
       });
     })
     .catch((error) => {
@@ -344,6 +351,7 @@ app.post("/findwork/bid/newComment", (req, res, err) => {
       workId: body.workId,
       username: body.username,
       desc: body.desc,
+      image: body.image,
     });
     res.send({ result: result });
   } catch (error) {
@@ -363,6 +371,7 @@ app.post("/findwork/bid/newBid", (req, res, err) => {
       username: body.username,
       desc: body.desc,
       amount: body.amount,
+      image: body.image,
     }).then((result) => {
       res.send({ result: result });
     });

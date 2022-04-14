@@ -26,8 +26,6 @@ const FindTalent = () => {
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);
-          console.log("response.data.result");
-          console.log(response.data.result);
         }
         setLoading(false);
       });

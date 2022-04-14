@@ -39,8 +39,6 @@ const ChatMain = (props) => {
     socket = io("http://localhost:8080");
     socket.emit("online", sender);
     setFinalData(chatMainData);
-    console.log("chatMainData");
-    console.log(chatMainData);
     socket.on("error", function (err) {
       console.log(err);
     });

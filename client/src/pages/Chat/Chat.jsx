@@ -14,9 +14,10 @@ import {
   selectChatMainData,
 } from "./../../features/chatMain/chatMainSlice";
 import { useLocation } from "react-router";
+import { selectImageData } from "../../features/images/imageSlice";
 
 const Chat = () => {
-  const chatMainData = useSelector(selectChatMainData);
+  const chatMainData = useSelector(selectImageData);
   const dispatch = useDispatch();
   const sender = localStorage.getItem("username");
   const [isLoading, setLoading] = useState(true);
