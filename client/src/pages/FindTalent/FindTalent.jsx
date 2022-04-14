@@ -7,7 +7,7 @@ import {
   NormalSlider,
   SliderThreeD,
   FullScreenLoader,
-  FullDivLoader
+  FullDivLoader,
 } from "../../components/import";
 import userImg from "../../assets/images/Cha2.jpg";
 import RandomDev from "./json/RandomDev.json";
