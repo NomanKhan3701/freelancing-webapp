@@ -8,7 +8,7 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
 import { io } from "socket.io-client";
-import LoadingSpinner from "../NormalSlider/LoadingSpinner";
+import { FullDivLoader } from "../import";
 import gif from "../../assets/images/talkingGif.gif";
 
 import {
@@ -140,7 +140,7 @@ const ChatMain = (props) => {
     };
   });
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullDivLoader />;
   }
 
   const handleSendMsg = (msg) => {
