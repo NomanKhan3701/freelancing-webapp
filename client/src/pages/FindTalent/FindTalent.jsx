@@ -75,6 +75,9 @@ const FindTalent = () => {
           <div className="btn" onClick={goToPostRequest}>
             Post a Request
           </div>
+          <div>
+
+          </div>
         </div>
         <div className="recommended-container">
           <h1>Top Gigs</h1>
