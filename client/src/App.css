@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
 .no-elem {
     padding-top: 90px;
+}
+
+*{
+    /* font-family: 'Josefin Sans', sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
 }
