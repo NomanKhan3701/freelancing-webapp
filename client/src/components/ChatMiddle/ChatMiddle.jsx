@@ -126,7 +126,7 @@ const ChatMiddle = (props) => {
             lastMsgTime =
               lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
             lastttMessage = lastMsg.message;
-            if (lastMsg.message.length > 15) {
+            if (lastttMessage.length > 15) {
               lastttMessage = lastttMessage.substring(0, 15) + "...";
             }
           } catch (error) {
