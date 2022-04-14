@@ -85,11 +85,9 @@ const ChatMiddle = (props) => {
 
   const handleSearch = (e) => {
     setSearchInput(e.target.value);
-    console.log(e.target.value);
     setChats(() => {
       return(props.chats.filter((chat) => {
         const receiver = sender === chat.username1 ? chat.username2 : chat.username1;
-        console.log(receiver.includes(e.target.value));
         if (receiver.includes(e.target.value)) {
           return chat;
         }
