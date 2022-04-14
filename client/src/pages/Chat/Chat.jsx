@@ -28,10 +28,15 @@ const Chat = () => {
   const [chats, setChats] = useState();
   const [chatData, setChatData] = useState();
   const { state } = useLocation();
-  let receiver;
+  let image1 = useSelector(selectImageData);
+  try {
+    image1 = image1.image.image;
+  } catch (error) {}
+  let receiver, image2;
 
   try {
     receiver = state.receiver;
+    image2 = state.image;
   } catch (error) {
     receiver = "";
   }
@@ -40,11 +45,22 @@ const Chat = () => {
     if (receiver) {
       url += `/${receiver}`;
     }
-    axios.get(url).then(function (response) {
-      setChats(response.data.chats);
-      setChatData(response.data.chatData);
-      setLoading(false);
-    });
+    //using post instead of get was giving error xhtmlRequest like that,
+    // axios.get(url).then((response) => {
+    //   setChats(response.data.chats);
+    //   setChatData(response.data.chatData);
+    //   setLoading(false);
+    // });
+    axios
+      .post(url, {
+        image1: image1,
+        image2: image2,
+      })
+      .then((response) => {
+        setChats(response.data.chats);
+        setChatData(response.data.chatData);
+        setLoading(false);
+      });
     const isDataTaken = localStorage.getItem("isDataTaken");
     const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn === "false") {
@@ -58,7 +74,7 @@ const Chat = () => {
       });
       return;
     }
-    if (!isDataTaken === "true") {
+    if (isDataTaken === "false") {
       toast.success("You must fill your details before posting the work.", {
         position: "top-center",
       });

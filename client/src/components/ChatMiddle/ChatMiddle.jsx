@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./ChatMiddle.scss";
-import { Dehaze, Search } from "@material-ui/icons";
-import peopleImg1 from "../../assets/images/Cha2.jpg";
-import peopleImg2 from "../../assets/images/userImage.jpg";
+import { Search } from "@material-ui/icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { update } from "./../../features/chatMain/chatMainSlice";
-import Multiselect from "multiselect-react-dropdown";
 
 const ChatMiddle = (props) => {
   const chatMainData = useSelector((state) => state.chatMainData.value);
@@ -46,7 +43,7 @@ const ChatMiddle = (props) => {
     });
   }, [chatMainData]);
 
-  const changeChatMain = (room) => {
+  const changeChatMain = (room, receiverImage) => {
     if (chatMainData.room === room) {
       return;
     }
@@ -72,6 +69,7 @@ const ChatMiddle = (props) => {
       update({
         image: "not added yet",
         receiver: receiver,
+        receiverImage: receiverImage,
         status: "offline",
         room: room,
         chatData: chatDataForUser.data,
@@ -115,11 +113,20 @@ const ChatMiddle = (props) => {
           let lastMsg;
           let lstTimeOfMsg;
           let lastMsgTime;
+          const receiverImage =
+            sender === username1 ? chat.image2 : chat.image1;
+          if (!receiverImage) {
+            receiverImage = `https://ui-avatars.com/api/?name=${receiver}`;
+          }
           try {
             lastMsg = getLastMsg(room);
+
             lstTimeOfMsg = new Date(lastMsg.time);
             lastMsgTime =
               lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
+            if (lastMsg.message.length > 15) {
+              lastMsg.message = lastMsg.message.substring(0, 20) + "...";
+            }
           } catch (error) {
             lastMsg = "start the conversation";
             lstTimeOfMsg = "";
@@ -134,12 +141,12 @@ const ChatMiddle = (props) => {
               onClick={() => {
                 setSearchInput("");
                 setChats(props.chats);
-                changeChatMain(room);
+                changeChatMain(room, receiverImage);
               }}
             >
               <div className="person">
                 <div className="person-img">
-                  <img src={peopleImg1} alt="" />
+                  <img src={receiverImage} alt="" />
                 </div>
                 <div className="person-mid">
                   <div className="person-name">{receiver}</div>
