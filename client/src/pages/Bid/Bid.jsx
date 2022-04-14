@@ -3,7 +3,7 @@ import { Navbar } from "../../components/import";
 import "./Bid.scss";
 import clientImg from "../../assets/images/Cha2.jpg";
 import { useLocation } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
@@ -46,28 +46,27 @@ const Bid = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
+    if (loggedIn === "false") {
+      toast.error("Please login to post.", {
+        position: "top-center",
+      });
+      navigate("/login", {
+        state: {
+          goingTo: "/findtalent/postwork",
+        },
+      });
+      return;
+    }
+    if (!isDataTaken === "true") {
+      toast.success("You must fill your details before posting the work.", {
+        position: "top-center",
+      });
+      navigate("/userprofileinput");
+    }
   }, []);
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   const loggedIn = localStorage.getItem("loggedIn");
-
-  if (loggedIn === "false") {
-    toast.error("Please login to post.", {
-      position: "top-center",
-    });
-    navigate("/login", {
-      state: {
-        goingTo: "/findtalent/postwork",
-      },
-    });
-    return;
-  }
-  if (!isDataTaken === "true") {
-    toast.success("You must fill your details before posting the work.", {
-      position: "top-center",
-    });
-    navigate("/userprofileinput");
-  }
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -158,14 +157,6 @@ const Bid = () => {
       });
   };
 
-  const visitProfile = () => {
-    navigate(`/userprofile`, {
-      state: {
-        username: work.username,
-      },
-    });
-  };
-
   return (
     <div className="bid">
       <Navbar />
@@ -173,12 +164,14 @@ const Bid = () => {
         <div className="bid-info-container">
           <div className="client-profile">
             <div className="user-img">
-              <img src={work.image} alt="client img" />
+              <Link to={`/userprofile/${work.username}`}>
+                <img src={work.image} alt="client img" />
+              </Link>
             </div>
             <div className="title">{work.title}</div>
-            {/* <div className="btn" onClick={visitProfile}>
-              Visit Profile
-            </div> */}
+            <div className="btn">
+              <Link to={`/userprofile/${work.username}`}>{work.username}</Link>
+            </div>
           </div>
 
           <div className="desc">{work.desc}</div>
@@ -237,15 +230,21 @@ const Bid = () => {
               return (
                 <div className="comment">
                   <div className="user-profile">
-                    <img
-                      src={
-                        comment.image ||
-                        `https://ui-avatars.com/api/?name=${comment.username}`
-                      }
-                      alt="user img"
-                    />
+                    <Link to={`/userprofile/${comment.username}`}>
+                      <img
+                        src={
+                          comment.image ||
+                          `https://ui-avatars.com/api/?name=${comment.username}`
+                        }
+                        alt="user img"
+                      />
+                    </Link>
                     <div className="info">
-                      <div className="user-name">{comment.username}</div>
+                      <div className="user-name">
+                        <Link to={`/userprofile/${comment.username}`}>
+                          {comment.username}
+                        </Link>
+                      </div>
                       <div className="comment-desc">{comment.desc}</div>
                     </div>
                   </div>
@@ -270,14 +269,20 @@ const Bid = () => {
                   return (
                     <div key={bid._id} className="freelancer">
                       <div className="user-info">
-                        <img
-                          src={
-                            bid.image ||
-                            `https://ui-avatars.com/api/?name=${bid.username}`
-                          }
-                          alt="user image"
-                        />
-                        <div className="user-name">{bid.username}</div>
+                        <Link to={`/userprofile/${bid.username}`}>
+                          <img
+                            src={
+                              bid.image ||
+                              `https://ui-avatars.com/api/?name=${bid.username}`
+                            }
+                            alt="user image"
+                          />
+                        </Link>
+                        <div className="user-name">
+                          <Link to={`/userprofile/${bid.username}`}>
+                            {bid.username}
+                          </Link>
+                        </div>
                       </div>
                       <div className="flex btn-center">
                         <div className="price">Price : {bid.amount}₹</div>
