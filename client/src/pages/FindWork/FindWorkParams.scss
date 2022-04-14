@@ -10,7 +10,8 @@
     .sidebar {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 110px);
+      height: max-content;
+      min-height: calc(100vh - 110px);
       background: white;
       box-shadow: var(--box-shadow);
       border-radius: 40px;
@@ -25,21 +26,19 @@
         font-size: 27px;
         color: var(--primary-color);
       }
+      select {
+        height: 40px;
+        width: calc(100% - 40px);
+        padding: 10px;
+        font-size: 15px;
+        cursor: pointer;
 
+        option {
+          padding: 5px;
+        }
+      }
       .category-dropdown {
         margin-bottom: 20px;
-
-        select {
-          height: 40px;
-          width: calc(100% - 40px);
-          padding: 10px;
-          font-size: 15px;
-          cursor: pointer;
-
-          option {
-            padding: 5px;
-          }
-        }
       }
 
       input[type="text"] {
