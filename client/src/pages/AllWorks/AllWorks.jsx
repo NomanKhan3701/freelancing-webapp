@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Footer, Navbar } from "../../components/import";
 import "./AllWorks.scss";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import LoadingSpinner from "../Chat/LoadingSpinner";
 
 const AllWorks = (props) => {
   const { state } = useLocation();
-  console.log(state);
+  const [isLoading, setLoading] = useState(true);
+  if (!("username" in state)) {
+    setLoading(false);
+  }
+  useEffect(() => {
+    if ("username" in state) {
+      axios
+        .get(
+          `http://localhost:8080/userprofile/allwork/${localStorage.getItem(
+            "username"
+          )}`
+        )
+        .then((response) => {
+          state.freelancingWork = response.data.freelancingWork;
+          setLoading(false);
+        });
+    }
+  });
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <>
       <div className="all-works-container">

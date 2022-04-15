@@ -227,16 +227,12 @@ const user_menu = [
     link: "/userprofile",
   },
   {
-    content: "Manage Requests",
-    link: "/",
+    content: "Work Posted",
+    link: `/userprofile/allpost`,
   },
   {
-    content: "Post Work",
-    link: "/postrequest",
-  },
-  {
-    content: "My wallet",
-    link: "/",
+    content: "Freelancing Work",
+    link: `/userprofile/allwork`,
   },
   {
     content: "About",
@@ -287,11 +283,19 @@ const Navbar = (props) => {
       );
     } else {
       return (
-        <Link to={item.link} key={index}>
-          <div className="user-menu-item">
-            <span>{item.content}</span>
-          </div>
-        </Link>
+        // <Link to={item.link} key={index}>
+
+        // </Link>
+        <div
+          className="user-menu-item"
+          onClick={() =>
+            navigate(item.link, {
+              state: { username: localStorage.getItem("username") },
+            })
+          }
+        >
+          <span>{item.content}</span>
+        </div>
       );
     }
   };
