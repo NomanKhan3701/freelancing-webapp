@@ -12,10 +12,11 @@ const AllPosts = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
-  if (!("username" in state)) {
-    setLoading(false);
-  }
+
   useEffect(() => {
+    if (!("username" in state)) {
+      setLoading(false);
+    }
     if ("username" in state) {
       axios
         .get(
@@ -28,7 +29,7 @@ const AllPosts = (props) => {
           setLoading(false);
         });
     }
-  });
+  }, [state]);
 
   if (isLoading) {
     return <LoadingSpinner />;

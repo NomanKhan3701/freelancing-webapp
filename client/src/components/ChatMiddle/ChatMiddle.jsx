@@ -7,6 +7,7 @@ import { update } from "./../../features/chatMain/chatMainSlice";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const ChatMiddle = (props) => {
+  //dont remove below line of code,
   const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false,
   });
@@ -17,9 +18,6 @@ const ChatMiddle = (props) => {
 
   const [chats, setChats] = useState(props.chats);
   const [chatData, setChatData] = useState(props.chatData);
-  const searchUserForChat = (event) => {
-    const name = event.target.value;
-  };
   const getLastMsg = (room) => {
     for (let i = 0; i < chatData.length; i++) {
       if (chatData[i].room === room) {
@@ -36,9 +34,8 @@ const ChatMiddle = (props) => {
           pData[i].data.length !== chatMainData.chatData.length
         ) {
           pData[i].data = chatMainData.chatData;
-          const element = document.querySelector(
-            `#${chatMainData.room} .last-chat`
-          );
+          let element = document.querySelector(`[id='${chatMainData.room}']`);
+          element = element.getElementsByClassName("last-chat")[0];
           element.textContent = chatMainData.chatData.slice(-1)[0].message;
           if (element.textContent.length > 15) {
             element.textContent = element.textContent.substring(0, 15) + "...";

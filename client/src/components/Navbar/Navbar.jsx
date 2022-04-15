@@ -136,11 +136,6 @@ const SearchAndLinks = (props) => {
   );
 };
 
-const curr_user = {
-  name: "Noman",
-  image: userImage,
-};
-
 const user_message = [
   {
     user_img: { userImage },
@@ -228,6 +223,10 @@ const user_menu = [
   },
   {
     content: "About",
+    link: "/about",
+  },
+  {
+    content: "Give us feedback",
     link: "/about",
   },
   {
