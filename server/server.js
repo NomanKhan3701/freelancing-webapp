@@ -462,26 +462,24 @@ app.post("/chat/:username", (req, res, err) => {
   });
 });
 
-app.post("/chat/:username/:receiver", (req, res, err) => {
+app.post("/chat/:sender/:receiver", (req, res, err) => {
   if (err) {
     console.log(err);
   }
-  const { username, receiver } = req.params;
+  const { sender, receiver } = req.params;
   const { image1, image2 } = req.body;
   //below if showing data after adding new user after refresh
   findAllRoomsWithGivenUserAndDoOtherUSerExits(
-    username,
+    sender,
     receiver,
     image1,
     image2
   ).then((chats) => {
-    getChatDataWithOneUsername(username).then((chatData) => {
+    getChatDataWithOneUsername(sender).then((chatData) => {
       res.send({ chats: chats, chatData: chatData });
     });
   });
 });
-
-app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});
 
 //video calling
 const VC_API_KEY = process.env.VC_API_KEY;

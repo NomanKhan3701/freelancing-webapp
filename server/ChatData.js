@@ -32,7 +32,7 @@ const getChatDataWithRoom = async (room) => {
 };
 
 const getChatDataWithOneUsername = async (username) => {
-  const data = await UserChatData.find({ username: /username/i });
+  const data = await UserChatData.find({ room: /username/i });
   return data;
 };
 

@@ -63,8 +63,8 @@ const addNewUsersToChat = async (username1, username2, image1, image2) => {
     room: username1.concat(username2),
   });
   try {
-    newChatRoom.save();
-    newUserChatData.save();
+    await newChatRoom.save();
+    await newUserChatData.save();
   } catch (error) {
     console.log(error);
   }
@@ -80,21 +80,21 @@ const findAllRoomsWithGivenUser = async (username) => {
 };
 
 const findAllRoomsWithGivenUserAndDoOtherUSerExits = async (
-  username,
+  sender,
   receiver,
   image1,
   image2
 ) => {
   // const data = await UserChatRoom.find({ usernames: /`${username}`/i });
-  await addNewUsersToChat(username, receiver, image1, image2);
-  const regex = new RegExp(username, "i"); // i for case insensitive
+  await addNewUsersToChat(sender, receiver, image1, image2);
+  const regex = new RegExp(sender, "i"); // i for case insensitive
   const data = await UserChatRoom.find({ usernames: { $regex: regex } });
   return data;
 };
 
-const findAllOtherUsersChattingWithGivenUser = async (username) => {
+const findAllOtherUsersChattingWithGivenUser = async (sender) => {
   // const data = await UserChatRoom.find({ usernames: /`${username}`/i });
-  const regex = new RegExp(username, "i"); // i for case insensitive
+  const regex = new RegExp(sender, "i"); // i for case insensitive
   const data = await UserChatRoom.find({ usernames: { $regex: regex } });
   return data;
 };
