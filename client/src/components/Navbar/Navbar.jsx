@@ -203,7 +203,7 @@ const renderMessageToggle = () => (
 const renderMessageMenu = (item, index) => (
   <Link to="/chat" className="notification" key={index}>
     <div className="img">
-      <img src={userImage} alt="user image" />
+      <img src={userImage} alt="User" />
     </div>
     <div className="message">{item.message}</div>
   </Link>
@@ -257,6 +257,11 @@ const Navbar = (props) => {
   try {
     image = image.image.image;
   } catch (error) {
+    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
+  if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;

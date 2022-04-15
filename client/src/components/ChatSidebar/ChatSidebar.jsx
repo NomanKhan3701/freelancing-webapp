@@ -17,8 +17,15 @@ const ChatSidebar = (props) => {
       "username"
     )}`;
   }
+  if (!image) {
+    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
   const logout = () => {
-    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("loggedIn", "false");
+    localStorage.setItem("username", undefined);
+    localStorage.setItem("isDataTaken", "false");
     navigate("/");
   };
   return (
