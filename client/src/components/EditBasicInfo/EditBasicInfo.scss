@@ -1,0 +1,43 @@
+.title {
+    width: 100%;
+    margin: 20px 20px;
+    margin-left: 100px;
+
+    .input {
+        width: 60%;
+        max-width: 700px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: white;
+        border: 1px solid black;
+        border-radius: 60px;
+        margin: 20px 0px;
+        margin-bottom: 50px;
+
+        &:focus {
+            border: 1px solid var(--main-color);
+        }
+    }
+
+    .btn {
+        // margin-left: auto;
+        // margin-right: auto;
+        // margin-top: 20px;
+        background: linear-gradient(90deg, #755bea, #ff72c0);
+        width: max-content;
+        padding: 10px 30px;
+        // font-size: 20px;
+        border-radius: var(--border-radius-big);
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(90deg, #634fbb, #d863a3);
+        }
+    }
+
+    .file-input {
+        padding: 20px 0;
+    }
+
+}

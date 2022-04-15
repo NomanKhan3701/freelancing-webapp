@@ -12,3 +12,7 @@ export { default as ClientDashboard } from "./ClientDashboard/ClientDashboard";
 export { default as AllWorks } from "./AllWorks/AllWorks";
 export { default as AllPosts } from "./AllPosts/AllPosts";
 export { default as ClientProjectProgress } from "./ClientProjectProgress/ClientProjectProgress";
+export { default as EditProfile } from "./EditProfile/EditProfile";
+export { default as EditProfileInfo } from "../components/EditProfileInfo/EditProfileInfo";
+export { default as EditBasicInfo } from "../components/EditBasicInfo/EditBasicInfo";
+export { default as EditUsername } from "../components/EditUsername/EditUsername";

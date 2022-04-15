@@ -15,6 +15,10 @@ import {
   AllPosts,
   ClientProjectProgress,
   FeedBack,
+  EditProfile,
+  EditBasicInfo,
+  EditUsername,
+  EditProfileInfo
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
@@ -24,6 +28,7 @@ import PostTalent from "./pages/PostTalent/PostTalent";
 import UserProfileInput from "./pages/UserProfileInput/UserProfileInput";
 
 import VideoCall from "./components/ChatMain/VideoCall";
+// import { EditProfileInfo } from "./pages/import";
 
 function App() {
   if (
@@ -55,6 +60,11 @@ function App() {
         />
 
         <Route path="/video/:id" element={<VideoCall />} />
+        <Route path="/editprofile" element={<EditProfile />}>
+          <Route path='edituandp' element={<EditUsername />}></Route>
+          <Route path='editbasic' element={<EditBasicInfo />}></Route>
+          <Route path='editprofileinfo' element={<EditProfileInfo />}></Route>
+        </Route>
 
         <Route path="/findpartner" element={<FindPartner />} />
 
