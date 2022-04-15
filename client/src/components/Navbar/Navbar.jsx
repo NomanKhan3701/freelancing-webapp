@@ -136,11 +136,6 @@ const SearchAndLinks = (props) => {
   );
 };
 
-const curr_user = {
-  name: "Noman",
-  image: userImage,
-};
-
 const user_message = [
   {
     user_img: { userImage },
@@ -213,33 +208,25 @@ const renderMessageFooter = () => (
   </Link>
 );
 
-// const user_order = [];
-
-// const renderOrderToggle = () => <div className="order-dropdown">Order(2)</div>;
-
-// const renderOrderMenu = (item,index) => ();
-
-// const renderOrderFooter = () => ();
-
 const user_menu = [
   {
     content: "Profile",
     link: "/userprofile",
   },
   {
-    content: "Manage Requests",
-    link: "/",
+    content: "Work Posted",
+    link: `/userprofile/allpost`,
   },
   {
-    content: "Post Work",
-    link: "/postrequest",
-  },
-  {
-    content: "My wallet",
-    link: "/",
+    content: "Freelancing Work",
+    link: `/userprofile/allwork`,
   },
   {
     content: "About",
+    link: "/about",
+  },
+  {
+    content: "Give us feedback",
     link: "/about",
   },
   {
@@ -256,12 +243,6 @@ const Navbar = (props) => {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
   let navigate = useNavigate();
   let image = localStorage.getItem("image");
-  if (!image) {
-    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
-      "username"
-    )}`;
-  }
-
   if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
@@ -287,17 +268,22 @@ const Navbar = (props) => {
       );
     } else {
       return (
-        <Link to={item.link} key={index}>
-          <div className="user-menu-item">
-            <span>{item.content}</span>
-          </div>
-        </Link>
+        <div
+          className="user-menu-item"
+          onClick={() =>
+            navigate(item.link, {
+              state: { username: localStorage.getItem("username") },
+            })
+          }
+        >
+          <span>{item.content}</span>
+        </div>
       );
     }
   };
-  const renderUserToggle = (user) => (
+  const renderUserToggle = () => (
     <div className="user-img">
-      <img src={image} alt="User Image" />
+      <img src={image} alt="User" />
     </div>
   );
   return (
@@ -359,7 +345,7 @@ const Navbar = (props) => {
           </div> */}
           <div className="user-profile">
             <Dropdown
-              customToggle={() => renderUserToggle(curr_user)}
+              customToggle={() => renderUserToggle()}
               contentData={user_menu}
               renderItems={(item, index) => renderUserMenu(item, index)}
             />

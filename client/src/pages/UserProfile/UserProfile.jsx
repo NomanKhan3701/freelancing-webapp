@@ -24,7 +24,6 @@ const UserProfile = () => {
   const [isLoading, setLoading] = useState(true);
   const [otherUser, setOtherUser] = useState();
   const params = useParams();
-  let image;
 
   useEffect(() => {
     const isDataTaken = localStorage.getItem("isDataTaken");

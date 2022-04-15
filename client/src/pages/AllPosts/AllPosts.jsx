@@ -1,14 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Footer, Navbar } from "../../components/import";
 import "./AllPosts.scss";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../Chat/LoadingSpinner";
+
+toast.configure();
 
 const AllPosts = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!("username" in state)) {
+      setLoading(false);
+    }
+    if ("username" in state) {
+      axios
+        .get(
+          `http://localhost:8080/userprofile/allpost/${localStorage.getItem(
+            "username"
+          )}`
+        )
+        .then((response) => {
+          state.workPosted = response.data.workPosted;
+          setLoading(false);
+        });
+    }
+  }, [state]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   const viewBids = (workId) => {
     axios
       .get(`http://localhost:8080/findworkdata/${workId}`)
@@ -20,7 +46,7 @@ const AllPosts = (props) => {
             },
           });
         } else {
-          toast.configure("error in routing to client dashboard.", {
+          toast.error("error in routing to client dashboard.", {
             position: "top-center",
           });
         }
@@ -48,7 +74,6 @@ const AllPosts = (props) => {
   };
   return (
     <>
-    
       <div className="all-posts-container">
         <Navbar />
         <h1>All Posts</h1>

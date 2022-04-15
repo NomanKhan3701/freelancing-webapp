@@ -257,6 +257,28 @@ app.get("/findtalent/:category", (req, res, err) => {
   }
 });
 
+app.get("/userprofile/allpost/:username", (req, res, err) => {
+  const username = req.params.username;
+  getWorkPostedDataByUsername(username)
+    .then((workPosted) => {
+      res.send({ workPosted: workPosted });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get("/userprofile/allwork/:username", (req, res, err) => {
+  const username = req.params.username;
+  getFreelancerWorkByUsername(username)
+    .then((freelancingWork) => {
+      res.send({ freelancingWork: freelancingWork });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 app.get("/userprofiledata/:username", (req, res, err) => {
   const username = req.params.username;
   getUserProfileDataUsingUsername(username)
@@ -264,26 +286,6 @@ app.get("/userprofiledata/:username", (req, res, err) => {
       getWorkPostedDataByUsername(username).then((workPosted) => {
         getFreelancerWorkByUsername(username).then((freelancingWork) => {
           isUserDataTaken(username).then((isUserDataTaken) => {
-            // console.log("userProfileData");
-            // console.log(Object.keys(response._doc));
-            // console.log("======================");
-            // console.log("work posted data by username");
-            // console.log(workPosted);
-            // console.log("======================");
-            // console.log("get freelancer work by iusername");
-            // console.log(freelancingWork);
-            // console.log("======================");
-            // console.log("is user data taken");
-            // console.log(isUserDataTaken);
-            // console.log("======================");
-            // res.send({
-            //   data: {
-            //     ...response,
-            //     workPosted,
-            //     freelancingWork,
-            //     isUserDataTaken,
-            //   },
-            // });
             res.send({
               userProfileData: response._doc,
               workPosted: workPosted,

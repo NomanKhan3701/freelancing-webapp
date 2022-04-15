@@ -113,8 +113,7 @@ const UserSignUpFindData = async (username, passwordEnteredByUser) => {
     passwordEnteredByUser,
     hashedPasswordFromDB
   );
-  if (data.length === 0) result = 2;
-  else result = match ? 6 : 5;
+  result = match ? 6 : 5;
   return result;
 };
 
@@ -123,6 +122,9 @@ const isValidUser = async (user) => {
   let { username, password } = user;
   result = await UserSignUpFindData(username, password);
   let userDataTaken = false;
+  if (result === 2 && password === "") {
+    result = await createNewUser(user);
+  }
   if (result === 6) {
     const data = await UserSignUp.find({ username: username });
     userDataTaken = data[0].userDataTaken;
