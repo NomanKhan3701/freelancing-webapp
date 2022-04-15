@@ -12,3 +12,4 @@ export { default as ClientDashboard } from "./ClientDashboard/ClientDashboard";
 export { default as AllWorks } from "./AllWorks/AllWorks";
 export { default as AllPosts } from "./AllPosts/AllPosts";
 export { default as ClientProjectProgress } from "./ClientProjectProgress/ClientProjectProgress";
+export { default as EditProfile } from "./EditProfile/EditProfile";

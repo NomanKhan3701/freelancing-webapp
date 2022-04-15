@@ -15,6 +15,7 @@ import {
   AllPosts,
   ClientProjectProgress,
   FeedBack,
+  EditProfile
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
@@ -55,6 +56,7 @@ function App() {
         />
 
         <Route path="/video/:id" element={<VideoCall />} />
+        <Route path="/editprofile" element={<EditProfile />} />
 
         <Route path="/findpartner" element={<FindPartner />} />
 
