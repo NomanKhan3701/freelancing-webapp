@@ -3,7 +3,7 @@ import React from "react";
 
 const EditBasicInfo = () => {
   return (
-    <div className="title">
+    <div className="edit-info-title">
       <h3>Enter Full Name</h3>
       <input type="text" placeholder="Full Name" className="input" />
       <h3>Enter Email</h3>
