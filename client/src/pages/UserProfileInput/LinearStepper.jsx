@@ -54,7 +54,7 @@ function getSteps() {
 const LinearStepper = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const tempImage = localStorage.getItem("image");
+  let tempImage = localStorage.getItem("image");
   if (
     !(
       tempImage &&
