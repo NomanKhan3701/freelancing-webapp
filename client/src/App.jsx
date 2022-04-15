@@ -59,7 +59,7 @@ function App() {
         />
 
         <Route path="/video/:id" element={<VideoCall />} />
-        <Route path="/editprofile" element={<EditProfile />}>
+        <Route path="/settings" element={<EditProfile />}>
           <Route path="edituandp" element={<EditUsername />}></Route>
           <Route path="editbasic" element={<EditBasicInfo />}></Route>
           <Route path="editprofileinfo" element={<EditProfileInfo />}></Route>

@@ -1,12 +1,14 @@
 const { doesUserExistWithBid, Bid, deleteBids } = require("./Bids");
 const {
   updateCountForBid,
-  getWorkPostedDataById,
   findWorkDataAndDelete,
   getNumberOfJobsPosted,
 } = require("./FindWorkData");
 const { WorkProgress, updateWorkProgress } = require("./workProgress");
-const { WorkInProgressData } = require("./WorkInProgressData");
+const {
+  WorkInProgressData,
+  getWorkInProgressDataById,
+} = require("./WorkInProgressData");
 const { getNumberOfRegisteredUsers } = require("./database");
 const addBid = async (data) => {
   const { workId, username, desc, amount, image } = data;
@@ -42,18 +44,17 @@ const getFreelancerWorkByUsername = async (username) => {
   );
   if (data.length === 0) {
     return [];
-  } else {
-    const freelancerWork = [];
-    for (let i = 0; i < data.length; i++) {
-      try {
-        const dat = await getWorkPostedDataById(data[i].workId);
-        freelancerWork.push({ ...data[i], ...dat });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    return freelancerWork;
   }
+  const freelancerWork = [];
+  for (let i = 0; i < data.length; i++) {
+    try {
+      const dat = await getWorkInProgressDataById(data[i].workId);
+      freelancerWork.push({ ...data[i]._doc, ...dat[0]._doc });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return freelancerWork;
 };
 
 const addWorkInProgressData = async (workId, freelancer) => {

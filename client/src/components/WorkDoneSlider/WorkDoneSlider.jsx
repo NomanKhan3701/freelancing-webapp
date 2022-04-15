@@ -9,30 +9,6 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper";
 
 const WorkDoneSlider = (props) => {
-  // const works = [
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "In progress",
-  //   },
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "Done",
-  //   },
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "Ongoing",
-  //   },
-  //   {
-  //     title: "Javscript dev",
-  //     desc: "Javascrit developer with 2 year experience and a good knowledge of frontend",
-  //     status: "Long term",
-  //   },
-  // ];
-  // useEffect(() => {}, [props.work]);
-
   return (
     <div className="work-done-slider">
       {props.freelance.length === 0 ? (
@@ -60,13 +36,14 @@ const WorkDoneSlider = (props) => {
                   transition={{ duration: 1, ease: "linear" }}
                   className="work-done-slider-card"
                 >
-                  <div className="card-title">{work._doc.title}</div>
-                  <div className="card-desc">{work._doc.desc}</div>
+                  <div className="card-title">{work.title}</div>
+                  <div className="card-desc">{work.desc}</div>
                   <div
-                    className={`card-status ${work._doc.progress === "In progress" ? "progress" : "done"
-                      }`}
+                    className={`card-status ${
+                      work.progress === "In progress" ? "progress" : "done"
+                    }`}
                   >
-                    {work._doc.progress}
+                    {work.progress}
                   </div>
                 </motion.div>
               </SwiperSlide>

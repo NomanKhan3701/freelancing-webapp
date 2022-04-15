@@ -62,21 +62,22 @@ const UserProfile = () => {
     axios
       .get(`http://localhost:8080/userprofiledata/${username}`)
       .then((response) => {
+        // console.log("response.data");
+        // console.log(response.data);
+        // console.log({
+        //   ...response.data.userProfileData,
+        //   workPosted: response.data.workPosted,
+        //   freelancingWork: response.data.freelancingWork,
+        //   isDataTaken: response.data.isUserDataTaken,
+        // });
+
         setUserData({
-          ...response.data.data._doc,
-          workPosted: response.data.data.workPosted,
-          freelancingWork: response.data.data.freelancingWork,
-          isDataTaken: response.data.data.isUserDataTaken,
+          ...response.data.userProfileData,
+          workPosted: response.data.workPosted,
+          freelancingWork: response.data.freelancingWork,
+          isDataTaken: response.data.isUserDataTaken,
         });
-        console.log("response.data.data");
-        console.log(response.data.data);
-        console.log({
-          ...response.data.data._doc,
-          workPosted: response.data.data.workPosted,
-          freelancingWork: response.data.data.freelancingWork,
-          isDataTaken: response.data.data.isUserDataTaken,
-        });
-        localStorage.setItem("isDataTaken", response.data.data.isUserDataTaken);
+        localStorage.setItem("isDataTaken", response.data.isUserDataTaken);
         setLoading(false);
       });
   }, []);
@@ -107,9 +108,6 @@ const UserProfile = () => {
       },
     });
   };
-
-  console.log("userData");
-  console.log(userData);
 
   return (
     <div className="user-profile-container">

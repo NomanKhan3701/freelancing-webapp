@@ -116,7 +116,7 @@ const getWorkInProgressDataByUsername = async (username) => {
 };
 
 const getWorkInProgressDataById = async (id) => {
-  const data = await WorkInProgressData.find({ _id: id });
+  const data = await WorkInProgressData.find({ workId: id });
   return data;
 };
 

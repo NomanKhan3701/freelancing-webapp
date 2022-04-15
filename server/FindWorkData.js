@@ -138,7 +138,7 @@ const getWorkPostedDataByUsername = async (username) => {
 
 const getWorkPostedDataById = async (id) => {
   const data = await FindWorkData.find(
-    { _id: id },
+    { _id: ObjectId(id) },
     {
       title: 1,
       desc: 1,

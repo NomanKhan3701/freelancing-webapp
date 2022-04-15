@@ -227,20 +227,24 @@ const user_menu = [
     link: "/userprofile",
   },
   {
-    content: "Dashboard",
-    link: "/",
-  },
-  {
     content: "Manage Requests",
     link: "/",
   },
   {
-    content: "Post a Request",
+    content: "Post Work",
     link: "/postrequest",
   },
   {
     content: "My wallet",
     link: "/",
+  },
+  {
+    content: "About",
+    link: "/about",
+  },
+  {
+    content: "Settings",
+    link: "/settings",
   },
   {
     content: "Logout",

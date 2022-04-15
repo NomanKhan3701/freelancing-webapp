@@ -264,13 +264,31 @@ app.get("/userprofiledata/:username", (req, res, err) => {
       getWorkPostedDataByUsername(username).then((workPosted) => {
         getFreelancerWorkByUsername(username).then((freelancingWork) => {
           isUserDataTaken(username).then((isUserDataTaken) => {
+            // console.log("userProfileData");
+            // console.log(Object.keys(response._doc));
+            // console.log("======================");
+            // console.log("work posted data by username");
+            // console.log(workPosted);
+            // console.log("======================");
+            // console.log("get freelancer work by iusername");
+            // console.log(freelancingWork);
+            // console.log("======================");
+            // console.log("is user data taken");
+            // console.log(isUserDataTaken);
+            // console.log("======================");
+            // res.send({
+            //   data: {
+            //     ...response,
+            //     workPosted,
+            //     freelancingWork,
+            //     isUserDataTaken,
+            //   },
+            // });
             res.send({
-              data: {
-                ...response,
-                workPosted,
-                freelancingWork,
-                isUserDataTaken,
-              },
+              userProfileData: response._doc,
+              workPosted: workPosted,
+              freelancingWork: freelancingWork,
+              isUserDataTaken: isUserDataTaken,
             });
           });
         });
