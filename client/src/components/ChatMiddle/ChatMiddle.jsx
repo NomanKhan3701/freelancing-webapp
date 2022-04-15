@@ -35,7 +35,12 @@ const ChatMiddle = (props) => {
           const element = document.querySelector(
             `#${chatMainData.room} .last-chat`
           );
+          console.log("element");
+          console.log(element);
           element.textContent = chatMainData.chatData.slice(-1)[0].message;
+          if (element.textContent.length > 15) {
+            element.textContent = element.textContent.substring(0, 15) + "...";
+          }
           break;
         }
       }
@@ -114,8 +119,7 @@ const ChatMiddle = (props) => {
           let lstTimeOfMsg;
           let lastMsgTime;
           let lastttMessage;
-          const receiverImage =
-            sender === username1 ? chat.image2 : chat.image1;
+          let receiverImage = sender === username1 ? chat.image2 : chat.image1;
           if (!receiverImage) {
             receiverImage = `https://ui-avatars.com/api/?name=${receiver}`;
           }

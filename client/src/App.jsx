@@ -26,12 +26,20 @@ import UserProfileInput from "./pages/UserProfileInput/UserProfileInput";
 import VideoCall from "./components/ChatMain/VideoCall";
 
 function App() {
-  localStorage.setItem("isDataTaken", "false");
+  if (
+    !(
+      Object.keys(localStorage).includes("isDataTaken") &&
+      localStorage.getItem("isDataTaken") === "true"
+    )
+  ) {
+    localStorage.setItem("isDataTaken", "false");
+  }
+
   return (
     <BrowserRouter className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="findtalent" element={<FindTalent />} />
+        <Route path="/findtalent" element={<FindTalent />} />
         {/* <Route path="/clientdashboard" element={<UserDashboard />}></Route> */}
 
         {/* //write category component, post component */}

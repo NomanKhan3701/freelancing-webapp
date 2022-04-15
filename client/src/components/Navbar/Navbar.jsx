@@ -262,9 +262,9 @@ const Navbar = (props) => {
     )}`;
   }
   const logout = () => {
-    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("loggedIn", "false");
     localStorage.setItem("username", undefined);
-    localStorage.setItem("isDataTaken", false);
+    localStorage.setItem("isDataTaken", "false");
     setLoggedIn("false");
     navigate("/");
   };
