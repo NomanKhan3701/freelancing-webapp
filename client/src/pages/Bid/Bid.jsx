@@ -49,21 +49,27 @@ const Bid = () => {
         setLoading(false);
       });
     if (loggedIn === "false") {
-      toast.error("Please login to post.", {
+      toast.error("Please login to bid.", {
         position: "top-center",
       });
       navigate("/login", {
         state: {
-          goingTo: "/findtalent/postwork",
+          goingTo: "/findwork/bid",
+          work: work,
         },
       });
       return;
     }
-    if (!isDataTaken === "true") {
-      toast.success("You must fill your details before posting the work.", {
+    if (isDataTaken === "false") {
+      toast.success("You must fill your details before starting to bid.", {
         position: "top-center",
       });
-      navigate("/userprofileinput");
+      navigate("/userprofileinput", {
+        state: {
+          goingTo: "/findwork/bid",
+          work: work,
+        },
+      });
     }
   }, []);
 
