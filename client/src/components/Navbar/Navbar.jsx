@@ -213,14 +213,6 @@ const renderMessageFooter = () => (
   </Link>
 );
 
-// const user_order = [];
-
-// const renderOrderToggle = () => <div className="order-dropdown">Order(2)</div>;
-
-// const renderOrderMenu = (item,index) => ();
-
-// const renderOrderFooter = () => ();
-
 const user_menu = [
   {
     content: "Profile",
@@ -257,12 +249,6 @@ const Navbar = (props) => {
       "username"
     )}`;
   }
-
-  if (!image) {
-    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
-      "username"
-    )}`;
-  }
   const logout = () => {
     localStorage.setItem("loggedIn", "false");
     localStorage.setItem("username", undefined);
@@ -283,9 +269,6 @@ const Navbar = (props) => {
       );
     } else {
       return (
-        // <Link to={item.link} key={index}>
-
-        // </Link>
         <div
           className="user-menu-item"
           onClick={() =>
@@ -299,9 +282,9 @@ const Navbar = (props) => {
       );
     }
   };
-  const renderUserToggle = (user) => (
+  const renderUserToggle = () => (
     <div className="user-img">
-      <img src={image} alt="User Image" />
+      <img src={image} alt="User" />
     </div>
   );
   return (
@@ -363,7 +346,7 @@ const Navbar = (props) => {
           </div> */}
           <div className="user-profile">
             <Dropdown
-              customToggle={() => renderUserToggle(curr_user)}
+              customToggle={() => renderUserToggle()}
               contentData={user_menu}
               renderItems={(item, index) => renderUserMenu(item, index)}
             />

@@ -8,18 +8,11 @@ import {
   Stepper,
   Step,
   StepLabel,
-  Input,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  useForm,
-  Controller,
-  FormProvider,
-  useFormContext,
-} from "react-hook-form";
+import { useForm, Controller, FormProvider } from "react-hook-form";
 import { toast } from "react-toastify";
 import Multiselect from "multiselect-react-dropdown";
-import { UserProfile } from "../import";
 import { useLocation, useNavigate } from "react-router";
 import axios from "axios";
 
@@ -61,15 +54,25 @@ function getSteps() {
 const LinearStepper = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const tempImage = localStorage.getItem("image");
+  if (
+    !(
+      tempImage &&
+      tempImage !== "undefined" &&
+      !tempImage.includes("ui-avatars")
+    )
+  ) {
+    tempImage = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
   const [getUserData, setUserData] = useState({
     username: localStorage.getItem("username"),
     fullname: "",
     desc: "",
     email: "",
     linkdin: "",
-    image: `https://ui-avatars.com/api/?name=${localStorage.getItem(
-      "username"
-    )}`,
+    image: tempImage,
     category: [],
     skills: [],
     rating: 0,
@@ -275,10 +278,6 @@ const LinearStepper = (props) => {
   const [skippedSteps, setSkippedSteps] = useState([]);
   const steps = getSteps();
 
-  const isStepOptional = (step) => {
-    return step === 1 || step === 2;
-  };
-
   const isStepSkipped = (step) => {
     return skippedSteps.includes(step);
   };
@@ -302,17 +301,6 @@ const LinearStepper = (props) => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleSkip = () => {
-    if (!isStepSkipped(activeStep)) {
-      setSkippedSteps([...skippedSteps, activeStep]);
-    }
-    setActiveStep(activeStep + 1);
-  };
-
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
-
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -323,19 +311,15 @@ const LinearStepper = (props) => {
 
   const submitUserProfile = (event) => {
     if (event.target.textContent === "Finish") {
-      let username, fullname, email, linkdin, desc, image, category, skills;
+      let username, fullname, email, desc, image;
       username = localStorage.getItem("username");
       fullname = getUserData.fullname;
       email = getUserData.email;
-      linkdin = getUserData.linkdin;
       desc = getUserData.desc;
       image = getUserData.image;
       if (!image) {
         image = `https://ui-avatars.com/api/?name=${username}`;
       }
-
-      category = getUserData.category;
-      skills = getUserData.skills;
       if (!fullname) {
         toast.error("please enter your full name.", {
           position: "top-center",
@@ -374,7 +358,10 @@ const LinearStepper = (props) => {
           console.log(err);
         });
       localStorage.setItem("isDataTaken", "true");
-      localStorage.setItem("image", image);
+      let UserImage = localStorage.getItem("image");
+      if (!UserImage || UserImage === "undefined") {
+        localStorage.setItem("image", image);
+      }
       try {
         if (props.stateData && "work" in props.stateData) {
           navigate(props.stateData.goingTo, {
