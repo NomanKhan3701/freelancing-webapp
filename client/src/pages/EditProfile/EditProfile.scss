@@ -32,6 +32,29 @@
                 cursor: pointer;
                 border-left: solid medium black;
             }
+
+            Link {
+                &:hover {
+                    color: black;
+                }
+            }
+
+
+        }
+
+        .active {
+            background-color: rgb(243, 243, 243);
+            border-left: solid medium black;
         }
     }
+
+
+    .edit-component {
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        margin-top: 50px;
+        width: 100%;
+    }
+
 }
