@@ -1,24 +1,16 @@
-import React from 'react'
+import React from "react";
 // import './EditBasicInfo.scss'
 
 const EditBasicInfo = () => {
-    return (
-        <div className="title">
-            <h3>Enter Full Name</h3>
-            <input
-                type="text"
-                placeholder="Full Name"
-                className='input'
-            />
-            <h3>Enter Email</h3>
-            <input
-                type="text"
-                placeholder="Email ID"
-                className='input'
-            />
-            <div className='btn'>Submit</div>
-        </div>
-    )
-}
+  return (
+    <div className="title">
+      <h3>Enter Full Name</h3>
+      <input type="text" placeholder="Full Name" className="input" />
+      <h3>Enter Email</h3>
+      <input type="text" placeholder="Email ID" className="input" />
+      <div className="btn">Submit</div>
+    </div>
+  );
+};
 
-export default EditBasicInfo
+export default EditBasicInfo;

@@ -14,11 +14,10 @@ import {
   AllWorks,
   AllPosts,
   ClientProjectProgress,
-  FeedBack,
   EditProfile,
   EditBasicInfo,
   EditUsername,
-  EditProfileInfo
+  EditProfileInfo,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/import";
@@ -61,9 +60,9 @@ function App() {
 
         <Route path="/video/:id" element={<VideoCall />} />
         <Route path="/editprofile" element={<EditProfile />}>
-          <Route path='edituandp' element={<EditUsername />}></Route>
-          <Route path='editbasic' element={<EditBasicInfo />}></Route>
-          <Route path='editprofileinfo' element={<EditProfileInfo />}></Route>
+          <Route path="edituandp" element={<EditUsername />}></Route>
+          <Route path="editbasic" element={<EditBasicInfo />}></Route>
+          <Route path="editprofileinfo" element={<EditProfileInfo />}></Route>
         </Route>
 
         <Route path="/findpartner" element={<FindPartner />} />

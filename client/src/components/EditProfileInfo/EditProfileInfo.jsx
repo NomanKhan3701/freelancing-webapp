@@ -1,34 +1,30 @@
-import React from 'react'
+import React from "react";
 import FileBase64 from "react-file-base64";
-import "./EditProfileInfo.scss"
+import "./EditProfileInfo.scss";
 
-import '../EditBasicInfo/EditBasicInfo.scss'
+import "../EditBasicInfo/EditBasicInfo.scss";
 const EditProfileInfo = () => {
-    return (
-        <div className="title">
-            <h3>Enter Description</h3>
-            <input
-                type="text"
-                placeholder="Edit Description"
-                className='input'
-            />
-            <h3>Edit Profile Image</h3>
-            <div className='file-input'>
-                {/* <label htmlFor="myfile">Profile Image:</label> */}
-                <FileBase64
-                    type="file"
-                    multiple={false}
-                    className="file-input"
-                // onDone={({ base64 }) =>
-                //     setUserData((prevValue) => {
-                //         return { ...prevValue, image: base64 };
-                //     })
-                // }
-                />
-            </div>
-            <div className='btn'>Submit</div>
-        </div>
-    )
-}
+  return (
+    <div className="title">
+      <h3>Enter Description</h3>
+      <input type="text" placeholder="Edit Description" className="input" />
+      <h3>Edit Profile Image</h3>
+      <div className="file-input">
+        {/* <label htmlFor="myfile">Profile Image:</label> */}
+        <FileBase64
+          type="file"
+          multiple={false}
+          className="file-input"
+          // onDone={({ base64 }) =>
+          //     setUserData((prevValue) => {
+          //         return { ...prevValue, image: base64 };
+          //     })
+          // }
+        />
+      </div>
+      <div className="btn">Submit</div>
+    </div>
+  );
+};
 
-export default EditProfileInfo
+export default EditProfileInfo;
