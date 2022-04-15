@@ -79,6 +79,9 @@ const Chat = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
+  console.log("chatData from chat.jsx");
+  console.log(chatData);
   return (
     <div className="chat-container">
       <div className="chat">
