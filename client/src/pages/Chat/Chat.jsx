@@ -8,10 +8,8 @@ import {
 } from "../../components/import";
 import "./Chat.scss";
 import LoadingSpinner from "./LoadingSpinner";
-import { useSelector, useDispatch } from "react-redux";
 
 import { useLocation } from "react-router";
-import { selectImageData } from "../../features/images/imageSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 toast.configure();
@@ -23,10 +21,10 @@ const Chat = () => {
   const [chats, setChats] = useState();
   const [chatData, setChatData] = useState();
   const { state } = useLocation();
-  let image1 = useSelector(selectImageData);
-  try {
-    image1 = image1.image.image;
-  } catch (error) {}
+  let image1 = localStorage.getItem("image");
+  if (!image1) {
+    image1 = `https://ui-avatars.com/api/?name=${sender}`;
+  }
   let receiver, image2;
 
   try {

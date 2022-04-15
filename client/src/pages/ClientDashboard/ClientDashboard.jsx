@@ -7,22 +7,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectImageData } from "../../features/images/imageSlice";
 toast.configure();
 
 const ClientDashboard = () => {
   let navigate = useNavigate();
   //data passed through navigation is accessed using useLocation
   const { state } = useLocation();
-  let senderImage = useSelector(selectImageData);
-  try {
-    senderImage = senderImage.image.image;
-  } catch (error) {
+  let senderImage = localStorage.getItem("image");
+  if (!senderImage) {
     senderImage = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;
   }
+
   let work = state.work;
   if (Array.isArray(work)) {
     work = work[0];

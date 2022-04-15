@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "../../components/import";
 import "./Bid.scss";
-import clientImg from "../../assets/images/Cha2.jpg";
 import { useLocation } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectImageData } from "../../features/images/imageSlice";
 
 const Bid = () => {
   let navigate = useNavigate();
@@ -25,10 +22,8 @@ const Bid = () => {
     desc: "",
   });
 
-  let image = useSelector(selectImageData);
-  try {
-    image = image.image.image;
-  } catch (error) {
+  let image = localStorage.getItem("image");
+  if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;

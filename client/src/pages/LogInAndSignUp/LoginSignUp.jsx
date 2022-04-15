@@ -9,17 +9,13 @@ import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
 import { ScreenOverlayLoader } from "../../components/import";
-import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { selectImageData, update } from "../../features/images/imageSlice";
 
 toast.configure();
 
 const axios = require("axios").default;
 
 const LoginSignUp = (props) => {
-  const imageData = useSelector(selectImageData);
-  const dispatch = useDispatch();
   //to redirect after cliking signUp or login option on LoginSignUp page
   let navigate = useNavigate();
   const location = useLocation();
@@ -162,11 +158,7 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
           localStorage.setItem("isDataTaken", response.data.userDataTaken);
-          dispatch(
-            update({
-              image: response.data.image,
-            })
-          );
+          localStorage.setItem("image", response.data.image.image);
         }
         onResult(response.data.result, context.toLowerCase());
       })

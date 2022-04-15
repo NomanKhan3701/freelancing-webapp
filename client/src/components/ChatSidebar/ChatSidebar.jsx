@@ -1,22 +1,11 @@
 import React from "react";
 import "./ChatSidebar.scss";
-import user_image from "../../assets/images/Cha2.jpg";
-import { Home } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
-import { selectImageData } from "../../features/images/imageSlice";
 
 const ChatSidebar = (props) => {
   const navigate = useNavigate();
-  let image = useSelector(selectImageData);
-  try {
-    image = image.image.image;
-  } catch (error) {
-    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
-      "username"
-    )}`;
-  }
+  let image = localStorage.getItem("image");
   if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
@@ -26,6 +15,8 @@ const ChatSidebar = (props) => {
     localStorage.setItem("loggedIn", "false");
     localStorage.setItem("username", undefined);
     localStorage.setItem("isDataTaken", "false");
+    localStorage.setItem("image", undefined);
+
     navigate("/");
   };
   return (
