@@ -154,6 +154,7 @@ const LoginSignUp = (props) => {
         //response is the object that contains data sent from server
         //response.data is that data
         //localStorage.setItem("isDataTaken", response.data.userDataTaken);
+        console.log("response aagaya backend se");
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||
@@ -197,6 +198,14 @@ const LoginSignUp = (props) => {
       case 3:
         //user exist with username and google signUP trying
         if (location.state.goingTo) {
+          if ("work" in location.state) {
+            navigate(location.state.goingTo, {
+              state: {
+                work: location.state.work,
+              },
+            });
+            return;
+          }
           navigate(location.state.goingTo);
           return;
         }
@@ -205,6 +214,14 @@ const LoginSignUp = (props) => {
       case 4:
         //new user created successfully
         if (location.state.goingTo) {
+          if ("work" in location.state) {
+            navigate(location.state.goingTo, {
+              state: {
+                work: location.state.work,
+              },
+            });
+            return;
+          }
           navigate(location.state.goingTo);
           return;
         }
@@ -219,6 +236,14 @@ const LoginSignUp = (props) => {
       case 6:
         //login succesfully
         if (location.state.goingTo) {
+          if ("work" in location.state) {
+            navigate(location.state.goingTo, {
+              state: {
+                work: location.state.work,
+              },
+            });
+            return;
+          }
           navigate(location.state.goingTo);
           return;
         }

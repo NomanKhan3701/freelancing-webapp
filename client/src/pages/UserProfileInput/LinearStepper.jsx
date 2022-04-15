@@ -58,7 +58,7 @@ function getSteps() {
   ];
 }
 
-const LinearStepper = () => {
+const LinearStepper = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [getUserData, setUserData] = useState({
@@ -371,6 +371,14 @@ const LinearStepper = () => {
         });
       localStorage.setItem("isDataTaken", "true");
       try {
+        if (props.stateData && "work" in props.stateData) {
+          navigate(props.stateData.goingTo, {
+            state: {
+              work: props.stateData.work,
+            },
+          });
+          return;
+        }
         navigate(state.goingTo);
       } catch (error) {
         navigate("/");
