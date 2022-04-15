@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./ChatMiddle.scss";
-import { Dehaze, Search } from "@material-ui/icons";
-import peopleImg1 from "../../assets/images/Cha2.jpg";
-import peopleImg2 from "../../assets/images/userImage.jpg";
+import { Search } from "@material-ui/icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { update } from "./../../features/chatMain/chatMainSlice";
-import Multiselect from "multiselect-react-dropdown";
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const ChatMiddle = (props) => {
+  const customizedMiddleware = getDefaultMiddleware({
+    serializableCheck: false,
+  });
   const chatMainData = useSelector((state) => state.chatMainData.value);
   const dispatch = useDispatch();
 
@@ -39,6 +40,9 @@ const ChatMiddle = (props) => {
             `#${chatMainData.room} .last-chat`
           );
           element.textContent = chatMainData.chatData.slice(-1)[0].message;
+          if (element.textContent.length > 15) {
+            element.textContent = element.textContent.substring(0, 15) + "...";
+          }
           break;
         }
       }
@@ -46,7 +50,7 @@ const ChatMiddle = (props) => {
     });
   }, [chatMainData]);
 
-  const changeChatMain = (room) => {
+  const changeChatMain = (room, receiverImage) => {
     if (chatMainData.room === room) {
       return;
     }
@@ -63,6 +67,9 @@ const ChatMiddle = (props) => {
         break;
       }
     }
+    if (!chatDataForUser) {
+      chatDataForUser = { data: [] };
+    }
     const receiver =
       sender === chatForUser.username1
         ? chatForUser.username2
@@ -72,6 +79,7 @@ const ChatMiddle = (props) => {
       update({
         image: "not added yet",
         receiver: receiver,
+        receiverImage: receiverImage,
         status: "offline",
         room: room,
         chatData: chatDataForUser.data,
@@ -88,7 +96,7 @@ const ChatMiddle = (props) => {
       return props.chats.filter((chat) => {
         const receiver =
           sender === chat.username1 ? chat.username2 : chat.username1;
-        if (receiver.includes(value)) {
+        if (receiver.toLowerCase().includes(value.toLowerCase())) {
           return chat;
         }
       });
@@ -115,15 +123,28 @@ const ChatMiddle = (props) => {
           let lastMsg;
           let lstTimeOfMsg;
           let lastMsgTime;
+          let lastttMessage;
+          let receiverImage = sender === username1 ? chat.image2 : chat.image1;
+          if (!receiverImage) {
+            receiverImage = `https://ui-avatars.com/api/?name=${receiver}`;
+          }
           try {
             lastMsg = getLastMsg(room);
+
             lstTimeOfMsg = new Date(lastMsg.time);
             lastMsgTime =
               lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
+            lastttMessage = lastMsg.message;
+            if (lastttMessage.length > 15) {
+              lastttMessage = lastttMessage.substring(0, 15) + "...";
+            }
           } catch (error) {
-            lastMsg = "start the conversation";
+            lastttMessage = "Start The Conversation...";
             lstTimeOfMsg = "";
             lastMsgTime = "";
+          }
+          if (!lastttMessage) {
+            lastttMessage = "Start The Conversation...";
           }
 
           return (
@@ -134,16 +155,16 @@ const ChatMiddle = (props) => {
               onClick={() => {
                 setSearchInput("");
                 setChats(props.chats);
-                changeChatMain(room);
+                changeChatMain(room, receiverImage);
               }}
             >
               <div className="person">
                 <div className="person-img">
-                  <img src={peopleImg1} alt="" />
+                  <img src={receiverImage} alt="" />
                 </div>
                 <div className="person-mid">
                   <div className="person-name">{receiver}</div>
-                  <div className="last-chat">{lastMsg.message}</div>
+                  <div className="last-chat">{lastttMessage}</div>
                 </div>
                 <div className="last-chat-time">{lastMsgTime}</div>
               </div>

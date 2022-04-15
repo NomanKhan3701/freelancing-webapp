@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
 import "./ChatMain.scss";
 import { IoMdSend } from "react-icons/io";
-import user_img from "../../assets/images/Cha2.jpg";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
@@ -218,7 +217,7 @@ const ChatMain = (props) => {
           <div className="top-container">
             <div className="user">
               <div className="user-img">
-                <img src={user_img} alt="User image" />
+                <img src={finalData.receiverImage} alt="User" />
               </div>
               <div className="user-info">
                 <div className="user-name">{finalData.receiver}</div>

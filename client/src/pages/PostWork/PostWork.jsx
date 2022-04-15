@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { DragAndDropImg, Navbar, FullScreenLoader } from "../../components/import";
+import {
+  DragAndDropImg,
+  Navbar,
+  FullScreenLoader,
+} from "../../components/import";
 import { Multiselect } from "multiselect-react-dropdown";
 import "./PostWork.scss";
 import axios from "axios";
 import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectImageData } from "../../features/images/imageSlice";
 toast.configure();
 
 const PostWork = () => {
-  let image = useSelector(selectImageData);
-  try {
-    image = image.image.image;
-  } catch (error) {
+  let image = localStorage.getItem("image");
+  if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;

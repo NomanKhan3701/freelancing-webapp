@@ -9,17 +9,13 @@ import loginImg from "../../assets/images/login-img.png";
 import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
 import { ScreenOverlayLoader } from "../../components/import";
-import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { selectImageData, update } from "../../features/images/imageSlice";
 
 toast.configure();
 
 const axios = require("axios").default;
 
 const LoginSignUp = (props) => {
-  const imageData = useSelector(selectImageData);
-  const dispatch = useDispatch();
   //to redirect after cliking signUp or login option on LoginSignUp page
   let navigate = useNavigate();
   const location = useLocation();
@@ -86,22 +82,23 @@ const LoginSignUp = (props) => {
 
   const loginOrSubmit = (event) => {
     const context = event.target.getAttribute("name");
-    let username1, password1;
+    let username1, password1, position;
+    const usernameRegex = new RegExp(/^([A-Za-z0-9]|[-._](?![-._])){8,20}$/);
+    const passwordRegex = new RegExp(
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+    );
     if (context === "login") {
       const username = userLoginData.usernameLogin;
       const password = userLoginData.passwordLogin;
       if (username === "" || password === "") {
-        //pop up
-        // toast.error("Please enter all the field values", {
-        //   position: "top-right",
-        // });
         toast.error("Please enter all the field values", {
-          position: toast.POSITION.TOP_RIGHT,
+          position: "top-right",
         });
         return;
       }
       username1 = username;
       password1 = password;
+      position = "top-right";
     } else {
       const username = userSignUpData.usernameSignUp;
       const password = userSignUpData.passwordSignUp;
@@ -112,15 +109,36 @@ const LoginSignUp = (props) => {
           position: "top-left",
         });
         return;
-      } else if (password !== confirmPassword) {
+      }
+      if (password !== confirmPassword) {
         //pop up
         toast.error("Password is not matching with confirm password", {
           position: "top-left",
         });
         return;
       }
+
       username1 = username;
       password1 = password;
+      position = "top-left";
+    }
+    if (!usernameRegex.test(username1)) {
+      toast.error(
+        "Username must have between 8 and 20 characters and can contain alphanumeric characters A-Z,a-z,0-9, the special characters -._ must not be used successively and username cannot include any whitespaces",
+        {
+          position: position,
+        }
+      );
+      return;
+    }
+    if (!passwordRegex.test(password1)) {
+      toast.error(
+        "Min 8 letter password, with at least a symbol, upper and lower case letters and a number",
+        {
+          position: position,
+        }
+      );
+      return;
     }
     setLoading(true);
     axios
@@ -140,11 +158,7 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
           localStorage.setItem("isDataTaken", response.data.userDataTaken);
-          dispatch(
-            update({
-              image: response.data.image,
-            })
-          );
+          localStorage.setItem("image", response.data.image.image);
         }
         onResult(response.data.result, context.toLowerCase());
       })
@@ -175,6 +189,14 @@ const LoginSignUp = (props) => {
       case 3:
         //user exist with username and google signUP trying
         if (location.state.goingTo) {
+          if ("work" in location.state) {
+            navigate(location.state.goingTo, {
+              state: {
+                work: location.state.work,
+              },
+            });
+            return;
+          }
           navigate(location.state.goingTo);
           return;
         }
@@ -183,6 +205,14 @@ const LoginSignUp = (props) => {
       case 4:
         //new user created successfully
         if (location.state.goingTo) {
+          if ("work" in location.state) {
+            navigate(location.state.goingTo, {
+              state: {
+                work: location.state.work,
+              },
+            });
+            return;
+          }
           navigate(location.state.goingTo);
           return;
         }
@@ -197,6 +227,14 @@ const LoginSignUp = (props) => {
       case 6:
         //login succesfully
         if (location.state.goingTo) {
+          if ("work" in location.state) {
+            navigate(location.state.goingTo, {
+              state: {
+                work: location.state.work,
+              },
+            });
+            return;
+          }
           navigate(location.state.goingTo);
           return;
         }

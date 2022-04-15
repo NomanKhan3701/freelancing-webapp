@@ -3,9 +3,11 @@ const {
   updateCountForBid,
   getWorkPostedDataById,
   findWorkDataAndDelete,
+  getNumberOfJobsPosted,
 } = require("./FindWorkData");
 const { WorkProgress, updateWorkProgress } = require("./workProgress");
 const { WorkInProgressData } = require("./WorkInProgressData");
+const { getNumberOfRegisteredUsers } = require("./database");
 const addBid = async (data) => {
   const { workId, username, desc, amount, image } = data;
   if (!workId || !username || !desc || !amount || desc.length < 100) {
@@ -27,7 +29,6 @@ const addBid = async (data) => {
     newBid.save();
     // await updateBidCount(workId);
     await updateCountForBid(workId);
-    console.log("whats happing here");
     return 4;
   } catch (err) {
     console.log(err);
@@ -59,7 +60,6 @@ const addWorkInProgressData = async (workId, freelancer) => {
   try {
     const data = await findWorkDataAndDelete(workId);
   } catch (error) {
-    console.log("wahhhhhhhhhhhhhhhhhhhh");
     console.log(error);
   }
   const {
@@ -72,7 +72,6 @@ const addWorkInProgressData = async (workId, freelancer) => {
     numberOfBids,
     username,
   } = data;
-  console.log("whyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
   try {
     deleteBids(workId); //no need of await here
   } catch (error) {
@@ -89,7 +88,6 @@ const addWorkInProgressData = async (workId, freelancer) => {
     numberOfBids: numberOfBids,
     username: username,
   });
-  console.log("wasuupppppppppppppppp");
   try {
     await newWorkInProgressData.save();
     await updateWorkProgress(workId, freelancer);
@@ -100,4 +98,18 @@ const addWorkInProgressData = async (workId, freelancer) => {
     return 2;
   }
 };
-module.exports = { addBid, getFreelancerWorkByUsername, addWorkInProgressData };
+
+const getNumberOfRegisteredUsersAndJobsPosted = async () => {
+  const registeredUsers = await getNumberOfRegisteredUsers();
+  const jobsPosted = await getNumberOfJobsPosted();
+  return {
+    registeredUsers: registeredUsers,
+    jobsPosted: jobsPosted,
+  };
+};
+module.exports = {
+  addBid,
+  getFreelancerWorkByUsername,
+  addWorkInProgressData,
+  getNumberOfRegisteredUsersAndJobsPosted,
+};

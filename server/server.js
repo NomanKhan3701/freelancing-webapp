@@ -68,6 +68,7 @@ const {
   addBid,
   getFreelancerWorkByUsername,
   addWorkInProgressData,
+  getNumberOfRegisteredUsersAndJobsPosted,
 } = require("./BreakDependency");
 const {
   getRoomNo,
@@ -136,6 +137,15 @@ app.post("/signup", (req, res, err) => {
   } catch (error) {
     console.log("some error");
   }
+});
+
+app.get("/getFooterData", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  getNumberOfRegisteredUsersAndJobsPosted().then((data) => {
+    res.send({ data: data });
+  });
 });
 
 app.get("/findtalent", (req, res, err) => {
@@ -422,7 +432,35 @@ const io = require("socket.io")(Server, {
   },
 });
 
-app.get("/chat/:username", (req, res, err) => {
+// app.get("/chat/:username", (req, res, err) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   const username = req.params.username;
+//   findAllRoomsWithGivenUser(username).then((chats) => {
+//     getChatDataWithOneUsername(username).then((chatData) => {
+//       res.send({ chats: chats, chatData: chatData });
+//     });
+//   });
+// });
+
+// app.get("/chat/:username/:receiver", (req, res, err) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   const { username, receiver } = req.params;
+
+//   //below if showing data after adding new user after refresh
+//   findAllRoomsWithGivenUserAndDoOtherUSerExits(username, receiver).then(
+//     (chats) => {
+//       getChatDataWithOneUsername(username).then((chatData) => {
+//         res.send({ chats: chats, chatData: chatData });
+//       });
+//     }
+//   );
+// });
+
+app.post("/chat/:username", (req, res, err) => {
   if (err) {
     console.log(err);
   }
@@ -434,23 +472,24 @@ app.get("/chat/:username", (req, res, err) => {
   });
 });
 
-app.get("/chat/:username/:receiver", (req, res, err) => {
+app.post("/chat/:sender/:receiver", (req, res, err) => {
   if (err) {
     console.log(err);
   }
-  const { username, receiver } = req.params;
-
+  const { sender, receiver } = req.params;
+  const { image1, image2 } = req.body;
   //below if showing data after adding new user after refresh
-  findAllRoomsWithGivenUserAndDoOtherUSerExits(username, receiver).then(
-    (chats) => {
-      getChatDataWithOneUsername(username).then((chatData) => {
-        res.send({ chats: chats, chatData: chatData });
-      });
-    }
-  );
+  findAllRoomsWithGivenUserAndDoOtherUSerExits(
+    sender,
+    receiver,
+    image1,
+    image2
+  ).then((chats) => {
+    getChatDataWithOneUsername(sender).then((chatData) => {
+      res.send({ chats: chats, chatData: chatData });
+    });
+  });
 });
-
-app.get("/chat/:username/:usernameToConnect", (req, res, err) => {});
 
 //video calling
 const VC_API_KEY = process.env.VC_API_KEY;

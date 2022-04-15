@@ -8,30 +8,28 @@ import {
 } from "../../components/import";
 import "./Chat.scss";
 import LoadingSpinner from "./LoadingSpinner";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  update,
-  selectChatMainData,
-} from "./../../features/chatMain/chatMainSlice";
+
 import { useLocation } from "react-router";
-import { selectImageData } from "../../features/images/imageSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 toast.configure();
 
 const Chat = () => {
-  // const chatMainData = useSelector(selectImageData);
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const sender = localStorage.getItem("username");
   const [isLoading, setLoading] = useState(true);
   const [chats, setChats] = useState();
   const [chatData, setChatData] = useState();
   const { state } = useLocation();
-  let receiver;
+  let image1 = localStorage.getItem("image");
+  if (!image1) {
+    image1 = `https://ui-avatars.com/api/?name=${sender}`;
+  }
+  let receiver, image2;
 
   try {
     receiver = state.receiver;
+    image2 = state.image;
   } catch (error) {
     receiver = "";
   }
@@ -40,11 +38,22 @@ const Chat = () => {
     if (receiver) {
       url += `/${receiver}`;
     }
-    axios.get(url).then(function (response) {
-      setChats(response.data.chats);
-      setChatData(response.data.chatData);
-      setLoading(false);
-    });
+    //using post instead of get was giving error xhtmlRequest like that,
+    // axios.get(url).then((response) => {
+    //   setChats(response.data.chats);
+    //   setChatData(response.data.chatData);
+    //   setLoading(false);
+    // });
+    axios
+      .post(url, {
+        image1: image1,
+        image2: image2,
+      })
+      .then((response) => {
+        setChats(response.data.chats);
+        setChatData(response.data.chatData);
+        setLoading(false);
+      });
     const isDataTaken = localStorage.getItem("isDataTaken");
     const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn === "false") {
@@ -58,7 +67,7 @@ const Chat = () => {
       });
       return;
     }
-    if (!isDataTaken === "true") {
+    if (isDataTaken === "false") {
       toast.success("You must fill your details before posting the work.", {
         position: "top-center",
       });
@@ -68,6 +77,9 @@ const Chat = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
+  console.log("chatData from chat.jsx");
+  console.log(chatData);
   return (
     <div className="chat-container">
       <div className="chat">

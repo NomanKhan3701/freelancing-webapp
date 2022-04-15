@@ -24,6 +24,8 @@ const UserProfile = () => {
   const [isLoading, setLoading] = useState(true);
   const [otherUser, setOtherUser] = useState();
   const params = useParams();
+  let image;
+
   useEffect(() => {
     const isDataTaken = localStorage.getItem("isDataTaken");
     if (
@@ -79,6 +81,7 @@ const UserProfile = () => {
     navigate("/chat", {
       state: {
         receiver: otherUser,
+        image: userData.image,
       },
     });
   };
@@ -96,6 +99,7 @@ const UserProfile = () => {
       },
     });
   };
+
   return (
     <div className="user-profile-container">
       <Navbar />
@@ -110,12 +114,15 @@ const UserProfile = () => {
             transition={{ duration: 1, ease: "linear" }}
             className="user-img"
           >
-            {userData.image ? (
-              <img src={userData.image} alt="user image" />
-            ) : (
-              <img src={userImg} alt="user image" />
-            )}
+            <img
+              src={
+                userData.image ||
+                `https://ui-avatars.com/api/?name=${userData.username}`
+              }
+              alt="user"
+            />
           </motion.div>
+
           <div className="user-info">
             <motion.h1
               initial={{ opacity: 0, translateY: -200 }}
@@ -176,9 +183,9 @@ const UserProfile = () => {
                     initial={{ opacity: 0, translateX: -200 }}
                     animate={{ opacity: 1, translateX: 0 }}
                     transition={{ duration: 1, ease: "linear" }}
-                    className="btn"
+                    className="button-div"
                   >
-                    <button onClick={chat} datausername={otherUser}>
+                    <button onClick={chat} datausername={otherUser} className="btn">
                       Chat
                     </button>
                   </motion.div>

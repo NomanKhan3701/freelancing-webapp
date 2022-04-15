@@ -145,12 +145,18 @@ const isUserDataTaken = async (username) => {
   return data[0].userDataTaken;
 };
 
+const getNumberOfRegisteredUsers = async () => {
+  const data = await UserSignUp.estimatedDocumentCount();
+  return data;
+};
+
 module.exports = {
   createNewUser,
   isValidUser,
   UserSignUp,
   updateUserDataTaken,
   isUserDataTaken,
+  getNumberOfRegisteredUsers,
 };
 
 //0 something wrong with database

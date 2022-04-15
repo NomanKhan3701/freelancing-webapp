@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "../../components/import";
 import "./Bid.scss";
-import clientImg from "../../assets/images/Cha2.jpg";
 import { useLocation } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectImageData } from "../../features/images/imageSlice";
 
 const Bid = () => {
   let navigate = useNavigate();
@@ -25,16 +22,16 @@ const Bid = () => {
     desc: "",
   });
 
-  let image = useSelector(selectImageData);
-  try {
-    image = image.image.image;
-  } catch (error) {
+  let image = localStorage.getItem("image");
+  if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;
   }
 
   useEffect(() => {
+    const isDataTaken = localStorage.getItem("isDataTaken");
+    const loggedIn = localStorage.getItem("loggedIn");
     //here get wasnt working with passing object so used post,
     axios
       .post(`http://localhost:8080/findwork/bid/${work.id}`, {
@@ -46,24 +43,28 @@ const Bid = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
-    const isDataTaken = localStorage.getItem("isDataTaken");
-    const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn === "false") {
-      toast.error("Please login to post.", {
+      toast.error("Please login to bid.", {
         position: "top-center",
       });
       navigate("/login", {
         state: {
-          goingTo: "/findtalent/postwork",
+          goingTo: "/findwork/bid",
+          work: work,
         },
       });
       return;
     }
-    if (!isDataTaken === "true") {
-      toast.success("You must fill your details before posting the work.", {
+    if (isDataTaken === "false") {
+      toast.success("You must fill your details before starting to bid.", {
         position: "top-center",
       });
-      navigate("/userprofileinput");
+      navigate("/userprofileinput", {
+        state: {
+          goingTo: "/findwork/bid",
+          work: work,
+        },
+      });
     }
   }, []);
 
@@ -167,10 +168,20 @@ const Bid = () => {
                 <img src={work.image} alt="client img" />
               </Link>
             </div>
-            <div className="title">{work.title}</div>
-            <div className="btn">
-              <Link to={`/userprofile/${work.username}`}>{work.username}</Link>
+            <div className="profileandusername">
+              <div className="title">{work.title}</div>
+              <div className="profile-username">
+                <Link
+                  to={`/userprofile/${work.username}`}
+                  className="username2"
+                >
+                  {work.username}
+                </Link>
+              </div>
             </div>
+            {/* <div className="btn">
+              {work.username}
+            </div> */}
           </div>
 
           <div className="desc">{work.desc}</div>
@@ -277,8 +288,11 @@ const Bid = () => {
                             alt="user image"
                           />
                         </Link>
-                        <div className="user-name">
-                          <Link to={`/userprofile/${bid.username}`}>
+                        <div className="profile-username">
+                          <Link
+                            to={`/userprofile/${bid.username}`}
+                            className="username2"
+                          >
                             {bid.username}
                           </Link>
                         </div>

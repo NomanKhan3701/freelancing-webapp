@@ -1,14 +1,12 @@
 import { Dehaze, Search } from "@material-ui/icons";
 import { motion } from "framer-motion";
-import { HiMenuAlt4, HiX } from "react-icons/hi";
-import React, { useState, useEffect, useRef } from "react";
+import { HiX } from "react-icons/hi";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
 import { NavLink, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectImageData } from "../../features/images/imageSlice";
 const SearchAndLinks = (props) => {
   const searchDropdownRef = useRef(null);
 
@@ -203,7 +201,7 @@ const renderMessageToggle = () => (
 const renderMessageMenu = (item, index) => (
   <Link to="/chat" className="notification" key={index}>
     <div className="img">
-      <img src={userImage} alt="user image" />
+      <img src={userImage} alt="User" />
     </div>
     <div className="message">{item.message}</div>
   </Link>
@@ -253,18 +251,23 @@ const Navbar = (props) => {
   const [toggle, setToggle] = useState(false);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
   let navigate = useNavigate();
-  let image = useSelector(selectImageData);
-  try {
-    image = image.image.image;
-  } catch (error) {
+  let image = localStorage.getItem("image");
+  if (!image) {
+    image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
+
+  if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;
   }
   const logout = () => {
-    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("loggedIn", "false");
     localStorage.setItem("username", undefined);
-    localStorage.setItem("isDataTaken", false);
+    localStorage.setItem("isDataTaken", "false");
+    localStorage.setItem("image", undefined);
     setLoggedIn("false");
     navigate("/");
   };
