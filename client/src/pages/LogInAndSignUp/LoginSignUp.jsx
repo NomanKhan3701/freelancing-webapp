@@ -86,22 +86,23 @@ const LoginSignUp = (props) => {
 
   const loginOrSubmit = (event) => {
     const context = event.target.getAttribute("name");
-    let username1, password1;
+    let username1, password1, position;
+    const usernameRegex = new RegExp(/^([A-Za-z0-9]|[-._](?![-._])){8,20}$/);
+    const passwordRegex = new RegExp(
+      /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+    );
     if (context === "login") {
       const username = userLoginData.usernameLogin;
       const password = userLoginData.passwordLogin;
       if (username === "" || password === "") {
-        //pop up
-        // toast.error("Please enter all the field values", {
-        //   position: "top-right",
-        // });
         toast.error("Please enter all the field values", {
-          position: toast.POSITION.TOP_RIGHT,
+          position: "top-right",
         });
         return;
       }
       username1 = username;
       password1 = password;
+      position = "top-right";
     } else {
       const username = userSignUpData.usernameSignUp;
       const password = userSignUpData.passwordSignUp;
@@ -112,15 +113,36 @@ const LoginSignUp = (props) => {
           position: "top-left",
         });
         return;
-      } else if (password !== confirmPassword) {
+      }
+      if (password !== confirmPassword) {
         //pop up
         toast.error("Password is not matching with confirm password", {
           position: "top-left",
         });
         return;
       }
+
       username1 = username;
       password1 = password;
+      position = "top-left";
+    }
+    if (!usernameRegex.test(username1)) {
+      toast.error(
+        "Username must have between 8 and 20 characters and can contain alphanumeric characters A-Z,a-z,0-9, the special characters -._ must not be used successively and username cannot include any whitespaces",
+        {
+          position: position,
+        }
+      );
+      return;
+    }
+    if (!passwordRegex.test(password1)) {
+      toast.error(
+        "Min 8 letter password, with at least a symbol, upper and lower case letters and a number",
+        {
+          position: position,
+        }
+      );
+      return;
     }
     setLoading(true);
     axios
