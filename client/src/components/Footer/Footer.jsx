@@ -1,9 +1,21 @@
 import { Facebook, Instagram, Twitter } from "@material-ui/icons";
 import { Mail, Phone } from "@material-ui/icons";
+import axios from "axios";
 import React from "react";
+import { useState, useEffect } from "react";
 import "./footer.scss";
 
 const Footer = () => {
+  const [registeredUsers, setRegisteredUsers] = useState();
+  const [totalJobsPosted, setTotalJobsPosted] = useState();
+  useEffect(() => {
+    axios.get(`http://localhost:8080/getFooterData`).then((res) => {
+      console.log("res.data");
+      console.log();
+      setRegisteredUsers(res.data.data.registeredUsers);
+      setTotalJobsPosted(res.data.data.jobsPosted);
+    });
+  });
   return (
     <div className="footer">
       <div className="footer-up">
@@ -39,11 +51,11 @@ const Footer = () => {
       <div className="footer-mid"></div>
       <div className="footer-down">
         <div className="numberandtext">
-          <span className="number">58,699,420</span>
+          <span className="number">{registeredUsers}</span>
           <p>Registered Users</p>
         </div>
         <div className="numberandtext">
-          <span className="number">21,99,433</span>
+          <span className="number">{totalJobsPosted}</span>
           <p>Total Jobs Posted</p>
         </div>
         <div>

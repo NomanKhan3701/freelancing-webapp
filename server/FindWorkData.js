@@ -187,6 +187,11 @@ const findWorkDataAndDelete = async (workId) => {
   return data;
 };
 
+const getNumberOfJobsPosted = async () => {
+  const data = await FindWorkData.estimatedDocumentCount();
+  return data;
+};
+
 module.exports = {
   getWorkData,
   addWorkData,
@@ -196,6 +201,7 @@ module.exports = {
   updateBidCount,
   updateCountForBid,
   findWorkDataAndDelete,
+  getNumberOfJobsPosted,
 };
 
 //1 - insufficient data

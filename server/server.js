@@ -68,6 +68,7 @@ const {
   addBid,
   getFreelancerWorkByUsername,
   addWorkInProgressData,
+  getNumberOfRegisteredUsersAndJobsPosted,
 } = require("./BreakDependency");
 const {
   getRoomNo,
@@ -136,6 +137,15 @@ app.post("/signup", (req, res, err) => {
   } catch (error) {
     console.log("some error");
   }
+});
+
+app.get("/getFooterData", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  getNumberOfRegisteredUsersAndJobsPosted().then((data) => {
+    res.send({ data: data });
+  });
 });
 
 app.get("/findtalent", (req, res, err) => {
