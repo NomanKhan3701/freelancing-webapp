@@ -5,7 +5,7 @@ import "./EditProfileInfo.scss";
 import "../EditBasicInfo/EditBasicInfo.scss";
 const EditProfileInfo = () => {
   return (
-    <div className="title">
+    <div className="edit-info-title">
       <h3>Enter Description</h3>
       <input type="text" placeholder="Edit Description" className="input" />
       <h3>Edit Profile Image</h3>
