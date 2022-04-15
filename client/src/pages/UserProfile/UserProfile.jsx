@@ -68,6 +68,14 @@ const UserProfile = () => {
           freelancingWork: response.data.data.freelancingWork,
           isDataTaken: response.data.data.isUserDataTaken,
         });
+        console.log("response.data.data");
+        console.log(response.data.data);
+        console.log({
+          ...response.data.data._doc,
+          workPosted: response.data.data.workPosted,
+          freelancingWork: response.data.data.freelancingWork,
+          isDataTaken: response.data.data.isUserDataTaken,
+        });
         localStorage.setItem("isDataTaken", response.data.data.isUserDataTaken);
         setLoading(false);
       });
@@ -99,6 +107,9 @@ const UserProfile = () => {
       },
     });
   };
+
+  console.log("userData");
+  console.log(userData);
 
   return (
     <div className="user-profile-container">
@@ -185,7 +196,11 @@ const UserProfile = () => {
                     transition={{ duration: 1, ease: "linear" }}
                     className="button-div"
                   >
-                    <button onClick={chat} datausername={otherUser} className="btn">
+                    <button
+                      onClick={chat}
+                      datausername={otherUser}
+                      className="btn"
+                    >
                       Chat
                     </button>
                   </motion.div>

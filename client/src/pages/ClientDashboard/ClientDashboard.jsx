@@ -38,7 +38,6 @@ const ClientDashboard = () => {
         setComments(response.data.items);
         setOtherBids(response.data.bids);
         setAvgBid(response.data.avgBid);
-        console.log(response.data);
         setLoading(false);
       });
   }, []);
@@ -70,8 +69,6 @@ const ClientDashboard = () => {
     axios
       .post("http://localhost:8080/findwork/bid/newComment", object)
       .then((response) => {
-        console.log("response");
-        console.log(response);
         if (response.data.result === 4) {
           setComments((comments) => {
             return [...comments, object];
@@ -107,7 +104,11 @@ const ClientDashboard = () => {
             toast.success("Bid accepted successfully.", {
               position: "top-center",
             });
-            navigate("/clientprojectprogress");
+            navigate("/clientprojectprogress", {
+              state: {
+                work: work,
+              },
+            });
           } else {
             toast.success("error in updating the data..", {
               position: "top-center",

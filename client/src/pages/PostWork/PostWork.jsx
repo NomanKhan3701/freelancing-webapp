@@ -174,6 +174,12 @@ const PostWork = () => {
       });
       return false;
     }
+    if (!parseInt(maxBid) || !parseInt(minBid)) {
+      toast.error("Amount needs tu be numerical value.", {
+        position: "top-center",
+      });
+      return false;
+    }
     if (parseInt(maxBid) < 0 || parseInt(minBid) < 0) {
       toast.error("Bid cannot be less than 0.", {
         position: "top-center",

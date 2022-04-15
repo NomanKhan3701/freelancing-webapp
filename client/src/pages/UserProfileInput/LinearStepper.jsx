@@ -330,6 +330,10 @@ const LinearStepper = (props) => {
       linkdin = getUserData.linkdin;
       desc = getUserData.desc;
       image = getUserData.image;
+      if (!image) {
+        image = `https://ui-avatars.com/api/?name=${username}`;
+      }
+
       category = getUserData.category;
       skills = getUserData.skills;
       if (!fullname) {
@@ -370,6 +374,7 @@ const LinearStepper = (props) => {
           console.log(err);
         });
       localStorage.setItem("isDataTaken", "true");
+      localStorage.setItem("image", image);
       try {
         if (props.stateData && "work" in props.stateData) {
           navigate(props.stateData.goingTo, {

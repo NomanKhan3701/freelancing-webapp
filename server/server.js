@@ -337,14 +337,10 @@ app.post("/acceptbid", (req, res, err) => {
   if (err) {
     console.log(err);
   }
-  console.log("inside accept bid backend server");
   const body = req.body;
-  console.log("body");
-  console.log(body);
   addWorkInProgressData(body.workId, body.freelancer)
     .then((response) => {
       res.send({ result: response });
-      console.log("reponse sending fro addworkinprogress data promise");
     })
     .catch((error) => {
       console.log("error in sending final result to front end");

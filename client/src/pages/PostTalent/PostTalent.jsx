@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { DragAndDropImg, Navbar, FullScreenLoader} from "../../components/import";
+import { Navbar, FullScreenLoader } from "../../components/import";
 import { Multiselect } from "multiselect-react-dropdown";
 import "./PostTalent.scss";
 import axios from "axios";
-import { Select } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 toast.configure();
 
 const PostTalent = () => {
   const navigate = useNavigate();
-  // const [sOptions, setSOptions] = useState([
-  //   { value: "HTML", label: "HTML" },
-  //   { value: "CSS", label: "CSS" },
-  //   { value: "JavaScript", label: "JavaScript" },
-  //   { value: "ReactJs", label: "ReactJs" },
-  //   { value: "NodeJs", label: "NodeJs" },
-  //   { value: "MongoDB", label: "MongoDB" },
-  // ]);
   const [isLoading, setLoading] = useState(true);
   const [postTalentData, setPostTalentData] = useState({
     title: "",

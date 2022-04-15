@@ -8,6 +8,8 @@ import { Navigate, useLocation, useNavigate } from "react-router";
 const ClientProjectProgress = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  console.log("state");
+  console.log(state);
   const workData = state.work;
   const work = {
     title: "JavaScript Developer",

@@ -81,7 +81,9 @@ const addWorkProgress = (data) => {
 
 const getFreelancerAndProgress = async (workId) => {
   //it had " at start and end so
-  workId = workId.slice(1, -1);
+  if (workId.includes("'") || workId.includes('"')) {
+    workId = workId.slice(1, -1);
+  }
   const data = await WorkProgress.find(
     { workId: workId },
     { progress: 1, freelancer: 1 }

@@ -57,8 +57,9 @@ const getFreelancerWorkByUsername = async (username) => {
 };
 
 const addWorkInProgressData = async (workId, freelancer) => {
+  let data;
   try {
-    const data = await findWorkDataAndDelete(workId);
+    data = await findWorkDataAndDelete(workId);
   } catch (error) {
     console.log(error);
   }
@@ -72,6 +73,7 @@ const addWorkInProgressData = async (workId, freelancer) => {
     numberOfBids,
     username,
   } = data;
+
   try {
     deleteBids(workId); //no need of await here
   } catch (error) {
@@ -89,9 +91,8 @@ const addWorkInProgressData = async (workId, freelancer) => {
     username: username,
   });
   try {
-    await newWorkInProgressData.save();
-    await updateWorkProgress(workId, freelancer);
-    console.log("amigos whasssup");
+    newWorkInProgressData.save();
+    updateWorkProgress(workId, freelancer);
     return 4;
   } catch (err) {
     console.log(err);

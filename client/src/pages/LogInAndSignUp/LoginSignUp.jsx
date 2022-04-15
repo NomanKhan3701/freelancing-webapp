@@ -158,7 +158,15 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
           localStorage.setItem("isDataTaken", response.data.userDataTaken);
-          localStorage.setItem("image", response.data.image.image);
+
+          try {
+            localStorage.setItem("image", response.data.image.image);
+          } catch (err) {
+            localStorage.setItem(
+              "image",
+              `https://ui-avatars.com/api/?name=${username1}`
+            );
+          }
         }
         onResult(response.data.result, context.toLowerCase());
       })

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 const { getWorkInProgressDataByUsername } = require("./WorkInProgressData");
 const { getFreelancerAndProgress, addWorkProgress } = require("./workProgress");
-
+const { ObjectId } = require("bson");
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
 
@@ -182,8 +182,10 @@ const updateCountForBid = async (workId) => {
 };
 
 const findWorkDataAndDelete = async (workId) => {
-  console.log("shut up bro");
-  const data = await FindWorkData.findOneAndDelete({ _id: workId });
+  //_id is the mongoose document id, and not id created by usm thats why while deleting we have to
+  //use ObjectId function, than only it works,
+  //while find() we dont need to do that well we can if we want
+  const data = await FindWorkData.findOneAndDelete({ _id: ObjectId(workId) });
   return data;
 };
 
