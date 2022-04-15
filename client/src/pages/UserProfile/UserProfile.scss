@@ -139,6 +139,37 @@
           .contact {
             height: max-content;
 
+            .button-div {
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .btn {
+                margin-left: auto;
+                margin-right: auto;
+                // margin-top: 60px;
+                background: linear-gradient(90deg, #755bea, #ff72c0);
+                padding: 10px 20px;
+                border-radius: var(--border-radius-big);
+                color: white;
+                // width: max-content;
+                // height: max-content;
+                cursor: pointer;
+
+                a {
+                  &:hover {
+                    color: white;
+                  }
+                }
+
+                &:hover {
+                  background: linear-gradient(90deg, #634fbb, #d863a3);
+                }
+              }
+
+            }
+
             .contact-item {
               margin-bottom: 15px;
               padding-right: 20px;
@@ -163,7 +194,7 @@
           .btn {
             margin-left: auto;
             margin-right: auto;
-            margin-top: 60px;
+            // margin-top: 60px;
             background: linear-gradient(90deg, #755bea, #ff72c0);
             padding: 10px 20px;
             border-radius: var(--border-radius-big);
