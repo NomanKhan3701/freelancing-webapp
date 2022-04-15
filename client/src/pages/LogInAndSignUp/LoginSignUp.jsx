@@ -154,7 +154,6 @@ const LoginSignUp = (props) => {
         //response is the object that contains data sent from server
         //response.data is that data
         //localStorage.setItem("isDataTaken", response.data.userDataTaken);
-        console.log("response aagaya backend se");
         if (
           response.data.result === 3 ||
           response.data.result === 4 ||

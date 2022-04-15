@@ -32,7 +32,10 @@ const getChatDataWithRoom = async (room) => {
 };
 
 const getChatDataWithOneUsername = async (username) => {
-  const data = await UserChatData.find({ username: /username/i });
+  // const data = await UserChatData.find({ room: /username/i }); didnt work
+  const data = await UserChatData.find({
+    room: { $regex: username, $options: "i" },
+  });
   return data;
 };
 

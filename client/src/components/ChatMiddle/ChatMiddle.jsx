@@ -4,8 +4,12 @@ import { Search } from "@material-ui/icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { update } from "./../../features/chatMain/chatMainSlice";
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const ChatMiddle = (props) => {
+  const customizedMiddleware = getDefaultMiddleware({
+    serializableCheck: false,
+  });
   const chatMainData = useSelector((state) => state.chatMainData.value);
   const dispatch = useDispatch();
 
@@ -35,8 +39,6 @@ const ChatMiddle = (props) => {
           const element = document.querySelector(
             `#${chatMainData.room} .last-chat`
           );
-          console.log("element");
-          console.log(element);
           element.textContent = chatMainData.chatData.slice(-1)[0].message;
           if (element.textContent.length > 15) {
             element.textContent = element.textContent.substring(0, 15) + "...";
@@ -65,6 +67,9 @@ const ChatMiddle = (props) => {
         break;
       }
     }
+    if (!chatDataForUser) {
+      chatDataForUser = { data: [] };
+    }
     const receiver =
       sender === chatForUser.username1
         ? chatForUser.username2
@@ -91,7 +96,7 @@ const ChatMiddle = (props) => {
       return props.chats.filter((chat) => {
         const receiver =
           sender === chat.username1 ? chat.username2 : chat.username1;
-        if (receiver.includes(value)) {
+        if (receiver.toLowerCase().includes(value.toLowerCase())) {
           return chat;
         }
       });

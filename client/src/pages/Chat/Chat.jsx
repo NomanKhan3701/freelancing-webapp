@@ -9,10 +9,7 @@ import {
 import "./Chat.scss";
 import LoadingSpinner from "./LoadingSpinner";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  update,
-  selectChatMainData,
-} from "./../../features/chatMain/chatMainSlice";
+
 import { useLocation } from "react-router";
 import { selectImageData } from "../../features/images/imageSlice";
 import { toast } from "react-toastify";
@@ -20,8 +17,6 @@ import { useNavigate } from "react-router";
 toast.configure();
 
 const Chat = () => {
-  // const chatMainData = useSelector(selectImageData);
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const sender = localStorage.getItem("username");
   const [isLoading, setLoading] = useState(true);
@@ -84,6 +79,9 @@ const Chat = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
+  console.log("chatData from chat.jsx");
+  console.log(chatData);
   return (
     <div className="chat-container">
       <div className="chat">

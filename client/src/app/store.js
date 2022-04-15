@@ -6,4 +6,9 @@ export default configureStore({
     chatMainData: chatMainReducer,
     image: imageReducer,
   },
+  //non-serialiazable issue in dispatch() so had to do this
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
