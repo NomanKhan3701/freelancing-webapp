@@ -183,9 +183,9 @@ const UserProfile = () => {
                     initial={{ opacity: 0, translateX: -200 }}
                     animate={{ opacity: 1, translateX: 0 }}
                     transition={{ duration: 1, ease: "linear" }}
-                    className="btn"
+                    className="button-div"
                   >
-                    <button onClick={chat} datausername={otherUser}>
+                    <button onClick={chat} datausername={otherUser} className="btn">
                       Chat
                     </button>
                   </motion.div>
