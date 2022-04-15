@@ -7,15 +7,22 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingSpinner from "../FindWork/LoadingSpinner";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import { applyMiddleware } from "@reduxjs/toolkit";
-
+import { useSelector } from "react-redux";
+import { selectImageData } from "../../features/images/imageSlice";
 toast.configure();
 
 const ClientDashboard = () => {
   let navigate = useNavigate();
   //data passed through navigation is accessed using useLocation
   const { state } = useLocation();
+  let senderImage = useSelector(selectImageData);
+  try {
+    senderImage = senderImage.image.image;
+  } catch (error) {
+    senderImage = `https://ui-avatars.com/api/?name=${localStorage.getItem(
+      "username"
+    )}`;
+  }
   let work = state.work;
   if (Array.isArray(work)) {
     work = work[0];
@@ -25,10 +32,6 @@ const ClientDashboard = () => {
   const [newComment, setNewComment] = useState("");
   const [otherBids, setOtherBids] = useState();
   const [avgBid, setAvgBid] = useState();
-  const [bidInformation, setBidInformation] = useState({
-    amount: "",
-    desc: "",
-  });
 
   useEffect(() => {
     //here get wasnt working with passing object so used post,
@@ -38,6 +41,7 @@ const ClientDashboard = () => {
         setComments(response.data.items);
         setOtherBids(response.data.bids);
         setAvgBid(response.data.avgBid);
+        console.log(response.data);
         setLoading(false);
       });
   }, []);
@@ -62,6 +66,7 @@ const ClientDashboard = () => {
       workId: work._id,
       username: localStorage.getItem("username"),
       desc: comment,
+      image: senderImage,
     };
     setNewComment("");
 
@@ -74,38 +79,6 @@ const ClientDashboard = () => {
           setComments((comments) => {
             return [...comments, object];
           });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const bidDataChange = (event) => {
-    const { name, value } = event.target;
-    setBidInformation((bidInformation) => {
-      return {
-        ...bidInformation,
-        [name]: value,
-      };
-    });
-  };
-
-  const addNewBid = () => {
-    const object = {
-      ...bidInformation,
-      username: localStorage.getItem("username"),
-      workId: work._id,
-    };
-    axios
-      .post("http://localhost:8080/findwork/bid/newBid", object)
-      .then((response) => {
-        if (response.data.result === 4) {
-          //new bid added successfully
-          alert("new bid added successfully.");
-          navigate("/");
-        } else if (response.data.result === 3) {
-          alert("only one bid per user.");
         }
       })
       .catch((err) => {
@@ -154,7 +127,7 @@ const ClientDashboard = () => {
         <div className="bid-info-container">
           <div className="client-profile">
             <div className="user-img">
-              <img src={clientImg} alt="client img" />
+              <img src={senderImage} alt="client img" />
             </div>
             <div className="title">{work.title}</div>
           </div>
@@ -174,7 +147,7 @@ const ClientDashboard = () => {
 
           <div className="form">
             <div className="user-img">
-              <img src={clientImg} alt="" />
+              <img src={senderImage} alt="" />
             </div>
             <input
               type="text"
@@ -192,7 +165,13 @@ const ClientDashboard = () => {
               return (
                 <div className="comment">
                   <div className="user-profile">
-                    <img src={clientImg} alt="user img" />
+                    <img
+                      src={
+                        comment.image ||
+                        `https://ui-avatars.com/api/?name=${comment.username}`
+                      }
+                      alt="user img"
+                    />
                     <div className="info">
                       <div className="user-name">{comment.username}</div>
                       <div className="comment-desc">{comment.desc}</div>
@@ -220,7 +199,7 @@ const ClientDashboard = () => {
                     <div key={bid._id} className="freelancer">
                       <div className="freelancer-bid-top">
                         <div className="user-info">
-                          <img src={clientImg} alt="user image" />
+                          <img src={bid.image} alt="user image" />
                           <div className="user-name">{bid.username}</div>
                         </div>
                         <div className="flex sell-bid-info">
