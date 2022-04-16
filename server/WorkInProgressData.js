@@ -46,6 +46,12 @@ var WorkInProgressDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  workImage: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
 });
 
 const WorkInProgressData = new mongoose.model(
@@ -57,52 +63,6 @@ const getWorkInProgressData = async () => {
   const data = await WorkInProgressData.find({});
   return data;
 };
-
-// const addWorkInProgressData = async (workId, freelancer) => {
-//   try {
-//     const data = await findWorkDataAndDelete(workId);
-//   } catch (error) {
-//     console.log("wahhhhhhhhhhhhhhhhhhhh");
-//     console.log(error);
-//   }
-//   const {
-//     category,
-//     title,
-//     desc,
-//     qualifications,
-//     minBid,
-//     maxBid,
-//     numberOfBids,
-//     username,
-//   } = data;
-//   console.log("whyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-//   try {
-//     deleteBids(workId); //no need of await here
-//   } catch (error) {
-//     console.log("error in deleting from backedn work data");
-//   }
-//   const newWorkInProgressData = new WorkInProgressData({
-//     workId: workId,
-//     title: title,
-//     desc: desc,
-//     qualifications: qualifications,
-//     category: category,
-//     minBid: minBid,
-//     maxBid: maxBid,
-//     numberOfBids: numberOfBids,
-//     username: username,
-//   });
-//   console.log("wasuupppppppppppppppp");
-//   try {
-//     await newWorkInProgressData.save();
-//     await updateWorkProgress(workId, freelancer);
-//     console.log("amigos whasssup");
-//     return 4;
-//   } catch (err) {
-//     console.log(err);
-//     return 2;
-//   }
-// };
 
 const getWorkInProgressDataByUsername = async (username) => {
   const data = await WorkInProgressData.find({ username: username });

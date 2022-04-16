@@ -12,6 +12,8 @@ const Bid = () => {
   //data passed through navigation is accessed using useLocation
   const { state } = useLocation();
   const work = state.work;
+  console.log("workwork");
+  console.log(work);
   const [isLoading, setLoading] = useState(true);
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState("");
@@ -120,12 +122,31 @@ const Bid = () => {
 
   const addNewBid = () => {
     const amount = bidInformation.amount;
+    if (/\s/.test(amount)) {
+      toast.error("Amount cannot contain space.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (!/^\d+$/.test(amount)) {
+      toast.error("Amount needs to be numerical value.", {
+        position: "top-center",
+      });
+      return false;
+    }
     if (!parseInt(amount)) {
       toast.error("Invalid Input, Amount.", {
         position: "top-center",
       });
       return;
     }
+    if (parseInt(amount) < 0) {
+      toast.error("Bid cannot be less than 0.", {
+        position: "top-center",
+      });
+      return false;
+    }
+
     const object = {
       ...bidInformation,
       username: localStorage.getItem("username"),
@@ -192,6 +213,13 @@ const Bid = () => {
                 {skill}
               </div>
             ))}
+          </div>
+          <div className="work-image">
+            <embed
+              src={work.workImage}
+              type="application/pdf"
+              width="100%"
+            ></embed>
           </div>
           <div className="form">
             <div className="price">
@@ -271,7 +299,7 @@ const Bid = () => {
           ) : (
             <div>
               <div className="title">
-                {otherBids.length} freelancer are bidding on an average of{" "}
+                {otherBids.length} freelancer is/are bidding on an average of{" "}
                 {avgBid}₹
               </div>
               <div className="freelancers">

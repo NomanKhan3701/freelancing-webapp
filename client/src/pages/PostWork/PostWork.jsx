@@ -9,6 +9,7 @@ import "./PostWork.scss";
 import axios from "axios";
 import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
+import FileBase64 from "react-file-base64";
 import { toast } from "react-toastify";
 toast.configure();
 
@@ -43,6 +44,7 @@ const PostWork = () => {
 
   const [category, setCategory] = useState();
 
+  const [userUploadedImage, setUserUploadedImage] = useState();
   useEffect(() => {
     axios
       .get(`http://localhost:8080/findtalent/postwork`)
@@ -84,20 +86,6 @@ const PostWork = () => {
       return { ...previousWorkData, category: event[0].value };
     });
   };
-  // const onSelectCategory = (selectedList, selectedItem) => {
-  //   console.log(selectedItem);
-  //   changeSkills(selectedItem.Category);
-  //   setPostWorkData((previousWorkData) => {
-  //     return { ...previousWorkData, category: selectedItem.Category };
-  //   });
-  // };
-
-  // const onRemoveCategory = (selectedList, selectedItem) => {
-  //   changeSkills("");
-  //   setPostWorkData((previousWorkData) => {
-  //     return { ...previousWorkData, category: "" };
-  //   });
-  // };
 
   const changeSkills = (category) => {
     if (category === "") {
@@ -174,8 +162,20 @@ const PostWork = () => {
       });
       return false;
     }
+    if (/\s/.test(minBid) || /\s/.test(maxBid)) {
+      toast.error("Amount cannot contain space.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (!/^\d+$/.test(minBid) || !/^\d+$/.test(maxBid)) {
+      toast.error("Amount needs to be numerical value.", {
+        position: "top-center",
+      });
+      return false;
+    }
     if (!parseInt(maxBid) || !parseInt(minBid)) {
-      toast.error("Amount needs tu be numerical value.", {
+      toast.error("Amount needs to be numerical value.", {
         position: "top-center",
       });
       return false;
@@ -217,15 +217,20 @@ const PostWork = () => {
     }
     return false;
   };
-
   const newPostForWork = (event) => {
     const goAhead = isValidToNavigate();
     if (!goAhead) {
       return;
     }
+    if (userUploadedImage && "image" in userUploadedImage) {
+      setUserUploadedImage(userUploadedImage.image);
+    } else {
+      setUserUploadedImage("");
+    }
     const data = {
       ...postWorkData,
       username: localStorage.getItem("username"),
+      workImage: userUploadedImage,
       image: image,
     };
     axios
@@ -264,18 +269,23 @@ const PostWork = () => {
           />
         </div>
         <div className="dragDrop">
-          <h1>{"{Select Files}"}</h1>
-        </div>
-        {/* <div className = "category-select">
-          <h1>Select a category</h1>
-          <Select
-            options = {sOptions}
+          <h1>{"Select a file(jpeg/png/pdf)"}</h1>
+          <FileBase64
+            type="file"
+            multiple={false}
+            onDone={({ base64 }) => setUserUploadedImage({ image: base64 })}
           />
-        </div> */}
+          {userUploadedImage && (
+            <embed
+              src={userUploadedImage.image}
+              type="application/pdf"
+              width="100%"
+            ></embed>
+          )}
+        </div>
         <div className="category-select">
           <h1>Category</h1>
           <Select options={sOptions} onChange={categoryChange} />
-          {/* <Select id = "category" options = {categories} displayValue = "Category" onSelect = {onSelectCategory} onRemove = {onRemoveCategory} name = "category"/> */}
         </div>
         <div className="skills-required">
           <h1>What skills are required</h1>

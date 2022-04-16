@@ -21,6 +21,8 @@ const ClientDashboard = () => {
   }
 
   let work = state.work;
+  console.log("work");
+  console.log(work);
   if (Array.isArray(work)) {
     work = work[0];
   }
@@ -139,6 +141,13 @@ const ClientDashboard = () => {
               </div>
             ))}
           </div>
+          <div className="work-image">
+            <embed
+              src={work.workImage}
+              type="application/pdf"
+              width="100%"
+            ></embed>
+          </div>
         </div>
         <div className="comments-container">
           <div className="title">Comments</div>
@@ -188,7 +197,7 @@ const ClientDashboard = () => {
           ) : (
             <div>
               <div className="title">
-                {otherBids.length} freelancer are bidding on an average of{" "}
+                {otherBids.length} freelancer is/are bidding on an average of{" "}
                 {avgBid}₹
               </div>
               <div className="freelancers">
