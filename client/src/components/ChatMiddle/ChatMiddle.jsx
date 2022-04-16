@@ -161,7 +161,7 @@ const ChatMiddle = (props) => {
                 </div>
                 <div className="person-mid">
                   <div className="person-name">
-                    <LimitCharHoverReveal word={receiver} limit="10"/>
+                    <LimitCharHoverReveal word={receiver} limit="15"/>
                   </div>
                   <div className="last-chat">{lastttMessage}</div>
                 </div>
