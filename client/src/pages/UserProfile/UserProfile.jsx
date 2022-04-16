@@ -191,16 +191,16 @@ const UserProfile = () => {
             <div className="skills-container">
               <h1>Category</h1>
               <div className="skills">
-                {userData.category.map((category) => {
-                  return <div className="skill">{category}</div>;
+                {userData.category.map((category, index) => {
+                  return <div className="skill" key={index}>{category}</div>;
                 })}
               </div>
             </div>
             <div className="skills-container">
               <h1>Skills</h1>
               <div className="skills">
-                {userData.skills.map((skill) => {
-                  return <div className="skill">{skill}</div>;
+                {userData.skills.map((skill, index) => {
+                  return <div className="skill" key={index}>{skill}</div>;
                 })}
               </div>
             </div>

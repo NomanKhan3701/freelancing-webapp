@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ChatMiddle.scss";
 import { Search } from "@material-ui/icons";
-
+import { LimitCharHoverReveal } from "../import";
 import { useSelector, useDispatch } from "react-redux";
 import { update } from "./../../features/chatMain/chatMainSlice";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
@@ -160,7 +160,9 @@ const ChatMiddle = (props) => {
                   <img src={receiverImage} alt="" />
                 </div>
                 <div className="person-mid">
-                  <div className="person-name">{receiver}</div>
+                  <div className="person-name">
+                    <LimitCharHoverReveal word={receiver} limit="15"/>
+                  </div>
                   <div className="last-chat">{lastttMessage}</div>
                 </div>
                 <div className="last-chat-time">{lastMsgTime}</div>

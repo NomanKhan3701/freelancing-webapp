@@ -20,7 +20,7 @@ import {
   EditProfileInfo,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/import";
+import { LimitCharHoverReveal, Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
 import PostTalent from "./pages/PostTalent/PostTalent";
@@ -66,6 +66,7 @@ function App() {
         </Route>
 
         <Route path="/findpartner" element={<FindPartner />} />
+        <Route path="/lc" element={<LimitCharHoverReveal word="Hi I am Noman Plz limit me" limit="10"/>} />
 
         <Route path="/freelancerprofile" element={<FreelancerProfile />} />
 

@@ -270,6 +270,7 @@ const Navbar = (props) => {
       return (
         <div
           className="user-menu-item"
+          key={index}
           onClick={() =>
             navigate(item.link, {
               state: { username: localStorage.getItem("username") },

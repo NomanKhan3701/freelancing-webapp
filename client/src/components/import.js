@@ -17,3 +17,4 @@ export { default as WorkDoneSlider } from "./WorkDoneSlider/WorkDoneSlider";
 export { default as FullDivLoader } from "./Loader/FullDivLoader/FullDivLoader";
 export { default as FullScreenLoader } from "./Loader/FullScreenLoader/FullScreenLoader";
 export { default as ScreenOverlayLoader } from "./Loader/ScreenOverlayLoader/ScreenOverlayLoader";
+export { default as LimitCharHoverReveal} from "./LimitCharHoverReveal/LimitCharHoverReveal";
