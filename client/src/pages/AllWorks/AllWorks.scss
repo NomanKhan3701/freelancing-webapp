@@ -36,6 +36,8 @@
         margin-bottom: 20px;
         max-height: 150px;
         min-height: 149px;
+        overflow-wrap: break-word;
+        padding-right: 2px;
         overflow: auto;
 
         &::-webkit-scrollbar {
