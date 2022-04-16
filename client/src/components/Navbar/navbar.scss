@@ -351,9 +351,11 @@
       display: flex;
       align-items: center;
       padding: 15px 20px;
+      cursor: pointer;
 
       &:hover {
         background-color: var(--second-bg);
+        color: var(--main-color);
       }
     }
 
