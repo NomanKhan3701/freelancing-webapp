@@ -1,0 +1,18 @@
+.limit-char-hover-reveal {
+    position: relative; 
+    width: max-content;
+
+    .reveal {
+        position: absolute;
+        border: 1px solid black;
+        width: max-content;
+        top: -20px;
+        left: 0;
+        transform: scale(0);
+        transition: 0.4s ease;
+    }
+
+    &:hover .reveal{
+        transform: scale(1);
+    }
+}
