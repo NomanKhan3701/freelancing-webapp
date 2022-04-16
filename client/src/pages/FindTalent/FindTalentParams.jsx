@@ -101,7 +101,7 @@ const FindTalentParams = () => {
         }
         setLoading(false);
       });
-  }, []);
+  });
 
   if (isLoading) {
     return <FullScreenLoader />;
@@ -134,7 +134,8 @@ const FindTalentParams = () => {
           <div>PerHourRate: ₹{talent.perHourRate}</div>
           <div>Total: ₹{talent.price}</div>
           <div>
-            Rating: {talent.rating == 0 ? "New Freelancer" : talent.rating}
+            Rating:{" "}
+            {parseInt(talent.rating) === 0 ? "New Freelancer" : talent.rating}
           </div>
           <div
             className="btn"
@@ -176,7 +177,6 @@ const FindTalentParams = () => {
   const changeTalentData = (event) => {
     const checkboxArray = document.getElementsByClassName("checkbox");
     let selectedSkills = [];
-    let newTalents = [];
 
     for (let i = 0; i < checkboxArray.length; i++) {
       if (checkboxArray[i].getElementsByTagName("input")[0].checked) {
@@ -216,20 +216,6 @@ const FindTalentParams = () => {
         {data}
       </option>
     );
-  };
-
-  const setFinalDataForCategory = (category) => {
-    const newTalents = [];
-    for (let i = 0; i < originalTalents.length; i++) {
-      if (
-        category.replace(/\W/g, "").toLowerCase() ===
-        originalTalents[i].category.replace(/\W/g, "").toLowerCase()
-      ) {
-        newTalents.push(originalTalents[i]);
-      }
-    }
-    settalents(newTalents);
-    return newTalents;
   };
 
   const applyExternalSetting = (name, value) => {
@@ -292,7 +278,6 @@ const FindTalentParams = () => {
     if (rating === "All") {
       newTalentsV3 = newTalentsV2;
     } else if (rating === "5") {
-      const newtalents = [];
       for (let i = 0; i < newTalentsV2.length; i++) {
         if (newTalentsV2[i].rating == 5) {
           //dont do === for this particular case
@@ -301,7 +286,6 @@ const FindTalentParams = () => {
       }
     } else {
       const min = parseInt(rating.charAt(2));
-      const newtalents = [];
       for (let i = 0; i < newTalentsV2.length; i++) {
         if (newTalentsV2[i].rating >= min) {
           newTalentsV3.push(newTalentsV2[i]);

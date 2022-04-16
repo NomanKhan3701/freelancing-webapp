@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { GoogleLogin } from "react-google-login";
 import { refreshTokenSetup } from "./refreshToken";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import { toast } from "react-toastify";
-import LoadingSpinner from "./LoadingSpinner";
 const axios = require("axios").default;
 
 toast.configure();

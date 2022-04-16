@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer, Header, Navbar, ScreenOverlayLoader } from "../../components/import";
+import { Footer, Header, Navbar } from "../../components/import";
 import WhyUs from "../../components/WhyUs/WhyUs";
 import "./home.scss";
 

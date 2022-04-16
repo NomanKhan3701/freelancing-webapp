@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  DragAndDropImg,
-  Navbar,
-  FullScreenLoader,
-} from "../../components/import";
+import { Navbar, FullScreenLoader } from "../../components/import";
 import { Multiselect } from "multiselect-react-dropdown";
 import "./PostWork.scss";
 import axios from "axios";
