@@ -214,13 +214,16 @@ const Bid = () => {
               </div>
             ))}
           </div>
-          <div className="work-image">
-            <embed
-              src={work.workImage}
-              type="application/pdf"
-              width="100%"
-            ></embed>
-          </div>
+          {work.workImage ? (
+            <div className="work-image">
+              <embed
+                src={work.workImage}
+                type="application/pdf"
+                width="100%"
+              ></embed>
+            </div>
+          ) : ''}
+
           <div className="form">
             <div className="price">
               <input
