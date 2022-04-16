@@ -4,7 +4,7 @@
 
     .reveal {
         position: absolute;
-        border: 1px solid black;
+        box-shadow: var(--box-shadow);
         width: max-content;
         top: -29px;
         left: -5px;
@@ -12,7 +12,7 @@
         border-radius: 5px;
         font-size: 15px;
         transform: scale(0);
-        background: rgb(245, 244, 244);
+        background: white;
         transition: 0.3s ease;
         z-index: 99;
     }
