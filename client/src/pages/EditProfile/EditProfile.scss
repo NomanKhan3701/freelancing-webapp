@@ -2,7 +2,7 @@
     background: url(../../assets/images/lightBg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: calc(100vh - 100px);
 
     .container {
         height: 80%;
