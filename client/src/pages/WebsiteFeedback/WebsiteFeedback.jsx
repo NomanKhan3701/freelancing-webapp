@@ -16,6 +16,7 @@ const WebsiteFeedback = () => {
                             How can we Make this website better for you?
                         </div>
                         <input type="text" placeholder='Enter your idea' className='input' />
+                        <textarea name="" id="" cols="1" rows="10" className='input' typeof='text'></textarea>
                     </div>
 
                     <div className="desc">

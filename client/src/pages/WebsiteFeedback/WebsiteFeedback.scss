@@ -43,6 +43,13 @@
                 border: 1px solid black;
                 border-radius: 60px;
                 margin-top: 20px;
+                min-height: 30px;
+                // max-height: 50px;
+                max-width: 100%;
+                height: max-content;
+                // resize: none;
+                overflow-y: hidden;
+
                 // margin-bottom: 50px;
 
                 &:focus {
@@ -61,6 +68,11 @@
             .desc-title {
                 font-size: 1.2em;
                 margin-bottom: 10px;
+                background-color: rgb(63, 153, 123);
+                padding: 10px 20px;
+                border-radius: 25px;
+                color: white;
+                cursor: pointer;
             }
         }
     }
