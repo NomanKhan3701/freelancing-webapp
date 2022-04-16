@@ -11,7 +11,6 @@
     margin-right: 20px;
     margin-top: 20px;
     display: flex;
-    margin-bottom: 30px;
     align-items: center;
     background: white;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -47,6 +46,9 @@
     height: calc(100% - 130px);
     overflow-y: auto;
     margin-left: 20px;
+    position: relative;
+    margin-top: 30px;
+    overflow: visible;
 
     .person-wrapper {
       padding-right: 10px;
@@ -61,6 +63,7 @@
         display: flex;
         align-items: center;
         padding: 10px;
+       
         // background: linear-gradient(
         //   to right bottom,
         //   rgba(255, 255, 255, 1),
@@ -84,7 +87,6 @@
         }
 
         .person-mid {
-          overflow-wrap: break-word;
 
           .person-name {
             font-weight: 600;

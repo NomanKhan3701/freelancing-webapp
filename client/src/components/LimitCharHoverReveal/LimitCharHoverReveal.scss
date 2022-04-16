@@ -6,10 +6,14 @@
         position: absolute;
         border: 1px solid black;
         width: max-content;
-        top: -20px;
-        left: 0;
+        top: -24px;
+        left: -5px;
+        padding: 2px;
+        font-size: 15px;
         transform: scale(0);
-        transition: 0.4s ease;
+        background: rgb(217, 213, 213);
+        transition: 0.3s ease;
+        z-index: 99;
     }
 
     &:hover .reveal{
