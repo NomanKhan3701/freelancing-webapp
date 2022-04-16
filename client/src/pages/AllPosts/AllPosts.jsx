@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { Footer, Navbar } from "../../components/import";
+import { Footer, LimitCharHoverReveal, Navbar } from "../../components/import";
 import "./AllPosts.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -84,7 +84,7 @@ const AllPosts = (props) => {
             state.workPosted.map((work, index) => {
               return (
                 <div className="post-card">
-                  <h1 className="title">{work.title}</h1>
+                  <h1 className="title"><LimitCharHoverReveal word={work.title} limit="23"/></h1>
                   <div className="desc">{work.desc}</div>
                   <div className="btn-container">
                     {work.username !== localStorage.getItem("username") && (

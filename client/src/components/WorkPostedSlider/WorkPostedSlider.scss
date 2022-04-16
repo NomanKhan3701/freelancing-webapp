@@ -31,6 +31,13 @@
       background: rgb(253, 249, 249);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       overflow-x: auto;
+      overflow: visible;
+
+      .limit-char-hover-reveal {
+        font-weight: 600;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
       .card-title {
         font-size: 20px;
