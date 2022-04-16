@@ -294,7 +294,7 @@
           .user-info {
             display: flex;
             margin-bottom: 5px;
-            width: max-content;
+            width: calc(100% - 40px);
             margin: auto;
 
             .profile-username {
@@ -303,6 +303,8 @@
               margin-left: 10px;
               font-weight: 500;
               font-size: 18px;
+              width: calc(100% - 40px);
+              overflow-wrap: break-word;
             }
 
             .user-name {
