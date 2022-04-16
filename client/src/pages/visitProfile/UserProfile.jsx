@@ -7,9 +7,6 @@ import {
 import { motion } from "framer-motion";
 import "./UserProfile.scss";
 import { Link } from "react-router-dom";
-import userBanner from "../../assets/images/bgUser.jpg";
-
-import userImg from "../../assets/images/Cha2.jpg";
 import axios from "axios";
 import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
@@ -21,14 +18,6 @@ const UserProfile = (props) => {
   const [userData, setUserData] = useState();
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
-  const [postWorkData, setPostWorkData] = useState({
-    title: "",
-    desc: "",
-    category: "",
-    skills: [],
-    minBid: null,
-    maxBid: null,
-  });
   useEffect(() => {
     let username;
     try {
@@ -43,7 +32,7 @@ const UserProfile = (props) => {
         setUserData(response.data.data);
         setLoading(false);
       });
-  }, []);
+  });
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   if (localStorage.getItem("username") === "undefined") {
@@ -71,13 +60,6 @@ const UserProfile = (props) => {
       },
     });
   };
-  const goToAllFreelanceWorks = () => {
-    navigate("/userprofile/allwork", {
-      state: {
-        freelancingWork: userData.freelancingWork,
-      },
-    });
-  };
   return (
     <div className="user-profile-container">
       <Navbar />
@@ -92,7 +74,7 @@ const UserProfile = (props) => {
             transition={{ duration: 1, ease: "linear" }}
             className="user-img"
           >
-            <img src={userData.image} alt="user image" />
+            <img src={userData.image} alt="user" />
           </motion.div>
           <div className="user-info">
             <motion.h1

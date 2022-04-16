@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DragAndDropImg, Footer, Navbar } from "../../components/import";
+import { Navbar } from "../../components/import";
 import { Multiselect } from "multiselect-react-dropdown";
 import Select from "react-dropdown-select";
 import "./PostRequest.scss";

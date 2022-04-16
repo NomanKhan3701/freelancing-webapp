@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./WorkPostedSlider.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";

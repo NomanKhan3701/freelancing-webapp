@@ -54,17 +54,17 @@ const SearchAndLinks = (props) => {
     const dropdownRecommend = document.querySelector(".dropdown-recommend");
     const searchInput = document.querySelector(".search-container input");
 
-    if (e.target == downSvg) {
+    if (e.target === downSvg) {
       if (dropdownRecommend.classList.contains("active"))
         dropdownRecommend.classList.remove("active");
       dropdownCategory.classList.toggle("active");
     } else if (
       searchInput.placeholder !== "Search here..." &&
-      (e.target == searchInput || e.target == searchSvg) &&
+      (e.target === searchInput || e.target === searchSvg) &&
       !dropdownCategory.classList.contains("active")
     ) {
       dropdownRecommend.classList.toggle("active");
-    } else if (e.target == searchInput || e.target == searchSvg) {
+    } else if (e.target === searchInput || e.target === searchSvg) {
       dropdownCategory.classList.toggle("active");
     }
   };

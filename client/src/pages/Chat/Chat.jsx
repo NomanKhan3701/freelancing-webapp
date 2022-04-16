@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  ChatMain,
-  ChatMiddle,
-  ChatSidebar,
-  Navbar,
-} from "../../components/import";
+import { ChatMain, ChatMiddle, ChatSidebar } from "../../components/import";
 import "./Chat.scss";
 import LoadingSpinner from "./LoadingSpinner";
 
