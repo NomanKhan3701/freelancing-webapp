@@ -280,7 +280,7 @@ const Bid = () => {
           ) : (
             <div>
               <div className="title">
-                {otherBids.length} freelancer are bidding on an average of{" "}
+                {otherBids.length} freelancer is/are bidding on an average of{" "}
                 {avgBid}₹
               </div>
               <div className="freelancers">
