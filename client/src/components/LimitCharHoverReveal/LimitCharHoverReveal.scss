@@ -6,12 +6,13 @@
         position: absolute;
         border: 1px solid black;
         width: max-content;
-        top: -24px;
+        top: -29px;
         left: -5px;
-        padding: 2px;
+        padding: 4px 10px;
+        border-radius: 5px;
         font-size: 15px;
         transform: scale(0);
-        background: rgb(217, 213, 213);
+        background: rgb(245, 244, 244);
         transition: 0.3s ease;
         z-index: 99;
     }
