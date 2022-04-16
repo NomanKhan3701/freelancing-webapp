@@ -5,6 +5,7 @@ import "./PostTalent.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 toast.configure();
 
 const PostTalent = () => {

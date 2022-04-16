@@ -12,6 +12,8 @@ const Bid = () => {
   //data passed through navigation is accessed using useLocation
   const { state } = useLocation();
   const work = state.work;
+  console.log("workwork");
+  console.log(work);
   const [isLoading, setLoading] = useState(true);
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState("");
@@ -192,6 +194,13 @@ const Bid = () => {
                 {skill}
               </div>
             ))}
+          </div>
+          <div className="work-image">
+            <embed
+              src={work.workImage}
+              type="application/pdf"
+              width="100%"
+            ></embed>
           </div>
           <div className="form">
             <div className="price">

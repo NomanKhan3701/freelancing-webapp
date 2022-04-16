@@ -21,6 +21,8 @@ const ClientDashboard = () => {
   }
 
   let work = state.work;
+  console.log("work");
+  console.log(work);
   if (Array.isArray(work)) {
     work = work[0];
   }
@@ -138,6 +140,13 @@ const ClientDashboard = () => {
                 {skill}
               </div>
             ))}
+          </div>
+          <div className="work-image">
+            <embed
+              src={work.workImage}
+              type="application/pdf"
+              width="100%"
+            ></embed>
           </div>
         </div>
         <div className="comments-container">

@@ -87,6 +87,8 @@ const FindWork = (props) => {
   }
 
   const bid = (event, workPassed) => {
+    console.log("workPassed");
+    console.log(workPassed);
     let image;
     try {
       image = workPassed.image;
@@ -103,6 +105,7 @@ const FindWork = (props) => {
       skills: workPassed.qualifications,
       username: workPassed.username,
       image: image,
+      workImage: workPassed.workImage,
     };
     navigate("/findwork/bid", {
       state: {
