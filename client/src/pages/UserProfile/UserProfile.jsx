@@ -61,15 +61,6 @@ const UserProfile = () => {
     axios
       .get(`http://localhost:8080/userprofiledata/${username}`)
       .then((response) => {
-        // console.log("response.data");
-        // console.log(response.data);
-        // console.log({
-        //   ...response.data.userProfileData,
-        //   workPosted: response.data.workPosted,
-        //   freelancingWork: response.data.freelancingWork,
-        //   isDataTaken: response.data.isUserDataTaken,
-        // });
-
         setUserData({
           ...response.data.userProfileData,
           workPosted: response.data.workPosted,

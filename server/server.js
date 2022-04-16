@@ -189,14 +189,6 @@ app.post("/findtalent/postwork", (req, res, err) => {
     console.log(err);
   }
   const body = req.body.postWorkData;
-  // const newPostWorkData = new FindWorkData({
-  //   title: body.title,
-  //   desc: body.desc,
-  //   category: body.category,
-  //   qualifications: body.skills,
-  //   minBid: body.minBid,
-  //   maxBid: body.maxBid,
-  // });
 
   try {
     // newPostWorkData.save();
@@ -208,6 +200,7 @@ app.post("/findtalent/postwork", (req, res, err) => {
       minBid: body.minBid,
       maxBid: body.maxBid,
       username: body.username,
+      workImage: body.workImage,
       image: body.image,
     }).then((response) => {
       res.send({ result: response.result });

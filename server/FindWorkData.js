@@ -42,6 +42,9 @@ var findWorkDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  workImage: {
+    type: String,
+  },
   image: {
     type: String,
   },
@@ -87,6 +90,7 @@ const addWorkData = async (data) => {
     maxBid,
     username,
     image,
+    workImage,
   } = data;
   if (title.length < 10 || desc.length < 30 || qualifications.length < 1) {
     return 1;
@@ -100,8 +104,10 @@ const addWorkData = async (data) => {
     maxBid: maxBid,
     username: username,
     image: image,
+    workImage: workImage,
   });
   try {
+    //dont remove the await, or use diff appraoch to get di there are,
     await newWorkData.save();
   } catch (err) {
     console.log(err);
@@ -123,6 +129,7 @@ const getWorkPostedDataByUsername = async (username) => {
       title: 1,
       desc: 1,
       username: 1,
+      image: 1,
     }
   );
   let finalData = [];
@@ -144,6 +151,7 @@ const getWorkPostedDataById = async (id) => {
       desc: 1,
       username: 1,
       qualifications: 1,
+      workImage: 1,
     }
   );
   return data;

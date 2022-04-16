@@ -73,6 +73,8 @@ const addWorkInProgressData = async (workId, freelancer) => {
     maxBid,
     numberOfBids,
     username,
+    image,
+    workImage,
   } = data;
 
   try {
@@ -90,6 +92,8 @@ const addWorkInProgressData = async (workId, freelancer) => {
     maxBid: maxBid,
     numberOfBids: numberOfBids,
     username: username,
+    image: image,
+    workImage: workImage,
   });
   try {
     newWorkInProgressData.save();

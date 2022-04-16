@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  Dropdown,
   Footer,
   Navbar,
-  FullDivLoader,
   InfoPagination,
   FullScreenLoader,
 } from "../../components/import";
@@ -11,9 +9,6 @@ import "./FindTalent.scss";
 import "./FindWork.scss";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
-import { LocalGasStation } from "@material-ui/icons";
-import { useFieldArray } from "react-hook-form";
 
 const FindTalentParams = () => {
   let navigate = useNavigate();
@@ -376,7 +371,12 @@ const FindTalentParams = () => {
             <h1 className="filter">Filter by</h1>
             <div className="category-dropdown">
               <h1>Category</h1>
-              <select className="select-filter" name="category" id="category" onChange={call}>
+              <select
+                className="select-filter"
+                name="category"
+                id="category"
+                onChange={call}
+              >
                 {filterData.map((data) => {
                   return dropdown(data);
                 })}
@@ -385,7 +385,12 @@ const FindTalentParams = () => {
             <div className="budget-filter">
               <h1>Total Budget</h1>
 
-              <select className="select-filter" name="budget" id="budget" onChange={budgetCall}>
+              <select
+                className="select-filter"
+                name="budget"
+                id="budget"
+                onChange={budgetCall}
+              >
                 {totalBudgetData.map((data, index) => {
                   return dropdownForBudget(data, index);
                 })}
@@ -402,7 +407,12 @@ const FindTalentParams = () => {
                 })}
               </select>
               <h1>Rating</h1>
-              <select className="select-filter" name="hourlyRate" id="hourlyRate" onChange={adjustRating}>
+              <select
+                className="select-filter"
+                name="hourlyRate"
+                id="hourlyRate"
+                onChange={adjustRating}
+              >
                 {ratingTable.map((data, index) => {
                   return dropdownForBudget(data, index);
                 })}
