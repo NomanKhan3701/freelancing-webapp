@@ -162,8 +162,20 @@ const PostWork = () => {
       });
       return false;
     }
+    if (/\s/.test(minBid) || /\s/.test(maxBid)) {
+      toast.error("Amount cannot contain space.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (!/^\d+$/.test(minBid) || !/^\d+$/.test(maxBid)) {
+      toast.error("Amount needs to be numerical value.", {
+        position: "top-center",
+      });
+      return false;
+    }
     if (!parseInt(maxBid) || !parseInt(minBid)) {
-      toast.error("Amount needs tu be numerical value.", {
+      toast.error("Amount needs to be numerical value.", {
         position: "top-center",
       });
       return false;
@@ -205,16 +217,20 @@ const PostWork = () => {
     }
     return false;
   };
-
   const newPostForWork = (event) => {
     const goAhead = isValidToNavigate();
     if (!goAhead) {
       return;
     }
+    if (userUploadedImage && "image" in userUploadedImage) {
+      setUserUploadedImage(userUploadedImage.image);
+    } else {
+      setUserUploadedImage("");
+    }
     const data = {
       ...postWorkData,
       username: localStorage.getItem("username"),
-      workImage: userUploadedImage.image,
+      workImage: userUploadedImage,
       image: image,
     };
     axios

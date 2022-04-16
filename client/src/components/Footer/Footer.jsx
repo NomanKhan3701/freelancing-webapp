@@ -8,7 +8,6 @@ import "./footer.scss";
 const Footer = () => {
   const [registeredUsers, setRegisteredUsers] = useState("Calculating...");
   const [totalJobsPosted, setTotalJobsPosted] = useState("Calculating...");
-  const thisIsConstant = 0;
   useEffect(() => {
     axios.get(`http://localhost:8080/getFooterData`).then((res) => {
       setRegisteredUsers(res.data.data.registeredUsers);
@@ -16,7 +15,7 @@ const Footer = () => {
       localStorage.setItem("registeredUsers", res.data.data.registeredUsers);
       localStorage.setItem("jobsPosted", res.data.data.jobsPosted);
     });
-  }, [localStorage.getItem("jobsPosted")]);
+  });
   return (
     <div className="footer">
       <div className="footer-up">

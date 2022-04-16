@@ -122,12 +122,31 @@ const Bid = () => {
 
   const addNewBid = () => {
     const amount = bidInformation.amount;
+    if (/\s/.test(amount)) {
+      toast.error("Amount cannot contain space.", {
+        position: "top-center",
+      });
+      return false;
+    }
+    if (!/^\d+$/.test(amount)) {
+      toast.error("Amount needs to be numerical value.", {
+        position: "top-center",
+      });
+      return false;
+    }
     if (!parseInt(amount)) {
       toast.error("Invalid Input, Amount.", {
         position: "top-center",
       });
       return;
     }
+    if (parseInt(amount) < 0) {
+      toast.error("Bid cannot be less than 0.", {
+        position: "top-center",
+      });
+      return false;
+    }
+
     const object = {
       ...bidInformation,
       username: localStorage.getItem("username"),
