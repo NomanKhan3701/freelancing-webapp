@@ -243,7 +243,7 @@ const Navbar = (props) => {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
   let navigate = useNavigate();
   let image = localStorage.getItem("image");
-  if (!image) {
+  if (!image || (image && image === "undefined")) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;
