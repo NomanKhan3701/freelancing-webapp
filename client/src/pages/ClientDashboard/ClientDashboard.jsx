@@ -141,13 +141,15 @@ const ClientDashboard = () => {
               </div>
             ))}
           </div>
-          <div className="work-image">
-            <embed
-              src={work.workImage}
-              type="application/pdf"
-              width="100%"
-            ></embed>
-          </div>
+          {work.workImage ? (
+            <div className="work-image">
+              <embed
+                src={work.workImage}
+                type="application/pdf"
+                width="100%"
+              ></embed>
+            </div>
+          ) : ""}
         </div>
         <div className="comments-container">
           <div className="title">Comments</div>
