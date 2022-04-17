@@ -227,7 +227,7 @@ const user_menu = [
   },
   {
     content: "Give us feedback",
-    link: "/about",
+    link: "/feedback",
   },
   {
     content: "Settings",
