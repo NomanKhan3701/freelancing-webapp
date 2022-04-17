@@ -15,7 +15,7 @@ const Footer = () => {
       localStorage.setItem("registeredUsers", res.data.data.registeredUsers);
       localStorage.setItem("jobsPosted", res.data.data.jobsPosted);
     });
-  });
+  },[]);
   return (
     <div className="footer">
       <div className="footer-up">

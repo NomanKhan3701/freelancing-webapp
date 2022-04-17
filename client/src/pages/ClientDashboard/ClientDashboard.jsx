@@ -20,8 +20,7 @@ const ClientDashboard = () => {
   }
 
   let work = state.work;
-  console.log("work");
-  console.log(work);
+
   if (Array.isArray(work)) {
     work = work[0];
   }
@@ -41,7 +40,9 @@ const ClientDashboard = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
-  });
+    console.log("work");
+    console.log(work);
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;
