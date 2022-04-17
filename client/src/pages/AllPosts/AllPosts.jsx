@@ -73,7 +73,7 @@ const AllPosts = (props) => {
     });
   };
   return (
-    <>
+    <div className='all-post-adjust-footer'>
       <div className="all-posts-container">
         <Navbar />
         <h1>All Posts</h1>
@@ -131,7 +131,7 @@ const AllPosts = (props) => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
