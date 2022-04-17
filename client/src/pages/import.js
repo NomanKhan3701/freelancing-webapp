@@ -17,3 +17,4 @@ export { default as EditProfileInfo } from "../components/EditProfileInfo/EditPr
 export { default as EditBasicInfo } from "../components/EditBasicInfo/EditBasicInfo";
 export { default as EditUsername } from "../components/EditUsername/EditUsername";
 export { default as WebsiteFeedback } from "./WebsiteFeedback/WebsiteFeedback"
+export { default as AboutUs } from "./AboutUs/AboutUs"

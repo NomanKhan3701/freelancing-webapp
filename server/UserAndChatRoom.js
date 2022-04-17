@@ -86,6 +86,7 @@ const findAllRoomsWithGivenUserAndDoOtherUSerExits = async (
   image2
 ) => {
   // const data = await UserChatRoom.find({ usernames: /`${username}`/i });
+
   await addNewUsersToChat(sender, receiver, image1, image2);
   const regex = new RegExp(sender, "i"); // i for case insensitive
   const data = await UserChatRoom.find({ usernames: { $regex: regex } });

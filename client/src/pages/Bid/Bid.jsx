@@ -68,7 +68,7 @@ const Bid = () => {
         },
       });
     }
-  }, []);
+  });
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -214,13 +214,16 @@ const Bid = () => {
               </div>
             ))}
           </div>
-          <div className="work-image">
-            <embed
-              src={work.workImage}
-              type="application/pdf"
-              width="100%"
-            ></embed>
-          </div>
+          {work.workImage ? (
+            <div className="work-image">
+              <embed
+                src={work.workImage}
+                type="application/pdf"
+                width="100%"
+              ></embed>
+            </div>
+          ) : ''}
+
           <div className="form">
             <div className="price">
               <input
@@ -250,7 +253,7 @@ const Bid = () => {
 
           <div className="form">
             <div className="user-img">
-              <img src={image} alt="User Image" />
+              <img src={image} alt="User" />
             </div>
             <input
               type="text"
@@ -313,7 +316,7 @@ const Bid = () => {
                               bid.image ||
                               `https://ui-avatars.com/api/?name=${bid.username}`
                             }
-                            alt="user image"
+                            alt="user"
                           />
                         </Link>
                         <div className="profile-username">

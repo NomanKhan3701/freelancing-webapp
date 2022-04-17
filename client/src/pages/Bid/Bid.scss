@@ -21,15 +21,14 @@
           height: 70px;
 
           img {
-            width: 100%;
-            height: 100%;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             cursor: pointer;
           }
         }
 
         .profileandusername {
-
           display: flex;
           flex-direction: column;
           margin-left: 20px;
@@ -62,7 +61,6 @@
             }
           }
 
-
           .title {
             margin-top: auto;
             // margin-bottom: auto;
@@ -72,8 +70,6 @@
             text-transform: uppercase;
           }
         }
-
-
       }
 
       .desc {
@@ -178,7 +174,6 @@
       .title {
         font-size: 25px;
         font-weight: 600;
-        margin-bottom: 30px;
       }
 
       .form {
@@ -228,7 +223,7 @@
 
       .comments {
         .comment {
-          margin-bottom: 30px;
+          margin-top: 15px;
 
           .user-profile {
             display: flex;
@@ -280,6 +275,7 @@
       }
 
       .freelancers {
+        overflow: auto;
         .flex {
           display: flex;
         }
@@ -360,6 +356,19 @@
             margin-right: 10px;
           }
         }
+        &::-webkit-scrollbar {
+          width: 7px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgb(124, 185, 197);
+          border-radius: 50px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: rgb(233, 231, 231);
+          border-radius: 50px;
+        }
       }
     }
   }
@@ -379,19 +388,14 @@
     color: #4ea685;
     text-decoration: underline #4ea685;
   }
-
-
 }
 
-@media screen and (max-width:1100px) {
-
+@media screen and (max-width: 1100px) {
   // display: flex;
   .bid {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-
 
     .bid-left {
       width: 100%;

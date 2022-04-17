@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "../../components/import";
-import clientImg from "../../assets/images/Cha2.jpg";
 import "./ClientDashboard.scss";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +41,7 @@ const ClientDashboard = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
-  }, []);
+  });
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -141,13 +140,15 @@ const ClientDashboard = () => {
               </div>
             ))}
           </div>
-          <div className="work-image">
-            <embed
-              src={work.workImage}
-              type="application/pdf"
-              width="100%"
-            ></embed>
-          </div>
+          {work.workImage ? (
+            <div className="work-image">
+              <embed
+                src={work.workImage}
+                type="application/pdf"
+                width="100%"
+              ></embed>
+            </div>
+          ) : ""}
         </div>
         <div className="comments-container">
           <div className="title">Comments</div>
@@ -206,7 +207,7 @@ const ClientDashboard = () => {
                     <div key={bid._id} className="freelancer">
                       <div className="freelancer-bid-top">
                         <div className="user-info">
-                          <img src={bid.image} alt="user image" />
+                          <img src={bid.image} alt="user" />
                           <div className="user-name">{bid.username}</div>
                         </div>
                         <div className="flex sell-bid-info">

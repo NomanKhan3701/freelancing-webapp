@@ -54,17 +54,17 @@ const SearchAndLinks = (props) => {
     const dropdownRecommend = document.querySelector(".dropdown-recommend");
     const searchInput = document.querySelector(".search-container input");
 
-    if (e.target == downSvg) {
+    if (e.target === downSvg) {
       if (dropdownRecommend.classList.contains("active"))
         dropdownRecommend.classList.remove("active");
       dropdownCategory.classList.toggle("active");
     } else if (
       searchInput.placeholder !== "Search here..." &&
-      (e.target == searchInput || e.target == searchSvg) &&
+      (e.target === searchInput || e.target === searchSvg) &&
       !dropdownCategory.classList.contains("active")
     ) {
       dropdownRecommend.classList.toggle("active");
-    } else if (e.target == searchInput || e.target == searchSvg) {
+    } else if (e.target === searchInput || e.target === searchSvg) {
       dropdownCategory.classList.toggle("active");
     }
   };
@@ -243,7 +243,7 @@ const Navbar = (props) => {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
   let navigate = useNavigate();
   let image = localStorage.getItem("image");
-  if (!image) {
+  if (!image || (image && image === "undefined")) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
       "username"
     )}`;
@@ -270,6 +270,7 @@ const Navbar = (props) => {
       return (
         <div
           className="user-menu-item"
+          key={index}
           onClick={() =>
             navigate(item.link, {
               state: { username: localStorage.getItem("username") },

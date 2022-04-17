@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./WorkPostedSlider.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
+import { LimitCharHoverReveal } from "../import";
 
 const WorkPostedSlider = (props) => {
   return (
@@ -36,7 +37,7 @@ const WorkPostedSlider = (props) => {
                   transition={{ duration: 1, ease: "linear" }}
                   className="work-posted-slider-card"
                 >
-                  <div className="card-title">{work.title}</div>
+                  <div className="card-title"><LimitCharHoverReveal word={work.title} limit="15"/></div>
                   <div className="card-desc">{work.desc}</div>
                   <div
                     className={`card-status ${

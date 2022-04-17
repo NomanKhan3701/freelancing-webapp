@@ -1,7 +1,6 @@
 import {
   AutorenewSharp,
   PersonAdd,
-  PersonSharp,
   PostAdd,
   PresentToAllSharp,
   SearchTwoTone,

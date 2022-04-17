@@ -13,6 +13,11 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       padding: 20px;
       margin-bottom: 30px;
+
+      .work-image {
+        height: max-content;
+      }
+
       .client-profile {
         display: flex;
         .user-img {
@@ -84,7 +89,6 @@
     .title {
       font-size: 25px;
       font-weight: 600;
-      margin-bottom: 30px;
     }
 
     .form {
@@ -136,7 +140,7 @@
       overflow-y: auto;
       max-height: 60vh;
       .comment {
-        margin-bottom: 30px;
+        margin-top: 15px;
         .user-profile {
           display: flex;
           img {

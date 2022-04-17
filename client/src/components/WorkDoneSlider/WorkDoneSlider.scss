@@ -32,6 +32,13 @@
       background: rgb(253, 249, 249);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       overflow-x: auto;
+      overflow: visible;
+
+      .limit-char-hover-reveal {
+        font-weight: 600;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
       .card-title {
         font-size: 20px;
@@ -76,7 +83,20 @@
           color: white;
         }
       }
-      
+      &::-webkit-scrollbar {
+        height: 5px;
+        width: 7px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgb(124, 185, 197);
+        border-radius: 50px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgb(233, 231, 231);
+        border-radius: 50px;
+      }
     }
   }
 }

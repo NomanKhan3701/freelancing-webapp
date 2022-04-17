@@ -3,7 +3,6 @@ import "./FreelancerProfile.scss";
 import { Navbar } from "../../components/import";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import userBanner from "../../assets/images/bgUser.jpg";
 import userImg from "../../assets/images/Cha2.jpg";
 
 const FreelancerProfile = () => {

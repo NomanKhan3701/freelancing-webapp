@@ -1,7 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import Cha from "../../assets/images/Cha2.jpg";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import userImg from "../../assets/images/Cha2.jpg";

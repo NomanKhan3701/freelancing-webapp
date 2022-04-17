@@ -6,10 +6,6 @@ import {
 } from "../../components/import";
 import { motion } from "framer-motion";
 import "./UserProfile.scss";
-import { Link } from "react-router-dom";
-import userBanner from "../../assets/images/bgUser.jpg";
-
-import userImg from "../../assets/images/Cha2.jpg";
 import axios from "axios";
 import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
@@ -70,7 +66,7 @@ const UserProfile = () => {
         localStorage.setItem("isDataTaken", response.data.isUserDataTaken);
         setLoading(false);
       });
-  }, []);
+  });
 
   if (isLoading) {
     return <FullScreenLoader />;
@@ -99,27 +95,22 @@ const UserProfile = () => {
     });
   };
 
+  const userImage = userData.image
+    ? userData.image
+    : `https://ui-avatars.com/api/?name=${userData.username}`;
+
   return (
     <div className="user-profile-container">
       <Navbar />
       <div className="user-profile-info">
         <div className="profile-header">
-          {/* <div className="profile-banner">
-            <img src={userBanner} alt="banner" />
-          </div> */}
           <motion.div
             initial={{ opacity: 0, translateX: -200 }}
             animate={{ opacity: 1, translateX: 0 }}
             transition={{ duration: 1, ease: "linear" }}
             className="user-img"
           >
-            <img
-              src={
-                userData.image ||
-                `https://ui-avatars.com/api/?name=${userData.username}`
-              }
-              alt="user"
-            />
+            <img src={userImage} alt="user" />
           </motion.div>
 
           <div className="user-info">
@@ -200,16 +191,16 @@ const UserProfile = () => {
             <div className="skills-container">
               <h1>Category</h1>
               <div className="skills">
-                {userData.category.map((category) => {
-                  return <div className="skill">{category}</div>;
+                {userData.category.map((category, index) => {
+                  return <div className="skill" key={index}>{category}</div>;
                 })}
               </div>
             </div>
             <div className="skills-container">
               <h1>Skills</h1>
               <div className="skills">
-                {userData.skills.map((skill) => {
-                  return <div className="skill">{skill}</div>;
+                {userData.skills.map((skill, index) => {
+                  return <div className="skill" key={index}>{skill}</div>;
                 })}
               </div>
             </div>
