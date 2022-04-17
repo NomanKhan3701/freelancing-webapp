@@ -32,7 +32,7 @@ const UserProfile = (props) => {
         setUserData(response.data.data);
         setLoading(false);
       });
-  });
+  },[]);
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   if (localStorage.getItem("username") === "undefined") {

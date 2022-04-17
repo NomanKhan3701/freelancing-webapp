@@ -24,7 +24,7 @@ const AllWorks = (props) => {
           setLoading(false);
         });
     }
-  });
+  },[]);
 
   if (isLoading) {
     return <LoadingSpinner />;

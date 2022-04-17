@@ -66,7 +66,6 @@ function App() {
         </Route>
 
         <Route path="/findpartner" element={<FindPartner />} />
-        <Route path="/lc" element={<LimitCharHoverReveal word="Hi I am Noman Plz limit me" limit="10"/>} />
 
         <Route path="/freelancerprofile" element={<FreelancerProfile />} />
 

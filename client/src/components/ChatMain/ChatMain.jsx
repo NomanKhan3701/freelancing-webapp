@@ -138,7 +138,7 @@ const ChatMain = (props) => {
         socket.emit("offline", sender);
       });
     };
-  });
+  }, []);
   if (isLoading) {
     return <FullDivLoader />;
   }
