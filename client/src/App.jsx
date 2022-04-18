@@ -18,6 +18,7 @@ import {
   EditBasicInfo,
   EditUsername,
   EditProfileInfo,
+  WebsiteFeedback
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
@@ -126,6 +127,7 @@ function App() {
           <Route path="editprofileinfo" element={<EditProfileInfo />}></Route>
         </Route>
 
+        <Route path="/feedback" element={<WebsiteFeedback />}></Route>
         <Route path="/findpartner" element={<FindPartner />} />
         <Route
           path="/lc"
