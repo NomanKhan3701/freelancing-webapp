@@ -157,6 +157,21 @@ const getWorkPostedDataById = async (id) => {
   return data;
 };
 
+const getWorkPostedDataByIdWithMoreData = async (id) => {
+  const data = await FindWorkData.find(
+    { _id: ObjectId(id) },
+    {
+      title: 1,
+      desc: 1,
+      username: 1,
+      qualifications: 1,
+      image: 1,
+      workImage: 1,
+    }
+  );
+  return data[0];
+};
+
 const updateBidCount = async (workId) => {
   let data = await FindWorkData.find({ _id: workId }, { numberOfBids: 1 });
   const filter = { _id: workId };
@@ -212,6 +227,7 @@ module.exports = {
   updateCountForBid,
   findWorkDataAndDelete,
   getNumberOfJobsPosted,
+  getWorkPostedDataByIdWithMoreData,
 };
 
 //1 - insufficient data

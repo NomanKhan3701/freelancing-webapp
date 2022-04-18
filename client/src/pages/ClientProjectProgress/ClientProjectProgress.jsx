@@ -2,20 +2,12 @@ import React from "react";
 import { Navbar } from "../../components/import";
 import "./ClientProjectProgress.scss";
 import clientImg from "../../assets/images/Cha2.jpg";
-import { Link } from "react-router-dom";
-import { Navigate, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const ClientProjectProgress = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log("state");
-  console.log(state);
   const workData = state.work;
-  const work = {
-    title: "JavaScript Developer",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel magni dolorum, harum officiis ducimus id optio iure eius quibusdam voluptatum eligendi doloribus voluptas similique voluptatem labore. Suscipit, natus! Hic, quod.",
-    skills: ["NodeJs", "HTML", "CSS", "JavaScript"],
-  };
   const goToUserProfile = () => {
     navigate("/userprofile", {
       state: {

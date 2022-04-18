@@ -1,4 +1,7 @@
-const { findAllOtherUsersChattingWithGivenUser } = require("./UserAndChatRoom");
+const {
+  findAllOtherUsersChattingWithGivenUser,
+  roomData,
+} = require("./UserAndChatRoom");
 
 var onlineUsers = [];
 const onlineUsersAndSocketId = new Map();
@@ -17,6 +20,18 @@ const getOnlineUsers = async (username) => {
     }
   }
   return otherOnlineUsers;
+};
+
+const isUserOnline = async (sender, username, room) => {
+  if (onlineUsers.includes(username)) {
+    const data = await roomData(room);
+    if (data.username1 === sender) {
+      return { socketId: getSocketId(username), image: data.image1 };
+    } else {
+      return { socketId: getSocketId(username), image: data.image2 };
+    }
+  }
+  return false;
 };
 
 const addOnlineUser = (socketId, username) => {
@@ -40,4 +55,18 @@ const removeOnlineUser = (username) => {
 const getSocketId = (username) => {
   return onlineUsersAndSocketId.get(username);
 };
-module.exports = { getOnlineUsers, addOnlineUser, removeOnlineUser };
+
+const isUserOnlineNoData = (username) => {
+  return onlineUsers.includes(username);
+};
+
+const notifyBid = async (title, workId, username) => {};
+
+module.exports = {
+  getOnlineUsers,
+  addOnlineUser,
+  removeOnlineUser,
+  isUserOnline,
+  isUserOnlineNoData,
+  getSocketId,
+};

@@ -351,9 +351,7 @@ const LinearStepper = (props) => {
         .post("http://localhost:8080/userprofileinput", {
           userData: getUserData,
         })
-        .then((res) => {
-          // console.log(res);
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });

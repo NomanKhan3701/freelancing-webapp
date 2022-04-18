@@ -45,6 +45,7 @@ const {
   getWorkPostedDataByUsername,
   updateBidCount,
   getWorkPostedDataById,
+  getWorkPostedDataByIdWithMoreData,
 } = require("./FindWorkData");
 const {
   getTalentData,
@@ -75,6 +76,7 @@ const {
   addNewUsersToChat,
   findAllRoomsWithGivenUser,
   findAllRoomsWithGivenUserAndDoOtherUSerExits,
+  roomData,
 } = require("./UserAndChatRoom");
 const {
   addDataToChat,
@@ -87,6 +89,8 @@ const {
   addOnlineUser,
   removeOnlineUser,
   getSocketId,
+  isUserOnline,
+  isUserOnlineNoData,
 } = require("./onlineUsers");
 
 const {
@@ -95,6 +99,15 @@ const {
   getRatingsAndUsername,
   getUserImage,
 } = require("./UserProfileData");
+const {
+  addUserForChatNotification,
+  isUserForChatNotification,
+  addBidNotificationData,
+  notificationsForUser,
+  addCommentNotificationData,
+  addBidAcceptedNotifications,
+  addBidAcceptedNotificationData,
+} = require("./notifications");
 
 app.use(logger("dev")); //for video calling
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -102,6 +115,20 @@ app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.json());
 
 // app.post("/post", (req, res, err) => {});
+
+const PORT = process.env.PORT || 8080;
+// app.listen(PORT, console.log(`Server started on port ${PORT}`));
+//chat application using socket.io
+const Server = app.listen(PORT, () => {
+  console.log("server started on port 8080");
+});
+
+const io = require("socket.io")(Server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
 app.post("/login", (req, res, err) => {
   if (err) {
@@ -111,10 +138,16 @@ app.post("/login", (req, res, err) => {
   isValidUser({ username: username, password: password })
     .then((response) => {
       getUserImage(username).then((image) => {
-        res.send({
-          result: response.result,
-          userDataTaken: response.userDataTaken,
-          image: image,
+        notificationsForUser(username).then((data) => {
+          res.send({
+            result: response.result,
+            userDataTaken: response.userDataTaken,
+            image: image,
+            chatNotifications: data.chatNotifications,
+            bidNotifications: data.bidNotifications,
+            bidAcceptedNotifications: data.bidAcceptedNotifications,
+            commentNotifications: data.commentNotifications,
+          });
         });
       });
     })
@@ -135,7 +168,7 @@ app.post("/signup", (req, res, err) => {
       res.send({ result: result, userDataTaken: false });
     });
   } catch (error) {
-    console.log("some error");
+    console.log(error);
   }
 });
 
@@ -298,14 +331,6 @@ app.get("/userprofiledata", (req, res, err) => {
   if (err) {
     console.log(err);
   }
-
-  // categoryImageData()
-  //   .then((response) => {
-  //     res.send({ items: response });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 });
 
 app.get("/findwork", (req, res, err) => {
@@ -354,9 +379,28 @@ app.post("/acceptbid", (req, res, err) => {
   addWorkInProgressData(body.workId, body.freelancer)
     .then((response) => {
       res.send({ result: response });
+
+      if (response === 4) {
+        if (isUserOnlineNoData(body.freelancer)) {
+          const socketId = getSocketId(body.freelancer);
+          io.to(socketId).emit("bidAccepted", {
+            workId: body.workId,
+            title: body.title,
+            time: new Date(),
+            bidAccepted: true,
+          });
+        } else {
+          addBidAcceptedNotificationData({
+            freelancer: body.freelancer,
+            workId: body.workId,
+            title: body.title,
+            time: new Date(),
+            bidAccepted: true,
+          });
+        }
+      }
     })
     .catch((error) => {
-      console.log("error in sending final result to front end");
       res.status(500).send({ error: "An error occurred" });
     });
 });
@@ -374,6 +418,25 @@ app.post("/findwork/bid/newComment", (req, res, err) => {
       image: body.image,
     });
     res.send({ result: result });
+    if (result === 4) {
+      if (isUserOnlineNoData(body.clientUsername)) {
+        const socketId = getSocketId(body.clientUsername);
+        io.to(socketId).emit("newComment", {
+          workId: body.workId,
+          title: body.title,
+          time: new Date(),
+          comment: true,
+        });
+      } else {
+        addCommentNotificationData({
+          username: body.clientUsername,
+          workId: body.workId,
+          title: body.title,
+          time: new Date(),
+          comment: true,
+        });
+      }
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred", error);
@@ -394,6 +457,25 @@ app.post("/findwork/bid/newBid", (req, res, err) => {
       image: body.image,
     }).then((result) => {
       res.send({ result: result });
+      if (result === 4) {
+        if (isUserOnlineNoData(body.clientUsername)) {
+          const socketId = getSocketId(body.clientUsername);
+          io.to(socketId).emit("newBid", {
+            workId: body.workId,
+            title: body.title,
+            time: new Date(),
+            bid: true,
+          });
+        } else {
+          addBidNotificationData({
+            username: body.clientUsername,
+            workId: body.workId,
+            title: body.title,
+            time: new Date(),
+            bid: true,
+          });
+        }
+      }
     });
   } catch (error) {
     console.log(error);
@@ -407,6 +489,8 @@ app.post("/findwork/bid/:workId", (req, res, err) => {
     console.log(err);
   }
   const workId = req.params.workId;
+  let workData = req.body.needWorkData;
+
   try {
     getWorkBidCommentsData(workId).then((items) => {
       getBids(workId).then((bids) => {
@@ -414,31 +498,41 @@ app.post("/findwork/bid/:workId", (req, res, err) => {
         for (let i = 0; i < bids.length; i++) {
           totalBids += bids[i].amount;
         }
-        res.send({
-          items: items,
-          bids: bids,
-          avgBid: Math.floor(totalBids / bids.length),
-        });
+        if (!workData) {
+          res.send({
+            items: items,
+            bids: bids,
+            avgBid: Math.floor(totalBids / bids.length),
+          });
+        } else {
+          getWorkPostedDataByIdWithMoreData(workId)
+            .then((reqWorkData) => {
+              const work = {
+                id: workId,
+                title: reqWorkData.title,
+                desc: reqWorkData.desc,
+                skills: reqWorkData.qualifications,
+                username: reqWorkData.username,
+                image: reqWorkData.image,
+                workImage: reqWorkData.workImage,
+              };
+              res.send({
+                workData: work,
+                items: items,
+                bids: bids,
+                avgBid: Math.floor(totalBids / bids.length),
+              });
+            })
+            .catch((errorrr) => {
+              console.log(errorrr);
+            });
+        }
       });
     });
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred", error);
   }
-});
-
-const PORT = process.env.PORT || 8080;
-// app.listen(PORT, console.log(`Server started on port ${PORT}`));
-//chat application using socket.io
-const Server = app.listen(PORT, () => {
-  console.log("server started on port 8080");
-});
-
-const io = require("socket.io")(Server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
 });
 
 // app.get("/chat/:username", (req, res, err) => {
@@ -575,11 +669,8 @@ io.on("connection", (socket) => {
       }
     });
   });
-  socket.on("join", ({ username1, username2 }, callback) => {
-    getRoomNo(username1, username2).then((room) => {
-      socket.join(room);
-      socket.emit("getRoomNo", room);
-    });
+  socket.on("join", ({ username1, username2, room }, callback) => {
+    socket.join(room);
   });
   socket.on("getRoomNo", ({ username1, username2 }, callback) => {
     getRoomNo(username1, username2).then((room) => {
@@ -589,14 +680,22 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", ({ room, message, receiver }, callback) => {
     addDataToChat(room, message);
     socket.broadcast.to(room).emit("message", message);
-    // if (io.sockets.adapter.rooms.get(room).size === 2) {
-    //   socket.broadcast.to(room).emit("message", message);
-    // } else {
-    //   const otherUsersocketId = getSocketId(receiver);
-    //   if (otherUsersocketId) {
-    //     io.to(otherUsersocketId).emit("msgWithoutRoom", { room, message });
-    //   }
-    // }
+    io.in(room)
+      .allSockets()
+      .then((data) => {
+        if (data.size === 1) {
+          isUserOnline(message.username, receiver, room).then((someData) => {
+            if (someData) {
+              io.to(someData.socketId).emit("message", {
+                ...message,
+                image: someData.image,
+              });
+            } else {
+              addUserForChatNotification(receiver);
+            }
+          });
+        }
+      });
   });
   socket.on("disconnect", (username) => {
     // socket.broadcast.to(room).emit("offline", usernamne);
