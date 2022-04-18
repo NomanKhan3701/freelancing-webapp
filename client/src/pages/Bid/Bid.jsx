@@ -68,7 +68,7 @@ const Bid = () => {
         },
       });
     }
-  });
+  },[]);
 
   if (isLoading) {
     return <LoadingSpinner />;

@@ -101,7 +101,7 @@ const FindTalentParams = () => {
         }
         setLoading(false);
       });
-  });
+  },[]);
 
   if (isLoading) {
     return <FullScreenLoader />;

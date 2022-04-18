@@ -18,3 +18,4 @@ export { default as FullDivLoader } from "./Loader/FullDivLoader/FullDivLoader";
 export { default as FullScreenLoader } from "./Loader/FullScreenLoader/FullScreenLoader";
 export { default as ScreenOverlayLoader } from "./Loader/ScreenOverlayLoader/ScreenOverlayLoader";
 export { default as LimitCharHoverReveal} from "./LimitCharHoverReveal/LimitCharHoverReveal";
+export {default as FindPartnerPagination} from './FindPartnerPagination/FindPartnerPagination';

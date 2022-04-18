@@ -2,13 +2,16 @@ import { Dehaze, Search } from "@material-ui/icons";
 import { motion } from "framer-motion";
 import { HiX } from "react-icons/hi";
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router";
 import "./navbar.scss";
 import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
 import { NavLink, Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+
+
 const SearchAndLinks = (props) => {
   const searchDropdownRef = useRef(null);
+  let navigate = useNavigate();
 
   const clickOutsideRef = (toggle_ref) => {
     document.addEventListener("mousedown", (e) => {
@@ -69,6 +72,41 @@ const SearchAndLinks = (props) => {
     }
   };
 
+  const searchRecommendClick = (e) => {
+    const searchInput = document.querySelector(".search-container input");
+    const dropdownRecommend = document.querySelector(".dropdown-recommend");
+    const dropdownRecommendItems = document.querySelector(".dropdown-recommend .recommend-items").children;
+    searchInput.value = e.target.innerText;
+    dropdownRecommend.classList.remove('active');
+    for(let item of dropdownRecommendItems){
+      if(item.innerText.includes(searchInput.value)&&!item.classList.contains('active'))
+        item.classList.add('active');
+      else if(!item.innerText.includes(searchInput.value)&&item.classList.contains('active'))
+        item.classList.remove('active');
+    }
+  }
+
+  const handleSearchInput = (e) => {
+    const dropdownRecommendItems = document.querySelector(".dropdown-recommend .recommend-items").children;
+    for(let item of dropdownRecommendItems){
+      if(item.innerText.includes(e.target.value)&&!item.classList.contains('active'))
+        item.classList.add('active');
+      else if(!item.innerText.includes(e.target.value)&&item.classList.contains('active'))
+        item.classList.remove('active');
+    }
+  }
+
+  const handleEnterOnSearch = (e) => {
+    const searchInput = document.querySelector(".search-container input");
+    if(e.key === 'Enter'){
+      if(searchInput.placeholder === 'Find Talent'){
+        navigate('/findtalent/category', {state:{category: searchInput.value.replace(/ /g, "").toLowerCase()}});
+      }else if(searchInput.placeholder === 'Find Work'){
+        navigate('/findwork/category', {state: {category: searchInput.value.replace(/ /g, "").toLowerCase()}});
+      }
+    }
+  }
+
   return (
     <>
       <div
@@ -76,7 +114,7 @@ const SearchAndLinks = (props) => {
         onClick={(e) => toggleSearchDropdown(e)}
         ref={searchDropdownRef}
       >
-        <input type="text" placeholder="Search here..." />
+        <input type="text" placeholder="Search here..." onKeyDown={(e)=>handleEnterOnSearch(e)} onChange={(e)=>handleSearchInput(e)}/>
         <i className="bx bxs-chevron-down down"></i>
         <Search className="i" />
         <div className="dropdown-select ">
@@ -108,7 +146,19 @@ const SearchAndLinks = (props) => {
             </div>
           </div>
         </div>
-        <div className="dropdown-recommend ">Hi i am recommend</div>
+        <div className="dropdown-recommend ">
+          <div className="recommend-items">
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Frontend Web developer</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Designer</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>App developer</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Model</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Cyber Security</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>UI/UX Designer</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Logo Creator</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Video Editor</div>
+            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Backend Web developer</div>
+          </div>
+        </div>
       </div>
       <div className={`nav-links-container ${props.active}`}>
         <div className="nav-link">

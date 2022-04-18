@@ -66,7 +66,7 @@ const UserProfile = () => {
         localStorage.setItem("isDataTaken", response.data.isUserDataTaken);
         setLoading(false);
       });
-  });
+  },[]);
 
   if (isLoading) {
     return <FullScreenLoader />;
