@@ -24,6 +24,7 @@ import {
 import { update } from "../../features/chatMain/chatMainSlice";
 import { setOnlineUsers } from "../../features/socket/onlineUsers";
 import { setRoom } from "../../features/socket/roomSlice";
+import { selectFeedback } from "../../features/socket/feedbackSlice";
 const SearchAndLinks = (props) => {
   const searchDropdownRef = useRef(null);
   let navigate = useNavigate();
@@ -318,6 +319,7 @@ const Navbar = (props) => {
   const newBid = useSelector(selectNewBid);
   const newComment = useSelector(selectNewComment);
   const bidAccepted = useSelector(selectBidAccepted);
+  const feedback = useSelector(selectFeedback);
 
   useEffect(() => {
     if (newMessage) {
@@ -329,6 +331,17 @@ const Navbar = (props) => {
       });
     }
   }, [newMessage]);
+
+  useEffect(() => {
+    if (feedback) {
+      setNotificationCount((data) => {
+        return data + 1;
+      });
+      setNotification((data) => {
+        return [...data, feedback];
+      });
+    }
+  }, [feedback]);
 
   useEffect(() => {
     if (newBid) {
@@ -486,6 +499,13 @@ const Navbar = (props) => {
       });
     } else if ("offlineChatNotifications" in data) {
       navigate("/chat");
+    } else if ("feedback" in data) {
+      navigate("/feedback", {
+        state: {
+          client: data.client,
+          workId: data.workId,
+        },
+      });
     }
   };
 
@@ -571,6 +591,21 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{"You have few new messages."}</div>
+        </div>
+      );
+    } else if ("feedback" in item) {
+      const clientImage = `https://ui-avatars.com/api/?name=${item.client}`;
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={item.username}
+          onClick={() => goTo(item)}
+        >
+          <div className="img">
+            <img src={item.image || clientImage} alt="User" />
+          </div>
+          <div className="message">{`Congrats on completing your freelancing work with ${item.client} on project ${item.title}`}</div>
         </div>
       );
     } else {

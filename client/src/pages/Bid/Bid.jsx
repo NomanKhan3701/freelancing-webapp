@@ -93,11 +93,7 @@ const Bid = () => {
         },
       });
     }
-<<<<<<< HEAD
   }, []);
-=======
-  },[]);
->>>>>>> 1e2f19f8011c529a2a67fc9847cb02e135d9537f
 
   if (isLoading) {
     return <LoadingSpinner />;

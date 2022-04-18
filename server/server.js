@@ -70,6 +70,9 @@ const {
   getFreelancerWorkByUsername,
   addWorkInProgressData,
   getNumberOfRegisteredUsersAndJobsPosted,
+  addFeedback,
+  addFeedbackFromClient,
+  addFeedbackFromFreelancer,
 } = require("./BreakDependency");
 const {
   getRoomNo,
@@ -107,6 +110,7 @@ const {
   addCommentNotificationData,
   addBidAcceptedNotifications,
   addBidAcceptedNotificationData,
+  addFeedbackNotification,
 } = require("./notifications");
 
 app.use(logger("dev")); //for video calling
@@ -147,6 +151,7 @@ app.post("/login", (req, res, err) => {
             bidNotifications: data.bidNotifications,
             bidAcceptedNotifications: data.bidAcceptedNotifications,
             commentNotifications: data.commentNotifications,
+            feedbackNotifications: data.feedbackNotifications,
           });
         });
       });
@@ -200,6 +205,57 @@ app.get("/findtalent/cards", (req, res, err) => {
     getTalentData().then((response) => {
       res.send({ result: response });
     });
+  }
+});
+
+app.get("/getImage/:username", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  const username = req.params.freelancer;
+  getUserImage(username)
+    .then((response) => {
+      res.send({ image: response });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.post("/feedback", (req, res, err) => {
+  const body = req.body;
+  if ("freelancer" in body) {
+    addFeedbackFromClient(body)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+    getUserImage(body.client).then((image) => {
+      addFeedbackNotification({
+        workId: body.workId,
+        title: body.title,
+        client: body.client,
+        freelancer: body.freelancer,
+        feedback: true,
+        image: image,
+      });
+      if (isUserOnlineNoData(body.freelancer)) {
+        const socketId = getSocketId(body.freelancer);
+        io.to(socketId).emit("giveFeedbackToClient", {
+          workId: body.workId,
+          title: body.title,
+          client: body.client,
+          feedback: true,
+          image: image,
+        });
+      }
+    });
+  } else {
+    addFeedbackFromFreelancer(req.body)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
   }
 });
 
