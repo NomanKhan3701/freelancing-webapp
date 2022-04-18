@@ -80,7 +80,7 @@ const addWorkInProgressData = async (workId, freelancer) => {
   try {
     deleteBids(workId); //no need of await here
   } catch (error) {
-    console.log("error in deleting from backedn work data");
+    console.log(error);
   }
   const newWorkInProgressData = new WorkInProgressData({
     workId: workId,

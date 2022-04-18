@@ -8,9 +8,6 @@ import LoadingSpinner from "../Chat/LoadingSpinner";
 const AllWorks = (props) => {
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
-  if (!("username" in state)) {
-    setLoading(false);
-  }
   useEffect(() => {
     if ("username" in state) {
       axios
@@ -23,8 +20,10 @@ const AllWorks = (props) => {
           state.freelancingWork = response.data.freelancingWork;
           setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
-  });
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -40,7 +39,9 @@ const AllWorks = (props) => {
             : state.freelancingWork.map((work) => {
                 return (
                   <div className="work-card">
-                    <h1 className="title"><LimitCharHoverReveal word={work.title} limit="23"/></h1>
+                    <h1 className="title">
+                      <LimitCharHoverReveal word={work.title} limit="23" />
+                    </h1>
                     <div className="desc">{work.desc}</div>
                     <div className="btn-container">
                       {work.username !== localStorage.getItem("username") && (

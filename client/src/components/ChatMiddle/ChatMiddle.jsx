@@ -3,19 +3,25 @@ import "./ChatMiddle.scss";
 import { Search } from "@material-ui/icons";
 import { LimitCharHoverReveal } from "../import";
 import { useSelector, useDispatch } from "react-redux";
-import { update } from "./../../features/chatMain/chatMainSlice";
+import {
+  selectChatMainData,
+  update,
+} from "./../../features/chatMain/chatMainSlice";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
+import { setRoom } from "../../features/socket/roomSlice";
+import { selectSocket } from "../../features/socket/socketSlice";
+import { selectNewMessage } from "../../features/socket/newMessage";
 
 const ChatMiddle = (props) => {
   //dont remove below line of code,
   const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false,
   });
-  const chatMainData = useSelector((state) => state.chatMainData.value);
+  const chatMainData = useSelector(selectChatMainData);
   const dispatch = useDispatch();
-
+  const newMessage = useSelector(selectNewMessage);
   const sender = localStorage.getItem("username");
-
+  const socket = useSelector(selectSocket);
   const [chats, setChats] = useState(props.chats);
   const [chatData, setChatData] = useState(props.chatData);
   const getLastMsg = (room) => {
@@ -25,6 +31,33 @@ const ChatMiddle = (props) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (
+      newMessage &&
+      newMessage.username !== localStorage.getItem("receiver")
+    ) {
+      setChatData((allChatsData) => {
+        let roomToAddIn;
+        for (let i = 0; i < chats.length; i++) {
+          if (
+            chats[i].username1 === newMessage.username ||
+            chats[i].username2 === newMessage.username
+          ) {
+            roomToAddIn = chats[i].usernames;
+            break;
+          }
+        }
+        const newAllCHatData = allChatsData.map((chatData) => {
+          if (roomToAddIn === chatData.room) {
+            return { ...chatData, data: [...chatData.data, newMessage] };
+          }
+          return chatData;
+        });
+        return newAllCHatData;
+      });
+    }
+  }, [newMessage]);
 
   useEffect(() => {
     setChatData((pData) => {
@@ -52,9 +85,11 @@ const ChatMiddle = (props) => {
       return;
     }
     let chatDataForUser, chatForUser;
+    let status;
     for (let i = 0; i < chats.length; i++) {
       if (chats[i].usernames === room) {
         chatForUser = chats[i];
+        status = chatForUser.status;
         break;
       }
     }
@@ -72,16 +107,32 @@ const ChatMiddle = (props) => {
         ? chatForUser.username2
         : chatForUser.username1;
     localStorage.setItem("receiver", receiver);
+    if (localStorage.getItem("room") !== room) {
+      localStorage.setItem("room", room);
+      if (
+        socket &&
+        room !== "default" &&
+        sender !== "undefined" &&
+        receiver !== "undefined"
+      ) {
+        socket.emit("join", { sender, receiver, room }, (error) => {
+          if (error) {
+            alert(error);
+          }
+        });
+      }
+    }
     dispatch(
       update({
         image: "not added yet",
         receiver: receiver,
         receiverImage: receiverImage,
-        status: "offline",
+        status: status,
         room: room,
         chatData: chatDataForUser.data,
       })
     );
+    dispatch(setRoom(room));
   };
 
   const [searchInput, setSearchInput] = useState("");
@@ -157,11 +208,11 @@ const ChatMiddle = (props) => {
             >
               <div className="person">
                 <div className="person-img">
-                  <img src={receiverImage} alt="" />
+                  <img src={receiverImage} alt="Receiver" />
                 </div>
                 <div className="person-mid">
                   <div className="person-name">
-                    <LimitCharHoverReveal word={receiver} limit="15"/>
+                    <LimitCharHoverReveal word={receiver} limit="15" />
                   </div>
                   <div className="last-chat">{lastttMessage}</div>
                 </div>

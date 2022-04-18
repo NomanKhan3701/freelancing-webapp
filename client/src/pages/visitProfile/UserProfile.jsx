@@ -25,14 +25,13 @@ const UserProfile = (props) => {
     } catch (error) {
       username = localStorage.getItem("username");
     }
-    // console.log(username);
     axios
       .get(`http://localhost:8080/userprofiledata/${username}`)
       .then(function (response) {
         setUserData(response.data.data);
         setLoading(false);
       });
-  });
+  }, []);
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   if (localStorage.getItem("username") === "undefined") {

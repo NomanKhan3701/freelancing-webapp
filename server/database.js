@@ -91,19 +91,6 @@ const UserSignUpFindData = async (username, passwordEnteredByUser) => {
   let result;
   let data = await UserSignUp.find({ username: username });
 
-  //we can make all the mongoose functions wait using await as below and dont have to worry about callback,
-  //bcrypt.compare(passwordEnteredByUser, hash, function(err, isMatch) {
-  //   if (err) {
-  //     throw err
-  //   } else if (!isMatch) {
-  //     console.log("Password doesn't match!")
-  //   } else {
-  //     console.log("Password matches!")
-  //   }
-  // })
-  //this will get cahgned to as below,
-  // const match = await bcrypt.compare(passwordEnteredByUser, hashedPasswordFromDB);
-
   if (data.length === 0) {
     return 2;
   }

@@ -6,7 +6,6 @@ import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import EmojiPicker from "emoji-picker-react";
 import { AttachFile, Call, VideoCall } from "@material-ui/icons";
-import { io } from "socket.io-client";
 import { FullDivLoader } from "../import";
 import gif from "../../assets/images/talkingGif.gif";
 
@@ -15,8 +14,10 @@ import {
   update,
 } from "./../../features/chatMain/chatMainSlice";
 import { useNavigate } from "react-router";
-
-var socket;
+import { selectRoom, setRoom } from "../../features/socket/roomSlice";
+import { selectOnlineUsers } from "../../features/socket/onlineUsers";
+import { selectSocket } from "../../features/socket/socketSlice";
+import { selectNewMessage } from "../../features/socket/newMessage";
 
 const ChatMain = (props) => {
   //disabling the serializable check
@@ -32,113 +33,61 @@ const ChatMain = (props) => {
   //react hooks
   const [isLoading, setLoading] = useState(true);
   const [finalData, setFinalData] = useState(chatMainData);
-  const [room, setRoom] = useState();
-  const [onlineUsers, setOnlineUsers] = useState([]);
+  let room = useSelector(selectRoom);
+  let onlineUsersObj = useSelector(selectOnlineUsers);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
+  const socket = useSelector(selectSocket);
+  const newMessage = useSelector(selectNewMessage);
   useEffect(() => {
-    socket = io("http://localhost:8080");
-    socket.emit("online", sender);
-    setFinalData(chatMainData);
-    socket.on("error", function (err) {
-      console.log(err);
-    });
-    const username1 = localStorage.getItem("username");
-    const username2 = localStorage.getItem("receiver");
-    if (username1 && username2) {
-      socket.emit("join", { username1, username2 }, (error) => {
-        if (error) {
-          alert(error);
-        }
+    if (socket) {
+      socket.on("getRoomNo", (room) => {
+        dispatch(setRoom(room));
+        localStorage.setItem("room", room);
       });
     }
-    socket.on("getRoomNo", (room) => {
-      setRoom(room);
-    });
-    return () => {
-      socket.emit("offline", username1);
-      socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
-      socket.off();
-    };
-  }, [chatMainData]);
+  }, [socket]);
 
   useEffect(() => {
-    if (finalData) {
+    if (
+      newMessage &&
+      localStorage.getItem("receiver") === newMessage.username
+    ) {
+      dispatch(
+        update({
+          ...chatMainData,
+          chatData: [...chatMainData.chatData, newMessage],
+        })
+      );
+    }
+  }, [newMessage]);
+
+  useEffect(() => {
+    const status = onlineUsersObj.includes(finalData.receiver)
+      ? "online"
+      : "offline";
+    if (finalData.status !== status) {
+      dispatch(update({ ...finalData, status: status }));
+    }
+  }, [onlineUsersObj]);
+
+  useEffect(() => {
+    if (chatMainData) {
       setLoading(false);
     }
+
+    const status = onlineUsersObj.includes(chatMainData.receiver)
+      ? "online"
+      : "offline";
+    setFinalData({ ...chatMainData, status: status });
     const chatContainer = document.querySelector(
       ".chat-main .middle-container"
     );
     if (chatContainer !== null) {
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
-  }, [finalData]);
+  }, [chatMainData]);
 
-  useEffect(() => {
-    const status = onlineUsers.includes(finalData.receiver)
-      ? "online"
-      : "offline";
-    setFinalData((data) => {
-      return {
-        ...data,
-        status: status,
-      };
-    });
-  }, [onlineUsers]);
-
-  useEffect(() => {
-    socket.on("onJoin", (users) => {
-      // console.log(onlineUsers);
-      // console.log("onJoin all users");
-      // console.log(users);
-      setOnlineUsers(users);
-    });
-    socket.on("newUserJoined", (user) => {
-      setOnlineUsers((users) => {
-        if (sender === user) {
-          return users;
-        } else {
-          return [...users, user];
-        }
-      });
-    });
-    socket.on("userLeft", (username) => {
-      setOnlineUsers((users) => {
-        if (users.includes(username) && sender !== username) {
-          return users.filter((user) => user !== username);
-        } else {
-          return users;
-        }
-      });
-    });
-    socket.on("message", (msg) => {
-      setFinalData((data) => {
-        return {
-          ...data,
-          chatData: [...data.chatData, msg],
-        };
-      });
-      dispatch(
-        update({
-          ...finalData,
-          chatData: [...finalData.chatData, msg],
-        })
-      );
-    });
-    // socket.on("msgWithoutRoom", ({ room, message }) => {
-
-    // });
-    window.addEventListener("beforeunload", function (e) {
-      e.preventDefault();
-      e.returnValue = "";
-      socket.emit("offline", sender);
-    });
-    return () => {
-      window.removeEventListener("beforeunload", function (e) {
-        socket.emit("offline", sender);
-      });
-    };
-  });
   if (isLoading) {
     return <FullDivLoader />;
   }

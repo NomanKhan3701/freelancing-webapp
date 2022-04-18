@@ -71,24 +71,11 @@ const FindWork = (props) => {
       });
   }, []);
 
-  // const setWorkWithCategory = (category) => {
-  //   const newWorks = [];
-  //   console.log(originalWorks);
-  //   for (let i = 0; i < originalWorks.length; i++) {
-  //     if (originalWorks[i].category === category) {
-  //       newWorks.push(originalWorks[i]);
-  //     }
-  //   }
-  //   setworks(newWorks);
-  // };
-
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   const bid = (event, workPassed) => {
-    console.log("workPassed");
-    console.log(workPassed);
     let image;
     try {
       image = workPassed.image;

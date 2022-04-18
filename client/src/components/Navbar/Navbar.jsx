@@ -1,12 +1,29 @@
 import { Dehaze, Search } from "@material-ui/icons";
 import { motion } from "framer-motion";
 import { HiX } from "react-icons/hi";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./navbar.scss";
-import userImage from "../../assets/images/userImage.jpg";
 import { Dropdown } from "../import";
 import { NavLink, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSocket, setSocket } from "../../features/socket/socketSlice";
+import {
+  selectNewMessage,
+  setNewMessage,
+} from "../../features/socket/newMessage";
+import { selectNewBid, setNewBid } from "../../features/socket/newBidSlice";
+import {
+  selectNewComment,
+  setNewComment,
+} from "../../features/socket/newCommentSlice";
+import {
+  selectBidAccepted,
+  setBidAccepted,
+} from "../../features/socket/bidAcceptedSlice";
+import { update } from "../../features/chatMain/chatMainSlice";
+import { setOnlineUsers } from "../../features/socket/onlineUsers";
+import { setRoom } from "../../features/socket/roomSlice";
 const SearchAndLinks = (props) => {
   const searchDropdownRef = useRef(null);
 
@@ -136,78 +153,6 @@ const SearchAndLinks = (props) => {
   );
 };
 
-const user_message = [
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-  {
-    user_img: { userImage },
-    message:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos quo minus omnis veritatis non sapiente enim ab fuga vero deleniti nisi nobis ea, illum aliquam officiis, id impedit eos similique?",
-  },
-];
-
-const renderMessageToggle = () => (
-  <div className="chat-dropdown">Message({user_message.length})</div>
-);
-
-const renderMessageMenu = (item, index) => (
-  <Link to="/chat" className="notification" key={index}>
-    <div className="img">
-      <img src={userImage} alt="User" />
-    </div>
-    <div className="message">{item.message}</div>
-  </Link>
-);
-
-const renderMessageFooter = () => (
-  <Link to="/chat" className="btn">
-    Chat
-  </Link>
-);
-
 const user_menu = [
   {
     content: "Profile",
@@ -239,8 +184,61 @@ const user_menu = [
 ];
 
 const Navbar = (props) => {
+  //for chat
+  const socket = useSelector(selectSocket);
+  const dispatch = useDispatch();
+  localStorage.setItem("room", "global");
   const [toggle, setToggle] = useState(false);
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn"));
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [notification, setNotification] = useState([]);
+  const newMessage = useSelector(selectNewMessage);
+  const newBid = useSelector(selectNewBid);
+  const newComment = useSelector(selectNewComment);
+  const bidAccepted = useSelector(selectBidAccepted);
+
+  useEffect(() => {
+    if (newMessage) {
+      setNotificationCount((data) => {
+        return data + 1;
+      });
+      setNotification((data) => {
+        return [...data, newMessage];
+      });
+    }
+  }, [newMessage]);
+
+  useEffect(() => {
+    if (newBid) {
+      setNotificationCount((data) => {
+        return data + 1;
+      });
+      setNotification((data) => {
+        return [...data, newBid];
+      });
+    }
+  }, [newBid]);
+  useEffect(() => {
+    if (newComment) {
+      setNotificationCount((data) => {
+        return data + 1;
+      });
+      setNotification((data) => {
+        return [...data, newComment];
+      });
+    }
+  }, [newComment]);
+  useEffect(() => {
+    if (bidAccepted) {
+      setNotificationCount((data) => {
+        return data + 1;
+      });
+      setNotification((data) => {
+        return [...data, bidAccepted];
+      });
+    }
+  }, [bidAccepted]);
+
   let navigate = useNavigate();
   let image = localStorage.getItem("image");
   if (!image || (image && image === "undefined")) {
@@ -248,17 +246,48 @@ const Navbar = (props) => {
       "username"
     )}`;
   }
+
+  const renderMessageToggle = () => (
+    <div className="chat-dropdown">
+      Notifications
+      {notificationCount !== 0 && "(" + notificationCount + ")"}
+    </div>
+  );
+
   const logout = () => {
     localStorage.setItem("loggedIn", "false");
-    localStorage.setItem("username", undefined);
+
     localStorage.setItem("isDataTaken", "false");
     localStorage.setItem("image", undefined);
+    localStorage.setItem("room", undefined);
+    if (socket) {
+      socket.emit("offline", localStorage.getItem("username"));
+      socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
+      socket.off();
+    }
+    localStorage.setItem("username", undefined);
     setLoggedIn("false");
+    dispatch(
+      update({
+        image: "default",
+        receiver: "default",
+        status: "default",
+        room: "default",
+        chatData: [],
+      })
+    );
+    dispatch(setBidAccepted(null));
+    dispatch(setNewBid(null));
+    dispatch(setNewComment(null));
+    dispatch(setNewMessage(null));
+    dispatch(setOnlineUsers([]));
+    dispatch(setRoom(null));
+    dispatch(setSocket(null));
     navigate("/");
   };
 
   const renderUserMenu = (item, index) => {
-    if (item.content === "Logout") {
+    if (item.content.toLowerCase() === "logout") {
       return (
         <a className="no-link" key={index} onClick={logout}>
           <div className="user-menu-item">
@@ -286,6 +315,164 @@ const Navbar = (props) => {
     <div className="user-img">
       <img src={image} alt="User" />
     </div>
+  );
+
+  const goTo = (data) => {
+    setNotificationCount((count) => {
+      return count - 1;
+    });
+    setNotification((notifications) => {
+      return notifications.filter((notification) => notification !== data);
+    });
+    if ("message" in data) {
+      navigate(`/chat/`);
+    } else if ("bid" in data && "username" in data) {
+      navigate("/findwork/bid", {
+        state: {
+          bid: data,
+        },
+      });
+    } else if ("bid" in data) {
+      navigate("/findwork/bid", {
+        state: {
+          bid: data,
+        },
+      });
+    } else if ("bidAccepted" in data && "freelancer" in data) {
+      navigate("/userprofile/allwork", {
+        state: {
+          username: localStorage.getItem("username"),
+        },
+      });
+    } else if ("bidAccepted" in data) {
+      navigate("/userprofile/allwork", {
+        state: {
+          username: localStorage.getItem("username"),
+        },
+      });
+    } else if ("comment" in data && "username" in data) {
+      navigate("/findwork/bid", {
+        state: {
+          comment: data,
+        },
+      });
+    } else if ("comment" in data) {
+      navigate("/findwork/bid", {
+        state: {
+          comment: data,
+        },
+      });
+    } else if ("offlineChatNotifications" in data) {
+      navigate("/chat");
+    }
+  };
+
+  const renderMessageMenu = (item, index) => {
+    if ("bid" in item && "username" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{`Many Freelancers have bidded on your work with title ${item.title}`}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    } else if ("bid" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{`New Bid added to your work ${item.title}`}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    } else if ("comment" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{`New comment added to your work ${item.title}`}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    } else if ("comment" in item && "username" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{`Freelancers have commentd on your work with title ${item.title}`}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    } else if ("bidAccepted" in item && "freelancer" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{`Your bid on work ${item.title} got accepted.`}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    } else if ("bidAccepted" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{`Your bid on work ${item.title} got accepted.`}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    } else if ("offlineChatNotifications" in item) {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={index}
+          onClick={() => goTo(item)}
+        >
+          <div className="message">{"You have few new messages."}</div>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={item.username}
+          onClick={() => goTo(item)}
+        >
+          <div className="img">
+            <img src={item.image} alt="User" />
+          </div>
+          <div className="message">{item.message}</div>
+          <div className="message">{item.time}</div>
+        </div>
+      );
+    }
+  };
+
+  const renderMessageFooter = () => (
+    <Link to="/chat" className="btn">
+      Chat
+    </Link>
   );
   return (
     <div className="navbar">
@@ -331,7 +518,7 @@ const Navbar = (props) => {
           <div className="message-notify">
             <Dropdown
               customToggle={() => renderMessageToggle()}
-              contentData={user_message}
+              contentData={notification}
               renderItems={(item, index) => renderMessageMenu(item, index)}
               renderFooter={renderMessageFooter}
             />

@@ -37,7 +37,7 @@ const PostTalent = () => {
         }
         setLoading(false);
       });
-  });
+  }, []);
 
   if (isLoading) {
     return <FullScreenLoader />;

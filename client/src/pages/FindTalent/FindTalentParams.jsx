@@ -47,33 +47,11 @@ const FindTalentParams = () => {
     axios
       .get(`http://localhost:8080/findtalent/${state.category}`)
       .then(function (response) {
-        // if (talents === undefined) {
-        //   settalents(response.data.items);
-        //   setOriginalTalents(response.data.items);
-        //   setFilterData(response.data.filterData);
-        // }
-        // if (skills === undefined) {
-        //   for (let i = 0; i < response.data.filterData.length; i++) {
-        //     //removing all non-alphanumeric characters.
-        //     if (
-        //       response.data.filterData[i].category
-        //         .replace(/\W/g, "")
-        //         .toLowerCase() === state.category
-        //     ) {
-        //       setSkills(response.data.filterData[i].skills);
-        //       break;
-        //     }
-        //   }
-        // }
-        // console.log(state.category);
         if (talents === undefined) {
-          // setworks(response.data.items);
-          // console.log(response.data.items);
           setOriginalTalents(response.data.items);
           const newTalents = [];
           setCategory(state.category);
           for (let i = 0; i < response.data.items.length; i++) {
-            // console.log(response.data.items[i].category);
             if (
               response.data.items[i].category
                 .replace(/\W/g, "")
@@ -101,7 +79,7 @@ const FindTalentParams = () => {
         }
         setLoading(false);
       });
-  });
+  }, []);
 
   if (isLoading) {
     return <FullScreenLoader />;

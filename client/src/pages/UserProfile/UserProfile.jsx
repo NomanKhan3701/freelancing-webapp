@@ -66,7 +66,7 @@ const UserProfile = () => {
         localStorage.setItem("isDataTaken", response.data.isUserDataTaken);
         setLoading(false);
       });
-  });
+  }, []);
 
   if (isLoading) {
     return <FullScreenLoader />;
@@ -192,7 +192,11 @@ const UserProfile = () => {
               <h1>Category</h1>
               <div className="skills">
                 {userData.category.map((category, index) => {
-                  return <div className="skill" key={index}>{category}</div>;
+                  return (
+                    <div className="skill" key={index}>
+                      {category}
+                    </div>
+                  );
                 })}
               </div>
             </div>
@@ -200,7 +204,11 @@ const UserProfile = () => {
               <h1>Skills</h1>
               <div className="skills">
                 {userData.skills.map((skill, index) => {
-                  return <div className="skill" key={index}>{skill}</div>;
+                  return (
+                    <div className="skill" key={index}>
+                      {skill}
+                    </div>
+                  );
                 })}
               </div>
             </div>

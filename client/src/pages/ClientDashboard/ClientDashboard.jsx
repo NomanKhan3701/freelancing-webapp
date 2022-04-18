@@ -20,8 +20,6 @@ const ClientDashboard = () => {
   }
 
   let work = state.work;
-  console.log("work");
-  console.log(work);
   if (Array.isArray(work)) {
     work = work[0];
   }
@@ -41,7 +39,7 @@ const ClientDashboard = () => {
         setAvgBid(response.data.avgBid);
         setLoading(false);
       });
-  });
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -95,6 +93,7 @@ const ClientDashboard = () => {
       axios
         .post("http://localhost:8080/acceptbid", {
           workId: work._id,
+          title: work.title,
           freelancer: username,
         })
         .then((response) => {
@@ -148,7 +147,9 @@ const ClientDashboard = () => {
                 width="100%"
               ></embed>
             </div>
-          ) : ""}
+          ) : (
+            ""
+          )}
         </div>
         <div className="comments-container">
           <div className="title">Comments</div>

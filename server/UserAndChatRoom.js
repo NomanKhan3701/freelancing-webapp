@@ -99,12 +99,19 @@ const findAllOtherUsersChattingWithGivenUser = async (sender) => {
   const data = await UserChatRoom.find({ usernames: { $regex: regex } });
   return data;
 };
+
+const roomData = async (room) => {
+  const data = await UserChatRoom.find({ usernames: room });
+  return data[0];
+};
+
 module.exports = {
   getRoomNo,
   addNewUsersToChat,
   findAllRoomsWithGivenUser,
   findAllOtherUsersChattingWithGivenUser,
   findAllRoomsWithGivenUserAndDoOtherUSerExits,
+  roomData,
 };
 
 //1 chat doesnt exist between users
