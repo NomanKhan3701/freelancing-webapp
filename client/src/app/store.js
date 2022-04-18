@@ -8,6 +8,7 @@ import newBidReducer from "../features/socket/newBidSlice";
 import newCommentReducer from "../features/socket/newCommentSlice";
 import bidAcceptedReducer from "../features/socket/bidAcceptedSlice";
 import footerReducer from "../features/Footer/footerSlice";
+import feedbackReducer from "../features/socket/feedbackSlice";
 
 export default configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export default configureStore({
     newComment: newCommentReducer,
     bidAccepted: bidAcceptedReducer,
     footerData: footerReducer,
+    feedback: feedbackReducer,
   },
   //non-serialiazable issue in dispatch() so had to do this
   middleware: (getDefaultMiddleware) =>

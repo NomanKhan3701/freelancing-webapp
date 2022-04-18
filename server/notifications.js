@@ -32,6 +32,21 @@ const CommentsNotificationSchema = new mongoose.Schema({
   comment: { type: Boolean, required: true },
 });
 
+const FeedbackNotificationSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  client: { type: String, required: true },
+  workId: { type: String, required: true },
+  time: { type: String, default: new Date() },
+  image: { type: String },
+  feedback: { type: Boolean, default: true },
+  freelancer: { type: String, required: true },
+});
+
+const FeedbackNotificationData = new mongoose.model(
+  "FeedbackNotificationData",
+  FeedbackNotificationSchema
+);
+
 const BidNotificationData = new mongoose.model(
   "BidNotificationData",
   BidNotificationSchema
@@ -134,6 +149,34 @@ const addBidAcceptedNotificationData = async (data) => {
   }
 };
 
+const addFeedbackNotification = async (data) => {
+  const { workId, title, client, feedback, image, freelancer } = data;
+  const newData = new FeedbackNotificationData({
+    workId: workId,
+    title: title,
+    client: client,
+    feedback: feedback,
+    image: image,
+    freelancer: freelancer,
+  });
+  try {
+    newData.save();
+  } catch (error) {
+    console.log(error);
+    return 2;
+  }
+  return 4;
+};
+
+const removeFeedbackNotificationWithWokrId = async (workId) => {
+  await FeedbackNotificationData.findOneAndDelete({ workId: workId });
+};
+
+const doesUserHasFeedbackNotification = async (username) => {
+  const data = await FeedbackNotificationData.find({ username: username });
+  return data;
+};
+
 const doesUserHasBidAcceptedNotifications = async (username) => {
   const data = await BidAcceptedNotificationData.find({ freelancer: username });
   await BidAcceptedNotificationData.deleteMany({ freelancer: username });
@@ -146,11 +189,13 @@ const notificationsForUser = async (username) => {
     username
   );
   const commentNotifications = await doesUserHasCommentNotifications(username);
+  const feedbackNotifications = await doesUserHasFeedbackNotification(username);
   return {
     chatNotifications: chatNotifications,
     bidNotifications: bidNotifications,
     commentNotifications: commentNotifications,
     bidAcceptedNotifications: bidAcceptedNotifications,
+    feedbackNotifications: feedbackNotifications,
   };
 };
 
@@ -163,4 +208,7 @@ module.exports = {
   notificationsForUser,
   addBidAcceptedNotificationData,
   doesUserHasBidAcceptedNotifications,
+  addFeedbackNotification,
+  doesUserHasFeedbackNotification,
+  removeFeedbackNotificationWithWokrId,
 };

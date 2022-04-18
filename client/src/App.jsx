@@ -7,6 +7,7 @@ import {
   FindTalent,
   FindWork,
   FreelancerProfile,
+  FeedBack,
   Home,
   LoginSignup,
   PostWork,
@@ -30,10 +31,7 @@ import VideoCall from "./components/ChatMain/VideoCall";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSocket } from "./features/socket/socketSlice";
 import { useEffect } from "react";
-import {
-  selectOnlineUsers,
-  setOnlineUsers,
-} from "./features/socket/onlineUsers";
+import { setOnlineUsers } from "./features/socket/onlineUsers";
 // import { EditProfileInfo } from "./pages/import";
 
 import { addOnlineUser, removeOnlineUser } from "./features/socket/onlineUsers";
@@ -41,6 +39,7 @@ import { setNewMessage } from "./features/socket/newMessage";
 import { setNewBid } from "./features/socket/newBidSlice";
 import { setNewComment } from "./features/socket/newCommentSlice";
 import { setBidAccepted } from "./features/socket/bidAcceptedSlice";
+import { setFeedback } from "./features/socket/feedbackSlice";
 
 function App() {
   if (
@@ -89,6 +88,9 @@ function App() {
       });
       socket.on("bidAccepted", (data) => {
         dispatch(setBidAccepted(data));
+      });
+      socket.on("giveFeedbackToClient", (data) => {
+        dispatch(setFeedback(data));
       });
     }
     window.addEventListener("beforeunload", function (e) {
@@ -161,6 +163,7 @@ function App() {
         <Route path="/signup" element={<LoginSignup status="signup" />} />
 
         <Route path="/chat" element={<Chat />} />
+        <Route path="/feedback" element={<FeedBack />} />
 
         <Route
           path="*"
