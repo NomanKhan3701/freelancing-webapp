@@ -57,14 +57,7 @@ const Bid = () => {
       .then((response) => {
         if ("workData" in response.data) {
           setWork(response.data.workData);
-          console.log("workwork");
-          console.log(work);
-          console.log("work data fro bid from backend is here");
-          console.log("response.data");
-          console.log(response.data);
         }
-        console.log("response.data out of if statement");
-        console.log(response.data);
         setComments(response.data.items);
         setOtherBids(response.data.bids);
         setAvgBid(response.data.avgBid);
