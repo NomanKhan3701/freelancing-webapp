@@ -1,19 +1,19 @@
 .info-pagination {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-
-  .nothing {
-
-    .title {
-      width: max-content;
-      font-size: 40px;
-      font-weight: 700;
+  min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  
+    .nothing {
+        margin: auto;
+      .title {
+        width: max-content;
+        font-size: 40px;
+        font-weight: 700;
+       
+      }
     }
-  }
 }
 
 .pagination {

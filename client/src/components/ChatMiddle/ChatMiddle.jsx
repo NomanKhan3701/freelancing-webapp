@@ -181,7 +181,7 @@ const ChatMiddle = (props) => {
 
             lstTimeOfMsg = new Date(lastMsg.time);
             lastMsgTime =
-              lstTimeOfMsg.getHours() + ":" + lstTimeOfMsg.getMinutes();
+              String(lstTimeOfMsg.getHours()).padStart(2, "0") + ":" + String(lstTimeOfMsg.getMinutes()).padStart(2, "0");
             lastttMessage = lastMsg.message;
             if (lastttMessage.length > 15) {
               lastttMessage = lastttMessage.substring(0, 15) + "...";
