@@ -3,39 +3,46 @@ import { Mail, Phone } from "@material-ui/icons";
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectFooterData,
+  setFooterData,
+} from "../../features/Footer/footerSlice";
 import "./footer.scss";
 
 const Footer = () => {
-  const [registeredUsers, setRegisteredUsers] = useState("Calculating...");
-  const [totalJobsPosted, setTotalJobsPosted] = useState("Calculating...");
+  const footerData = useSelector(selectFooterData);
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get(`http://localhost:8080/getFooterData`).then((res) => {
-      setRegisteredUsers(res.data.data.registeredUsers);
-      setTotalJobsPosted(res.data.data.jobsPosted);
-      localStorage.setItem("registeredUsers", res.data.data.registeredUsers);
-      localStorage.setItem("jobsPosted", res.data.data.jobsPosted);
-    });
-  },[]);
+    if (footerData.jobsPosted === null) {
+      axios.get(`http://localhost:8080/getFooterData`).then((res) => {
+        dispatch(
+          setFooterData({
+            ...footerData,
+            registeredUsers: res.data.data.registeredUsers,
+            jobsPosted: res.data.data.jobsPosted,
+          })
+        );
+      });
+    }
+  }, []);
   return (
     <div className="footer">
       <div className="footer-up">
         <div className="address">
           <h3>Address</h3>
-          <div className="flex-container">
-            Bhavans Campus, Old D N Nagar, Munshi Nagar, Andheri West, Mumbai,
-            Maharashtra 400058
-          </div>
+          <div className="flex-container">{footerData.address}</div>
         </div>
         <div className="address">
           <h3>Contact</h3>
           <div className="flex-container">
             <span className="iconandtext">
               <Mail fontSize="medium"></Mail>
-              <p> 123tarun02@gmail.com</p>
+              <p> {footerData.gmail}</p>
             </span>
             <span className="iconandtext">
               <Phone fontSize="medium"></Phone>
-              <p> +91 8104292639</p>
+              <p>{footerData.phoneNumber}</p>
             </span>
           </div>
         </div>
@@ -51,16 +58,24 @@ const Footer = () => {
       <div className="footer-mid"></div>
       <div className="footer-down">
         <div className="numberandtext">
-          <span className="number">{registeredUsers}</span>
+          <span className="number">
+            {footerData.registeredUsers !== null
+              ? footerData.registeredUsers
+              : "Calculating"}
+          </span>
           <p>Registered Users</p>
         </div>
         <div className="numberandtext">
-          <span className="number">{totalJobsPosted}</span>
+          <span className="number">
+            {footerData.jobsPosted !== null
+              ? footerData.jobsPosted
+              : "Calculating"}
+          </span>
           <p>Total Jobs Posted</p>
         </div>
         <div>
           <span>Copyright 2022 © </span>
-          FreeLance.com
+          {footerData.url}
         </div>
       </div>
     </div>

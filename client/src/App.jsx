@@ -7,6 +7,7 @@ import {
   FindTalent,
   FindWork,
   FreelancerProfile,
+  FeedBack,
   Home,
   LoginSignup,
   PostWork,
@@ -18,6 +19,7 @@ import {
   EditBasicInfo,
   EditUsername,
   EditProfileInfo,
+  WebsiteFeedback
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
@@ -27,7 +29,18 @@ import PostTalent from "./pages/PostTalent/PostTalent";
 import UserProfileInput from "./pages/UserProfileInput/UserProfileInput";
 
 import VideoCall from "./components/ChatMain/VideoCall";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSocket } from "./features/socket/socketSlice";
+import { useEffect } from "react";
+import { setOnlineUsers } from "./features/socket/onlineUsers";
 // import { EditProfileInfo } from "./pages/import";
+
+import { addOnlineUser, removeOnlineUser } from "./features/socket/onlineUsers";
+import { setNewMessage } from "./features/socket/newMessage";
+import { setNewBid } from "./features/socket/newBidSlice";
+import { setNewComment } from "./features/socket/newCommentSlice";
+import { setBidAccepted } from "./features/socket/bidAcceptedSlice";
+import { setFeedback } from "./features/socket/feedbackSlice";
 
 function App() {
   if (
@@ -38,6 +51,57 @@ function App() {
   ) {
     localStorage.setItem("isDataTaken", "false");
   }
+  const sender = localStorage.getItem("username");
+  const dispatch = useDispatch();
+  let socket = useSelector(selectSocket);
+
+  useEffect(() => {
+    if (socket) {
+      socket.emit("online", sender);
+      //get other online users
+      socket.on("onJoin", (users) => {
+        dispatch(setOnlineUsers(users));
+      });
+
+      //if new user joins
+      socket.on("newUserJoined", (user) => {
+        if (sender !== user) {
+          dispatch(addOnlineUser(user));
+        }
+      });
+      socket.on("error", function (err) {
+        console.log(err);
+      });
+      socket.on("userLeft", (username) => {
+        if (sender !== username) {
+          dispatch(removeOnlineUser(username));
+        }
+      });
+      socket.on("message", (msg) => {
+        dispatch(setNewMessage(msg));
+      });
+
+      socket.on("newBid", (data) => {
+        dispatch(setNewBid(data));
+      });
+      socket.on("newComment", (data) => {
+        dispatch(setNewComment(data));
+      });
+      socket.on("bidAccepted", (data) => {
+        dispatch(setBidAccepted(data));
+      });
+      socket.on("giveFeedbackToClient", (data) => {
+        dispatch(setFeedback(data));
+      });
+    }
+    window.addEventListener("beforeunload", function (e) {
+      e.preventDefault();
+      e.returnValue = "";
+    });
+    return () => {
+      window.removeEventListener("beforeunload", function (e) {});
+    };
+  }, [socket]);
 
   return (
     <BrowserRouter className="App">
@@ -65,7 +129,17 @@ function App() {
           <Route path="editprofileinfo" element={<EditProfileInfo />}></Route>
         </Route>
 
+        <Route path="/feedback" element={<WebsiteFeedback />}></Route>
         <Route path="/findpartner" element={<FindPartner />} />
+        <Route
+          path="/lc"
+          element={
+            <LimitCharHoverReveal
+              word="Hi I am Noman Plz limit me"
+              limit="10"
+            />
+          }
+        />
 
         <Route path="/freelancerprofile" element={<FreelancerProfile />} />
 
@@ -91,6 +165,7 @@ function App() {
         <Route path="/signup" element={<LoginSignup status="signup" />} />
 
         <Route path="/chat" element={<Chat />} />
+        <Route path="/feedback" element={<FeedBack />} />
 
         <Route
           path="*"

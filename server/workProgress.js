@@ -58,27 +58,6 @@ const addWorkProgress = (data) => {
   }
 };
 
-// const getFreelancerWorkByUsername = async (username) => {
-//   const data = await WorkProgress.find(
-//     { freelancer: username },
-//     { workId: 1, progress: 1 }
-//   );
-//   if (data.length === 0) {
-//     return [];
-//   } else {
-//     const freelancerWork = [];
-//     for (let i = 0; i < data.length; i++) {
-//       try {
-//         const dat = await getWorkPostedDataById(data[i].workId);
-//         freelancerWork.push({ ...data[i], ...dat });
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
-//     return freelancerWork;
-//   }
-// };
-
 const getFreelancerAndProgress = async (workId) => {
   //it had " at start and end so
   if (workId.includes("'") || workId.includes('"')) {
@@ -99,7 +78,28 @@ const updateWorkProgress = async (workId, freelancer) => {
     progress: "in progress",
   };
 
-  await WorkProgress.findOneAndUpdate(filter, update);
+  try {
+    await WorkProgress.findOneAndUpdate(filter, update);
+  } catch (error) {
+    console.log(error);
+    return 2;
+  }
+  return 4;
+};
+
+const workEnd = async (workId) => {
+  const filter = { workId: workId };
+  const update = {
+    endDate: new Date(),
+    progress: "completed",
+  };
+  try {
+    await WorkProgress.findOneAndUpdate(filter, update);
+  } catch (error) {
+    console.log(error);
+    return 2;
+  }
+  return 4;
 };
 
 module.exports = {
@@ -108,6 +108,7 @@ module.exports = {
   getFreelancerAndProgress,
   updateWorkProgress,
   WorkProgress,
+  workEnd,
 };
 
 //0 no user with that user id,

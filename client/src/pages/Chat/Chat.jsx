@@ -7,15 +7,22 @@ import LoadingSpinner from "./LoadingSpinner";
 import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { selectOnlineUsers } from "../../features/socket/onlineUsers";
 toast.configure();
 
 const Chat = () => {
+  if (localStorage.getItem("room") !== "default") {
+    localStorage.setItem("room", "default");
+  } else {
+  }
   const navigate = useNavigate();
   const sender = localStorage.getItem("username");
   const [isLoading, setLoading] = useState(true);
   const [chats, setChats] = useState();
   const [chatData, setChatData] = useState();
   const { state } = useLocation();
+  const onlineUsers = useSelector(selectOnlineUsers);
   let image1 = localStorage.getItem("image");
   if (!image1) {
     image1 = `https://ui-avatars.com/api/?name=${sender}`;
@@ -45,7 +52,14 @@ const Chat = () => {
         image2: image2,
       })
       .then((response) => {
-        setChats(response.data.chats);
+        const chats = response.data.chats;
+        const newChats = chats.map((chat) => {
+          const receiver =
+            chat.username1 === sender ? chat.username2 : chat.username1;
+          const status = onlineUsers.includes(receiver) ? "online" : "offline";
+          return { ...chat, status: status };
+        });
+        setChats(newChats);
         setChatData(response.data.chatData);
         setLoading(false);
       });

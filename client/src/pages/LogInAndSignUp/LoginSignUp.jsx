@@ -10,7 +10,14 @@ import signupImg from "../../assets/images/signup-img.png";
 import GLogin from "./GLogin";
 import { ScreenOverlayLoader } from "../../components/import";
 import { useLocation } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setSocket } from "../../features/socket/socketSlice";
+import { io } from "socket.io-client";
+import { setNewMessage } from "../../features/socket/newMessage";
+import { setNewBid } from "../../features/socket/newBidSlice";
+import { setNewComment } from "../../features/socket/newCommentSlice";
+import { setBidAccepted } from "../../features/socket/bidAcceptedSlice";
+import { setFeedback } from "../../features/socket/feedbackSlice";
 toast.configure();
 
 const axios = require("axios").default;
@@ -20,6 +27,7 @@ const LoginSignUp = (props) => {
   let navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const routeChangeToSignUp = () => {
     let path = `/signup`;
@@ -158,7 +166,28 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
           localStorage.setItem("isDataTaken", response.data.userDataTaken);
-
+          const newSocket = io("http://localhost:8080");
+          dispatch(setSocket(newSocket));
+          if (response.data.chatNotifications) {
+            dispatch(setNewMessage({ offlineChatNotifications: true }));
+          }
+          const bidNotifications = response.data.bidNotifications;
+          const bidAcceptedNotifications =
+            response.data.bidAcceptedNotifications;
+          const commentNotifications = response.data.commentNotifications;
+          const feedbackNotifications = response.data.feedbackNotifications;
+          for (let i = 0; i < bidNotifications.length; i++) {
+            dispatch(setNewBid(bidNotifications[i]));
+          }
+          for (let i = 0; i < bidAcceptedNotifications.length; i++) {
+            dispatch(setBidAccepted(bidAcceptedNotifications[i]));
+          }
+          for (let i = 0; i < commentNotifications.length; i++) {
+            dispatch(setNewComment(commentNotifications[i]));
+          }
+          for (let i = 0; i < feedbackNotifications.length; i++) {
+            dispatch(setFeedback(feedbackNotifications[i]));
+          }
           try {
             localStorage.setItem("image", response.data.image.image);
           } catch (err) {
@@ -234,7 +263,8 @@ const LoginSignUp = (props) => {
         break;
       case 6:
         //login succesfully
-        if (location.state.goingTo) {
+        const state = location.state;
+        if (state && "goingTo" in state) {
           if ("work" in location.state) {
             navigate(location.state.goingTo, {
               state: {

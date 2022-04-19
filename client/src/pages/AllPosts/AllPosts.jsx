@@ -73,18 +73,20 @@ const AllPosts = (props) => {
     });
   };
   return (
-    <div className='all-post-adjust-footer'>
+    <div className="all-post-adjust-footer">
       <div className="all-posts-container">
         <Navbar />
-        <h1>All Posts</h1>
+        <h1>Works Posted</h1>
         <div className="post-cards">
           {state.workPosted.length === 0 ? (
-            <div className="no-posts">No posts</div>
+            <div className="no-posts">You haven't posted any work yet.</div>
           ) : (
             state.workPosted.map((work, index) => {
               return (
                 <div className="post-card">
-                  <h1 className="title"><LimitCharHoverReveal word={work.title} limit="23"/></h1>
+                  <h1 className="title">
+                    <LimitCharHoverReveal word={work.title} limit="23" />
+                  </h1>
                   <div className="desc">{work.desc}</div>
                   <div className="btn-container">
                     {work.username !== localStorage.getItem("username") && (
@@ -103,6 +105,17 @@ const AllPosts = (props) => {
                         </div>
                       )}
                     {work.progress === "in progress" &&
+                      work.username === localStorage.getItem("username") && (
+                        <div
+                          className="btn"
+                          onClick={() => {
+                            seeDetails(index);
+                          }}
+                        >
+                          see details
+                        </div>
+                      )}
+                    {work.progress === "completed" &&
                       work.username === localStorage.getItem("username") && (
                         <div
                           className="btn"

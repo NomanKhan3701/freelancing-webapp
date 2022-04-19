@@ -1,21 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "../../components/import";
 import "./ClientProjectProgress.scss";
-import clientImg from "../../assets/images/Cha2.jpg";
-import { Link } from "react-router-dom";
-import { Navigate, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import axios from "axios";
 
 const ClientProjectProgress = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log("state");
-  console.log(state);
+  const [freelancerImage, setFreelancerImage] = useState(null);
   const workData = state.work;
-  const work = {
-    title: "JavaScript Developer",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel magni dolorum, harum officiis ducimus id optio iure eius quibusdam voluptatum eligendi doloribus voluptas similique voluptatem labore. Suscipit, natus! Hic, quod.",
-    skills: ["NodeJs", "HTML", "CSS", "JavaScript"],
-  };
+  const clientImage = `https://ui-avatars.com/api/?name=${workData.freelancer}`;
   const goToUserProfile = () => {
     navigate("/userprofile", {
       state: {
@@ -30,13 +24,34 @@ const ClientProjectProgress = () => {
       },
     });
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/getImage/${workData.freelancer}`)
+      .then((response) => {
+        setFreelancerImage(response.data.image);
+      });
+  }, []);
+
+  const complete = (workId, freelancer, title) => {
+    const userReply = prompt("Are you sure (yes/no):");
+    if (userReply.toLocaleLowerCase() === "yes") {
+      navigate("/feedback", {
+        state: {
+          workId: workId,
+          freelancer: freelancer,
+          title: title,
+        },
+      });
+    }
+  };
   return (
     <div className="client-project-progress">
       <Navbar />
       <div className="bid-info-container">
         <div className="client-profile">
           <div className="user-img">
-            <img src={clientImg} alt="client img" />
+            <img src={workData.image} alt="client" />
           </div>
           <div className="title">{workData.title}</div>
         </div>
@@ -52,7 +67,10 @@ const ClientProjectProgress = () => {
         <div className="bid-freelancer-info">
           <div className="user-img-name">
             <div className="left">
-              <img src={clientImg} alt="Freelancer Img" />
+              <img
+                src={freelancerImage !== "" ? freelancerImage : clientImage}
+                alt="Freelancer"
+              />
               <div className="name">{workData.freelancer}</div>
             </div>
             <div className="status">{workData.progress}</div>
@@ -67,7 +85,20 @@ const ClientProjectProgress = () => {
             <div className="visit-profile btn" onClick={goToUserProfile}>
               Visit Profile
             </div>
-            <div className="complete-btn btn">Complete</div>
+            {workData.progress !== "completed" && (
+              <div
+                className="complete-btn btn"
+                onClick={() => {
+                  complete(
+                    workData.workId,
+                    workData.freelancer,
+                    workData.title
+                  );
+                }}
+              >
+                Complete
+              </div>
+            )}
           </div>
         </div>
       </div>

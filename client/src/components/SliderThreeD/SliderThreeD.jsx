@@ -13,7 +13,6 @@ import { useNavigate } from "react-router";
 const ReviewSlider = () => {
   const navigate = useNavigate();
   const gigSelected = (event) => {
-    console.log(event.target);
     //left work to do, getting the user id, then going to user profile or dashboard
     navigate("/userprofile");
   };

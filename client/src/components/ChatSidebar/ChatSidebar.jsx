@@ -2,9 +2,22 @@ import React from "react";
 import "./ChatSidebar.scss";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-
+import { useDispatch, useSelector } from "react-redux";
+import { selectSocket } from "../../features/socket/socketSlice";
+import { setSocket } from "../../features/socket/socketSlice";
+import { update } from "../../features/chatMain/chatMainSlice";
+import bidAcceptedSlice, {
+  setBidAccepted,
+} from "../../features/socket/bidAcceptedSlice";
+import { setNewBid } from "../../features/socket/newBidSlice";
+import { setNewComment } from "../../features/socket/newCommentSlice";
+import { setNewMessage } from "../../features/socket/newMessage";
+import { setOnlineUsers } from "../../features/socket/onlineUsers";
+import { setRoom } from "../../features/socket/roomSlice";
 const ChatSidebar = (props) => {
+  const socket = useSelector(selectSocket);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   let image = localStorage.getItem("image");
   if (!image) {
     image = `https://ui-avatars.com/api/?name=${localStorage.getItem(
@@ -13,10 +26,30 @@ const ChatSidebar = (props) => {
   }
   const logout = () => {
     localStorage.setItem("loggedIn", "false");
-    localStorage.setItem("username", undefined);
     localStorage.setItem("isDataTaken", "false");
     localStorage.setItem("image", undefined);
-
+    localStorage.setItem("room", undefined);
+    socket.emit("offline", localStorage.getItem("username"));
+    //order of setting matters
+    localStorage.setItem("username", undefined);
+    socket.disconnect(); //socket.emit("disconnect") gives error as sdisconnect is reserved word
+    socket.off();
+    dispatch(
+      update({
+        image: "default",
+        receiver: "default",
+        status: "default",
+        room: "default",
+        chatData: [],
+      })
+    );
+    dispatch(setBidAccepted(null));
+    dispatch(setNewBid(null));
+    dispatch(setNewComment(null));
+    dispatch(setNewMessage(null));
+    dispatch(setOnlineUsers([]));
+    dispatch(setRoom(null));
+    dispatch(setSocket(null));
     navigate("/");
   };
   return (

@@ -11,9 +11,8 @@ const Bid = () => {
   let navigate = useNavigate();
   //data passed through navigation is accessed using useLocation
   const { state } = useLocation();
-  const work = state.work;
-  console.log("workwork");
-  console.log(work);
+
+  const [work, setWork] = useState();
   const [isLoading, setLoading] = useState(true);
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState("");
@@ -23,6 +22,10 @@ const Bid = () => {
     amount: "",
     desc: "",
   });
+
+  if (!work && "work" in state) {
+    setWork(state.work);
+  }
 
   let image = localStorage.getItem("image");
   if (!image) {
@@ -35,11 +38,26 @@ const Bid = () => {
     const isDataTaken = localStorage.getItem("isDataTaken");
     const loggedIn = localStorage.getItem("loggedIn");
     //here get wasnt working with passing object so used post,
+    let needWorkData = true;
+    let id;
+    if ("work" in state) {
+      needWorkData = false;
+      id = work.id;
+    } else if ("bid" in state) {
+      id = state.bid.workId;
+    } else if ("comment" in state) {
+      id = state.comment.workId;
+    }
+
     axios
-      .post(`http://localhost:8080/findwork/bid/${work.id}`, {
-        id: work.id,
+      .post(`http://localhost:8080/findwork/bid/${id}`, {
+        id: id,
+        needWorkData: needWorkData,
       })
       .then((response) => {
+        if ("workData" in response.data) {
+          setWork(response.data.workData);
+        }
         setComments(response.data.items);
         setOtherBids(response.data.bids);
         setAvgBid(response.data.avgBid);
@@ -68,7 +86,7 @@ const Bid = () => {
         },
       });
     }
-  },[]);
+  }, []);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -83,6 +101,8 @@ const Bid = () => {
     const object = {
       image: image,
       workId: work.id,
+      title: work.title,
+      clientUsername: work.username,
       username: localStorage.getItem("username"),
       desc: comment,
     };
@@ -150,6 +170,8 @@ const Bid = () => {
     const object = {
       ...bidInformation,
       username: localStorage.getItem("username"),
+      title: work.title,
+      clientUsername: work.username,
       workId: work.id,
       image: image,
     };
@@ -222,7 +244,9 @@ const Bid = () => {
                 width="100%"
               ></embed>
             </div>
-          ) : ''}
+          ) : (
+            ""
+          )}
 
           <div className="form">
             <div className="price">

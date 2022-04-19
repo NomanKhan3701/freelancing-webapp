@@ -4,12 +4,17 @@ const {
   findWorkDataAndDelete,
   getNumberOfJobsPosted,
 } = require("./FindWorkData");
-const { WorkProgress, updateWorkProgress } = require("./workProgress");
+const { WorkProgress, updateWorkProgress, workEnd } = require("./workProgress");
 const {
   WorkInProgressData,
   getWorkInProgressDataById,
 } = require("./WorkInProgressData");
 const { getNumberOfRegisteredUsers } = require("./database");
+const {
+  addFeedbackStart,
+  updateFeedbackFromFreelancer,
+} = require("./Feedback");
+const { removeFeedbackNotificationWithWokrId } = require("./notifications");
 const addBid = async (data) => {
   const { workId, username, desc, amount, image } = data;
   if (!workId || !username || !desc || !amount || desc.length < 100) {
@@ -80,7 +85,7 @@ const addWorkInProgressData = async (workId, freelancer) => {
   try {
     deleteBids(workId); //no need of await here
   } catch (error) {
-    console.log("error in deleting from backedn work data");
+    console.log(error);
   }
   const newWorkInProgressData = new WorkInProgressData({
     workId: workId,
@@ -113,9 +118,34 @@ const getNumberOfRegisteredUsersAndJobsPosted = async () => {
     jobsPosted: jobsPosted,
   };
 };
+
+const addFeedbackFromClient = async (data) => {
+  try {
+    await addFeedbackStart(data);
+    await workEnd(data.workId);
+  } catch (error) {
+    console.log(error);
+    return 2;
+  }
+  return 4;
+};
+
+const addFeedbackFromFreelancer = async (data) => {
+  try {
+    await updateFeedbackFromFreelancer(data);
+    await removeFeedbackNotificationWithWokrId(data.workId);
+  } catch (error) {
+    console.log(error);
+    return 2;
+  }
+  return 4;
+};
+
 module.exports = {
   addBid,
   getFreelancerWorkByUsername,
   addWorkInProgressData,
   getNumberOfRegisteredUsersAndJobsPosted,
+  addFeedbackFromClient,
+  addFeedbackFromFreelancer,
 };
