@@ -1,105 +1,49 @@
-import React from 'react'
-import { FindPartnerPagination, InfoPagination, Navbar, Footer } from '../../components/import'
-import userImg from '../../assets/images/Cha2.jpg';
-import './FindPartner.scss'
+import React from "react";
+import { FindPartnerPagination, Navbar, Footer } from "../../components/import";
+import userImg from "../../assets/images/Cha2.jpg";
+import "./FindPartner.scss";
 
 const FindPartner = () => {
   const partners = [
     {
       name: "Noman",
       img: { userImg },
-      skills: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'NodeJs'
-      ],
-      categories: [
-        'Frontend Developer',
-        'Backend Developer'
-      ]
+      skills: ["HTML", "CSS", "JavaScript", "NodeJs"],
+      categories: ["Frontend Developer", "Backend Developer"],
     },
     {
       name: "Noman2",
       img: { userImg },
-      skills: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'NodeJs'
-      ],
-      categories: [
-        'Frontend Developer',
-        'Backend Developer'
-      ]
+      skills: ["HTML", "CSS", "JavaScript", "NodeJs"],
+      categories: ["Frontend Developer", "Backend Developer"],
     },
     {
       name: "Noman3",
       img: { userImg },
-      skills: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'NodeJs'
-      ],
-      categories: [
-        'Frontend Developer',
-        'Backend Developer'
-      ]
+      skills: ["HTML", "CSS", "JavaScript", "NodeJs"],
+      categories: ["Frontend Developer", "Backend Developer"],
     },
     {
       name: "Noman4",
       img: { userImg },
-      skills: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'NodeJs'
-      ],
-      categories: [
-        'Frontend Developer',
-        'Backend Developer'
-      ]
+      skills: ["HTML", "CSS", "JavaScript", "NodeJs"],
+      categories: ["Frontend Developer", "Backend Developer"],
     },
     {
       name: "Noman5",
       img: { userImg },
-      skills: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'NodeJs'
-      ],
-      categories: [
-        'Frontend Developer',
-        'Backend Developer'
-      ]
+      skills: ["HTML", "CSS", "JavaScript", "NodeJs"],
+      categories: ["Frontend Developer", "Backend Developer"],
     },
     {
       name: "Noman6",
       img: { userImg },
-      skills: [
-        'HTML',
-        'CSS',
-        'JavaScript',
-        'NodeJs'
-      ],
-      categories: [
-        'Frontend Developer',
-        'Backend Developer'
-      ]
+      skills: ["HTML", "CSS", "JavaScript", "NodeJs"],
+      categories: ["Frontend Developer", "Backend Developer"],
     },
+  ];
 
-  ]
-
-  const skills = [
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'NodeJs',
-    'MongoDB',
-    'ReactJS'
-  ]
+  const skills = ["HTML", "CSS", "JavaScript", "NodeJs", "MongoDB", "ReactJS"];
 
   const renderPartnerBody = (partner, index) => {
     return (
@@ -112,7 +56,7 @@ const FindPartner = () => {
           <div className="categories">
             <h2>Category : </h2>
             {partner.categories.map((category, idx) => (
-              <div className='category' index={idx}>
+              <div className="category" index={idx}>
                 {category}
               </div>
             ))}
@@ -120,7 +64,7 @@ const FindPartner = () => {
           <div className="skills">
             <h2>Skills : </h2>
             {partner.skills.map((skill, idx) => (
-              <div className='skill' index={idx}>
+              <div className="skill" index={idx}>
                 {skill}
               </div>
             ))}
@@ -128,11 +72,11 @@ const FindPartner = () => {
         </div>
       </div>
     );
-  }
+  };
 
   return (
     <>
-      <div className='find-partner'>
+      <div className="find-partner">
         <Navbar />
         <div className="find-partner-filter">
           <div className="categories">
@@ -148,19 +92,16 @@ const FindPartner = () => {
             <h2>Skills</h2>
             {skills.map((skill, index) => (
               <div key={index} className="checkbox">
-                <input
-                  type="checkbox"
-                  id={`skill-checkbox-${index}`}
-                />
+                <input type="checkbox" id={`skill-checkbox-${index}`} />
                 <label htmlFor={`skill-checkbox-${index}`}>{skill}</label>
               </div>
             ))}
           </div>
           <div className="similar-skills">
-            <h2 className='toggle-content'>Use Github</h2>
+            <h2 className="toggle-content">Use Github</h2>
             <label class="switch">
-                <input type="checkbox" />
-                <span class="slider round"></span>
+              <input type="checkbox" />
+              <span class="slider round"></span>
             </label>
           </div>
         </div>
@@ -174,7 +115,7 @@ const FindPartner = () => {
       </div>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default FindPartner
+export default FindPartner;

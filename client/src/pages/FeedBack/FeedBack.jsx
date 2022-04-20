@@ -3,7 +3,7 @@ import "./FeedBack.scss";
 import { FaStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Navigate, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const colours = {
   orange: "#FFBA5A",
