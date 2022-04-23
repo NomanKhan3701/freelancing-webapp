@@ -189,13 +189,9 @@ const WebsiteFeedback = () => {
             : otherFeedbacks.map((elem, index) => {
                 return (
                   <div className="each-feedback-container" key={index}>
-                    <span>
-                      {new Date(elem.date).getDate() +
-                        "/" +
-                        (new Date(elem.date).getMonth() + 1) +
-                        "/" +
-                        new Date(elem.date).getFullYear()}
-                    </span>
+                    {/* <div>{elem.username}</div>
+                  <img src={elem.image} alt="user"></img> */}
+
                     <div className="votes">
                       <div className="number">{elem.votes}</div>
                       <div
@@ -204,11 +200,18 @@ const WebsiteFeedback = () => {
                           increaseVote(elem);
                         }}
                       >
-                        vote
+                        VOTE
                       </div>
                     </div>
                     <div className="feedback-titleanddesc">
                       <div className="feedback-title">{elem.title}</div>
+                      <span className="feedback-date">
+                        {new Date(elem.date).getDate() +
+                          "/" +
+                          (new Date(elem.date).getMonth() + 1) +
+                          "/" +
+                          new Date(elem.date).getFullYear()}
+                      </span>
                       <div className="feedback-desc">{elem.desc}</div>
                     </div>
                   </div>

@@ -1,14 +1,11 @@
-.base-container {
+.edit-profile-base-container {
   background: url(../../assets/images/lightBg.jpg);
   background-size: cover;
-  // background-size: contain;
   background-repeat: no-repeat;
-  // height: 100%;
-  // min-height: 100vh;
   height: 100vh;
   overflow: hidden;
 
-  .container {
+  .edit-profile-container {
     height: 80%;
     min-height: 600px;
     width: 65%;
@@ -60,9 +57,7 @@
     }
 
     .edit-component {
-      display: flex;
-      justify-content: center;
-      // align-items: center;
+      margin-top: 80px;
       width: 100%;
     }
   }
