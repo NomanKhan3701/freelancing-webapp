@@ -1,3 +1,4 @@
+import { applyMiddleware } from "@reduxjs/toolkit";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
@@ -105,13 +106,18 @@ const WebsiteFeedback = () => {
     let voteNoted = false;
     setOtherFeedbacks((prevData) => {
       newData = prevData.map((someData) => {
+        console.log(someData.votedUsers);
         if (
-          someData.username === data.username &&
           someData.title === data.title &&
           someData.desc === data.desc &&
           !someData.votedUsers.includes(localStorage.getItem("username"))
         ) {
           voteNoted = true;
+          axios.post("http://localhost:8080/updatewebsitefeedbackvotes", {
+            title: data.title,
+            desc: data.desc,
+            username: localStorage.getItem("username"),
+          });
           return {
             ...someData,
             votes: someData.votes + 1,
@@ -123,41 +129,7 @@ const WebsiteFeedback = () => {
         }
         return someData;
       });
-      if (voteNoted) {
-        axios
-          .post("http://localhost:8080/updatewebsitefeedbackvotes", {
-            username: data.username,
-            title: data.title,
-            desc: data.desc,
-            votes: data.votes,
-          })
-          .then((response) => {
-            const result = response.data.result;
-            if (result === 2) {
-              newData = prevData.map((someData) => {
-                if (
-                  someData.username === data.username &&
-                  someData.title === data.title &&
-                  someData.desc === data.desc &&
-                  !someData.votedUsers.includes(
-                    localStorage.getItem("username")
-                  )
-                ) {
-                  voteNoted = true;
-                  return {
-                    ...someData,
-                    votes: someData.votes - 1,
-                    votedUsers: [
-                      ...someData.votedUsers,
-                      localStorage.getItem("username"),
-                    ],
-                  };
-                }
-                return someData;
-              });
-            }
-          });
-      }
+
       if (!voteNoted) {
         toast.error("only one vote per user", {
           position: "top-center",
