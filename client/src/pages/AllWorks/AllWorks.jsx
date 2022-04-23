@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
-import { Footer, LimitCharHoverReveal, Navbar } from "../../components/import";
+import { Footer, FullScreenLoader, LimitCharHoverReveal, Navbar } from "../../components/import";
 import "./AllWorks.scss";
 import axios from "axios";
-import LoadingSpinner from "../Chat/LoadingSpinner";
 
 const AllWorks = (props) => {
   const { state } = useLocation();
@@ -26,12 +25,13 @@ const AllWorks = (props) => {
   }, []);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
   return (
     <>
+    <Navbar />
       <div className="all-works-base-container">
-        <Navbar />
+        
         <div className="all-works-container">
           <h1>All Posts</h1>
           <div className="work-cards">
@@ -58,8 +58,9 @@ const AllWorks = (props) => {
               })}
           </div>
         </div>
-        <Footer className="footer" />
+        
       </div>
+      <Footer className="footer" />
     </>
   );
 };
