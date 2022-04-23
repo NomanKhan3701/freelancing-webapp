@@ -148,7 +148,7 @@ const ChatMain = (props) => {
   return (
     <div className="chat-main">
       {finalData.receiver.toLowerCase() === "default" ||
-      finalData.receiver.toLowerCase() === "undefined" ? (
+        finalData.receiver.toLowerCase() === "undefined" ? (
         <div className="chat-default-section">
           <div className="robot-container">
             <div className="robot">

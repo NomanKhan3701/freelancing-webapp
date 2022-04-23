@@ -20,6 +20,7 @@ import {
   EditUsername,
   EditProfileInfo,
   WebsiteFeedback,
+  AboutUs
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
@@ -100,7 +101,7 @@ function App() {
       e.returnValue = "";
     });
     return () => {
-      window.removeEventListener("beforeunload", function (e) {});
+      window.removeEventListener("beforeunload", function (e) { });
     };
   }, [socket]);
 
@@ -124,6 +125,7 @@ function App() {
         />
 
         <Route path="/video/:id" element={<VideoCall />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/settings" element={<EditProfile />}>
           <Route path="edituandp" element={<EditUsername />}></Route>
           <Route path="editbasic" element={<EditBasicInfo />}></Route>

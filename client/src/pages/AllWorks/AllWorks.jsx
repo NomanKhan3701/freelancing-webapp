@@ -30,13 +30,14 @@ const AllWorks = (props) => {
   }
   return (
     <>
-      <div className="all-works-container">
+      <div className="all-works-base-container">
         <Navbar />
-        <h1>All Posts</h1>
-        <div className="work-cards">
-          {state.freelancingWork.length === 0
-            ? "No Work Posted"
-            : state.freelancingWork.map((work) => {
+        <div className="all-works-container">
+          <h1>All Posts</h1>
+          <div className="work-cards">
+            {state.freelancingWork.length === 0
+              ? "No Work Posted"
+              : state.freelancingWork.map((work) => {
                 return (
                   <div className="work-card">
                     <h1 className="title">
@@ -55,9 +56,10 @@ const AllWorks = (props) => {
                   </div>
                 );
               })}
+          </div>
         </div>
+        <Footer className="footer" />
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,0 +1,95 @@
+.about-base-container {
+    background: url(../../assets/images/lightBg.jpg);
+    background-size: cover;
+    // background-size: contain;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+
+    .about-container {
+        height: 80%;
+        min-height: 600px;
+        width: 65%;
+        margin: auto;
+        margin-top: 100px;
+        display: flex;
+        flex-direction: row;
+        background: white;
+        // background-image: '';
+
+        box-shadow: var(--box-shadow);
+        border-radius: 40px;
+
+        // padding: 20px;
+        .about-data-container {
+            margin: 50px;
+            margin-top: 50px;
+            margin-left: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .about-us {
+                color: rgb(63, 153, 123);
+                font-size: 2em;
+            }
+
+            .sub-title {
+                color: black;
+                font-size: 1.4em;
+                padding-top: 10px;
+            }
+
+            .developers {
+                margin-top: 30px;
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                align-self: center;
+
+                .developer-container {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    .image {
+                        img {
+                            height: 80px;
+                            width: 80px;
+                            border-radius: 50%;
+                            // background-size: cover;
+                            cursor: pointer;
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            background-size: cover;
+
+                            object-fit: cover;
+                        }
+                    }
+
+                    .nameandposition {
+                        margin-left: 30px;
+
+                        .name {
+                            font-size: 1.4em;
+                            color: rgb(63, 153, 123);
+                            margin-bottom: 5px;
+                        }
+
+                        .position {
+                            font-size: 1em;
+                        }
+                    }
+
+                }
+
+                .two {
+                    // min-width: 100%;
+                    margin-left: auto;
+                    align-self: flex-end;
+                }
+            }
+        }
+    }
+
+}
