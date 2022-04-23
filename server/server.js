@@ -112,7 +112,11 @@ const {
   addBidAcceptedNotificationData,
   addFeedbackNotification,
 } = require("./notifications");
-const { addWebsiteFeedback } = require("./WebsiteFeedback");
+const {
+  addWebsiteFeedback,
+  getWebsiteFeedbacks,
+  incrementVoteForWebsiteFeedback,
+} = require("./WebsiteFeedback");
 
 app.use(logger("dev")); //for video calling
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -278,7 +282,36 @@ app.post("/websitefeedback", (req, res, err) => {
   if (err) {
     console.log(err);
   }
-  addWebsiteFeedback(req.body);
+  addWebsiteFeedback(req.body)
+    .then((response) => {
+      res.send({ result: response });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get(`/websitefeedback`, (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  getWebsiteFeedbacks()
+    .then((response) => {
+      res.send({ result: response });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.post("/updatewebsitefeedbackvotes", (req, res, err) => {
+  console.log("req.body");
+  console.log(req.body);
+  incrementVoteForWebsiteFeedback(req.body)
+    .then((response) => {
+      res.send({ result: response });
+    })
+    .catch((error) => {});
 });
 
 app.post("/findtalent/postwork", (req, res, err) => {

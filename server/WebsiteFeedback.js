@@ -14,8 +14,8 @@ var WebsiteFeedbackSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: String,
-    default: new Date(),
+    type: Date,
+    default: Date.now,
   },
   image: {
     type: String,
@@ -24,6 +24,10 @@ var WebsiteFeedbackSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  votedUsers: {
+    type: Array,
+    default: [],
+  },
 });
 
 const WebsiteFeedback = new mongoose.model(
@@ -31,8 +35,15 @@ const WebsiteFeedback = new mongoose.model(
   WebsiteFeedbackSchema
 );
 
-const addWebsiteFeedback = (data) => {
+const addWebsiteFeedback = async (data) => {
   const { username, title, desc, image } = data.data;
+  const ralatedtdData = await WebsiteFeedback.find({
+    title: title,
+    desc: desc,
+  });
+  if (ralatedtdData.length > 0) {
+    return 2;
+  }
   const newData = new WebsiteFeedback({
     username: username,
     title: title,
@@ -44,8 +55,34 @@ const addWebsiteFeedback = (data) => {
   } catch (error) {
     console.log(error);
   }
+  return 4;
+};
+
+const getWebsiteFeedbacks = async () => {
+  const data = await WebsiteFeedback.find({});
+  return data;
+};
+
+const incrementVoteForWebsiteFeedback = async (data) => {
+  const { title, username, desc, votes } = data;
+  const filter = { title: title, username: username, desc: desc };
+  const update = {
+    votes: votes + 1,
+  };
+  try {
+    await WebsiteFeedback.findOneAndUpdate(filter, update);
+  } catch (error) {
+    console.log(error);
+    return 2;
+  }
+  return 4;
 };
 
 module.exports = {
   addWebsiteFeedback,
+  getWebsiteFeedbacks,
+  incrementVoteForWebsiteFeedback,
 };
+
+//2 error
+//4 success
