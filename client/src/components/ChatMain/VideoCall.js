@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router";
-import "./VideoCall.scss"
+import "./VideoCall.scss";
 
 const VideoCall = () => {
   const { state } = useLocation();
@@ -9,10 +9,9 @@ const VideoCall = () => {
   let Containerref = useRef(null);
   // let script = null;
 
-
   const VideoELement = () => {
-    return
-  }
+    return;
+  };
 
   useEffect(() => {
     const domain = "https://freelance-meeting.daily.co/";
@@ -62,8 +61,8 @@ const VideoCall = () => {
     //   console.log("hi " + elem);
     //   document.body.removeChild(elem);
     // });
-    return (() => {
-      const elem = this.document.querySelector('iframe');
+    return () => {
+      const elem = this.document.querySelector("iframe");
       console.log("hi " + elem);
       document.body.removeChild(elem);
       // window.addEventListener("beforeunload", (ev) => {
@@ -72,11 +71,13 @@ const VideoCall = () => {
       //   console.log("event listener removed");
       // })
       // })
-    })
+    };
   }, []);
-  return (<div className="video-call-container" id="video-call-container-id">
-    <div id="IframeContainer" ref={Containerref}></div>
-  </div>)
+  return (
+    <div className="video-call-container" id="video-call-container-id">
+      <div id="IframeContainer" ref={Containerref}></div>
+    </div>
+  );
 };
 
 export default VideoCall;

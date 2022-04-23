@@ -20,7 +20,7 @@ import {
   EditUsername,
   EditProfileInfo,
   WebsiteFeedback,
-  AboutUs
+  AboutUs,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
@@ -101,7 +101,7 @@ function App() {
       e.returnValue = "";
     });
     return () => {
-      window.removeEventListener("beforeunload", function (e) { });
+      window.removeEventListener("beforeunload", function (e) {});
     };
   }, [socket]);
 
