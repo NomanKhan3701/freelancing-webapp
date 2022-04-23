@@ -30,8 +30,8 @@ const AllWorks = (props) => {
   }
   return (
     <>
+      <Navbar />
       <div className="all-works-base-container">
-        <Navbar />
         <div className="all-works-container">
           <h1>All Posts</h1>
           <div className="work-cards">
@@ -58,8 +58,8 @@ const AllWorks = (props) => {
               })}
           </div>
         </div>
-        <Footer className="footer" />
       </div>
+      <Footer className="footer" />
     </>
   );
 };
