@@ -174,6 +174,7 @@ const removeFeedbackNotificationWithWokrId = async (workId) => {
 
 const doesUserHasFeedbackNotification = async (username) => {
   const data = await FeedbackNotificationData.find({ username: username });
+  await FeedbackNotificationData.deleteMany({ username: username });
   return data;
 };
 

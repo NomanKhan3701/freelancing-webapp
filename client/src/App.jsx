@@ -19,7 +19,8 @@ import {
   EditBasicInfo,
   EditUsername,
   EditProfileInfo,
-  WebsiteFeedback
+  WebsiteFeedback,
+  AboutUs,
 } from "./pages/import";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
@@ -91,6 +92,7 @@ function App() {
         dispatch(setBidAccepted(data));
       });
       socket.on("giveFeedbackToClient", (data) => {
+        console.log("sending feedback to clinet that i recieved from backend");
         dispatch(setFeedback(data));
       });
     }
@@ -123,13 +125,14 @@ function App() {
         />
 
         <Route path="/video/:id" element={<VideoCall />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/settings" element={<EditProfile />}>
           <Route path="edituandp" element={<EditUsername />}></Route>
           <Route path="editbasic" element={<EditBasicInfo />}></Route>
           <Route path="editprofileinfo" element={<EditProfileInfo />}></Route>
         </Route>
 
-        <Route path="/feedback" element={<WebsiteFeedback />}></Route>
+        <Route path="/websitefeedback" element={<WebsiteFeedback />}></Route>
         <Route path="/findpartner" element={<FindPartner />} />
         <Route
           path="/lc"

@@ -31,7 +31,15 @@ const UserProfile = (props) => {
         setUserData(response.data.data);
         setLoading(false);
       });
+<<<<<<< HEAD
+<<<<<<< HEAD
+  },[]);
+=======
   }, []);
+>>>>>>> master
+=======
+  }, []);
+>>>>>>> origin
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   if (localStorage.getItem("username") === "undefined") {

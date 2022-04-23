@@ -295,7 +295,7 @@ const user_menu = [
   },
   {
     content: "Give us feedback",
-    link: "/about",
+    link: "/websitefeedback",
   },
   {
     content: "Settings",
@@ -334,6 +334,8 @@ const Navbar = (props) => {
 
   useEffect(() => {
     if (feedback) {
+      console.log("feedback");
+      console.log(feedback);
       setNotificationCount((data) => {
         return data + 1;
       });
