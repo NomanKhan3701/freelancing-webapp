@@ -115,6 +115,7 @@
                 justify-content: center;
                 align-items: center;
                 border: rgb(63, 153, 123) solid thin;
+                box-shadow: var(--box-shadow);
 
                 .number {
                     padding: 30px 50px;
@@ -136,10 +137,19 @@
             .feedback-titleanddesc {
                 // flex-grow: 1;
                 width: 60%;
+                display: flex;
+                flex-direction: column;
 
                 .feedback-title {
                     font-size: 1.5rem;
                     color: rgb(63, 153, 123);
+                    // padding-bottom: 20px;
+                }
+
+                .feedback-date {
+                    color: gray;
+                    font-size: 0.8em;
+                    padding-top: 5px;
                     padding-bottom: 20px;
                 }
             }

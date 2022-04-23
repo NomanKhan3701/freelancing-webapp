@@ -219,35 +219,36 @@ const WebsiteFeedback = () => {
           {otherFeedbacks.length === 0
             ? "No feedbacks yet..."
             : otherFeedbacks.map((elem, index) => {
-                return (
-                  <div className="each-feedback-container" key={index}>
-                    <div>{elem.username}</div>
-                    <img src={elem.image} alt="user"></img>
-                    <span>
+              return (
+                <div className="each-feedback-container" key={index}>
+                  {/* <div>{elem.username}</div>
+                  <img src={elem.image} alt="user"></img> */}
+
+                  <div className="votes">
+                    <div className="number">{elem.votes}</div>
+                    <div
+                      className="vote-button"
+                      onClick={() => {
+                        increaseVote(elem);
+                      }}
+                    >
+                      VOTE
+                    </div>
+                  </div>
+                  <div className="feedback-titleanddesc">
+                    <div className="feedback-title">{elem.title}</div>
+                    <span className="feedback-date">
                       {new Date(elem.date).getDate() +
                         "/" +
                         (new Date(elem.date).getMonth() + 1) +
                         "/" +
                         new Date(elem.date).getFullYear()}
                     </span>
-                    <div className="votes">
-                      <div className="number">{elem.votes}</div>
-                      <div
-                        className="vote-button"
-                        onClick={() => {
-                          increaseVote(elem);
-                        }}
-                      >
-                        VOTE
-                      </div>
-                    </div>
-                    <div className="feedback-titleanddesc">
-                      <div className="feedback-title">{elem.title}</div>
-                      <div className="feedback-desc">{elem.desc}</div>
-                    </div>
+                    <div className="feedback-desc">{elem.desc}</div>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
         </div>
       </div>
     </>
