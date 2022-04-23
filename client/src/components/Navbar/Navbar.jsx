@@ -334,6 +334,8 @@ const Navbar = (props) => {
 
   useEffect(() => {
     if (feedback) {
+      console.log("feedback");
+      console.log(feedback);
       setNotificationCount((data) => {
         return data + 1;
       });

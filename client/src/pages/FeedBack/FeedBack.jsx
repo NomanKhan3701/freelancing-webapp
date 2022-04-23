@@ -35,7 +35,7 @@ const FeedBack = () => {
   };
 
   const submitFeedback = () => {
-    if (feedbackDesc.length < 21) {
+    if (!feedbackDesc || feedbackDesc.length < 21) {
       toast.error("Feedback has to be atleast 20 character long.", {
         position: "top-center",
       });

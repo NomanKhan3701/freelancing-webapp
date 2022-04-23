@@ -19,13 +19,19 @@ const FindTalent = () => {
   let navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
   const [cardsData, setCardsData] = useState();
+  const [gigs, setGigs] = useState();
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/findtalent/cards`)
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);
+          // console.log("response.data.result");
+          // console.log(response.data.result);
         }
+        console.log("response.data.result");
+        console.log(response.data.result);
         setLoading(false);
       });
   }, []);
@@ -73,9 +79,7 @@ const FindTalent = () => {
           <div className="btn" onClick={goToPostRequest}>
             Post a Request
           </div>
-          <div>
-
-          </div>
+          <div></div>
         </div>
         <div className="recommended-container">
           <h1>Top Gigs</h1>

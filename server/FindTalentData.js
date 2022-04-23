@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const { getRatingForUsername } = require("./UserProfileData");
 
 //requiring string field to not to be null or undefined
 mongoose.Schema.Types.String.checkRequired((v) => typeof v === "string");
@@ -63,6 +64,9 @@ const FindTalentData = new mongoose.model(
 
 const getTalentData = async () => {
   const data = await FindTalentData.find({});
+  console.log("login find talent");
+  console.log("data");
+  console.log(data);
   return data;
 };
 
