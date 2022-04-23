@@ -112,6 +112,7 @@ const {
   addBidAcceptedNotificationData,
   addFeedbackNotification,
 } = require("./notifications");
+const { addWebsiteFeedback } = require("./WebsiteFeedback");
 
 app.use(logger("dev")); //for video calling
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -271,6 +272,13 @@ app.post("/userprofileinput", (req, res, err) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+app.post("/websitefeedback", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  addWebsiteFeedback(req.body);
 });
 
 app.post("/findtalent/postwork", (req, res, err) => {
