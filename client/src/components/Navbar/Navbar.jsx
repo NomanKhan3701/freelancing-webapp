@@ -110,7 +110,7 @@ const SearchAndLinks = (props) => {
     }
   };
 
-  const handleSearchInput = (e) => {
+  const handleSearchInputDropdown = (e) => {
     const dropdownRecommendItems = document.querySelector(
       ".dropdown-recommend .recommend-items"
     ).children;
@@ -132,21 +132,26 @@ const SearchAndLinks = (props) => {
     const searchInput = document.querySelector(".search-container input");
     console.log();
     if (e.key === "Enter") {
-      if (searchInput.placeholder === "Find Talent") {
-        navigate("/findtalent/category", {
-          state: {
-            category: searchInput.value.replace(/ /g, "").toLowerCase(),
-          },
-        });
-      } else if (searchInput.placeholder === "Find Work") {
-        navigate("/findwork/category", {
-          state: {
-            category: searchInput.value.replace(/ /g, "").toLowerCase(),
-          },
-        });
-      }
+      handleSearchInput();
     }
   };
+
+  const handleSearchInput = () => {
+    const searchInput = document.querySelector(".search-container input");
+    if (searchInput.placeholder === "Find Talent") {
+      navigate("/findtalent/category", {
+        state: {
+          category: searchInput.value.replace(/ /g, "").toLowerCase(),
+        },
+      });
+    } else if (searchInput.placeholder === "Find Work") {
+      navigate("/findwork/category", {
+        state: {
+          category: searchInput.value.replace(/ /g, "").toLowerCase(),
+        },
+      });
+    }
+  }
 
   return (
     <>
@@ -159,10 +164,10 @@ const SearchAndLinks = (props) => {
           type="text"
           placeholder="Search here..."
           onKeyDown={(e) => handleEnterOnSearch(e)}
-          onChange={(e) => handleSearchInput(e)}
+          onChange={(e) => handleSearchInputDropdown(e)}
         />
-        <i className="bx bxs-chevron-down down"></i>
-        <Search className="i" />
+        <i className="bx bxs-chevron-down down" ></i>
+        <Search className="i" onClick={(e) => handleSearchInput(e)}/>
         <div className="dropdown-select ">
           <div className="dropdown-item" onClick={(e) => searchItemClick(e)}>
             <div className="item-left">
