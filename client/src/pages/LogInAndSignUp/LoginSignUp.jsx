@@ -17,6 +17,7 @@ import { setNewMessage } from "../../features/socket/newMessage";
 import { setNewBid } from "../../features/socket/newBidSlice";
 import { setNewComment } from "../../features/socket/newCommentSlice";
 import { setBidAccepted } from "../../features/socket/bidAcceptedSlice";
+import { setFeedback } from "../../features/socket/feedbackSlice";
 toast.configure();
 
 const axios = require("axios").default;
@@ -174,6 +175,7 @@ const LoginSignUp = (props) => {
           const bidAcceptedNotifications =
             response.data.bidAcceptedNotifications;
           const commentNotifications = response.data.commentNotifications;
+          const feedbackNotifications = response.data.feedbackNotifications;
           for (let i = 0; i < bidNotifications.length; i++) {
             dispatch(setNewBid(bidNotifications[i]));
           }
@@ -182,6 +184,9 @@ const LoginSignUp = (props) => {
           }
           for (let i = 0; i < commentNotifications.length; i++) {
             dispatch(setNewComment(commentNotifications[i]));
+          }
+          for (let i = 0; i < feedbackNotifications.length; i++) {
+            dispatch(setFeedback(feedbackNotifications[i]));
           }
           try {
             localStorage.setItem("image", response.data.image.image);

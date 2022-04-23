@@ -24,6 +24,7 @@ import {
 import { update } from "../../features/chatMain/chatMainSlice";
 import { setOnlineUsers } from "../../features/socket/onlineUsers";
 import { setRoom } from "../../features/socket/roomSlice";
+import { selectFeedback } from "../../features/socket/feedbackSlice";
 const SearchAndLinks = (props) => {
   const searchDropdownRef = useRef(null);
   let navigate = useNavigate();
@@ -90,37 +91,61 @@ const SearchAndLinks = (props) => {
   const searchRecommendClick = (e) => {
     const searchInput = document.querySelector(".search-container input");
     const dropdownRecommend = document.querySelector(".dropdown-recommend");
-    const dropdownRecommendItems = document.querySelector(".dropdown-recommend .recommend-items").children;
+    const dropdownRecommendItems = document.querySelector(
+      ".dropdown-recommend .recommend-items"
+    ).children;
     searchInput.value = e.target.innerText;
-    dropdownRecommend.classList.remove('active');
+    dropdownRecommend.classList.remove("active");
     for (let item of dropdownRecommendItems) {
-      if (item.innerText.includes(searchInput.value) && !item.classList.contains('active'))
-        item.classList.add('active');
-      else if (!item.innerText.includes(searchInput.value) && item.classList.contains('active'))
-        item.classList.remove('active');
+      if (
+        item.innerText.includes(searchInput.value) &&
+        !item.classList.contains("active")
+      )
+        item.classList.add("active");
+      else if (
+        !item.innerText.includes(searchInput.value) &&
+        item.classList.contains("active")
+      )
+        item.classList.remove("active");
     }
-  }
+  };
 
   const handleSearchInput = (e) => {
-    const dropdownRecommendItems = document.querySelector(".dropdown-recommend .recommend-items").children;
+    const dropdownRecommendItems = document.querySelector(
+      ".dropdown-recommend .recommend-items"
+    ).children;
     for (let item of dropdownRecommendItems) {
-      if (item.innerText.includes(e.target.value) && !item.classList.contains('active'))
-        item.classList.add('active');
-      else if (!item.innerText.includes(e.target.value) && item.classList.contains('active'))
-        item.classList.remove('active');
+      if (
+        item.innerText.includes(e.target.value) &&
+        !item.classList.contains("active")
+      )
+        item.classList.add("active");
+      else if (
+        !item.innerText.includes(e.target.value) &&
+        item.classList.contains("active")
+      )
+        item.classList.remove("active");
     }
-  }
+  };
 
   const handleEnterOnSearch = (e) => {
     const searchInput = document.querySelector(".search-container input");
-    if (e.key === 'Enter') {
-      if (searchInput.placeholder === 'Find Talent') {
-        navigate('/findtalent/category', { state: { category: searchInput.value.replace(/ /g, "").toLowerCase() } });
-      } else if (searchInput.placeholder === 'Find Work') {
-        navigate('/findwork/category', { state: { category: searchInput.value.replace(/ /g, "").toLowerCase() } });
+    if (e.key === "Enter") {
+      if (searchInput.placeholder === "Find Talent") {
+        navigate("/findtalent/category", {
+          state: {
+            category: searchInput.value.replace(/ /g, "").toLowerCase(),
+          },
+        });
+      } else if (searchInput.placeholder === "Find Work") {
+        navigate("/findwork/category", {
+          state: {
+            category: searchInput.value.replace(/ /g, "").toLowerCase(),
+          },
+        });
       }
     }
-  }
+  };
 
   return (
     <>
@@ -129,7 +154,12 @@ const SearchAndLinks = (props) => {
         onClick={(e) => toggleSearchDropdown(e)}
         ref={searchDropdownRef}
       >
-        <input type="text" placeholder="Search here..." onKeyDown={(e) => handleEnterOnSearch(e)} onChange={(e) => handleSearchInput(e)} />
+        <input
+          type="text"
+          placeholder="Search here..."
+          onKeyDown={(e) => handleEnterOnSearch(e)}
+          onChange={(e) => handleSearchInput(e)}
+        />
         <i className="bx bxs-chevron-down down"></i>
         <Search className="i" />
         <div className="dropdown-select ">
@@ -163,15 +193,60 @@ const SearchAndLinks = (props) => {
         </div>
         <div className="dropdown-recommend ">
           <div className="recommend-items">
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Frontend Web developer</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Designer</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>App developer</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Model</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Cyber Security</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>UI/UX Designer</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Logo Creator</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Video Editor</div>
-            <div className="recommend-item active" onClick={(e) => searchRecommendClick(e)}>Backend Web developer</div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Frontend Web developer
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Designer
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              App developer
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Model
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Cyber Security
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              UI/UX Designer
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Logo Creator
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Video Editor
+            </div>
+            <div
+              className="recommend-item active"
+              onClick={(e) => searchRecommendClick(e)}
+            >
+              Backend Web developer
+            </div>
           </div>
         </div>
       </div>
@@ -244,6 +319,7 @@ const Navbar = (props) => {
   const newBid = useSelector(selectNewBid);
   const newComment = useSelector(selectNewComment);
   const bidAccepted = useSelector(selectBidAccepted);
+  const feedback = useSelector(selectFeedback);
 
   useEffect(() => {
     if (newMessage) {
@@ -255,6 +331,17 @@ const Navbar = (props) => {
       });
     }
   }, [newMessage]);
+
+  useEffect(() => {
+    if (feedback) {
+      setNotificationCount((data) => {
+        return data + 1;
+      });
+      setNotification((data) => {
+        return [...data, feedback];
+      });
+    }
+  }, [feedback]);
 
   useEffect(() => {
     if (newBid) {
@@ -412,6 +499,13 @@ const Navbar = (props) => {
       });
     } else if ("offlineChatNotifications" in data) {
       navigate("/chat");
+    } else if ("feedback" in data) {
+      navigate("/feedback", {
+        state: {
+          client: data.client,
+          workId: data.workId,
+        },
+      });
     }
   };
 
@@ -497,6 +591,21 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{"You have few new messages."}</div>
+        </div>
+      );
+    } else if ("feedback" in item) {
+      const clientImage = `https://ui-avatars.com/api/?name=${item.client}`;
+      return (
+        <div
+          className="notification"
+          key={index}
+          id={item.username}
+          onClick={() => goTo(item)}
+        >
+          <div className="img">
+            <img src={item.image || clientImage} alt="User" />
+          </div>
+          <div className="message">{`Congrats on completing your freelancing work with ${item.client} on project ${item.title}`}</div>
         </div>
       );
     } else {

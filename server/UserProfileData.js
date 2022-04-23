@@ -44,6 +44,10 @@ var UserProfileDataSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  freelanceWorkCount: {
+    type: Number,
+    default: 0,
+  },
   joiningDate: {
     type: String,
     default: new Date(),
@@ -138,6 +142,17 @@ const setRating = async (username, rating) => {
   const update = { rating: rating };
   try {
     await Character.findOneAndUpdate(filter, update);
+  } catch (error) {
+    return 2;
+  }
+  return 1;
+};
+
+const setFreelanceWorkCountAndRating = async (username, rating, count) => {
+  const filter = { username: username };
+  const update = { rating: rating, freelanceWorkCount: count };
+  try {
+    await UserProfileData.findOneAndUpdate(filter, update);
     return 1;
   } catch (error) {
     return 2;
@@ -157,6 +172,7 @@ module.exports = {
   getUserProfileDataUsingUsername,
   getRatingForUsername,
   getUserImage,
+  setFreelanceWorkCountAndRating,
 };
 
 //0 no user with that user id,
