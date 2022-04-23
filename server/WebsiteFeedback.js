@@ -60,10 +60,19 @@ const getWebsiteFeedbacks = async () => {
 };
 
 const incrementVoteForWebsiteFeedback = async (data) => {
-  const { title, username, desc, votes } = data;
-  const filter = { title: title, username: username, desc: desc };
+  const { title, username, desc } = data;
+  const reqData = await WebsiteFeedback.find(
+    { title: title, desc: desc },
+    { votes: 1, votedUsers: 1 }
+  );
+  const filter = { title: title, desc: desc };
+  const arr = reqData[0].votedUsers;
+  if (!arr.includes("username")) {
+    arr.push(username);
+  }
   const update = {
-    votes: votes + 1,
+    votes: reqData[0].votes + 1,
+    votedUsers: arr,
   };
   try {
     await WebsiteFeedback.findOneAndUpdate(filter, update);
