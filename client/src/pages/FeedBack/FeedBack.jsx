@@ -3,7 +3,7 @@ import "./FeedBack.scss";
 import { FaStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Navigate, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const colours = {
   orange: "#FFBA5A",
@@ -35,7 +35,7 @@ const FeedBack = () => {
   };
 
   const submitFeedback = () => {
-    if (feedbackDesc.length < 21) {
+    if (!feedbackDesc || feedbackDesc.length < 21) {
       toast.error("Feedback has to be atleast 20 character long.", {
         position: "top-center",
       });
