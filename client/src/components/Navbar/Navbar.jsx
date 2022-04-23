@@ -98,12 +98,12 @@ const SearchAndLinks = (props) => {
     dropdownRecommend.classList.remove("active");
     for (let item of dropdownRecommendItems) {
       if (
-        item.innerText.includes(searchInput.value) &&
+        item.innerText.toLowerCase().includes(searchInput.value.toLowerCase()) &&
         !item.classList.contains("active")
       )
         item.classList.add("active");
       else if (
-        !item.innerText.includes(searchInput.value) &&
+        !item.innerText.toLowerCase().includes(searchInput.value.toLowerCase()) &&
         item.classList.contains("active")
       )
         item.classList.remove("active");
@@ -116,12 +116,12 @@ const SearchAndLinks = (props) => {
     ).children;
     for (let item of dropdownRecommendItems) {
       if (
-        item.innerText.includes(e.target.value) &&
+        item.innerText.toLowerCase().includes(e.target.value.toLowerCase()) &&
         !item.classList.contains("active")
       )
         item.classList.add("active");
       else if (
-        !item.innerText.includes(e.target.value) &&
+        !item.innerText.toLowerCase().includes(e.target.value.toLowerCase()) &&
         item.classList.contains("active")
       )
         item.classList.remove("active");
@@ -132,21 +132,29 @@ const SearchAndLinks = (props) => {
     const searchInput = document.querySelector(".search-container input");
     if (e.key === "Enter") {
       handleSearchInput();
+    } else {
+      const searchInput = document.querySelector(".search-container input");
+      const dropdownRecommend = document.querySelector(".dropdown-recommend");
+      const dropdownCategory = document.querySelector(".dropdown-select");
+      if(dropdownCategory.classList.contains('active'))
+        dropdownCategory.classList.remove('active');
+      dropdownRecommend.classList.add('active');
     }
   };
 
   const handleSearchInput = () => {
     const searchInput = document.querySelector(".search-container input");
     if (searchInput.placeholder === "Find Talent") {
+      console.log(searchInput.value.replace(/[ /]/g, "").toLowerCase());
       navigate("/findtalent/category", {
         state: {
-          category: searchInput.value.replace(/ /g, "").toLowerCase(),
+          category: searchInput.value.replace(/[ /]/g, "").toLowerCase(),
         },
       });
     } else if (searchInput.placeholder === "Find Work") {
       navigate("/findwork/category", {
         state: {
-          category: searchInput.value.replace(/ /g, "").toLowerCase(),
+          category: searchInput.value.replace(/[ /]/g, "").toLowerCase(),
         },
       });
     }
