@@ -106,6 +106,14 @@ const getUserProfileDataUsingUsername = async (username) => {
   }
   return data[0];
 };
+const getUserProfileDataUsingUsernameArray = async (usernameArray) => {
+  console.log(usernameArray);
+  const data = await UserProfileData.find(
+    { username: { $in: usernameArray } },
+    { username: 1, fullname: 1, image: 1, skills: 1, category: 1 }
+  );
+  return data;
+};
 
 const addUserProfile = async (data) => {
   const { username, fullname, desc, email, linkdin, image, skills, category } =
@@ -173,6 +181,7 @@ module.exports = {
   getRatingForUsername,
   getUserImage,
   setFreelanceWorkCountAndRating,
+  getUserProfileDataUsingUsernameArray,
 };
 
 //0 no user with that user id,

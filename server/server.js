@@ -73,6 +73,7 @@ const {
   addFeedback,
   addFeedbackFromClient,
   addFeedbackFromFreelancer,
+  getTalentDataForPartnerPage,
 } = require("./BreakDependency");
 const {
   getRoomNo,
@@ -368,6 +369,22 @@ app.get("/findtalent/:category", (req, res, err) => {
   }
   try {
     getTalentData().then((items) => {
+      getWorkFilterData().then((filterData) => {
+        res.send({ items: items, filterData: filterData });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occurred", err);
+  }
+});
+
+app.get("/findpartner", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  try {
+    getTalentDataForPartnerPage().then((items) => {
       getWorkFilterData().then((filterData) => {
         res.send({ items: items, filterData: filterData });
       });
