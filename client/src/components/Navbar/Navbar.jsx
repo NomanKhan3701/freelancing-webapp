@@ -130,6 +130,7 @@ const SearchAndLinks = (props) => {
 
   const handleEnterOnSearch = (e) => {
     const searchInput = document.querySelector(".search-container input");
+    console.log();
     if (e.key === "Enter") {
       if (searchInput.placeholder === "Find Talent") {
         navigate("/findtalent/category", {

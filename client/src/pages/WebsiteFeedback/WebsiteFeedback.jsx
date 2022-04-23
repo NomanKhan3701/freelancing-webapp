@@ -204,7 +204,7 @@ const WebsiteFeedback = () => {
                           increaseVote(elem);
                         }}
                       >
-                        VOTE
+                        vote
                       </div>
                     </div>
                     <div className="feedback-titleanddesc">

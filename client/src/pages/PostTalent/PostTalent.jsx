@@ -227,9 +227,9 @@ const PostTalent = () => {
             onChange={onDataChange}
           />
         </div>
-        <div className="dragDrop">
+        {/* <div className="dragDrop">
           <h1>{"{Select Files}"}</h1>
-        </div>
+        </div> */}
         {/* <div className = "category-select">
           <h1>Select a category</h1>
           <Select
