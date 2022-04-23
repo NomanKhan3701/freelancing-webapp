@@ -305,8 +305,6 @@ app.get(`/websitefeedback`, (req, res, err) => {
 });
 
 app.post("/updatewebsitefeedbackvotes", (req, res, err) => {
-  console.log("req.body");
-  console.log(req.body);
   incrementVoteForWebsiteFeedback(req.body)
     .then((response) => {
       res.send({ result: response });

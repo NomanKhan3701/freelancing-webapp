@@ -76,7 +76,6 @@ const WebsiteFeedback = () => {
         data: {
           ...websiteFeedback,
           username: localStorage.getItem("username"),
-          image: localStorage.getItem("image"),
         },
       })
       .then((res) => {
@@ -102,12 +101,9 @@ const WebsiteFeedback = () => {
   };
 
   const increaseVote = (data) => {
-    console.log(otherFeedbacks);
     let newData;
     let voteNoted = false;
     setOtherFeedbacks((prevData) => {
-      console.log("prevData");
-      console.log(prevData);
       newData = prevData.map((someData) => {
         if (
           someData.username === data.username &&
