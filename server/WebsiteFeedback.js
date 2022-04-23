@@ -17,9 +17,6 @@ var WebsiteFeedbackSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  image: {
-    type: String,
-  },
   votes: {
     type: Number,
     default: 0,
@@ -36,7 +33,7 @@ const WebsiteFeedback = new mongoose.model(
 );
 
 const addWebsiteFeedback = async (data) => {
-  const { username, title, desc, image } = data.data;
+  const { username, title, desc } = data.data;
   const ralatedtdData = await WebsiteFeedback.find({
     title: title,
     desc: desc,
@@ -48,7 +45,6 @@ const addWebsiteFeedback = async (data) => {
     username: username,
     title: title,
     desc: desc,
-    image: image,
   });
   try {
     newData.save();
