@@ -8,6 +8,7 @@ import {
 import userImg from "../../assets/images/Cha2.jpg";
 import "./FindPartner.scss";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router";
 
 const FindPartner = () => {
   const [talents, settalents] = useState();
@@ -17,6 +18,7 @@ const FindPartner = () => {
   const [filterData, setFilterData] = useState();
   const [skills, setSkills] = useState();
   const [isLoading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`http://localhost:8080/findpartner`).then(function (response) {
@@ -62,13 +64,23 @@ const FindPartner = () => {
     return <FullScreenLoader />;
   }
   const renderPartnerBody = (partner, index) => {
+    console.log(partner);
+    const chat = (event) => {
+      navigate("/chat", {
+        state: {
+          receiver: partner.username,
+          image: partner.image,
+        },
+      });
+    };
     return (
       <div className="partner" key={index}>
         <div className="top">
-          <img src={userImg} alt="userImg" />
-          <div className="user-name">{partner.name}</div>
+          <img src={partner.image} alt="userImg" />
+          <div className="user-name">{partner.fullname}</div>
         </div>
         <div className="bottom">
+          <div className="left">
           <div className="categories">
             <h2>Category : </h2>
             {partner.category.map((category, idx) => (
@@ -85,6 +97,14 @@ const FindPartner = () => {
               </div>
             ))}
           </div>
+          </div>
+          <div className="right">
+              <div className="chat-btn"
+              onClick={chat}
+              datausername={partner.username}
+              >Chat</div>
+          </div>
+          
         </div>
       </div>
     );

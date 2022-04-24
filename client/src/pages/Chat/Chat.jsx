@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ChatMain, ChatMiddle, ChatSidebar } from "../../components/import";
+import { ChatMain, ChatMiddle, ChatSidebar, FullScreenLoader } from "../../components/import";
 import "./Chat.scss";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -84,7 +84,7 @@ const Chat = () => {
     }
   }, []);
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
   return (
     <div className="chat-container">
