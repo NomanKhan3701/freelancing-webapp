@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ChatMain, ChatMiddle, ChatSidebar, FullScreenLoader } from "../../components/import";
 import "./Chat.scss";
-import LoadingSpinner from "./LoadingSpinner";
-
 import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
