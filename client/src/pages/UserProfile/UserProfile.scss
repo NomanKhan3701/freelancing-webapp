@@ -76,7 +76,10 @@
 
     .profile-main {
       display: flex;
-      padding: 20px 40px;
+      // padding: 20px 40px;
+      padding-right: 40px;
+      padding-bottom: 20px;
+      padding-top: 20px;
       height: calc(100% - 160px);
 
       .skills-container {
@@ -108,10 +111,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: max-content;
+        height: 100%;
         min-width: 300px;
         max-width: 330px;
-        margin-top: 120px;
+        margin-top: 30px;
+        background: rgb(243, 246, 245);
+        padding: 80px 20px;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        
         .rating-container {
           margin-bottom: 50px;
           font-size: 20px;
@@ -124,7 +132,18 @@
           .rating {
             margin-left: 5px;
             font-size: 22px;
-            transform: translateY(2px);
+            transform: translateY(5px);
+            display: flex;
+
+            .new {
+              display: block;
+              font-size: 16px;
+              margin-right: 5px;
+              
+              // padding-bottom: 10px;
+              // margin-bottom: 10px;
+              // transform: translateY(-10px);
+            }
 
             i {
               font-size: 22px;
