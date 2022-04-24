@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import Multiselect from "multiselect-react-dropdown";
 import { useLocation, useNavigate } from "react-router";
 import axios from "axios";
+const server_url = process.env.server_url;
 
 const skills = [
   { Skill: "HTML" },
@@ -348,10 +349,10 @@ const LinearStepper = (props) => {
         return;
       }
       axios
-        .post("http://localhost:8080/userprofileinput", {
+        .post(`${server_url}/userprofileinput`, {
           userData: getUserData,
         })
-        .then((res) => {})
+        .then((res) => { })
         .catch((err) => {
           console.log(err);
         });

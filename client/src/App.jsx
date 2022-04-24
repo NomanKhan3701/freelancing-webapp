@@ -43,6 +43,7 @@ import { setNewComment } from "./features/socket/newCommentSlice";
 import { setBidAccepted } from "./features/socket/bidAcceptedSlice";
 import { setFeedback } from "./features/socket/feedbackSlice";
 
+
 function App() {
   if (
     !(
@@ -101,7 +102,7 @@ function App() {
       e.returnValue = "";
     });
     return () => {
-      window.removeEventListener("beforeunload", function (e) {});
+      window.removeEventListener("beforeunload", function (e) { });
     };
   }, [socket]);
 

@@ -9,6 +9,7 @@ import "./FindTalent.scss";
 import "./FindWork.scss";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+const server_url = process.env.REACT_APP_server_url;
 
 const FindTalentParams = () => {
   let navigate = useNavigate();
@@ -45,7 +46,7 @@ const FindTalentParams = () => {
   let [category, setCategory] = useState();
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/findtalent/${state.category}`)
+      .get(`${server_url}/findtalent/${state.category}`)
       .then(function (response) {
         if (talents === undefined) {
           setOriginalTalents(response.data.items);

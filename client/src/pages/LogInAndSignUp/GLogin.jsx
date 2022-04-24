@@ -13,6 +13,7 @@ import { setNewComment } from "../../features/socket/newCommentSlice";
 import { setBidAccepted } from "../../features/socket/bidAcceptedSlice";
 import { setFeedback } from "../../features/socket/feedbackSlice";
 const axios = require("axios").default;
+const server_url = process.env.REACT_APP_server_url;
 
 toast.configure();
 
@@ -101,7 +102,7 @@ function GLogin(props) {
       }
     };
     axios
-      .post(`http://localhost:8080/${context.toLowerCase()}`, {
+      .post(`${server_url}/${context.toLowerCase()}`, {
         username: res.profileObj.email,
         password: "",
       })
@@ -119,7 +120,7 @@ function GLogin(props) {
           localStorage.setItem("username", res.profileObj.email);
           localStorage.setItem("loggedIn", true);
           localStorage.setItem("isDataTaken", response.data.userDataTaken);
-          const newSocket = io("http://localhost:8080");
+          const newSocket = io(`${server_url}`);
           dispatch(setSocket(newSocket));
           if (response.data.chatNotifications) {
             dispatch(setNewMessage({ offlineChatNotifications: true }));
@@ -177,7 +178,7 @@ function GLogin(props) {
   return (
     <div className="glogin">
       <GoogleLogin
-        clientId={process.env.client_id}
+        clientId={process.env.REACT_APP_client_id}
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { selectOnlineUsers } from "../../features/socket/onlineUsers";
+const server_url = process.env.REACT_APP_server_url;
 toast.configure();
 
 const Chat = () => {
@@ -36,7 +37,7 @@ const Chat = () => {
     receiver = "";
   }
   useEffect(() => {
-    let url = `http://localhost:8080/chat/${sender}`;
+    let url = `${server_url}/chat/${sender}`;
     if (receiver) {
       url += `/${receiver}`;
     }

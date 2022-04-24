@@ -11,7 +11,9 @@ import axios from "axios";
 import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+const server_url = process.env.REACT_APP_server_url;
 toast.configure();
+
 
 const UserProfile = (props) => {
   const navigate = useNavigate();
@@ -26,20 +28,13 @@ const UserProfile = (props) => {
       username = localStorage.getItem("username");
     }
     axios
-      .get(`http://localhost:8080/userprofiledata/${username}`)
+      .get(`${server_url}/userprofiledata/${username}`)
       .then(function (response) {
         setUserData(response.data.data);
         setLoading(false);
       });
-<<<<<<< HEAD
-<<<<<<< HEAD
-  },[]);
-=======
   }, []);
->>>>>>> master
-=======
-  }, []);
->>>>>>> origin
+
 
   const isDataTaken = localStorage.getItem("isDataTaken");
   if (localStorage.getItem("username") === "undefined") {
@@ -59,7 +54,7 @@ const UserProfile = (props) => {
     return <FullScreenLoader />;
   }
 
-  const chat = () => {};
+  const chat = () => { };
   const goToAllPosts = () => {
     navigate("/userprofile/allpost", {
       state: {

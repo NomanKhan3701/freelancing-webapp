@@ -6,6 +6,7 @@ import { SwiperSlide } from "swiper/react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+const server_url = process.env.REACT_APP_server_url;
 
 toast.configure();
 
@@ -15,7 +16,7 @@ const FindWork = (props) => {
   const [items, setItems] = useState();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/${props.type}`).then(function (response) {
+    axios.get(`${server_url}/${props.type}`).then(function (response) {
       setItems(response.data.items);
       setLoading(false);
     });

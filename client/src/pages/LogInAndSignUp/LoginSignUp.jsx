@@ -19,6 +19,7 @@ import { setNewComment } from "../../features/socket/newCommentSlice";
 import { setBidAccepted } from "../../features/socket/bidAcceptedSlice";
 import { setFeedback } from "../../features/socket/feedbackSlice";
 toast.configure();
+const server_url = process.env.REACT_APP_server_url;
 
 const axios = require("axios").default;
 
@@ -150,7 +151,7 @@ const LoginSignUp = (props) => {
     }
     setLoading(true);
     axios
-      .post(`http://localhost:8080/${context.toLowerCase()}`, {
+      .post(`${server_url}/${context.toLowerCase()}`, {
         username: username1,
         password: password1,
       })
@@ -166,7 +167,7 @@ const LoginSignUp = (props) => {
           localStorage.setItem("username", username1);
           localStorage.setItem("loggedIn", true);
           localStorage.setItem("isDataTaken", response.data.userDataTaken);
-          const newSocket = io("http://localhost:8080");
+          const newSocket = io(`${server_url}`);
           dispatch(setSocket(newSocket));
           if (response.data.chatNotifications) {
             dispatch(setNewMessage({ offlineChatNotifications: true }));

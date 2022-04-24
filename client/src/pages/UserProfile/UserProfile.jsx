@@ -11,7 +11,10 @@ import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+const server_url = process.env.REACT_APP_server_url;
+
 toast.configure();
+// console.log(server_url);
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -55,8 +58,9 @@ const UserProfile = () => {
     }
     setOtherUser(username);
     axios
-      .get(`http://localhost:8080/userprofiledata/${username}`)
+      .get(`${server_url}/userprofiledata/${username}`)
       .then((response) => {
+        console.log(response.data)
         setUserData({
           ...response.data.userProfileData,
           workPosted: response.data.workPosted,
