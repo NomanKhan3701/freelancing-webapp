@@ -8,12 +8,16 @@ import "../node_modules/font-awesome/css/font-awesome.min.css";
 import store from "./app/store";
 import { Provider } from "react-redux";
 import "./";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

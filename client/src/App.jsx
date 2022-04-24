@@ -22,7 +22,8 @@ import {
   WebsiteFeedback,
   AboutUs,
 } from "./pages/import";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
@@ -106,7 +107,7 @@ function App() {
   }, [socket]);
 
   return (
-    <BrowserRouter className="App">
+    <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/findtalent" element={<FindTalent />} />
@@ -180,7 +181,7 @@ function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 
