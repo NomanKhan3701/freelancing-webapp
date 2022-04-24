@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { Footer, LimitCharHoverReveal, Navbar } from "../../components/import";
+import { Footer, FullScreenLoader, LimitCharHoverReveal, Navbar } from "../../components/import";
 import "./AllPosts.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
-import LoadingSpinner from "../Chat/LoadingSpinner";
 
 toast.configure();
 
@@ -32,7 +31,7 @@ const AllPosts = (props) => {
   }, [state]);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const viewBids = (workId) => {
