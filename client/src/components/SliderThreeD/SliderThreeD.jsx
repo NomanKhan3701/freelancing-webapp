@@ -3,20 +3,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import userImg from "../../assets/images/Cha2.jpg";
 import "./SliderThreeD.scss";
 
 import { EffectCoverflow, Autoplay } from "swiper";
 import Card from "./../Card/Card";
-import { useNavigate } from "react-router";
 
 const ReviewSlider = (props) => {
-  console.log("props");
-  console.log(props);
   const gigs = [];
   if (props.type === "topgigs") {
     for (let i = 0; i < props.cardsData.length; i++) {
       if (props.cardsData[i].rating >= 4) {
+        gigs.push(props.cardsData[i]);
+      }
+    }
+  } else if (props.type === "newgigs") {
+    for (let i = 0; i < props.cardsData.length; i++) {
+      if (props.cardsData[i].rating === 0) {
         gigs.push(props.cardsData[i]);
       }
     }

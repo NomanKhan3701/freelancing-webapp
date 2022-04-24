@@ -9,7 +9,6 @@ import {
   FullScreenLoader,
 } from "../../components/import";
 import userImg from "../../assets/images/Cha2.jpg";
-import RandomDev from "./json/RandomDev.json";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -19,14 +18,37 @@ const FindTalent = () => {
   let navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
   const [cardsData, setCardsData] = useState();
-  const [gigs, setGigs] = useState();
+  let randomGigs = [];
 
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
   useEffect(() => {
     axios
       .get(`http://localhost:8080/findtalent/cards`)
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);
+          randomGigs = shuffle(response.data.result);
+          randomGigs = randomGigs.slice(0, 10);
+          console.log("randomGigs");
+          console.log(randomGigs);
         }
         setLoading(false);
       });
@@ -86,23 +108,25 @@ const FindTalent = () => {
         <div className="recommended-container">
           <h1>New Gigs</h1>
           <div className="recommended-slider">
-            <SliderThreeD />
+            <SliderThreeD cardsData={cardsData} type="newgigs" />
           </div>
         </div>
         <div className="random-container">
           <h1>Gigs you may like</h1>
           <div className="random-card-container">
-            {RandomDev.map((card, index) => (
-              <Card
-                key={index}
-                headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-                userImg={userImg}
-                name={card.name}
-                desc={card.desc}
-                rating={card.rating}
-                startPrice={card.startPrice}
-              />
-            ))}
+            {randomGigs.map((card, index) => {
+              return (
+                <Card
+                  key={index}
+                  headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
+                  userImg={userImg}
+                  username={card.username}
+                  desc={card.desc}
+                  rating={card.rating}
+                  startPrice={card.price}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
