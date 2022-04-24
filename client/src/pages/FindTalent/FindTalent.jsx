@@ -27,11 +27,7 @@ const FindTalent = () => {
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);
-          // console.log("response.data.result");
-          // console.log(response.data.result);
         }
-        console.log("response.data.result");
-        console.log(response.data.result);
         setLoading(false);
       });
   }, []);
@@ -84,7 +80,7 @@ const FindTalent = () => {
         <div className="recommended-container">
           <h1>Top Gigs</h1>
           <div className="recommended-slider">
-            <SliderThreeD />
+            <SliderThreeD cardsData={cardsData} type="topgigs" />
           </div>
         </div>
         <div className="recommended-container">
