@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./FindWork.scss";
-import { Footer, Navbar } from "../../components/import";
+import { Footer, FullDivLoader, FullScreenLoader, Navbar } from "../../components/import";
 import { useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 import { toast } from "react-toastify";
@@ -24,7 +24,7 @@ const FindWork = (props) => {
 
   if (isLoading) {
     // return <div className = "App">Loading...</div>;
-    return <LoadingSpinner />;
+    return <FullScreenLoader />;
   }
 
   const categorySelected = (event) => {

@@ -106,6 +106,14 @@ const getUserProfileDataUsingUsername = async (username) => {
   }
   return data[0];
 };
+const getUserProfileDataUsingUsernameArray = async (usernameArray) => {
+  console.log(usernameArray);
+  const data = await UserProfileData.find(
+    { username: { $in: usernameArray } },
+    { username: 1, fullname: 1, image: 1, skills: 1, category: 1 }
+  );
+  return data;
+};
 
 const addUserProfile = async (data) => {
   const { username, fullname, desc, email, linkdin, image, skills, category } =
@@ -164,6 +172,23 @@ const getRatingForUsername = async (username) => {
   return rating[0];
 };
 
+const getUserProfileEditData = async (username) => {
+  const data = await UserProfileData.find(
+    { username: username },
+    {
+      username: 1,
+      fullname: 1,
+      email: 1,
+      desc: 1,
+      image: 1,
+      linkdin: 1,
+      category: 1,
+      skills: 1,
+    }
+  );
+  return data;
+};
+
 module.exports = {
   addUserProfile,
   getRating,
@@ -173,6 +198,8 @@ module.exports = {
   getRatingForUsername,
   getUserImage,
   setFreelanceWorkCountAndRating,
+  getUserProfileDataUsingUsernameArray,
+  getUserProfileEditData,
 };
 
 //0 no user with that user id,

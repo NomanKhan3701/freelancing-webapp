@@ -5,21 +5,82 @@
     justify-content: center;
     align-items: center;
   
-    @keyframes spinner {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
+    .gooey {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 142px;
+      height: 40px;
+      margin: -20px 0 0 -71px;
+      background: #fff;
+      filter: contrast(20);
+    }
+    .gooey .dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 12px;
+      left: 15px;
+      filter: blur(4px);
+      background: #000;
+      border-radius: 50%;
+      transform: translateX(0);
+      animation: dot 2.8s infinite;
+    }
+    .gooey .dots {
+      transform: translateX(0);
+      margin-top: 12px;
+      margin-left: 31px;
+      animation: dots 2.8s infinite;
+    }
+    .gooey .dots span {
+      display: block;
+      float: left;
+      width: 16px;
+      height: 16px;
+      margin-left: 16px;
+      filter: blur(4px);
+      background: #000;
+      border-radius: 50%;
+    }
+    @-moz-keyframes dot {
+      50% {
+        transform: translateX(96px);
       }
     }
-    .loading-spinner {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-      border: 10px solid #f3f3f3; /* Light grey */
-      border-top: 10px solid #383636; /* Black */
-      border-radius: 50%;
-      animation: spinner 1.5s linear infinite;
+    @-webkit-keyframes dot {
+      50% {
+        transform: translateX(96px);
+      }
+    }
+    @-o-keyframes dot {
+      50% {
+        transform: translateX(96px);
+      }
+    }
+    @keyframes dot {
+      50% {
+        transform: translateX(96px);
+      }
+    }
+    @-moz-keyframes dots {
+      50% {
+        transform: translateX(-31px);
+      }
+    }
+    @-webkit-keyframes dots {
+      50% {
+        transform: translateX(-31px);
+      }
+    }
+    @-o-keyframes dots {
+      50% {
+        transform: translateX(-31px);
+      }
+    }
+    @keyframes dots {
+      50% {
+        transform: translateX(-31px);
+      }
     }
   }

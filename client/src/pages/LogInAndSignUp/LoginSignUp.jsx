@@ -187,9 +187,6 @@ const LoginSignUp = (props) => {
             dispatch(setNewComment(commentNotifications[i]));
           }
           for (let i = 0; i < feedbackNotifications.length; i++) {
-            console.log("feedback notifications");
-            console.log("feedbackNotifications[i]");
-            console.log(feedbackNotifications[i]);
             dispatch(setFeedback(feedbackNotifications[i]));
           }
           try {

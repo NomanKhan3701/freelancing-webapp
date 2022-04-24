@@ -1,7 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import "./card.scss";
 
 const Card = (props) => {
+  const navigate = useNavigate();
+  const gigSelected = (username) => {
+    console.log(username);
+    //left work to do, getting the user id, then going to user profile or dashboard
+    navigate("/userprofile", {
+      state: {
+        username: username,
+      },
+    });
+  };
   return (
     <div className="card">
       <div className="header-img">
@@ -22,7 +33,12 @@ const Card = (props) => {
             <i className="bx bxs-star"></i>
             <span className="rating">{props.rating}</span>
           </div>
-          <div className="follow">
+          <div
+            className="follow"
+            onClick={() => {
+              gigSelected(props.username);
+            }}
+          >
             <i className="bx bxs-user-plus"></i>
             <span>Profile</span>
           </div>
@@ -30,7 +46,12 @@ const Card = (props) => {
       ) : (
         <div className="card-mid-new">
           <div className="new-freelancer">New Freelancer</div>
-          <div className="follow">
+          <div
+            className="follow"
+            onClick={() => {
+              gigSelected(props.username);
+            }}
+          >
             <i className="bx bxs-user-plus"></i>
             <span>Profile</span>
           </div>

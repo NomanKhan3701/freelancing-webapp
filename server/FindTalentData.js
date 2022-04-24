@@ -64,9 +64,10 @@ const FindTalentData = new mongoose.model(
 
 const getTalentData = async () => {
   const data = await FindTalentData.find({});
-  console.log("login find talent");
-  console.log("data");
-  console.log(data);
+  return data;
+};
+const getTalentDataUsernameOnly = async () => {
+  const data = await FindTalentData.find({}, { username: 1, _id: false });
   return data;
 };
 
@@ -120,7 +121,12 @@ const addTalentData = async (data) => {
   return 4;
 };
 
-module.exports = { getTalentData, addTalentData, getTalentFilterData };
+module.exports = {
+  getTalentData,
+  addTalentData,
+  getTalentFilterData,
+  getTalentDataUsernameOnly,
+};
 
 //1 - insufficient data
 //4 - successfully added the data

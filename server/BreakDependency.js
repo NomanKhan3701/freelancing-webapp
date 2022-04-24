@@ -1,10 +1,20 @@
-const { doesUserExistWithBid, Bid, deleteBids } = require("./Bids");
+const {
+  doesUserExistWithBid,
+  Bid,
+  deleteBids,
+  getbidUsernameOnly,
+} = require("./Bids");
 const {
   updateCountForBid,
   findWorkDataAndDelete,
   getNumberOfJobsPosted,
 } = require("./FindWorkData");
-const { WorkProgress, updateWorkProgress, workEnd } = require("./workProgress");
+const {
+  WorkProgress,
+  updateWorkProgress,
+  workEnd,
+  getFreelancerUsernameonly,
+} = require("./workProgress");
 const {
   WorkInProgressData,
   getWorkInProgressDataById,
@@ -15,6 +25,11 @@ const {
   updateFeedbackFromFreelancer,
 } = require("./Feedback");
 const { removeFeedbackNotificationWithWokrId } = require("./notifications");
+const {
+  getTalentData,
+  getTalentDataUsernameOnly,
+} = require("./FindTalentData");
+const { getUserProfileDataUsingUsernameArray } = require("./UserProfileData");
 const addBid = async (data) => {
   const { workId, username, desc, amount, image } = data;
   if (!workId || !username || !desc || !amount || desc.length < 100) {
@@ -141,6 +156,36 @@ const addFeedbackFromFreelancer = async (data) => {
   return 4;
 };
 
+const getTalentDataForPartnerPage = async () => {
+  const usernames = await getTalentDataUsernameOnly();
+  const usernamesOnly = usernames.map((username) => {
+    return username.username;
+  });
+  const usernamesMore = await getbidUsernameOnly();
+  const usernamesMoreOnly = usernamesMore.map((username) => {
+    return username.username;
+  });
+  const moreUsernames = await getFreelancerUsernameonly();
+  const moreUsernamesOnly = moreUsernames.map((username) => {
+    return username.freelancer;
+  });
+
+  const finalUsernames = [
+    ...usernamesOnly,
+    ...usernamesMoreOnly,
+    ...moreUsernamesOnly,
+  ];
+  let uniqueUsernames = [...new Set(finalUsernames)];
+  var index = uniqueUsernames.indexOf("not selected");
+  if (index !== -1) {
+    uniqueUsernames.splice(index, 1);
+  }
+  const userProfileData = await getUserProfileDataUsingUsernameArray(
+    uniqueUsernames
+  );
+  return userProfileData;
+};
+
 module.exports = {
   addBid,
   getFreelancerWorkByUsername,
@@ -148,4 +193,5 @@ module.exports = {
   getNumberOfRegisteredUsersAndJobsPosted,
   addFeedbackFromClient,
   addFeedbackFromFreelancer,
+  getTalentDataForPartnerPage,
 };

@@ -213,7 +213,21 @@ const WebsiteFeedback = () => {
                         "/" +
                         new Date(elem.date).getFullYear()}
                     </span>
-                    <div className="feedback-desc">{elem.desc}</div>
+                    <div className="votes">
+                      <div className="number">{elem.votes}</div>
+                      <div
+                        className="vote-button"
+                        onClick={() => {
+                          increaseVote(elem);
+                        }}
+                      >
+                        vote
+                      </div>
+                    </div>
+                    <div className="feedback-titleanddesc">
+                      <div className="feedback-title">{elem.title}</div>
+                      <div className="feedback-desc">{elem.desc}</div>
+                    </div>
                   </div>
                 </div>
               );

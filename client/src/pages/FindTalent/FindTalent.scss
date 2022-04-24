@@ -4,6 +4,12 @@
   padding-right: 40px;
 
   .categories-container {
+    
+    .categories-slider {
+      position: relative;
+      min-height: 210px;
+      min-width: 100%;
+    }
     h1 {
       margin-bottom: 30px;
     }
