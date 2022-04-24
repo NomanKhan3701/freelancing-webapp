@@ -223,11 +223,12 @@ const SearchAndLinks = (props) => {
         </div>
         <div className="dropdown-recommend ">
           <div className="recommend-items">
-            {recommendDropdown.map((category) => {
+            {recommendDropdown.map((category, index) => {
               return (
                 <div
                   className="recommend-item active"
                   onClick={(e) => searchRecommendClick(e)}
+                  key={index}
                 >
                   {category}
                 </div>

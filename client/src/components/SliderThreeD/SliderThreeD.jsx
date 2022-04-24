@@ -45,9 +45,9 @@ const ReviewSlider = (props) => {
         modules={[EffectCoverflow, Autoplay]}
         className="mySwiper"
       >
-        {gigs.map((gig) => {
+        {gigs.map((gig, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <Card
                 headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
                 userImg={
