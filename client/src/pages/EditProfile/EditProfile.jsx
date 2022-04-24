@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navbar } from "../../components/import";
 import "./EditProfile.scss";
-import { BrowserRouter as Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 const EditProfile = () => {
   const [sidenNavElements, setSidenNavElements] = useState([
     {

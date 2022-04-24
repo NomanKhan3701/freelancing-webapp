@@ -137,7 +137,7 @@ const SearchAndLinks = (props) => {
     console.log();
     if (e.key === "Enter") {
       handleSearchInput();
-    } else {
+    } else if(searchInput.placeholder!="Search here..."){
       const searchInput = document.querySelector(".search-container input");
       const dropdownRecommend = document.querySelector(".dropdown-recommend");
       const dropdownCategory = document.querySelector(".dropdown-select");
