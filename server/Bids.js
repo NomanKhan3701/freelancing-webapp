@@ -37,11 +37,22 @@ const getBids = async (workid) => {
   return data;
 };
 
+const getbidUsernameOnly = async () => {
+  const data = await Bid.find({}, { username: 1, _id: false });
+  return data;
+};
+
 const deleteBids = async (workId) => {
   await Bid.deleteMany({ workId: workId });
 };
 
-module.exports = { getBids, deleteBids, Bid, doesUserExistWithBid };
+module.exports = {
+  getBids,
+  deleteBids,
+  Bid,
+  doesUserExistWithBid,
+  getbidUsernameOnly,
+};
 
 //1 insufficient data
 //3 only 1 bid per user is allowed

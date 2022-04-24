@@ -98,12 +98,16 @@ const SearchAndLinks = (props) => {
     dropdownRecommend.classList.remove("active");
     for (let item of dropdownRecommendItems) {
       if (
-        item.innerText.includes(searchInput.value) &&
+        item.innerText
+          .toLowerCase()
+          .includes(searchInput.value.toLowerCase()) &&
         !item.classList.contains("active")
       )
         item.classList.add("active");
       else if (
-        !item.innerText.includes(searchInput.value) &&
+        !item.innerText
+          .toLowerCase()
+          .includes(searchInput.value.toLowerCase()) &&
         item.classList.contains("active")
       )
         item.classList.remove("active");
@@ -116,12 +120,12 @@ const SearchAndLinks = (props) => {
     ).children;
     for (let item of dropdownRecommendItems) {
       if (
-        item.innerText.includes(e.target.value) &&
+        item.innerText.toLowerCase().includes(e.target.value.toLowerCase()) &&
         !item.classList.contains("active")
       )
         item.classList.add("active");
       else if (
-        !item.innerText.includes(e.target.value) &&
+        !item.innerText.toLowerCase().includes(e.target.value.toLowerCase()) &&
         item.classList.contains("active")
       )
         item.classList.remove("active");
@@ -133,6 +137,13 @@ const SearchAndLinks = (props) => {
     console.log();
     if (e.key === "Enter") {
       handleSearchInput();
+    } else {
+      const searchInput = document.querySelector(".search-container input");
+      const dropdownRecommend = document.querySelector(".dropdown-recommend");
+      const dropdownCategory = document.querySelector(".dropdown-select");
+      if (dropdownCategory.classList.contains("active"))
+        dropdownCategory.classList.remove("active");
+      dropdownRecommend.classList.add("active");
     }
   };
 
@@ -141,17 +152,29 @@ const SearchAndLinks = (props) => {
     if (searchInput.placeholder === "Find Talent") {
       navigate("/findtalent/category", {
         state: {
-          category: searchInput.value.replace(/ /g, "").toLowerCase(),
+          category: searchInput.value.replace(/[ /]/g, "").toLowerCase(),
         },
       });
     } else if (searchInput.placeholder === "Find Work") {
       navigate("/findwork/category", {
         state: {
-          category: searchInput.value.replace(/ /g, "").toLowerCase(),
+          category: searchInput.value.replace(/[ /]/g, "").toLowerCase(),
         },
       });
     }
-  }
+  };
+
+  const recommendDropdown = [
+    "Frontend Web developer",
+    "Designer",
+    "App developer",
+    "Model",
+    "Cyber Security",
+    "UI/UX Designer",
+    "Logo Creator",
+    "Video Editor",
+    "Backend Web developer",
+  ];
 
   return (
     <>
@@ -166,8 +189,8 @@ const SearchAndLinks = (props) => {
           onKeyDown={(e) => handleEnterOnSearch(e)}
           onChange={(e) => handleSearchInputDropdown(e)}
         />
-        <i className="bx bxs-chevron-down down" ></i>
-        <Search className="i" onClick={(e) => handleSearchInput(e)}/>
+        <i className="bx bxs-chevron-down down"></i>
+        <Search className="i" onClick={(e) => handleSearchInput(e)} />
         <div className="dropdown-select ">
           <div className="dropdown-item" onClick={(e) => searchItemClick(e)}>
             <div className="item-left">
@@ -199,60 +222,16 @@ const SearchAndLinks = (props) => {
         </div>
         <div className="dropdown-recommend ">
           <div className="recommend-items">
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Frontend Web developer
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Designer
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              App developer
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Model
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Cyber Security
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              UI/UX Designer
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Logo Creator
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Video Editor
-            </div>
-            <div
-              className="recommend-item active"
-              onClick={(e) => searchRecommendClick(e)}
-            >
-              Backend Web developer
-            </div>
+            {recommendDropdown.map((category) => {
+              return (
+                <div
+                  className="recommend-item active"
+                  onClick={(e) => searchRecommendClick(e)}
+                >
+                  {category}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

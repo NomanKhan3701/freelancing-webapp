@@ -102,6 +102,11 @@ const workEnd = async (workId) => {
   return 4;
 };
 
+const getFreelancerUsernameonly = async () => {
+  const data = await WorkProgress.find({}, { freelancer: 1, _id: false });
+  return data;
+};
+
 module.exports = {
   addWorkProgress,
   getWorkProcess,
@@ -109,6 +114,7 @@ module.exports = {
   updateWorkProgress,
   WorkProgress,
   workEnd,
+  getFreelancerUsernameonly,
 };
 
 //0 no user with that user id,
