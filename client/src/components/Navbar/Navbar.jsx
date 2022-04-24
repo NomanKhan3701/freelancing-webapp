@@ -150,6 +150,7 @@ const SearchAndLinks = (props) => {
   const handleSearchInput = () => {
     const searchInput = document.querySelector(".search-container input");
     if (searchInput.placeholder === "Find Talent") {
+      console.log(searchInput.value.replace(/[ /]/g, "").toLowerCase());
       navigate("/findtalent/category", {
         state: {
           category: searchInput.value.replace(/[ /]/g, "").toLowerCase(),
