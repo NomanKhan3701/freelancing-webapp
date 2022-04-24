@@ -1,3 +1,22 @@
 .user-profile-input {
     padding-top: 90px;
+    min-height: 100vh;
+    background: url(../../assets/images/lightBg.jpg);
+    background-size: cover;
+
+    .MuiPaper-rounded {
+        border-radius: 40px;
+    }
+
+    .MuiStepIcon-root.MuiStepIcon-active {
+        color: var(--main-color);
+    }
+
+    .MuiStepIcon-root.MuiStepIcon-completed {
+        color: var(--main-color);
+    }
+
+    .MuiButton-containedPrimary {
+        background-color: var(--main-color);
+    }
 }
