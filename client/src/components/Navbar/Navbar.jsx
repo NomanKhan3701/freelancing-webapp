@@ -506,7 +506,7 @@ const Navbar = (props) => {
           id={index}
           onClick={() => goTo(item)}
         >
-          <div className="message">{`Many Freelancers have bidded on your work with title ${item.title}`}</div>
+          <div className="message">{`Freelancers have bidded on your work with title ${item.title}`}</div>
           <div className="message">{item.time}</div>
         </div>
       );

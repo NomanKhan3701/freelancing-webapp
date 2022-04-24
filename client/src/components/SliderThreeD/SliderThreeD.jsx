@@ -23,7 +23,6 @@ const ReviewSlider = () => {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={"auto"}
-        loop={"true"}
         coverflowEffect={{
           rotate: 10,
           stretch: 0,

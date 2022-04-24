@@ -22,8 +22,7 @@ import {
   WebsiteFeedback,
   AboutUs,
 } from "./pages/import";
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LimitCharHoverReveal, Navbar } from "./components/import";
 import FindTalentParams from "./pages/FindTalent/FindTalentParams";
 import FindWorkParams from "./pages/FindWork/FindWorkParams";
@@ -43,6 +42,7 @@ import { setNewBid } from "./features/socket/newBidSlice";
 import { setNewComment } from "./features/socket/newCommentSlice";
 import { setBidAccepted } from "./features/socket/bidAcceptedSlice";
 import { setFeedback } from "./features/socket/feedbackSlice";
+import EditCategoryAndSkills from "./components/EditCategoryAndSkills/EditCategoryAndSkills";
 
 function App() {
   if (
@@ -131,6 +131,10 @@ function App() {
           <Route path="edituandp" element={<EditUsername />}></Route>
           <Route path="editbasic" element={<EditBasicInfo />}></Route>
           <Route path="editprofileinfo" element={<EditProfileInfo />}></Route>
+          <Route
+            path="editcategoryandskills"
+            element={<EditCategoryAndSkills />}
+          ></Route>
         </Route>
 
         <Route path="/websitefeedback" element={<WebsiteFeedback />}></Route>

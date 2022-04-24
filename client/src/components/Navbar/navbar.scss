@@ -331,9 +331,10 @@
 
   .message-notify {
     .notification {
-      padding: 10px 20px;
+      padding: 20px;
       display: flex;
       justify-content: space-between;
+      cursor: pointer;
 
       .img {
         min-width: 40px;
