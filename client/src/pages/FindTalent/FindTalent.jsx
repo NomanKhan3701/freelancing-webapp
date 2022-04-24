@@ -18,7 +18,7 @@ const FindTalent = () => {
   let navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
   const [cardsData, setCardsData] = useState();
-  let randomGigs = [];
+  const [randomGigs, setRandomGigs] = useState([]);
 
   function shuffle(array) {
     let currentIndex = array.length,
@@ -45,8 +45,8 @@ const FindTalent = () => {
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);
-          randomGigs = shuffle(response.data.result);
-          randomGigs = randomGigs.slice(0, 10);
+          setRandomGigs((randomGigs)=> shuffle(response.data.result));
+          setRandomGigs((randomGigs)=> randomGigs.slice(0, 10));
           console.log("randomGigs");
           console.log(randomGigs);
         }
