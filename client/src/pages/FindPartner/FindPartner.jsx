@@ -226,13 +226,13 @@ const FindPartner = () => {
               ))}
             </div>
           </div>
-          <div className="similar-skills">
+          {/* <div className="similar-skills">
             <h2 className="toggle-content">Use Github</h2>
             <label class="switch">
               <input type="checkbox" />
               <span class="slider round"></span>
             </label>
-          </div>
+          </div> */}
         </div>
         <div className="partner-main-body">
           <FindPartnerPagination
