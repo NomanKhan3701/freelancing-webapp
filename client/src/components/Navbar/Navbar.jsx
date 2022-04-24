@@ -507,7 +507,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Freelancers have bidded on your work with title ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("bid" in item) {
@@ -519,7 +519,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`New Bid added to your work ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("comment" in item) {
@@ -531,7 +531,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`New comment added to your work ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("comment" in item && "username" in item) {
@@ -543,7 +543,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Freelancers have commentd on your work with title ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("bidAccepted" in item && "freelancer" in item) {
@@ -555,7 +555,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Your bid on work ${item.title} got accepted.`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("bidAccepted" in item) {
@@ -567,7 +567,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Your bid on work ${item.title} got accepted.`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("offlineChatNotifications" in item) {
@@ -608,7 +608,7 @@ const Navbar = (props) => {
             <img src={item.image} alt="User" />
           </div>
           <div className="message">{item.message}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     }
