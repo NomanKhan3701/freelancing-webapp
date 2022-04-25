@@ -5,10 +5,9 @@ import {
   Footer,
   FullScreenLoader,
 } from "../../components/import";
-import userImg from "../../assets/images/Cha2.jpg";
 import "./FindPartner.scss";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const FindPartner = () => {
   const [talents, settalents] = useState();
@@ -81,30 +80,32 @@ const FindPartner = () => {
         </div>
         <div className="bottom">
           <div className="left">
-          <div className="categories">
-            <h2>Category : </h2>
-            {partner.category.map((category, idx) => (
-              <div className="category" index={idx}>
-                {category}
-              </div>
-            ))}
-          </div>
-          <div className="skills">
-            <h2>Skills : </h2>
-            {partner.skills.map((skill, idx) => (
-              <div className="skill" index={idx}>
-                {skill}
-              </div>
-            ))}
-          </div>
+            <div className="categories">
+              <h2>Category : </h2>
+              {partner.category.map((category, idx) => (
+                <div className="category" index={idx}>
+                  {category}
+                </div>
+              ))}
+            </div>
+            <div className="skills">
+              <h2>Skills : </h2>
+              {partner.skills.map((skill, idx) => (
+                <div className="skill" index={idx}>
+                  {skill}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="right">
-              <div className="chat-btn"
+            <div
+              className="chat-btn"
               onClick={chat}
               datausername={partner.username}
-              >Chat</div>
+            >
+              Chat
+            </div>
           </div>
-          
         </div>
       </div>
     );

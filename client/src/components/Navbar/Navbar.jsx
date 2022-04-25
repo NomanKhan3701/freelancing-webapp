@@ -137,7 +137,7 @@ const SearchAndLinks = (props) => {
     console.log();
     if (e.key === "Enter") {
       handleSearchInput();
-    } else if(searchInput.placeholder!="Search here..."){
+    } else if (searchInput.placeholder != "Search here...") {
       const searchInput = document.querySelector(".search-container input");
       const dropdownRecommend = document.querySelector(".dropdown-recommend");
       const dropdownCategory = document.querySelector(".dropdown-select");
@@ -150,7 +150,6 @@ const SearchAndLinks = (props) => {
   const handleSearchInput = () => {
     const searchInput = document.querySelector(".search-container input");
     if (searchInput.placeholder === "Find Talent") {
-      console.log(searchInput.value.replace(/[ /]/g, "").toLowerCase());
       navigate("/findtalent/category", {
         state: {
           category: searchInput.value.replace(/[ /]/g, "").toLowerCase(),
@@ -321,8 +320,6 @@ const Navbar = (props) => {
 
   useEffect(() => {
     if (feedback) {
-      console.log("feedback");
-      console.log(feedback);
       setNotificationCount((data) => {
         return data + 1;
       });
