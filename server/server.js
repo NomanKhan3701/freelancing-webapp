@@ -102,6 +102,7 @@ const {
   getUserProfileDataUsingUsername,
   getRatingsAndUsername,
   getUserImage,
+  getUserProfileEditData,
 } = require("./UserProfileData");
 const {
   addUserForChatNotification,
@@ -180,6 +181,7 @@ app.post("/signup", (req, res, err) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ error: "An error occurred" });
   }
 });
 
@@ -202,6 +204,7 @@ app.get("/findtalent", (req, res, err) => {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 
@@ -235,6 +238,7 @@ app.post("/feedback", (req, res, err) => {
       .then(() => {})
       .catch((error) => {
         console.log(error);
+        res.status(500).send({ error: "An error occurred" });
       });
     getUserImage(body.client).then((image) => {
       addFeedbackNotification({
@@ -261,6 +265,7 @@ app.post("/feedback", (req, res, err) => {
       .then(() => {})
       .catch((error) => {
         console.log(error);
+        res.status(500).send({ error: "An error occurred" });
       });
   }
 });
@@ -276,6 +281,7 @@ app.post("/userprofileinput", (req, res, err) => {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 
@@ -289,6 +295,7 @@ app.post("/websitefeedback", (req, res, err) => {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 
@@ -395,6 +402,20 @@ app.get("/findpartner", (req, res, err) => {
   }
 });
 
+app.get("/editprofile/:username", (req, res, err) => {
+  if (err) {
+    console.log(err);
+  }
+  getUserProfileEditData(req.params.username)
+    .then((response) => {
+      res.send({ result: response });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send({ error: "An error occurred" });
+    });
+});
+
 app.get("/userprofile/allpost/:username", (req, res, err) => {
   const username = req.params.username;
   getWorkPostedDataByUsername(username)
@@ -403,6 +424,7 @@ app.get("/userprofile/allpost/:username", (req, res, err) => {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 
@@ -414,6 +436,7 @@ app.get("/userprofile/allwork/:username", (req, res, err) => {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 
@@ -436,6 +459,7 @@ app.get("/userprofiledata/:username", (req, res, err) => {
     })
     .catch((error) => {
       console.log(error);
+      res.status(500).send({ error: "An error occurred" });
     });
 });
 

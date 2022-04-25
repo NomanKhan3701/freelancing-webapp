@@ -5,9 +5,9 @@ import {
   Footer,
   FullScreenLoader,
 } from "../../components/import";
-import userImg from "../../assets/images/Cha2.jpg";
 import "./FindPartner.scss";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const FindPartner = () => {
   const [talents, settalents] = useState();
@@ -17,6 +17,7 @@ const FindPartner = () => {
   const [filterData, setFilterData] = useState();
   const [skills, setSkills] = useState();
   const [isLoading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`http://localhost:8080/findpartner`).then(function (response) {
@@ -62,28 +63,48 @@ const FindPartner = () => {
     return <FullScreenLoader />;
   }
   const renderPartnerBody = (partner, index) => {
+    console.log(partner);
+    const chat = (event) => {
+      navigate("/chat", {
+        state: {
+          receiver: partner.username,
+          image: partner.image,
+        },
+      });
+    };
     return (
       <div className="partner" key={index}>
         <div className="top">
-          <img src={userImg} alt="userImg" />
-          <div className="user-name">{partner.name}</div>
+          <img src={partner.image} alt="userImg" />
+          <div className="user-name">{partner.fullname}</div>
         </div>
         <div className="bottom">
-          <div className="categories">
-            <h2>Category : </h2>
-            {partner.category.map((category, idx) => (
-              <div className="category" index={idx}>
-                {category}
-              </div>
-            ))}
+          <div className="left">
+            <div className="categories">
+              <h2>Category : </h2>
+              {partner.category.map((category, idx) => (
+                <div className="category" index={idx}>
+                  {category}
+                </div>
+              ))}
+            </div>
+            <div className="skills">
+              <h2>Skills : </h2>
+              {partner.skills.map((skill, idx) => (
+                <div className="skill" index={idx}>
+                  {skill}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="skills">
-            <h2>Skills : </h2>
-            {partner.skills.map((skill, idx) => (
-              <div className="skill" index={idx}>
-                {skill}
-              </div>
-            ))}
+          <div className="right">
+            <div
+              className="chat-btn"
+              onClick={chat}
+              datausername={partner.username}
+            >
+              Chat
+            </div>
           </div>
         </div>
       </div>
@@ -226,13 +247,13 @@ const FindPartner = () => {
               ))}
             </div>
           </div>
-          <div className="similar-skills">
+          {/* <div className="similar-skills">
             <h2 className="toggle-content">Use Github</h2>
             <label class="switch">
               <input type="checkbox" />
               <span class="slider round"></span>
             </label>
-          </div>
+          </div> */}
         </div>
         <div className="partner-main-body">
           <FindPartnerPagination
