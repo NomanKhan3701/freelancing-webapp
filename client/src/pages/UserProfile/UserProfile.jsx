@@ -99,6 +99,9 @@ const UserProfile = () => {
     ? userData.image
     : `https://ui-avatars.com/api/?name=${userData.username}`;
 
+  console.log("userData");
+  console.log(userData);
+
   return (
     <div className="user-profile-container">
       <Navbar />
@@ -145,7 +148,7 @@ const UserProfile = () => {
                 {userData.rating === 0 ? (
                   <div className="new">new</div>
                 ) : (
-                  userData
+                  userData.rating
                 )}
                 <i className="bx bxs-star"></i>
               </div>

@@ -5,10 +5,9 @@ import {
   Footer,
   FullScreenLoader,
 } from "../../components/import";
-import userImg from "../../assets/images/Cha2.jpg";
 import "./FindPartner.scss";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const FindPartner = () => {
   const [talents, settalents] = useState();
