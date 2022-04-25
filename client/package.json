@@ -19,6 +19,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
     "emoji-picker-react": "^3.5.1",
     "font-awesome": "^4.7.0",
     "framer-motion": "^6.2.8",

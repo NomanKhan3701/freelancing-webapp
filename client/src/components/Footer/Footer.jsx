@@ -14,6 +14,8 @@ const server_url = process.env.REACT_APP_server_url;
 const Footer = () => {
   const footerData = useSelector(selectFooterData);
   const dispatch = useDispatch();
+  console.log(process.env);
+  console.log(server_url);
   useEffect(() => {
     if (footerData.jobsPosted === null) {
       axios.get(`${server_url}/getFooterData`).then((res) => {
