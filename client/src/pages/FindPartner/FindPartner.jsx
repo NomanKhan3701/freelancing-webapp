@@ -256,7 +256,7 @@ const FindPartner = () => {
         </div>
         <div className="partner-main-body">
           <FindPartnerPagination
-            limit="4"
+            limit="3"
             bodyData={talents}
             renderBody={(item, index) => renderPartnerBody(item, index)}
           />

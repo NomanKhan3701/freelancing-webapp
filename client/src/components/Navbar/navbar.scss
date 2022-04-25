@@ -350,12 +350,16 @@
 
       .message {
         max-height: 50px;
+        width: 70%;
         margin-left: 20px;
         overflow: hidden;
       }
 
       .message-time {
-        font-size: 20px;
+        font-size: 16px;
+        width: 30%;
+        max-height: 50px;
+        overflow: hidden;
         color: gray;
       }
     }
