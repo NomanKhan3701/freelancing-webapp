@@ -109,6 +109,9 @@ const UserProfile = () => {
     ? userData.image
     : `https://ui-avatars.com/api/?name=${userData.username}`;
 
+  console.log("userData");
+  console.log(userData);
+
   return (
     <div className="user-profile-container">
       <Navbar />
@@ -155,7 +158,11 @@ const UserProfile = () => {
             >
               <h3>Rating </h3>
               <div className="rating">
-                {userData.rating === 0 ? <div className="new">new</div> : userData}
+                {userData.rating === 0 ? (
+                  <div className="new">new</div>
+                ) : (
+                  userData.rating
+                )}
                 <i className="bx bxs-star"></i>
               </div>
             </motion.div>
@@ -177,7 +184,7 @@ const UserProfile = () => {
                     transition={{ duration: 1, ease: "linear" }}
                     className="contact-item"
                   >
-                    <i class='bx bxl-linkedin'></i>
+                    <i class="bx bxl-linkedin"></i>
                     <div>{userData.linkdin}</div>
                   </motion.div>
                 )}

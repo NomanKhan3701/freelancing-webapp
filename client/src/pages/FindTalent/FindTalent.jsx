@@ -47,8 +47,8 @@ const FindTalent = () => {
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);
-          setRandomGigs((randomGigs)=> shuffle(response.data.result));
-          setRandomGigs((randomGigs)=> randomGigs.slice(0, 10));
+          setRandomGigs((randomGigs) => shuffle(response.data.result));
+          setRandomGigs((randomGigs) => randomGigs.slice(0, 10));
           console.log("randomGigs");
           console.log(randomGigs);
         }
@@ -121,7 +121,7 @@ const FindTalent = () => {
                 <Card
                   key={index}
                   headerImg="https://www.templarbit.com/images/blog/templarbit-illustration-csp-header-92837bc0.jpg"
-                  userImg={userImg}
+                  userImg={`https://ui-avatars.com/api/?name=${card.username}`}
                   username={card.username}
                   desc={card.desc}
                   rating={card.rating}
