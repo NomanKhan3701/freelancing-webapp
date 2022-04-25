@@ -22,7 +22,13 @@ const UserProfile = () => {
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
   const [otherUser, setOtherUser] = useState();
+  const [inFindPartner, setInFindPartner] = useState(false);
   const params = useParams();
+
+  const addInPartner = () => {
+    let confirm = window.confirm(`Are you sure you want to ${inFindPartner ? "remove" : "add"} your name from Find Partner?`)
+    confirm && setInFindPartner(inFindPartner => !inFindPartner);
+  }
 
   useEffect(() => {
     const isDataTaken = localStorage.getItem("isDataTaken");
@@ -138,6 +144,9 @@ const UserProfile = () => {
         </div>
         <div className="profile-main">
           <div className="profile-main-left">
+            <div className="findpartner-button" onClick={addInPartner}>
+              {inFindPartner ? "Remove from Find Partner" : "Add to Find Partner"}
+            </div>
             <motion.div
               initial={{ opacity: 0, translateX: -200 }}
               animate={{ opacity: 1, translateX: 0 }}
@@ -146,7 +155,7 @@ const UserProfile = () => {
             >
               <h3>Rating </h3>
               <div className="rating">
-                {userData.rating === 0 ? "new" : userData}
+                {userData.rating === 0 ? <div className="new">new</div> : userData}
                 <i className="bx bxs-star"></i>
               </div>
             </motion.div>
@@ -168,7 +177,7 @@ const UserProfile = () => {
                     transition={{ duration: 1, ease: "linear" }}
                     className="contact-item"
                   >
-                    <i className="bx bxl-gmail"></i>
+                    <i class='bx bxl-linkedin'></i>
                     <div>{userData.linkdin}</div>
                   </motion.div>
                 )}

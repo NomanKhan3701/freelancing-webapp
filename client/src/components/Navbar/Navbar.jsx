@@ -137,7 +137,7 @@ const SearchAndLinks = (props) => {
     console.log();
     if (e.key === "Enter") {
       handleSearchInput();
-    } else {
+    } else if(searchInput.placeholder!="Search here..."){
       const searchInput = document.querySelector(".search-container input");
       const dropdownRecommend = document.querySelector(".dropdown-recommend");
       const dropdownCategory = document.querySelector(".dropdown-select");
@@ -223,11 +223,12 @@ const SearchAndLinks = (props) => {
         </div>
         <div className="dropdown-recommend ">
           <div className="recommend-items">
-            {recommendDropdown.map((category) => {
+            {recommendDropdown.map((category, index) => {
               return (
                 <div
                   className="recommend-item active"
                   onClick={(e) => searchRecommendClick(e)}
+                  key={index}
                 >
                   {category}
                 </div>
@@ -506,8 +507,8 @@ const Navbar = (props) => {
           id={index}
           onClick={() => goTo(item)}
         >
-          <div className="message">{`Many Freelancers have bidded on your work with title ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message">{`Freelancers have bidded on your work with title ${item.title}`}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("bid" in item) {
@@ -519,7 +520,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`New Bid added to your work ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("comment" in item) {
@@ -531,7 +532,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`New comment added to your work ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("comment" in item && "username" in item) {
@@ -543,7 +544,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Freelancers have commentd on your work with title ${item.title}`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("bidAccepted" in item && "freelancer" in item) {
@@ -555,7 +556,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Your bid on work ${item.title} got accepted.`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("bidAccepted" in item) {
@@ -567,7 +568,7 @@ const Navbar = (props) => {
           onClick={() => goTo(item)}
         >
           <div className="message">{`Your bid on work ${item.title} got accepted.`}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     } else if ("offlineChatNotifications" in item) {
@@ -608,7 +609,7 @@ const Navbar = (props) => {
             <img src={item.image} alt="User" />
           </div>
           <div className="message">{item.message}</div>
-          <div className="message">{item.time}</div>
+          <div className="message-time">{item.time}</div>
         </div>
       );
     }

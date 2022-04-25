@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import "./card.scss";
+import { LimitCharHoverReveal } from "../import";
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -25,7 +26,10 @@ const Card = (props) => {
         <h2 className="title">
           <a href="#">{props.name}</a>
         </h2>
-        <div className="desc">{props.desc}</div>
+        
+        <div className="desc">
+        <LimitCharHoverReveal word={props.desc} limit='60'/>
+        </div>
       </div>
       {props.rating && props.rating != 0 ? (
         <div className="card-mid">

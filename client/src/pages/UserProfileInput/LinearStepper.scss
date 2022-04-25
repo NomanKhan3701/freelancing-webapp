@@ -1,9 +1,11 @@
 .linear-stepper {
+    padding: 20px 40px;
     .MuiFormControl-root {
         margin-bottom: 20px;
     }
     .multiselect-container {
         margin-top: 20px;
+        
         &:last-child {
             margin-bottom: 20px;
         }

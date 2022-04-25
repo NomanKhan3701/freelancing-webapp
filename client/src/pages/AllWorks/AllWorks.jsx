@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import { Footer, FullScreenLoader, LimitCharHoverReveal, Navbar } from "../../components/import";
 import "./AllWorks.scss";
 import axios from "axios";
-import LoadingSpinner from "../Chat/LoadingSpinner";
+// import LoadingSpinner from "../Chat/LoadingSpinner";
 const server_url = process.env.server_url;
 
 const AllWorks = (props) => {
