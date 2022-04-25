@@ -136,7 +136,7 @@ const Server = app.listen(PORT, () => {
 
 const io = require("socket.io")(Server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -235,7 +235,7 @@ app.post("/feedback", (req, res, err) => {
   const body = req.body;
   if ("freelancer" in body) {
     addFeedbackFromClient(body)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         console.log(error);
         res.status(500).send({ error: "An error occurred" });
@@ -262,7 +262,7 @@ app.post("/feedback", (req, res, err) => {
     });
   } else {
     addFeedbackFromFreelancer(req.body)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         console.log(error);
         res.status(500).send({ error: "An error occurred" });
@@ -317,7 +317,7 @@ app.post("/updatewebsitefeedbackvotes", (req, res, err) => {
     .then((response) => {
       res.send({ result: response });
     })
-    .catch((error) => {});
+    .catch((error) => { });
 });
 
 app.post("/findtalent/postwork", (req, res, err) => {

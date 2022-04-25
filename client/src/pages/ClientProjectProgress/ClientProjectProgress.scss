@@ -10,11 +10,14 @@
     padding: 20px;
     margin-bottom: 30px;
     margin-top: 20px;
+
     .client-profile {
       display: flex;
+
       .user-img {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
+
         img {
           width: 100%;
           height: 100%;
@@ -118,6 +121,7 @@
       margin-top: 20px;
       font-size: 20px;
       margin-left: 4px;
+
       span {
         font-weight: 500;
         color: green;

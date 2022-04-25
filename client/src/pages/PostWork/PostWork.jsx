@@ -7,6 +7,7 @@ import Select from "react-dropdown-select";
 import { useNavigate } from "react-router-dom";
 import FileBase64 from "react-file-base64";
 import { toast } from "react-toastify";
+const server_url = process.env.REACT_APP_server_url;
 toast.configure();
 
 const PostWork = () => {
@@ -43,7 +44,7 @@ const PostWork = () => {
   const [userUploadedImage, setUserUploadedImage] = useState();
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/findtalent/postwork`)
+      .get(`${server_url}/findtalent/postwork`)
       .then(function (response) {
         setOriginalData(response.data.filterData);
         let category = [];
@@ -230,7 +231,7 @@ const PostWork = () => {
       image: image,
     };
     axios
-      .post(`http://localhost:8080/findtalent/postwork`, {
+      .post(`${server_url}/findtalent/postwork`, {
         postWorkData: data,
       })
       .then((response) => {

@@ -117,9 +117,35 @@
         margin-top: 30px;
         background: rgb(243, 246, 245);
         padding: 80px 20px;
+        padding-top: 20px;
         border-top-right-radius: 40px;
         border-bottom-right-radius: 40px;
-        
+
+        .findpartner-button {
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 40px;
+          background: linear-gradient(90deg, #755bea, #ff72c0);
+          width: 100%;
+          text-align: center;
+          padding: 10px 30px;
+          font-size: 1em;
+          border-radius: var(--border-radius-big);
+          color: white;
+          cursor: pointer;
+          margin-bottom: 40px;
+
+          a {
+            &:hover {
+              color: white;
+            }
+          }
+
+          &:hover {
+            background: linear-gradient(90deg, #634fbb, #d863a3);
+          }
+        }
+
         .rating-container {
           margin-bottom: 50px;
           font-size: 20px;
@@ -139,7 +165,7 @@
               display: block;
               font-size: 16px;
               margin-right: 5px;
-              
+
               // padding-bottom: 10px;
               // margin-bottom: 10px;
               // transform: translateY(-10px);

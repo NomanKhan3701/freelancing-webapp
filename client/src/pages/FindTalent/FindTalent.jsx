@@ -12,6 +12,8 @@ import userImg from "../../assets/images/Cha2.jpg";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
+const server_url = process.env.REACT_APP_server_url;
+console.log(server_url)
 toast.configure();
 
 const FindTalent = () => {
@@ -41,7 +43,7 @@ const FindTalent = () => {
   }
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/findtalent/cards`)
+      .get(`${server_url}/findtalent/cards`)
       .then(function (response) {
         if (cardsData === undefined) {
           setCardsData(response.data.result);

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FullScreenLoader, Navbar } from "../../components/import";
 import "./WebsiteFeedback.scss";
+const server_url = process.env.server_url;
 
 toast.configure();
 
@@ -15,14 +16,12 @@ const WebsiteFeedback = () => {
   const [otherFeedbacks, setOtherFeedbacks] = useState();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/websitefeedback`)
-      .then(function (response) {
-        console.log("response.data.result");
-        console.log(response.data.result);
-        setOtherFeedbacks(response.data.result);
-        setLoading(false);
-      });
+    axios.get(`${server_url}/websitefeedback`).then(function (response) {
+      console.log("response.data.result");
+      console.log(response.data.result);
+      setOtherFeedbacks(response.data.result);
+      setLoading(false);
+    });
   }, []);
 
   if (localStorage.getItem("username") === "undefined") {

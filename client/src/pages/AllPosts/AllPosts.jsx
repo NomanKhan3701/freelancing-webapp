@@ -4,6 +4,8 @@ import { Footer, FullScreenLoader, LimitCharHoverReveal, Navbar } from "../../co
 import "./AllPosts.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
+// import LoadingSpinner from "../Chat/LoadingSpinner";
+const server_url = process.env.REACT_APP_server_url;
 
 toast.configure();
 
@@ -19,7 +21,7 @@ const AllPosts = (props) => {
     if ("username" in state) {
       axios
         .get(
-          `http://localhost:8080/userprofile/allpost/${localStorage.getItem(
+          `${server_url}/userprofile/allpost/${localStorage.getItem(
             "username"
           )}`
         )
@@ -36,7 +38,7 @@ const AllPosts = (props) => {
 
   const viewBids = (workId) => {
     axios
-      .get(`http://localhost:8080/findworkdata/${workId}`)
+      .get(`${server_url}/findworkdata/${workId}`)
       .then((response) => {
         if (response) {
           navigate("/clientdashboard", {

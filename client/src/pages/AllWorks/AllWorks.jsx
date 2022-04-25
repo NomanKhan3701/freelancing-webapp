@@ -8,6 +8,8 @@ import {
 } from "../../components/import";
 import "./AllWorks.scss";
 import axios from "axios";
+// import LoadingSpinner from "../Chat/LoadingSpinner";
+const server_url = process.env.server_url;
 
 const AllWorks = (props) => {
   const { state } = useLocation();
@@ -16,7 +18,7 @@ const AllWorks = (props) => {
     if ("username" in state) {
       axios
         .get(
-          `http://localhost:8080/userprofile/allwork/${localStorage.getItem(
+          `${server_url}/userprofile/allwork/${localStorage.getItem(
             "username"
           )}`
         )

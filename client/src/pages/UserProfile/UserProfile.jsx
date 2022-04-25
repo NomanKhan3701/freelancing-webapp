@@ -11,7 +11,10 @@ import { FullScreenLoader } from "../../components/import";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+const server_url = process.env.REACT_APP_server_url;
+
 toast.configure();
+// console.log(server_url);
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -19,7 +22,13 @@ const UserProfile = () => {
   const { state } = useLocation();
   const [isLoading, setLoading] = useState(true);
   const [otherUser, setOtherUser] = useState();
+  const [inFindPartner, setInFindPartner] = useState(false);
   const params = useParams();
+
+  const addInPartner = () => {
+    let confirm = window.confirm(`Are you sure you want to ${inFindPartner ? "remove" : "add"} your name from Find Partner?`)
+    confirm && setInFindPartner(inFindPartner => !inFindPartner);
+  }
 
   useEffect(() => {
     const isDataTaken = localStorage.getItem("isDataTaken");
@@ -55,8 +64,9 @@ const UserProfile = () => {
     }
     setOtherUser(username);
     axios
-      .get(`http://localhost:8080/userprofiledata/${username}`)
+      .get(`${server_url}/userprofiledata/${username}`)
       .then((response) => {
+        console.log(response.data)
         setUserData({
           ...response.data.userProfileData,
           workPosted: response.data.workPosted,
@@ -137,6 +147,9 @@ const UserProfile = () => {
         </div>
         <div className="profile-main">
           <div className="profile-main-left">
+            <div className="findpartner-button" onClick={addInPartner}>
+              {inFindPartner ? "Remove from Find Partner" : "Add to Find Partner"}
+            </div>
             <motion.div
               initial={{ opacity: 0, translateX: -200 }}
               animate={{ opacity: 1, translateX: 0 }}

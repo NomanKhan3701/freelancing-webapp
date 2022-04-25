@@ -5,6 +5,7 @@ import "./PostTalent.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+const server_url = process.env.REACT_APP_server_url;
 
 toast.configure();
 
@@ -25,7 +26,7 @@ const PostTalent = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/findtalent/postwork`)
+      .get(`${server_url}/findtalent/postwork`)
       .then(function (response) {
         setOriginalData(response.data.filterData);
         let category = [];
@@ -182,7 +183,7 @@ const PostTalent = () => {
       username: localStorage.getItem("username"),
     };
     axios
-      .post(`http://localhost:8080/findwork/posttalent`, {
+      .post(`${server_url}/findwork/posttalent`, {
         postTalentData: data,
       })
       .then((response) => {
