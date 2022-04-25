@@ -8,6 +8,7 @@ import {
 import "./FindPartner.scss";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const FindPartner = () => {
   const [talents, settalents] = useState();
@@ -63,7 +64,6 @@ const FindPartner = () => {
     return <FullScreenLoader />;
   }
   const renderPartnerBody = (partner, index) => {
-    console.log(partner);
     const chat = (event) => {
       navigate("/chat", {
         state: {
@@ -75,8 +75,13 @@ const FindPartner = () => {
     return (
       <div className="partner" key={index}>
         <div className="top">
-          <img src={partner.image} alt="userImg" />
-          <div className="user-name">{partner.fullname}</div>
+          {/* <img src={partner.image} alt="userImg" /> */}
+          <Link to={`/userprofile/${partner.username}`}>
+            <img src={partner.image} alt="client img" />
+          </Link>
+          <Link to={`/userprofile/${partner.username}`}>
+            <div className="user-name">{partner.fullname}</div>
+          </Link>
         </div>
         <div className="bottom">
           <div className="left">
