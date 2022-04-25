@@ -16,6 +16,8 @@ const ReviewSlider = (props) => {
         gigs.push(props.cardsData[i]);
       }
     }
+    console.log("gigs");
+    console.log(gigs);
   } else if (props.type === "newgigs") {
     for (let i = 0; i < props.cardsData.length; i++) {
       if (props.cardsData[i].rating === 0) {
