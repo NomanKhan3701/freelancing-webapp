@@ -10,6 +10,7 @@ body {
     -webkit-font-smoothing : antialised;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.7px;
+    background: white;
 }
 
 body::-webkit-scrollbar {
