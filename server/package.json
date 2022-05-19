@@ -18,7 +18,8 @@
     "font-awesome": "^4.7.0",
     "mongoose": "^6.2.10",
     "morgan": "^1.10.0",
-    "multer": "^1.4.4"
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.16"
   },
   "devDependencies": {
     "dotenv-webpack": "^7.1.0",
