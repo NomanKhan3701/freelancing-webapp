@@ -106,6 +106,7 @@ const getUserProfileDataUsingUsername = async (username) => {
   }
   return data[0];
 };
+
 const getUserProfileDataUsingUsernameArray = async (usernameArray) => {
   console.log(usernameArray);
   const data = await UserProfileData.find(
